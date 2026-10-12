@@ -1,0 +1,12 @@
+.DS_Store
+.work/
+.test_tmp/
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+/screenshot*.png
+/data/derived/run-receipt.json

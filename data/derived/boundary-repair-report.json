@@ -1,0 +1,47 @@
+[
+  {
+    "archive": "0_Batas_Kab_AoI/Banyuasin_F.zip",
+    "record_index": 0,
+    "sha256": "a46581439091c1988f67584f8680b9a33e321f00c6faeaf4f5d2c275706e9673",
+    "original_validity_reason": "Ring Self-intersection[457608.167378167 9672177.26480113]",
+    "geometry_type_before": "MultiPolygon",
+    "geometry_type_after": "MultiPolygon",
+    "area_before": 12253691280.277874,
+    "area_after": 12253691280.27785,
+    "absolute_area_change": 2.47955322265625e-05,
+    "relative_area_change": 2.0235153358621436e-15,
+    "dropped_nonpolygon_parts": [],
+    "repair_method": "shapely.make_valid",
+    "repaired_is_valid": true
+  },
+  {
+    "archive": "0_Batas_Kab_AoI/Sumsel_F.zip",
+    "record_index": 0,
+    "sha256": "d92a352ee9d79b2739ad7497fa17f80d5b29b493233d3e2e2acbeaa948a695a4",
+    "original_validity_reason": "Ring Self-intersection[457608.167378167 9672177.26480113]",
+    "geometry_type_before": "MultiPolygon",
+    "geometry_type_after": "MultiPolygon",
+    "area_before": 12253691280.277874,
+    "area_after": 12253691280.27785,
+    "absolute_area_change": 2.47955322265625e-05,
+    "relative_area_change": 2.0235153358621436e-15,
+    "dropped_nonpolygon_parts": [],
+    "repair_method": "shapely.make_valid",
+    "repaired_is_valid": true
+  },
+  {
+    "archive": "0_Batas_Kab_AoI/Sumsel_F.zip",
+    "record_index": 7,
+    "sha256": "d92a352ee9d79b2739ad7497fa17f80d5b29b493233d3e2e2acbeaa948a695a4",
+    "original_validity_reason": "Ring Self-intersection[403368.864104732 9613060.22578841]",
+    "geometry_type_before": "MultiPolygon",
+    "geometry_type_after": "MultiPolygon",
+    "area_before": 6760772693.966038,
+    "area_after": 6760772693.966036,
+    "absolute_area_change": 1.9073486328125e-06,
+    "relative_area_change": 2.8211991722703544e-16,
+    "dropped_nonpolygon_parts": [],
+    "repair_method": "shapely.make_valid",
+    "repaired_is_valid": true
+  }
+]

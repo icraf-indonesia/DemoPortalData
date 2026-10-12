@@ -1,0 +1,3230 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000000",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.4527629,
+          -1.7963229
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000000",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 0,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 26.75368379496909
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000001",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.235966,
+          -1.728288
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000001",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 1,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 25.42425223873373
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000002",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.2582434,
+          -1.8483801
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000002",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 2,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 32.352043176361
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000003",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.3289026,
+          -1.845616
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000003",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 3,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 33.66991896071264
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000004",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.281122,
+          -1.6852258
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000004",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 4,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 31.27072741243858
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000005",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6822099,
+          -2.094372
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000005",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 5,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 32.4718793266922
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000006",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.551264,
+          -1.9547931
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000006",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 6,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 30.67805538167275
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000007",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.4474767,
+          -1.9931133
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000007",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 7,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 30.49572248414797
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000008",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.3982649,
+          -2.042275
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000008",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 8,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 31.43239290091726
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000009",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.4295391,
+          -1.8718654
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000009",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 9,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 31.2345905826655
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000010",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.311277,
+          -1.8976598
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000010",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 10,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 20.75960782745799
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000011",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7409303,
+          -2.4572055
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000011",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 11,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 5.519643466795952
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000012",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7302878,
+          -2.4922422
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000012",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 12,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.973320244806731
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000013",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8774264,
+          -2.3925232
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000013",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 13,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 20.85185446354191
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000014",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9019914,
+          -2.2934809
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000014",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 14,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 16.84442951303184
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000015",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8475183,
+          -2.2976133
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000015",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 15,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 21.72684115135727
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000016",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8805018,
+          -2.2970089
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000016",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 16,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 16.83370846716744
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000017",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.921736,
+          -2.3717162
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000017",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 17,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 16.96197739318757
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000018",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0988058,
+          -2.3795871
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000018",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 18,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 16.87307894693304
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000019",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0426613,
+          -2.3651987
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000019",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 19,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 14.30621279783575
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000020",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1046957,
+          -2.3978981
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000020",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 20,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 16.8644901864531
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000021",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0285923,
+          -2.3986803
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000021",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 21,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 15.15456301720056
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000022",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1067541,
+          -2.4299184
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000022",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 22,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 15.80122745240857
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000023",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2202917,
+          -2.3448811
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000023",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 23,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 23.83666740242714
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000024",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1734564,
+          -2.3543277
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000024",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 24,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 8.652798397442545
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000025",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.3117023,
+          -2.3840437
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000025",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 25,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 22.67538358324511
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000026",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2687809,
+          -2.3681751
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000026",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 26,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 18.6505961153748
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000027",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.5407334,
+          -2.4065851
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000027",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 27,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 15.26150584558732
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000028",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.4414684,
+          -2.4042796
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000028",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 28,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 25.10087621795672
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000029",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.3999834,
+          -2.4009143
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000029",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 29,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 25.03675854540849
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000030",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.4877239,
+          -2.4069357
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000030",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 30,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 25.13686113005295
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000031",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.5103716,
+          -2.4276875
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000031",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 31,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 30.26004767288082
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000032",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2379226,
+          -2.7711739
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000032",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 32,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 7.437997241043504
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000033",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1819791,
+          -2.7740019
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000033",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 33,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 9.056172168363702
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000034",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1146059,
+          -2.7459519
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000034",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 34,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 7.076156672847349
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000035",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1577504,
+          -2.7452777
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000035",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 35,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 7.051865466512286
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000036",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1980223,
+          -2.7814762
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000036",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 36,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.544108807872917
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000037",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1711992,
+          -2.7975069
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000037",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 37,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 11.49666923170303
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000038",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2199317,
+          -2.8327982
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000038",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 38,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 7.184885743815235
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000039",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2596755,
+          -2.8223592
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000039",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 39,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.038482986018048
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000040",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2389968,
+          -2.8802415
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000040",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 40,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 7.427519496313202
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000041",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2307228,
+          -2.8791655
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000041",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 41,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.663453523496983
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000042",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2054567,
+          -3.0973339
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000042",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 42,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 10.97575370463906
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000043",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2067192,
+          -3.0703571
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000043",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 43,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.543951719656162
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000044",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2290644,
+          -2.9418654
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000044",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 44,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 7.053324732921196
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000045",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1894732,
+          -2.9843663
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000045",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 45,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.971822774403174
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000046",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1282969,
+          -2.7778167
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000046",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 46,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 5.454885597944317
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000047",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2254588,
+          -2.9053261
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000047",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 47,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.54451857917195
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000048",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2755971,
+          -2.9379647
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000048",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 48,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.665444312919336
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000049",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.4440419,
+          -3.0694562
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000049",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 49,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.537057451906172
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000050",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.4065861,
+          -3.062683
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000050",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 50,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.923158846863034
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000051",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.3754695,
+          -3.0548653
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000051",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 51,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 7.037980481699149
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000052",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.3345364,
+          -3.0486301
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000052",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 52,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 8.395176675750971
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000053",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.316627,
+          -3.0426762
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000053",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 53,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 7.850243359935791
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000054",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.3340854,
+          -3.0279156
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000054",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 54,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 8.062944139747701
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000055",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.3554454,
+          -3.0521017
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000055",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 55,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.994906224668083
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000056",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.3966128,
+          -3.0328332
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000056",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 56,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.585474943451361
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000057",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.4012181,
+          -3.039958
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000057",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 57,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 7.142585936049885
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000058",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7873033,
+          -2.2637833
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000058",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 58,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 31.12141881406096
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000059",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7159003,
+          -2.0899228
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000059",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 59,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 30.76864491559853
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000060",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8188211,
+          -2.0827935
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000060",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 60,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 14.61472972671755
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000061",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8075531,
+          -2.1062322
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000061",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 61,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 16.21121495074117
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000062",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.839652,
+          -2.0728649
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000062",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 62,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.923426366777714
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000063",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7932554,
+          -2.140295
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000063",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 63,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 10.71011794035518
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000064",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7372281,
+          -2.3450978
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000064",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 64,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 16.84410394867872
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000065",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7655745,
+          -2.3315458
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000065",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 65,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": -2.802657481416392
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000066",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7478663,
+          -2.3121829
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000066",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 66,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 7.443760958574332
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000067",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6911765,
+          -2.3771694
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000067",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 67,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.973667550891083
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000068",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7071111,
+          -2.3972253
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000068",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 68,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 16.62488009071008
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000069",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6098351,
+          -2.4240665
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000069",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 69,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 18.19219865142648
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000070",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.5373084,
+          -2.0356028
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000070",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 70,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 29.44236968750353
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000071",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.659193,
+          -2.0352997
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000071",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 71,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 31.65552786277669
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000072",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6159813,
+          -2.0504908
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000072",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 72,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 24.35391696577734
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000073",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.5498239,
+          -2.1346662
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000073",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 73,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 11.4818340459511
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000074",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.5972014,
+          -2.1211361
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000074",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 74,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 21.3906778223868
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000075",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.5098922,
+          -2.1624878
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000075",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 75,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 11.49376823203746
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000076",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.5855361,
+          -2.1450898
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000076",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 76,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 15.39714755973934
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000077",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.5870607,
+          -1.9824365
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000077",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 77,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 25.63352289652496
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000078",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.4023362,
+          -1.9347114
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000078",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 78,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 32.93402817648317
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000079",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.5036809,
+          -1.9841347
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000079",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 79,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 25.62037355575732
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000080",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8123485,
+          -2.2469649
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000080",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 80,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 25.60772993481634
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000081",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8533812,
+          -2.2220244
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000081",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 81,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 25.46277354467592
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000082",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7989863,
+          -2.2143009
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000082",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 82,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 21.39113201647484
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000083",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7637799,
+          -2.2991971
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000083",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 83,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 16.88959536733013
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000084",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6387575,
+          -2.3893682
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000084",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 84,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 6.972062282864917
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000085",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7084309,
+          -2.385787
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000085",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 85,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 9.018863391515367
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "73fd94aacc5c_000086",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6225746,
+          -2.355963
+        ]
+      },
+      "properties": {
+        "observation_id": "73fd94aacc5c_000086",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_hutan.zip",
+        "dataset_sha256": "73fd94aacc5cdce77d08e0410130d12996b476989c6cea3be94582d516a8ee84",
+        "source_record_index": 86,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": false,
+        "source_schema_id": "schema_mitra_hutan",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "4",
+        "source_class_label": "Hutan",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 4,
+          "LULC": "Hutan",
+          "z_coordinate": 14.18446006487859
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "portal-data-epistem",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/js/*.test.js"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

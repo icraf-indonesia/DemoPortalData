@@ -1,0 +1,6190 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000000",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7377155,
+          -2.6750407
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000000",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 0,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.211578501065827
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000001",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7328199,
+          -2.6721537
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000001",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 1,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.243389403951606
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000002",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.731259,
+          -2.674537
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000002",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 2,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.13858701782392
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000003",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7328679,
+          -2.6783521
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000003",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 3,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.722994388289893
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000004",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7308825,
+          -2.6800124
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000004",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 4,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.113105274519009
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000005",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7437062,
+          -2.6771567
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000005",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 5,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.985303565840073
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000006",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7401785,
+          -2.6792438
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000006",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 6,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.996637952322688
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000007",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7422004,
+          -2.6857173
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000007",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 7,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.25484335087021
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000008",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7438036,
+          -2.6834674
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000008",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 8,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.078589657274185
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000009",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7454933,
+          -2.6911759
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000009",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 9,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.973494844920169
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000010",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7417244,
+          -2.6887726
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000010",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 10,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.138489948894765
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000011",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7351704,
+          -2.6882318
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000011",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 11,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.551056976532291
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000012",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7316624,
+          -2.6866751
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000012",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 12,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.28046826367823
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000013",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7194504,
+          -2.6772397
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000013",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 13,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.186501429276365
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000014",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7177914,
+          -2.6646697
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000014",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 14,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 1.71906762138814
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000015",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7220388,
+          -2.6690747
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000015",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 15,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.196081511694745
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000016",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7303492,
+          -2.6656723
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000016",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 16,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.187808284296127
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000017",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7114807,
+          -2.6679859
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000017",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 17,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.191187292240874
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000018",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7161237,
+          -2.6733616
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000018",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 18,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.193618536686021
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000019",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7148381,
+          -2.6649196
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000019",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 19,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.191913104480005
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000020",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7237122,
+          -2.6823072
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000020",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 20,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.876772767735818
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000021",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7197737,
+          -2.6794767
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000021",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 21,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.876439896723724
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000022",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7207714,
+          -2.6826366
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000022",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 22,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.949965678567018
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000023",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7207734,
+          -2.6722828
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000023",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 23,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.622005438703678
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000024",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.718755,
+          -2.6541615
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000024",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 24,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.105341297885555
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000025",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.70963,
+          -2.6540215
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000025",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 25,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.809093647124089
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000026",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7097238,
+          -2.657695
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000026",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 26,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.407831903822327
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000027",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7192472,
+          -2.6585425
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000027",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 27,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.192444330417285
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000028",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7089703,
+          -2.6625453
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000028",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 28,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.187987680103475
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000029",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6980721,
+          -2.6653377
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000029",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 29,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.189749099849156
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000030",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6902937,
+          -2.6627542
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000030",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 30,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.189114784239139
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000031",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6932731,
+          -2.6580579
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000031",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 31,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.355088752734482
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000032",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6978552,
+          -2.6700125
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000032",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 32,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.705646345612064
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000033",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6765665,
+          -2.6591423
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000033",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 33,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.193611231441691
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000034",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.697427,
+          -2.6552235
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000034",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 34,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 1.864490500325837
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000035",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6926383,
+          -2.6729714
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000035",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 35,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.720907579607498
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000036",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6683559,
+          -2.6630124
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000036",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 36,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.153234413232957
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000037",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.67875,
+          -2.6658986
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000037",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 37,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.865344408989392
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000038",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6680004,
+          -2.6752626
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000038",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 38,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 1.890256255516458
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000039",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6787495,
+          -2.6739952
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000039",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 39,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 1.827029951509431
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000040",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6789547,
+          -2.6779673
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000040",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 40,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.098106790243856
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000041",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6697034,
+          -2.6881467
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000041",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 41,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.856500427547946
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000042",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6685419,
+          -2.6816726
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000042",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 42,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.593464354149909
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000043",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6557709,
+          -2.6678178
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000043",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 43,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 1.793916772832704
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000044",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6571333,
+          -2.6622087
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000044",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 44,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.102202402469363
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000045",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6584163,
+          -2.6708123
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000045",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 45,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.054346577253743
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000046",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.662059,
+          -2.6881123
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000046",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 46,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.86059308601149
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000047",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6580778,
+          -2.6884325
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000047",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 47,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.756586624926857
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000048",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6657606,
+          -2.6696194
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000048",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 48,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.902343273154488
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000049",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6690654,
+          -2.6669186
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000049",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 49,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.369597529588201
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000050",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6703328,
+          -2.6710551
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000050",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 50,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.284196620423777
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000051",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6771145,
+          -2.6693983
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000051",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 51,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.296907007122518
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000052",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.678299,
+          -2.6820402
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000052",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 52,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.192234621524054
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000053",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6971339,
+          -2.659566
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000053",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 53,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.558724365169258
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000054",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.688481,
+          -2.656507
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000054",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 54,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.210589176610929
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000055",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7167804,
+          -2.6339111
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000055",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 55,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.138486931449732
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000056",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7060431,
+          -2.6389309
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000056",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 56,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.877087262465217
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000057",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7079179,
+          -2.6425035
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000057",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 57,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.879163399040094
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000058",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6943831,
+          -2.6484749
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000058",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 58,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.385828116044391
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000059",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.6977939,
+          -2.6437556
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000059",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 59,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.902158606367207
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000060",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7155439,
+          -2.644201
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000060",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 60,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.901959514410206
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000061",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7155279,
+          -2.6383576
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000061",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 61,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 1.640228072180754
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000062",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7186705,
+          -2.6396409
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000062",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 62,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.607917954069443
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000063",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7159015,
+          -2.6476234
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000063",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 63,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.174993847378385
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000064",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7272029,
+          -2.6442801
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000064",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 64,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 1.856034663038708
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000065",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7281827,
+          -2.6397421
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000065",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 65,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.708365714325814
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000066",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7297822,
+          -2.6467287
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000066",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 66,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.35037339155741
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000067",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7381901,
+          -2.6370954
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000067",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 67,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.262087611109914
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000068",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7135972,
+          -2.6323241
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000068",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 68,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.282036616418599
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000069",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7273165,
+          -2.6319937
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000069",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 69,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.430090010004142
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000070",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8540392,
+          -2.6804915
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000070",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 70,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.197301505888193
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000071",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8329064,
+          -2.6672296
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000071",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 71,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.000328345635496
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000072",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8263936,
+          -2.6973851
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000072",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 72,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.968518703213387
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000073",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8957212,
+          -2.6629229
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000073",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 73,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.031890744298419
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000074",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8737528,
+          -2.6619486
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000074",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 74,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.046818551324938
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000075",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8477156,
+          -2.7020981
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000075",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 75,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.036735851403842
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000076",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8525988,
+          -2.6618668
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000076",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 76,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.062247225934106
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000077",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8862014,
+          -2.6864928
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000077",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 77,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.931979321092044
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000078",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8674881,
+          -2.6863303
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000078",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 78,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.942154903997684
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000079",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7746257,
+          -2.7076293
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000079",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 79,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.19215462598642
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000080",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7921615,
+          -2.6989037
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000080",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 80,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.757384662051916
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000081",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7867336,
+          -2.7180092
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000081",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 81,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.234999186557033
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000082",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7824586,
+          -2.6973121
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000082",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 82,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.351154206740921
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000083",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7854408,
+          -2.7090279
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000083",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 83,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.363553455647018
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000084",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7634171,
+          -2.7064151
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000084",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 84,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.970033044665956
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000085",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7671856,
+          -2.7281185
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000085",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 85,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.045093809168284
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000086",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8161368,
+          -2.7099906
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000086",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 86,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.936633000805488
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000087",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7722026,
+          -2.6889663
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000087",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 87,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.350191278210488
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000088",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7823955,
+          -2.6760495
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000088",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 88,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.927727060569593
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000089",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8023323,
+          -2.6757346
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000089",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 89,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.868880259037914
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000090",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8052513,
+          -2.6879912
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000090",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 90,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.189281398698208
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000091",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8161892,
+          -2.6963268
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000091",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 91,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.250508890799868
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000092",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8133676,
+          -2.6584728
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000092",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 92,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.015615824164124
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000093",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8143395,
+          -2.6712584
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000093",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 93,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.772112843798989
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000094",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8219836,
+          -2.6497316
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000094",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 94,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.496142565093908
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000095",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8234995,
+          -2.6642817
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000095",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 95,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.820591664572301
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000096",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9212012,
+          -2.7487016
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000096",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 96,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.742558538525681
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000097",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9332236,
+          -2.7179688
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000097",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 97,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.933206179159521
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000098",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.889577,
+          -2.7180429
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000098",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 98,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.933087529769049
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000099",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9103735,
+          -2.7239793
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000099",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 99,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.012488697219905
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000100",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9333758,
+          -2.7328808
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000100",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 100,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.920499563925357
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000101",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9230038,
+          -2.7733408
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000101",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 101,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.533534011189241
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000102",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9081009,
+          -2.6870172
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000102",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 102,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.924528882909565
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000103",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9176669,
+          -2.6608903
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000103",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 103,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.060903564592316
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000104",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9131717,
+          -2.6368333
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000104",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 104,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.041121169486808
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000105",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8950775,
+          -2.6370603
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000105",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 105,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.086378279923984
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000106",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9106365,
+          -2.5271803
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000106",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 106,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.019616257466577
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000107",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9113185,
+          -2.5737255
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000107",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 107,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.97576542495325
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000108",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8838381,
+          -2.6060326
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000108",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 108,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.916498204052097
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000109",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8021008,
+          -2.5519221
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000109",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 109,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.977111276170762
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000110",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.7888753,
+          -2.5815154
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000110",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 110,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.194124762956804
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000111",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8037907,
+          -2.5743489
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000111",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 111,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.192582630688659
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000112",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8070345,
+          -2.5983255
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000112",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 112,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 1.592528445379993
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000113",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8041016,
+          -2.6207702
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000113",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 113,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.8782773269425
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000114",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8333788,
+          -2.6080671
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000114",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 114,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.261569189179182
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000115",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8703818,
+          -2.6184577
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000115",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 115,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.532706048603909
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000116",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8461164,
+          -2.6342879
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000116",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 116,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.540877869761383
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000117",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.8823384,
+          -2.6309664
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000117",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 117,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.531320732940027
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000118",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9240008,
+          -2.5999829
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000118",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 118,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.866991818000592
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000119",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9031874,
+          -2.5851683
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000119",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 119,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.141405044093083
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000120",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9670184,
+          -2.6224864
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000120",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 120,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 1.6164477052849
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000121",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.94671,
+          -2.601445
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000121",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 121,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.539308550780318
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000122",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9063102,
+          -2.6089129
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000122",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 122,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.233823709957928
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000123",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9572631,
+          -2.6771372
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000123",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 123,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.580074644826249
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000124",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0044169,
+          -2.6624136
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000124",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 124,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.538374713079551
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000125",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0174224,
+          -2.6145933
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000125",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 125,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.577708100764146
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000126",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0830902,
+          -2.6218517
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000126",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 126,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.380492833292809
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000127",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0652074,
+          -2.6765612
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000127",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 127,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.537598866141217
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000128",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0579497,
+          -2.650718
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000128",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 128,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.086747821427968
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000129",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0304359,
+          -2.6507186
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000129",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 129,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.553792678800344
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000130",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0510904,
+          -2.6647017
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000130",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 130,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.557666447290604
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000131",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0460944,
+          -2.7023591
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000131",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 131,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.013660467452153
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000132",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0167706,
+          -2.73757
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000132",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 132,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.557831597588581
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000133",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.991759,
+          -2.7483265
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000133",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 133,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.008097806836897
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000134",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0057913,
+          -2.6812173
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000134",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 134,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.636372948804171
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000135",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9599836,
+          -2.699337
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000135",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 135,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.538381494903973
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000136",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          104.9654091,
+          -2.7161157
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000136",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 136,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.115970124295245
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000137",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0314405,
+          -2.6746346
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000137",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 137,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.540618273292383
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000138",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0474896,
+          -2.589643
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000138",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 138,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.086745164706329
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000139",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0705776,
+          -2.6034475
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000139",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 139,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.56387820518894
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000140",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.034084,
+          -2.5853874
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000140",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 140,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.096958910581813
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000141",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0444155,
+          -2.6248201
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000141",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 141,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.55162260108392
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000142",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0413039,
+          -2.6103013
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000142",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 142,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.549316425703678
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000143",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0491026,
+          -2.6152984
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000143",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 143,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.563869967691316
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000144",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0765973,
+          -2.6321989
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000144",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 144,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.907269373148559
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000145",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0640884,
+          -2.6228833
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000145",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 145,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 5.730018375077968
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000146",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0583934,
+          -2.6336485
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000146",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 146,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.537738595207474
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000147",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0745317,
+          -2.6113334
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000147",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 147,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.224760146768185
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000148",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0769909,
+          -2.4705926
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000148",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 148,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.549226377674524
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000149",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0551404,
+          -2.4934529
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000149",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 149,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.950938713345609
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000150",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0991826,
+          -2.4818487
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000150",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 150,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.024957582169522
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000151",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0639874,
+          -2.4703108
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000151",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 151,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 2.956174866025321
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000152",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1066463,
+          -2.4676223
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000152",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 152,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.555528411360405
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000153",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0459773,
+          -2.4236228
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000153",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 153,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 13.18583170795375
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000154",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0347093,
+          -2.443874
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000154",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 154,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 15.7396713431306
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000155",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0775242,
+          -2.4248202
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000155",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 155,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 16.55176523171351
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000156",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0862373,
+          -2.4485121
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000156",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 156,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 11.99158849652239
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000157",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1460556,
+          -2.417066
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000157",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 157,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.559874252265166
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000158",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1315393,
+          -2.4195666
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000158",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 158,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.541505219642687
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000159",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2398046,
+          -2.4635019
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000159",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 159,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.40498398460591
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000160",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2267473,
+          -2.4672766
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000160",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 160,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 4.195964394368488
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000161",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0950846,
+          -2.5296645
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000161",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 161,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.563738746320526
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000162",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0820067,
+          -2.5387739
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000162",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 162,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 3.195050762078848
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000163",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.0731354,
+          -2.521087
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000163",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 163,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 10.51300661701616
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000164",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.1364302,
+          -2.5442649
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000164",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 164,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 7.010739955553172
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000165",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2450135,
+          -2.5232504
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000165",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 165,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": true,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.533230753012072
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "130bf28b83c7_000166",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.2688092,
+          -2.5473109
+        ]
+      },
+      "properties": {
+        "observation_id": "130bf28b83c7_000166",
+        "dataset_archive": "3_Data_Koleksi_Pengguna_Mitra/Data_sawah.zip",
+        "dataset_sha256": "130bf28b83c7ac21b11a197b124c81409162cbf376e5c4c6e266af0b4fd32949",
+        "source_record_index": 166,
+        "source_crs": "EPSG:4326",
+        "is_within_aoi": false,
+        "source_schema_id": "schema_mitra_sawah",
+        "source_point_id": null,
+        "identity_basis": "archive_record_index",
+        "source_class_id": "5",
+        "source_class_label": "Sawah",
+        "project_class_id": null,
+        "project_class_label": null,
+        "raw_attributes": {
+          "Id_LULC": 5,
+          "LULC": "Sawah",
+          "z_coordinate": 6.554803938793308
+        },
+        "observed_time": null,
+        "method": "unknown",
+        "contributor_id": null,
+        "rights_id": null,
+        "quality_tier": null,
+        "evidence_refs": []
+      }
+    }
+  ]
+}

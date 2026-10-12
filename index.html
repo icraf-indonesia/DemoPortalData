@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Data Epistem: Demonstrasi Banyuasin</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header Bar -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="header-branding">
+        <h1 class="header-title">Portal Data Epistem</h1>
+        <div class="brand-context-lines">
+          <span class="context-item">Wilayah Kajian: Kabupaten Banyuasin</span>
+          <span class="context-sep">&bull;</span>
+          <span class="context-item">Periode Perekaman: 2026</span>
+        </div>
+      </div>
+
+      <!-- Task Navigation Buttons -->
+      <nav class="task-nav case-nav" aria-label="Navigasi Tugas Portal Data">
+        <button type="button" class="task-nav-btn case-nav-btn is-active" data-task="catalogue" data-case-id="1" aria-current="page" title="Ruang kerja data pelatihan utama">
+          <span class="task-label case-label">Katalog Data</span>
+        </button>
+        <button type="button" class="task-nav-btn case-nav-btn" data-task="contribute" data-case-id="2" title="Bagikan data observasi mandiri">
+          <span class="task-label case-label">Bagikan Data</span>
+        </button>
+        <button type="button" class="task-nav-btn case-nav-btn" data-task="partner" data-case-id="3" title="Penggunaan ulang data mitra lintas sektor">
+          <span class="task-label case-label">Data Mitra</span>
+        </button>
+        <button type="button" class="task-nav-btn case-nav-btn" data-task="review" data-case-id="4" title="Telaah mutu observasi independen">
+          <span class="task-label case-label">Telaah Mutu</span>
+        </button>
+        <button type="button" id="btn-top-export" class="task-nav-btn btn-task-export" data-task="export" title="Ekspor paket data pelatihan Luma (ZIP)">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor" width="14" height="14" aria-hidden="true">
+            <path fill-rule="evenodd" d="M3 17a1 1 0 001 1h12a1 1 0 100-2H4a1 1 0 00-1 1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+          <span class="task-label">Ekspor ke Luma</span>
+        </button>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <!-- Settings Button & Popover -->
+      <div class="settings-wrapper">
+        <button type="button" id="btn-settings" class="btn-settings" aria-label="Buka Pengaturan Mode dan Pemulihan" title="Pengaturan Sistem">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" aria-hidden="true">
+            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+          </svg>
+          <span>Pengaturan</span>
+        </button>
+
+        <div id="popover-settings" class="popover-settings" style="display: none;" role="dialog" aria-label="Pengaturan Portal">
+          <div class="popover-header">
+            <h4 class="popover-title">Pengaturan Portal</h4>
+            <button type="button" class="btn-popover-close" id="btn-close-settings">&times;</button>
+          </div>
+          <div class="popover-section">
+            <div class="popover-section-label">Mode Data</div>
+            <div class="mode-control-group">
+              <button type="button" id="btn-toggle-mode" class="btn-mode-toggle" aria-label="Alihkan mode tampilan antara Sumber Nyata dan Skenario Percontohan">
+                <span class="mode-dot"></span>
+                <span id="mode-toggle-text">Mode Skenario</span>
+              </button>
+              <span id="scenario-disclaimer-badge" class="scenario-disclaimer-badge" title="Asumsi skenario percontohan aktif">Metadatanya asumsi skenario</span>
+            </div>
+            <p class="settings-hint">Mode Skenario menyimulasikan kelengkapan metadata; Mode Sumber Nyata membatasi pada data dengan izin/waktu asli.</p>
+          </div>
+          <div class="popover-section">
+            <div class="popover-section-label">Pemulihan Data Peramban</div>
+            <button type="button" id="btn-reset-demo" class="btn-reset-demo" title="Kembalikan kondisi awal peramban">
+              Reset Data Lokal
+            </button>
+            <p class="settings-hint">Menghapus modifikasi di peramban ini dan kembali ke kondisi data awal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Visible Notification / Error Banner -->
+  <div id="error-banner" class="error-banner" role="alert" style="display: none;"></div>
+
+  <!-- Main Workspace: Full-Canvas Map with Floating Panels & Drawer -->
+  <div id="workspace-layout" class="workspace-layout">
+    <!-- Center: Leaflet Map Container (Fills workspace behind floating panels) -->
+    <main id="map-container" class="map-container">
+      <div id="map" class="map-view" role="region" aria-label="Peta Sebaran Observasi"></div>
+      <!-- Floating Map Sampling Toolbar -->
+      <div class="map-floating-toolbar" role="toolbar" aria-label="Alat Sampling Peta">
+        <button type="button" id="btn-toggle-sampling" class="btn-sampling-tool" title="Mode tambah titik baru dengan klik pada peta">
+          <span class="sampling-icon">+</span>
+          <span class="sampling-text">Sampling di Peta</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- Floating Left Panel: Classification Schema Breakdown -->
+    <div id="panel-left-container" class="floating-panel floating-panel-left" role="region" aria-label="Panel Skema Klasifikasi">
+      <div class="floating-panel-topbar">
+        <button type="button" id="btn-collapse-left" class="btn-panel-toggle btn-panel-collapse" aria-controls="panel-left-container" aria-expanded="true" aria-label="Ciutkan panel Skema Klasifikasi" title="Ciutkan Skema Klasifikasi">
+          <span class="toggle-icon" aria-hidden="true">&#9664;</span>
+          <span class="toggle-text">Ciutkan</span>
+        </button>
+      </div>
+      <aside id="panel-left" class="panel panel-left panel-content" aria-label="Distribusi Kelas Proyek"></aside>
+    </div>
+    <!-- Labelled Reopen Button for Left Panel -->
+    <button type="button" id="btn-reopen-left" class="btn-panel-reopen btn-reopen-left" aria-controls="panel-left-container" aria-expanded="false" aria-label="Buka panel Skema Klasifikasi" title="Buka panel Skema Klasifikasi" style="display: none;">
+      <span class="reopen-icon" aria-hidden="true">&#9654;</span>
+      <span class="reopen-label">Skema Klasifikasi</span>
+    </button>
+
+    <!-- Floating Right Panel: Dataset Catalogue -->
+    <div id="panel-right-container" class="floating-panel floating-panel-right" role="region" aria-label="Panel Katalog Koleksi Data">
+      <div class="floating-panel-topbar">
+        <button type="button" id="btn-collapse-right" class="btn-panel-toggle btn-panel-collapse" aria-controls="panel-right-container" aria-expanded="true" aria-label="Ciutkan panel Katalog Data" title="Ciutkan Katalog Data">
+          <span class="toggle-text">Ciutkan</span>
+          <span class="toggle-icon" aria-hidden="true">&#9654;</span>
+        </button>
+      </div>
+      <aside id="panel-right" class="panel panel-right panel-content" aria-label="Katalog Koleksi Data"></aside>
+    </div>
+    <!-- Labelled Reopen Button for Right Panel -->
+    <button type="button" id="btn-reopen-right" class="btn-panel-reopen btn-reopen-right" aria-controls="panel-right-container" aria-expanded="false" aria-label="Buka panel Katalog Data" title="Buka panel Katalog Data" style="display: none;">
+      <span class="reopen-icon" aria-hidden="true">&#9664;</span>
+      <span class="reopen-label">Katalog Data</span>
+    </button>
+
+    <!-- Bottom Overlay Drawer: Collapsible Attribute Table -->
+    <footer id="panel-bottom" class="panel-bottom overlay-drawer-bottom" aria-label="Tabel Atribut Observasi"></footer>
+  </div>
+
+  <!-- Vendored Local JSZip, Leaflet & Application Scripts -->
+  <script src="vendor/jszip/jszip.min.js"></script>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
