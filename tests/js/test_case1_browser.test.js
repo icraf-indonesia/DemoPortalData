@@ -79,7 +79,8 @@ test('Case 1 E2E: Full workflow verification in headless Chromium', async () => 
     const page = await context.newPage();
 
     // 1. Load application
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
 
     // 2. Verify Header Branding, Case navigation, and Luma style
     const headerTitle = await page.textContent('.header-title');
@@ -263,7 +264,8 @@ test('Case 1 E2E: Full workflow verification in headless Chromium', async () => 
     assert.ok(noticeText.includes('Belum teruji') || noticeText.includes('belum teruji'));
 
     // 11. Test Refresh: State recovered from localStorage
-    await page.reload({ waitUntil: 'networkidle' });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
 
     const reloadedActiveCard = await page.$('.catalogue-card.is-active');
     const reloadedTitle = await reloadedActiveCard.textContent();

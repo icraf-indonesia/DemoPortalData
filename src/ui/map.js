@@ -644,7 +644,7 @@ export class MapView {
       this.fitToContent();
     }
 
-    const schema = this.resolveActiveSchema(state.activeCaseId);
+    const schema = state.getActiveSchema();
 
     // 2. Render Point Observations if dataset changed, case changed, or newly loaded
     const needsRerender = this.lastRenderedDatasetId !== state.activeDatasetId ||

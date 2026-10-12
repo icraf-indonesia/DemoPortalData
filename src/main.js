@@ -48,7 +48,11 @@ import {
   CASE3_FORESTRY_CLASSES,
   CASE4_TARGET_CLASSES,
   PROVISIONAL_HIERARCHY,
-  computeClassCounts
+  computeClassCounts,
+  getTaxonomyLeaves,
+  EPISTEM_MASTER_TAXONOMY,
+  DEFAULT_EPISTEM_CROSSWALK,
+  findTaxonomyNode
 } from './domain/taxonomy.js';
 import { isPointInAoi } from './domain/records.js';
 import { createTrainingExportPackage, triggerBrowserDownload } from './export/luma-adapter.js';
@@ -121,7 +125,11 @@ class PortalApp {
     this.catalogueView = new CatalogueView(
       'panel-right',
       this.workspace,
-      (id) => this.switchDataset(id)
+      (id) => this.switchDataset(id),
+      {
+        onShareDataset: (id) => this.openContributeModal(null, id),
+        onDownloadDataset: (id) => this.downloadPublishedGeoJson(id)
+      }
     );
 
     this.attributeTableView = new AttributeTableView(
@@ -134,6 +142,31 @@ class PortalApp {
       }
     );
 
+    // Sync User Role Selector
+    const selectUserRole = document.getElementById('select-active-user-header') || document.getElementById('select-user-role');
+    const popoverUserRole = document.getElementById('popover-user-role-select');
+    const syncUser = async (uid) => {
+      if (selectUserRole) selectUserRole.value = uid;
+      if (popoverUserRole) popoverUserRole.value = uid;
+      this.workspace.setActiveUser(uid);
+      if (uid === 'user_b') {
+        const target = this.workspace.case3PrivateCollection ? this.workspace.case3PrivateCollection.meta.id : 'data_hutan';
+        await this.switchDataset(target);
+      } else {
+        const target = this.workspace.mixedDataset ? 'data_campuran_1' : 'data_kebun_sawit_karet_f';
+        await this.switchDataset(target);
+      }
+    };
+
+    if (selectUserRole) {
+      selectUserRole.value = this.workspace.activeUser || 'user_a';
+      selectUserRole.addEventListener('change', (e) => syncUser(e.target.value));
+    }
+    if (popoverUserRole) {
+      popoverUserRole.value = this.workspace.activeUser || 'user_a';
+      popoverUserRole.addEventListener('change', (e) => syncUser(e.target.value));
+    }
+
     // Listen to workspace for table collapse to invalidate map size without resetting centre or zoom
     this.workspace.subscribe((state) => {
       if (this.lastCollapsedState !== state.isTableCollapsed) {
@@ -143,6 +176,12 @@ class PortalApp {
             this.mapView.map.invalidateSize({ pan: false });
           }
         }, 260);
+      }
+      if (selectUserRole && selectUserRole.value !== state.activeUser) {
+        selectUserRole.value = state.activeUser || 'user_a';
+      }
+      if (popoverUserRole && popoverUserRole.value !== state.activeUser) {
+        popoverUserRole.value = state.activeUser || 'user_a';
       }
       this.updateModeControls();
       this.updateCaseNavHighlight(state.activeCaseId);
@@ -702,107 +741,699 @@ class PortalApp {
   // CASE 2: CONTRIBUTION & SAMPLING FLOW
   // ==========================================
 
-  openContributeModal(onClose) {
+  downloadPublishedGeoJson(datasetId) {
+    const pub = this.workspace.publishedCollections.find(p => p.meta.id === datasetId) ||
+      (this.workspace.case2DonatedCollection?.meta.id === datasetId ? this.workspace.case2DonatedCollection : null);
+
+    if (!pub) {
+      alert('Koleksi data terpublikasi tidak ditemukan.');
+      return;
+    }
+
+    const geojson = {
+      type: 'FeatureCollection',
+      metadata: {
+        id: pub.meta.id,
+        title: pub.meta.title,
+        version: pub.meta.version || '1.0.0',
+        status: pub.meta.status || 'Mandiri / Belum Ditelaah',
+        institution: pub.meta.institution || 'ICRAF Indonesia',
+        account_name: pub.meta.accountName || 'User A',
+        technical_email: pub.meta.technicalEmail || 'usera@example.org',
+        boundary: 'Kabupaten Banyuasin',
+        declared_year: pub.meta.year || 2026,
+        acquisition_method: pub.meta.acquisitionMethod || 'Survei GPS Lapangan',
+        feature_count: pub.records.length,
+        crosswalk: pub.crosswalk || null,
+        created_at: pub.meta.createdAt || new Date().toISOString()
+      },
+      features: pub.records.map(r => ({
+        type: 'Feature',
+        id: r.observation_id,
+        geometry: r.geometry,
+        properties: {
+          observation_id: r.observation_id,
+          source_class_id: r.source_class_id,
+          source_class_label: r.source_class_label,
+          project_class_id: r.project_class_id,
+          project_class_label: r.project_class_label,
+          epistem_code: r.publication_metadata?.crosswalk_leaf_code || (r.project_class_id === 1 ? '1132' : '1133'),
+          epistem_class: r.publication_metadata?.crosswalk_leaf_name || (r.project_class_id === 1 ? 'Rubber Monoculture' : 'Oil Palm Monoculture'),
+          declared_institution: pub.meta.institution || 'ICRAF Indonesia',
+          declared_year: pub.meta.year || 2026,
+          declared_method: pub.meta.acquisitionMethod || 'Survei GPS Lapangan',
+          raw_observed_time: r.observed_time,
+          raw_contributor_id: r.contributor_id,
+          raw_rights_id: r.rights_id,
+          raw_attributes: r.raw_attributes
+        }
+      }))
+    };
+
+    triggerBrowserDownload(
+      new Blob([JSON.stringify(geojson, null, 2)], { type: 'application/geo+json' }),
+      `${datasetId}_published.geojson`
+    );
+  }
+
+  // ==========================================
+  // CASE 2: CONTRIBUTION & SAMPLING FLOW
+  // ==========================================
+
+  async openContributeModal(onClose, preselectedDatasetId = null) {
     let isCommitted = false;
-    const separation = this.contributionWorkflow.separateOwnedObservations(this.workspace.activeRecords);
+
+    // 1. Determine active target dataset:
+    // 1. Determine active target dataset:
+    // Individual card preselects itself if provided;
+    // Saved draft takes precedence if available; otherwise top button picks mixed dataset if exists.
+    const savedDraft = this.workspace.case2PublicationDraft;
+    let selectedDatasetId = preselectedDatasetId;
+    if (!selectedDatasetId && savedDraft?.selectedDatasetId) {
+      selectedDatasetId = savedDraft.selectedDatasetId;
+    }
+    if (!selectedDatasetId) {
+      selectedDatasetId = this.workspace.mixedDataset ? 'data_campuran_1' : 'data_kebun_sawit_karet_f';
+    }
+
+    const getRecordsForDataset = async (datasetId) => {
+      if (datasetId === 'data_campuran_1' && this.workspace.mixedDataset) {
+        return this.workspace.mixedDataset.records;
+      }
+      if (this.workspace.activeDatasetId === datasetId && this.workspace.activeRecords.length > 0) {
+        return this.workspace.activeRecords;
+      }
+      try {
+        const ds = await loadDataset(datasetId);
+        return ds.records;
+      } catch (err) {
+        return this.workspace.activeRecords;
+      }
+    };
+
+    let currentRecords = await getRecordsForDataset(selectedDatasetId);
+    let separation = this.contributionWorkflow.separateOwnedObservations(currentRecords);
+
+    // Staged draft: required fields default blank, responsibility unchecked
+    const draft = savedDraft || {
+      accountName: '',
+      owningInstitution: '',
+      technicalEmail: '',
+      confirmedYear: 2026,
+      acquisitionMethod: 'Survei GPS Lapangan',
+      boundaryAoi: 'Kabupaten Banyuasin',
+      responsibilityAccepted: false,
+      selectedDatasetId,
+      crosswalk: {
+        1: { epistemLeafId: 'veg-tb-mono-rubber' },
+        2: { epistemLeafId: 'veg-tb-mono-oilpalm' }
+      }
+    };
 
     const container = document.createElement('div');
+    container.className = 'contribution-modal-container';
 
     const header = document.createElement('div');
     header.className = 'modal-header';
     const title = document.createElement('h3');
     title.className = 'modal-title';
-    title.textContent = 'Bagikan Data: Kontribusi & Donasi Observasi';
+    title.textContent = 'Bagikan Data: Publikasi & Donasi Observasi Mandiri';
     header.appendChild(title);
 
     const subtitle = document.createElement('p');
     subtitle.className = 'modal-subtitle';
-    subtitle.textContent = 'Memisahkan observasi kebun mandiri dari data rujukan pihak ketiga untuk disumbangkan ke konsorsium.';
+    subtitle.textContent = 'Memisahkan observasi kebun mandiri dari data rujukan pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.';
     header.appendChild(subtitle);
     container.appendChild(header);
 
     const body = document.createElement('div');
     body.className = 'modal-body';
 
-    // Summary box
-    const sumBox = document.createElement('div');
-    sumBox.style.fontSize = '0.78rem';
-    sumBox.style.lineHeight = '1.4';
-    sumBox.style.marginBottom = '10px';
-    sumBox.innerHTML = `
-      <p><strong>Observasi Aktif Terdeteksi:</strong> ${separation.summary.total} titik</p>
-      <p style="color: #059669;"><strong>Observasi Milik Mandiri (Dapat Dikontribusikan):</strong> ${separation.summary.ownedCount} titik (Pemilik A)</p>
-      <p style="color: #dc2626;"><strong>Koleksi Rujukan Pihak Ketiga (Dikecualikan):</strong> ${separation.summary.excludedCount} titik</p>
-    `;
-    body.appendChild(sumBox);
+    const modalErrBanner = document.createElement('div');
+    modalErrBanner.className = 'modal-banner banner-source';
+    modalErrBanner.style.display = 'none';
+    modalErrBanner.style.marginBottom = '10px';
+    modalErrBanner.style.color = '#dc2626';
+    body.appendChild(modalErrBanner);
 
-    // Excluded explanation
-    if (separation.summary.excludedCount > 0) {
-      const excNotice = document.createElement('div');
-      excNotice.className = 'modal-banner banner-source';
-      excNotice.style.marginBottom = '12px';
-      excNotice.textContent = 'Catatan Integritas: Titik rujukan modular 2b berasal dari koleksi impor pihak ketiga, bukan milik pengguna. Data pihak ketiga tidak dapat disumbangkan sebagai kontribusi mandiri.';
-      body.appendChild(excNotice);
+    // Section 1: Pemilihan Koleksi Data (Collection Selector)
+    const collSection = document.createElement('div');
+    collSection.className = 'modal-section coll-section';
+    collSection.style.marginBottom = '10px';
+
+    const collLabel = document.createElement('label');
+    collLabel.style.display = 'block';
+    collLabel.style.fontWeight = '700';
+    collLabel.style.fontSize = '0.78rem';
+    collLabel.style.marginBottom = '4px';
+    collLabel.textContent = 'Pilih Koleksi Data untuk Dibagikan:';
+    collSection.appendChild(collLabel);
+
+    const collSelect = document.createElement('select');
+    collSelect.id = 'pub-collection-select';
+    collSelect.style.width = '100%';
+    collSelect.style.padding = '6px';
+    collSelect.style.fontSize = '0.78rem';
+    collSelect.style.borderRadius = '4px';
+    collSelect.style.border = '1px solid #cbd5e1';
+
+    // Option: Mixed dataset if exists
+    if (this.workspace.mixedDataset) {
+      const optMixed = document.createElement('option');
+      optMixed.value = 'data_campuran_1';
+      optMixed.textContent = `Data Campuran #1 (${this.workspace.mixedDataset.records.length} titik: 240 mandiri, ${this.workspace.mixedDataset.records.length - 240} rujukan)`;
+      collSelect.appendChild(optMixed);
     }
 
-    // Provisional hierarchical picker
-    const hHeading = document.createElement('h4');
-    hHeading.style.fontSize = '0.8rem';
-    hHeading.style.fontWeight = '700';
-    hHeading.style.color = '#1e293b';
-    hHeading.style.marginBottom = '6px';
-    hHeading.textContent = 'Penelusuran Hierarki Kelas Taksonomi Provisional:';
-    body.appendChild(hHeading);
+    // Option: Own plantation
+    const optPlantation = document.createElement('option');
+    optPlantation.value = 'data_kebun_sawit_karet_f';
+    optPlantation.textContent = 'Data Kebun Sawit & Karet (240 titik mandiri)';
+    collSelect.appendChild(optPlantation);
 
-    const hPicker = document.createElement('div');
-    hPicker.className = 'hierarchy-picker';
-    hPicker.innerHTML = `
-      <div class="hierarchy-level-1">▾ Vegetasi</div>
-      <div class="hierarchy-level-2">▾ Sistem berbasis pohon</div>
-      <div class="hierarchy-level-3">▾ Perkebunan monokultur</div>
-      <div class="hierarchy-leaves">
-        <label class="hierarchy-leaf-item">
-          <input type="radio" name="hier_class" value="1" checked>
-          <span><strong>1132. Kebun karet</strong> (Target Proyek Kelas 1 - Ungu)</span>
-        </label>
-        <label class="hierarchy-leaf-item">
-          <input type="radio" name="hier_class" value="2">
-          <span><strong>1133. Kebun sawit</strong> (Target Proyek Kelas 2 - Pink)</span>
-        </label>
-      </div>
-      <div class="hierarchy-discrepancy-notice">
-        <strong>Pemberitahuan Diskrepansi Taksonomi:</strong> ${PROVISIONAL_HIERARCHY.metadata.discrepancyNote}
-      </div>
+    collSelect.value = selectedDatasetId;
+    collSection.appendChild(collSelect);
+    body.appendChild(collSection);
+
+    // Separation summary box
+    const sepBox = document.createElement('div');
+    sepBox.className = 'separation-summary-box';
+    body.appendChild(sepBox);
+
+    // Excluded explanation notice container
+    const excBox = document.createElement('div');
+    excBox.className = 'separation-excluded-box';
+    body.appendChild(excBox);
+
+    const updateSeparationView = () => {
+      sepBox.innerHTML = `
+        <div style="font-size: 0.78rem; line-height: 1.5; margin-bottom: 8px;">
+          <p><strong>Observasi Aktif Terdeteksi:</strong> ${separation.summary.total} titik</p>
+          <p style="color: #059669;"><strong>Observasi Milik Mandiri (Dapat Dikontribusikan):</strong> ${separation.summary.ownedCount} titik (${separation.summary.rubberCount} Karet, ${separation.summary.palmCount} Kelapa sawit)</p>
+          ${separation.summary.excludedCount > 0 ? `<p style="color: #dc2626;"><strong>Koleksi Rujukan Pihak Ketiga (Dikecualikan):</strong> ${separation.summary.excludedCount} titik</p>` : ''}
+        </div>
+      `;
+
+      if (separation.summary.excludedCount > 0) {
+        excBox.innerHTML = `
+          <div class="modal-banner banner-source" style="margin-bottom: 12px; font-size: 0.74rem;">
+            <strong>Catatan Integritas:</strong> Titik rujukan modular 2b (${separation.summary.excludedCount} titik) berasal dari koleksi impor pihak ketiga, bukan milik pengguna. Data pihak ketiga tidak dapat disumbangkan sebagai kontribusi mandiri dan dikecualikan secara otomatis.
+          </div>
+        `;
+      } else {
+        excBox.innerHTML = '';
+      }
+    };
+    updateSeparationView();
+
+    collSelect.addEventListener('change', async () => {
+      selectedDatasetId = collSelect.value;
+      currentRecords = await getRecordsForDataset(selectedDatasetId);
+      separation = this.contributionWorkflow.separateOwnedObservations(currentRecords);
+      updateSeparationView();
+      updateSummarySection();
+    });
+
+    // Section 2: Penyelarasan Taksonomi Epistem (Operational 21-Leaf Crosswalk)
+    const cwSection = document.createElement('div');
+    cwSection.className = 'modal-section crosswalk-section';
+    cwSection.style.marginTop = '10px';
+    cwSection.style.marginBottom = '10px';
+
+    const cwHeading = document.createElement('h4');
+    cwHeading.style.fontSize = '0.8rem';
+    cwHeading.style.fontWeight = '700';
+    cwHeading.style.marginBottom = '4px';
+    cwHeading.textContent = 'Penyelarasan Taksonomi Epistem (Epistem Operational Crosswalk):';
+    cwSection.appendChild(cwHeading);
+
+    const cwDesc = document.createElement('p');
+    cwDesc.style.fontSize = '0.74rem';
+    cwDesc.style.color = '#475569';
+    cwDesc.style.marginBottom = '8px';
+    cwDesc.textContent = 'Petakan kedua kelas proyek secara independen ke 21 kelas daun taksonomi hierarkis Epistem (MASTER_TAXONOMY).';
+    cwSection.appendChild(cwDesc);
+
+    const leaves = getTaxonomyLeaves(EPISTEM_MASTER_TAXONOMY);
+
+    const buildClassPicker = (classId, classLabel, pillColour, initialLeafId, searchId, selectId, onPickerChange) => {
+      let currentSelectedId = initialLeafId;
+
+      const pickerWrap = document.createElement('div');
+      pickerWrap.className = 'class-crosswalk-picker';
+      pickerWrap.style.marginBottom = '8px';
+      pickerWrap.style.padding = '8px';
+      pickerWrap.style.borderRadius = '4px';
+      pickerWrap.style.border = '1px solid #e2e8f0';
+      pickerWrap.style.backgroundColor = '#fafafa';
+
+      const labelBar = document.createElement('div');
+      labelBar.style.display = 'flex';
+      labelBar.style.alignItems = 'center';
+      labelBar.style.justifyContent = 'space-between';
+      labelBar.style.marginBottom = '6px';
+
+      const badge = document.createElement('span');
+      badge.style.backgroundColor = pillColour;
+      badge.style.color = '#ffffff';
+      badge.style.padding = '2px 8px';
+      badge.style.borderRadius = '3px';
+      badge.style.fontSize = '0.74rem';
+      badge.style.fontWeight = '700';
+      badge.textContent = `Kelas Target ${classId}: ${classLabel}`;
+      labelBar.appendChild(badge);
+
+      pickerWrap.appendChild(labelBar);
+
+      const searchInp = document.createElement('input');
+      searchInp.type = 'text';
+      searchInp.id = searchId;
+      searchInp.className = 'cw-search-input';
+      searchInp.placeholder = `Cari kelas taksonomi untuk ${classLabel}...`;
+      searchInp.style.width = '100%';
+      searchInp.style.padding = '4px 6px';
+      searchInp.style.fontSize = '0.74rem';
+      searchInp.style.border = '1px solid #cbd5e1';
+      searchInp.style.borderRadius = '3px';
+      searchInp.style.marginBottom = '4px';
+      pickerWrap.appendChild(searchInp);
+
+      const select = document.createElement('select');
+      select.id = selectId;
+      select.className = 'cw-select';
+      select.style.width = '100%';
+      select.style.padding = '5px';
+      select.style.fontSize = '0.75rem';
+      select.style.borderRadius = '3px';
+      select.style.border = '1px solid #cbd5e1';
+
+      const populateOptions = (filterText = '') => {
+        select.innerHTML = '';
+        const filter = filterText.toLowerCase().trim();
+
+        const groups = {};
+        let matchCount = 0;
+        for (const leaf of leaves) {
+          if (filter && !leaf.name.toLowerCase().includes(filter) && !leaf.code.includes(filter) && !leaf.path.toLowerCase().includes(filter)) {
+            continue;
+          }
+          matchCount++;
+          const groupName = leaf.path.split(' > ').slice(0, 3).join(' > ') || 'Kategori Lain';
+          if (!groups[groupName]) groups[groupName] = [];
+          groups[groupName].push(leaf);
+        }
+
+        if (matchCount === 0) {
+          const emptyOpt = document.createElement('option');
+          emptyOpt.value = '';
+          emptyOpt.disabled = true;
+          emptyOpt.selected = true;
+          emptyOpt.textContent = 'Tidak ada kelas taksonomi yang cocok dengan pencarian';
+          select.appendChild(emptyOpt);
+          return;
+        }
+
+        let selectionFound = false;
+        for (const [grp, grpLeaves] of Object.entries(groups)) {
+          const optGroup = document.createElement('optgroup');
+          optGroup.label = grp;
+          for (const l of grpLeaves) {
+            const opt = document.createElement('option');
+            opt.value = l.id;
+            opt.setAttribute('data-code', l.code);
+            opt.setAttribute('data-name', l.name);
+            opt.textContent = `${l.code}. ${l.name}`;
+            if (l.id === currentSelectedId) {
+              opt.selected = true;
+              selectionFound = true;
+            }
+            optGroup.appendChild(opt);
+          }
+          select.appendChild(optGroup);
+        }
+
+        if (!selectionFound && filter) {
+          const promptOpt = document.createElement('option');
+          promptOpt.value = '';
+          promptOpt.disabled = true;
+          promptOpt.selected = true;
+          promptOpt.textContent = '-- Pilih hasil pencarian untuk mengganti pilihan --';
+          select.insertBefore(promptOpt, select.firstChild);
+        }
+      };
+
+      populateOptions();
+
+      searchInp.addEventListener('input', () => {
+        populateOptions(searchInp.value);
+      });
+
+      select.addEventListener('change', () => {
+        if (select.value) {
+          currentSelectedId = select.value;
+          if (typeof onPickerChange === 'function') {
+            onPickerChange();
+          }
+        }
+      });
+
+      pickerWrap.appendChild(select);
+      return {
+        wrapper: pickerWrap,
+        select,
+        searchInp,
+        getSelectedLeafId: () => currentSelectedId
+      };
+    };
+
+    const karetInitialLeaf = draft.crosswalk?.[1]?.epistemLeafId || 'veg-tb-mono-rubber';
+    const sawitInitialLeaf = draft.crosswalk?.[2]?.epistemLeafId || 'veg-tb-mono-oilpalm';
+
+    const karetPicker = buildClassPicker(
+      1,
+      'Karet (Ungu)',
+      '#7B1FA2',
+      karetInitialLeaf,
+      'cw-search-karet',
+      'cw-select-karet',
+      () => {
+        updateSummarySection();
+        saveDraftState();
+      }
+    );
+    cwSection.appendChild(karetPicker.wrapper);
+
+    const sawitPicker = buildClassPicker(
+      2,
+      'Kelapa sawit (Pink)',
+      '#E91E63',
+      sawitInitialLeaf,
+      'cw-search-sawit',
+      'cw-select-sawit',
+      () => {
+        updateSummarySection();
+        saveDraftState();
+      }
+    );
+    cwSection.appendChild(sawitPicker.wrapper);
+
+    const cwLainnyaNote = document.createElement('p');
+    cwLainnyaNote.style.fontSize = '0.72rem';
+    cwLainnyaNote.style.color = '#64748b';
+    cwLainnyaNote.style.marginTop = '4px';
+    cwLainnyaNote.textContent = 'Observasi rujukan lainnya (kelas 3/Lainnya) dikecualikan secara otomatis dari publikasi dan tidak memerlukan penyelarasan kelas daun.';
+    cwSection.appendChild(cwLainnyaNote);
+
+    body.appendChild(cwSection);
+
+    // Section 3: Deklarasi Metadata & Legalitas Form
+    const formSection = document.createElement('div');
+    formSection.className = 'modal-section pub-form-section';
+    formSection.style.marginTop = '10px';
+
+    const formHeading = document.createElement('h4');
+    formHeading.style.fontSize = '0.8rem';
+    formHeading.style.fontWeight = '700';
+    formHeading.style.marginBottom = '6px';
+    formHeading.textContent = 'Deklarasi Metadata & Legalitas Publikasi:';
+    formSection.appendChild(formHeading);
+
+    const formFields = document.createElement('div');
+    formFields.style.display = 'grid';
+    formFields.style.gridTemplateColumns = '1fr 1fr';
+    formFields.style.gap = '8px';
+    formFields.style.fontSize = '0.75rem';
+
+    // Account Name
+    const accWrap = document.createElement('div');
+    accWrap.innerHTML = `
+      <label for="pub-account-name" style="display:block; font-weight:700; margin-bottom:2px;">Nama Akun / Peneliti *:</label>
+      <input type="text" id="pub-account-name" value="${escapeHtml(draft.accountName)}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
+      <div id="err-account-name" style="color:#dc2626; font-size:0.7rem; display:none; margin-top:2px;"></div>
     `;
-    body.appendChild(hPicker);
+    formFields.appendChild(accWrap);
+
+    // Owning Institution
+    const instWrap = document.createElement('div');
+    instWrap.innerHTML = `
+      <label for="pub-institution" style="display:block; font-weight:700; margin-bottom:2px;">Lembaga Pemilik Data *:</label>
+      <input type="text" id="pub-institution" value="${escapeHtml(draft.owningInstitution)}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
+      <div id="err-institution" style="color:#dc2626; font-size:0.7rem; display:none; margin-top:2px;"></div>
+    `;
+    formFields.appendChild(instWrap);
+
+    // Technical Email
+    const emailWrap = document.createElement('div');
+    emailWrap.innerHTML = `
+      <label for="pub-email" style="display:block; font-weight:700; margin-bottom:2px;">Email Teknis *:</label>
+      <input type="email" id="pub-email" value="${escapeHtml(draft.technicalEmail)}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
+      <div id="err-email" style="color:#dc2626; font-size:0.7rem; display:none; margin-top:2px;"></div>
+    `;
+    formFields.appendChild(emailWrap);
+
+    // Readonly Wilayah Kajian (Banyuasin)
+    const aoiWrap = document.createElement('div');
+    aoiWrap.innerHTML = `
+      <label for="pub-aoi" style="display:block; font-weight:700; margin-bottom:2px;">Wilayah Kajian:</label>
+      <input type="text" id="pub-aoi" value="Kabupaten Banyuasin" readonly style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #e2e8f0; background:#f8fafc; border-radius:3px; color:#475569;">
+    `;
+    formFields.appendChild(aoiWrap);
+
+    // Confirmed Year (2026)
+    const yearWrap = document.createElement('div');
+    yearWrap.innerHTML = `
+      <label for="pub-year" style="display:block; font-weight:700; margin-bottom:2px;">Tahun Observasi & Proyek:</label>
+      <input type="text" id="pub-year" value="2026" readonly style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #e2e8f0; background:#f8fafc; border-radius:3px; color:#475569;">
+      <span style="font-size:0.68rem; color:#64748b;">Deklarasi tahun 2026 terkonfirmasi untuk observasi contoh ini.</span>
+    `;
+    formFields.appendChild(yearWrap);
+
+    // Acquisition Method (Survei GPS Lapangan)
+    const methodWrap = document.createElement('div');
+    methodWrap.innerHTML = `
+      <label for="pub-method" style="display:block; font-weight:700; margin-bottom:2px;">Metode Akuisisi Data:</label>
+      <input type="text" id="pub-method" value="Survei GPS Lapangan" readonly style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #e2e8f0; background:#f8fafc; border-radius:3px; color:#475569;">
+    `;
+    formFields.appendChild(methodWrap);
+
+    formSection.appendChild(formFields);
+
+    // Responsibility Checkbox
+    const respWrap = document.createElement('div');
+    respWrap.style.marginTop = '8px';
+    respWrap.innerHTML = `
+      <label style="display:flex; align-items:flex-start; gap:6px; font-size:0.74rem; cursor:pointer;">
+        <input type="checkbox" id="pub-responsibility" ${draft.responsibilityAccepted ? 'checked' : ''} style="margin-top:2px;">
+        <span><strong>Pernyataan Tanggung Jawab:</strong> Saya menyatakan bahwa observasi kebun mandiri ini diperoleh secara sah dan disetujui untuk dibagikan secara terbuka kepada mitra konsorsium Epistem.</span>
+      </label>
+      <div id="err-responsibility" style="color:#dc2626; font-size:0.7rem; display:none; margin-top:2px; margin-left:20px;"></div>
+    `;
+    formSection.appendChild(respWrap);
+    body.appendChild(formSection);
+
+    // Section 4: Summary Box before final button
+    const summaryCard = document.createElement('div');
+    summaryCard.className = 'pub-final-summary-card';
+    summaryCard.style.marginTop = '10px';
+    summaryCard.style.padding = '8px';
+    summaryCard.style.backgroundColor = '#f1f5f9';
+    summaryCard.style.border = '1px solid #cbd5e1';
+    summaryCard.style.borderRadius = '4px';
+
+    const saveDraftState = () => {
+      this.workspace.setPublicationDraft({
+        selectedCollectionIds: [selectedDatasetId],
+        selectedDatasetId,
+        accountName: document.getElementById('pub-account-name')?.value || '',
+        owningInstitution: document.getElementById('pub-institution')?.value || '',
+        technicalEmail: document.getElementById('pub-email')?.value || '',
+        confirmedYear: 2026,
+        acquisitionMethod: 'Survei GPS Lapangan',
+        boundaryAoi: 'Kabupaten Banyuasin',
+        responsibilityAccepted: Boolean(document.getElementById('pub-responsibility')?.checked),
+        crosswalk: {
+          1: { epistemLeafId: karetPicker.getSelectedLeafId() },
+          2: { epistemLeafId: sawitPicker.getSelectedLeafId() }
+        }
+      });
+    };
+
+    const updateSummarySection = () => {
+      const accInp = document.getElementById('pub-account-name')?.value || draft.accountName;
+      const instInp = document.getElementById('pub-institution')?.value || draft.owningInstitution;
+      const leaf1 = findTaxonomyNode(karetPicker.getSelectedLeafId(), EPISTEM_MASTER_TAXONOMY);
+      const leaf2 = findTaxonomyNode(sawitPicker.getSelectedLeafId(), EPISTEM_MASTER_TAXONOMY);
+
+      summaryCard.innerHTML = `
+        <h5 style="margin:0 0 4px 0; font-size:0.78rem; font-weight:700; color:#1e293b;">Ringkasan Sebelum Konfirmasi:</h5>
+        <div style="font-size:0.73rem; line-height:1.45; color:#334155;">
+          <div>&bull; <strong>Titik Mandiri Dibagikan:</strong> ${separation.summary.ownedCount} titik (${separation.summary.rubberCount} Karet, ${separation.summary.palmCount} Sawit)</div>
+          <div>&bull; <strong>Pemetaan Taksonomi:</strong> Karet &rarr; ${leaf1 ? `${leaf1.code} ${leaf1.name}` : 'Belum dipilih'}, Kelapa sawit &rarr; ${leaf2 ? `${leaf2.code} ${leaf2.name}` : 'Belum dipilih'}</div>
+          <div>&bull; <strong>Lembaga & Peneliti:</strong> ${escapeHtml(accInp)} (${escapeHtml(instInp)})</div>
+          <div>&bull; <strong>Tahun & Status:</strong> 2026 &bull; Mandiri / Belum Ditelaah (Tier 4)</div>
+        </div>
+      `;
+    };
+    updateSummarySection();
+    body.appendChild(summaryCard);
+
+    formSection.addEventListener('input', () => {
+      updateSummarySection();
+      saveDraftState();
+    });
 
     container.appendChild(body);
 
     const footer = document.createElement('div');
     footer.className = 'modal-footer';
 
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'btn-secondary';
-    closeBtn.type = 'button';
-    closeBtn.textContent = 'Tutup';
-    closeBtn.addEventListener('click', () => {
+    const cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.className = 'btn-secondary';
+    cancelBtn.textContent = 'Batal';
+    cancelBtn.addEventListener('click', () => {
       this.dialog.close();
     });
-    footer.appendChild(closeBtn);
+    footer.appendChild(cancelBtn);
 
-    const donateBtn = document.createElement('button');
-    donateBtn.className = 'btn-primary';
-    donateBtn.type = 'button';
-    donateBtn.textContent = 'Sumbangkan Observasi Milik Mandiri';
-    donateBtn.addEventListener('click', () => {
+    const publishBtn = document.createElement('button');
+    publishBtn.type = 'button';
+    publishBtn.className = 'btn-primary';
+    publishBtn.textContent = 'Konfirmasi & Bagikan Data';
+    publishBtn.addEventListener('click', () => {
+      if (modalErrBanner) modalErrBanner.style.display = 'none';
+
+      if (separation.owned.length === 0) {
+        if (modalErrBanner) {
+          modalErrBanner.textContent = 'Tidak ada observasi kebun mandiri milik pengguna yang dapat dibagikan pada koleksi ini.';
+          modalErrBanner.style.display = 'block';
+        }
+        return;
+      }
+
+      const accInp = document.getElementById('pub-account-name');
+      const instInp = document.getElementById('pub-institution');
+      const emailInp = document.getElementById('pub-email');
+      const respInp = document.getElementById('pub-responsibility');
+
+      const errAcc = document.getElementById('err-account-name');
+      const errInst = document.getElementById('err-institution');
+      const errEmail = document.getElementById('err-email');
+      const errResp = document.getElementById('err-responsibility');
+
+      let isValid = true;
+
+      const accVal = (accInp?.value || '').trim();
+      if (!accVal) {
+        if (errAcc) { errAcc.textContent = 'Nama akun wajib diisi.'; errAcc.style.display = 'block'; }
+        isValid = false;
+      } else if (errAcc) { errAcc.style.display = 'none'; }
+
+      const instVal = (instInp?.value || '').trim();
+      if (!instVal) {
+        if (errInst) { errInst.textContent = 'Lembaga pemilik data wajib diisi.'; errInst.style.display = 'block'; }
+        isValid = false;
+      } else if (errInst) { errInst.style.display = 'none'; }
+
+      const emailVal = (emailInp?.value || '').trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailVal || !emailRegex.test(emailVal)) {
+        if (errEmail) { errEmail.textContent = 'Email teknis wajib valid (misal: user@example.org).'; errEmail.style.display = 'block'; }
+        isValid = false;
+      } else if (errEmail) { errEmail.style.display = 'none'; }
+
+      const isResp = Boolean(respInp?.checked);
+      if (!isResp) {
+        if (errResp) { errResp.textContent = 'Pernyataan tanggung jawab wajib disetujui.'; errResp.style.display = 'block'; }
+        isValid = false;
+      } else if (errResp) { errResp.style.display = 'none'; }
+
+      const leafId1 = karetPicker.getSelectedLeafId();
+      const leafId2 = sawitPicker.getSelectedLeafId();
+      const leaf1 = findTaxonomyNode(leafId1, EPISTEM_MASTER_TAXONOMY);
+      const leaf2 = findTaxonomyNode(leafId2, EPISTEM_MASTER_TAXONOMY);
+
+      if (!leaf1 || (leaf1.children && leaf1.children.length > 0)) {
+        if (modalErrBanner) {
+          modalErrBanner.textContent = 'Pilihan kelas taksonomi untuk Karet wajib merupakan kelas daun (leaf node) yang valid.';
+          modalErrBanner.style.display = 'block';
+        }
+        isValid = false;
+      }
+
+      if (!leaf2 || (leaf2.children && leaf2.children.length > 0)) {
+        if (modalErrBanner) {
+          modalErrBanner.textContent = 'Pilihan kelas taksonomi untuk Kelapa sawit wajib merupakan kelas daun (leaf node) yang valid.';
+          modalErrBanner.style.display = 'block';
+        }
+        isValid = false;
+      }
+
+      if (!isValid) {
+        return;
+      }
+
+      const crosswalk = {
+        1: {
+          projectClassId: 1,
+          projectClassLabel: 'Karet',
+          epistemLeafId: leaf1.id,
+          code: leaf1.code,
+          name: leaf1.name,
+          path: leaf1.path || leaf1.name,
+          colour: '#7B1FA2'
+        },
+        2: {
+          projectClassId: 2,
+          projectClassLabel: 'Kelapa sawit',
+          epistemLeafId: leaf2.id,
+          code: leaf2.code,
+          name: leaf2.name,
+          path: leaf2.path || leaf2.name,
+          colour: '#E91E63'
+        }
+      };
+
+      let publishedPkg;
+      this.contributionWorkflow.publishedCollection = this.workspace.case2DonatedCollection;
+      try {
+        publishedPkg = this.contributionWorkflow.createPublishedPackage(
+          separation.owned,
+          {
+            accountName: accVal,
+            owningInstitution: instVal,
+            technicalEmail: emailVal,
+            confirmedYear: 2026,
+            acquisitionMethod: 'Survei GPS Lapangan',
+            boundaryAoi: 'Kabupaten Banyuasin',
+            responsibilityAccepted: true
+          },
+          crosswalk
+        );
+      } catch (err) {
+        if (modalErrBanner) {
+          modalErrBanner.textContent = err.message;
+          modalErrBanner.style.display = 'block';
+        }
+        return;
+      }
+
+      const saveRes = this.workspace.setPublishedCollection(publishedPkg);
+      if (!saveRes || !saveRes.success) {
+        if (modalErrBanner) {
+          modalErrBanner.textContent = `Gagal menyimpan publikasi: ${(saveRes && saveRes.error) || 'Kesalahan penyimpanan'}. Draf Anda tetap tersimpan dan dapat dicoba kembali.`;
+          modalErrBanner.style.display = 'block';
+        }
+        return;
+      }
+
       isCommitted = true;
-      const donatedPkg = this.contributionWorkflow.createDonatedPackage(separation.owned);
-      this.workspace.setDonatedCollection(donatedPkg);
       this.dialog.close();
-      this.noticeMessage = `Berhasil menyumbangkan ${donatedPkg.records.length} titik kebun mandiri ke ${donatedPkg.meta.id}. Koleksi ini kini dapat ditemukan pada Kasus 3.`;
+
+      this.noticeMessage = `Berhasil membagikan dan menyumbangkan ${publishedPkg.records.length} titik kebun mandiri ke ${publishedPkg.meta.id}. Koleksi ini kini dipublikasikan pada Data Terbuka dan dapat ditemukan pada Kasus 3.`;
       this.updateErrorBanner();
     });
-    footer.appendChild(donateBtn);
+    footer.appendChild(publishBtn);
 
     container.appendChild(footer);
     this.dialog.open(container, () => {
@@ -1032,6 +1663,14 @@ class PortalApp {
     }
     body.appendChild(selectEl);
 
+    if (!this.workspace.case2DonatedCollection) {
+      const pubNotice = document.createElement('div');
+      pubNotice.className = 'modal-banner banner-source';
+      pubNotice.style.marginBottom = '12px';
+      pubNotice.textContent = 'Belum ada dataset perkebunan yang dipublikasikan. Anda dapat menggunakan data mitra sawah yang tersedia, atau publikasikan data perkebunan mandiri terlebih dahulu di Kasus 2.';
+      body.appendChild(pubNotice);
+    }
+
     const previewContainer = document.createElement('div');
     body.appendChild(previewContainer);
 
@@ -1044,10 +1683,6 @@ class PortalApp {
         candidateRecords = paddyRecords.length > 0 ? paddyRecords : (await loadDataset('data_sawah')).records;
       } else if (chosenId === 'data_kontribusi_mandiri' && this.workspace.case2DonatedCollection) {
         candidateRecords = this.workspace.case2DonatedCollection.records;
-      } else {
-        // Fallback standalone fixture
-        const { CASE2_STANDALONE_FIXTURE } = await import('./features/partner-reuse.js');
-        candidateRecords = [...CASE2_STANDALONE_FIXTURE];
       }
 
       const preview = this.partnerReuseWorkflow.calculateReusePreview(

@@ -70,7 +70,7 @@ export class ClassificationView {
     this.container.textContent = ''; // Clear container
 
     const caseId = state.activeCaseId || 1;
-    const schema = this.getSchemaForCase(caseId);
+    const schema = state.getActiveSchema();
 
     // Header container
     const headerWrapper = document.createElement('div');

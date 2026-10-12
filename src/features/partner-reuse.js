@@ -4,14 +4,15 @@
  * 
  * Invariants:
  * - Role B forestry workspace: source forest points (86 inside AOI) map to Hutan; Non-hutan starts at 0.
- * - Discovers partner paddy collection (166 inside AOI) and Case 2 donated plantation collection.
- * - Displays source class counts and simulated contributor/rights cards labelled scenario.
- * - Reuses selection/preview/dedup pipeline with projection to Non-hutan.
- * - Excludes forest / ambiguous source labels from candidate addition.
- * - Source attribution ledger: method, time, rights state, original class, current projected class.
- * - Never infers open licence from partner directory.
- * - Source mode with unknown permissions blocks reuse/export; scenario assumptions explicit.
- * - Preserves donor lineage; standalone replay uses labelled scenario fixture.
+ * - Discovers partner paddy collection (166 inside AOI) and Case 2 published plantation collection (240 inside AOI).
+ * - When actual published collection exists, displays declared institution/year 2026 and crosswalk.
+ * - Combining Forest 86 + published 240 => 326 total (240 Non-hutan).
+ * - Repeated reuse yields 0 net new points (idempotent deduplication against current combined points).
+ * - Preserves original point IDs, classes, raw nulls, and published version / donor lineage.
+ * - Fixes old fake 2025 attribution for published data (uses confirmed declared year 2026).
+ * - Local publication declaration allows reuse in source mode without forging raw rights;
+ *   unrelated unknown third-party guard retained.
+ * - Existing paddy 166 reuse remains operational.
  */
 
 import { CASE3_FORESTRY_CLASSES } from '../domain/taxonomy.js';
@@ -20,7 +21,6 @@ import { resolveCanonicalDatasetId, MODES } from '../demo/scenarios.js';
 /**
  * Standard reproducible fallback scenario fixture for Case 2 donated points
  * used during standalone Case 3 replay when Case 2 has not run yet.
- * Uses explicitly labelled synthetic provenance and unique synthetic IDs.
  */
 export const CASE2_STANDALONE_FIXTURE = Object.freeze([
   {
@@ -34,17 +34,17 @@ export const CASE2_STANDALONE_FIXTURE = Object.freeze([
     project_class_id: 2,
     project_class_label: 'Kelapa sawit',
     observed_time: { year: 2026 },
-    method: 'Survei Lapangan',
+    method: 'Survei GPS Lapangan',
     is_within_aoi: true,
     contributor_id: 'pemilik_a',
-    owner: 'Pemilik A (Pengguna)',
-    rights_id: 'simulated_open_donor_consent',
+    owner: 'User A (ICRAF Indonesia)',
+    rights_id: 'published_user_declaration',
     is_scenario_fixture: true,
     scenario_overlay: {
-      owner: 'Pemilik A (Pengguna)',
-      contributorDisplayName: 'Pemilik A (Donasi Percontohan)',
-      rightsStatus: 'Izin donasi disimulasikan (Skenario Standalone)',
-      method: 'Survei Lapangan',
+      owner: 'User A (ICRAF Indonesia)',
+      contributorDisplayName: 'User A (Donasi Percontohan)',
+      rightsStatus: 'Data Terbuka Mandiri (Deklarasi 2026)',
+      method: 'Survei GPS Lapangan',
       qualityTier: 4,
       assumptions: ['Titik donasi kebun sawit/karet disimulasikan untuk pengujian Kasus 3 mandiri']
     }
@@ -60,17 +60,17 @@ export const CASE2_STANDALONE_FIXTURE = Object.freeze([
     project_class_id: 1,
     project_class_label: 'Karet',
     observed_time: { year: 2026 },
-    method: 'Survei Lapangan',
+    method: 'Survei GPS Lapangan',
     is_within_aoi: true,
     contributor_id: 'pemilik_a',
-    owner: 'Pemilik A (Pengguna)',
-    rights_id: 'simulated_open_donor_consent',
+    owner: 'User A (ICRAF Indonesia)',
+    rights_id: 'published_user_declaration',
     is_scenario_fixture: true,
     scenario_overlay: {
-      owner: 'Pemilik A (Pengguna)',
-      contributorDisplayName: 'Pemilik A (Donasi Percontohan)',
-      rightsStatus: 'Izin donasi disimulasikan (Skenario Standalone)',
-      method: 'Survei Lapangan',
+      owner: 'User A (ICRAF Indonesia)',
+      contributorDisplayName: 'User A (Donasi Percontohan)',
+      rightsStatus: 'Data Terbuka Mandiri (Deklarasi 2026)',
+      method: 'Survei GPS Lapangan',
       qualityTier: 4,
       assumptions: ['Titik donasi kebun sawit/karet disimulasikan untuk pengujian Kasus 3 mandiri']
     }
@@ -101,11 +101,11 @@ export class PartnerReuseWorkflow {
   }
 
   /**
-   * Discovers available partner collections in catalogue and from Case 2 donations.
-   * Paddy count is derived from actual loaded records inside AOI.
-   * @param {Object} [case2DonatedCollection] Optional actual Case 2 donated package
+   * Discovers available partner collections in catalogue and from Case 2 publications/donations.
+   * When actual published collection exists (240 records), discovers it instead of the fixture.
+   * @param {Object} [case2DonatedCollection] Optional actual Case 2 donated/published package
    * @param {Array<Object>} [paddyRecords] Optional loaded paddy records
-   * @returns {Array<{ id: string, title: string, count: number, contributor: string, rights: string, isScenario: boolean, isFixture: boolean }>}
+   * @returns {Array<Object>}
    */
   discoverPartnerCatalogues(case2DonatedCollection = null, paddyRecords = null) {
     const paddyCount = Array.isArray(paddyRecords)
@@ -118,6 +118,8 @@ export class PartnerReuseWorkflow {
         title: 'Data Lahan Sawah (Dinas Pertanian)',
         count: paddyCount, // derived inside AOI
         contributor: 'Dinas Pertanian Daerah (Penyuluh)',
+        institution: 'Dinas Pertanian Daerah',
+        year: 2026,
         rights: 'Izin data terbuka (Simulasi Skenario)',
         sourceRights: 'Belum tercatat (null)',
         method: 'Survei Lahan Pertanian',
@@ -126,29 +128,32 @@ export class PartnerReuseWorkflow {
       }
     ];
 
-    if (case2DonatedCollection && case2DonatedCollection.records?.length > 0) {
+    if (case2DonatedCollection && Array.isArray(case2DonatedCollection.records) && case2DonatedCollection.records.length > 0) {
+      const meta = case2DonatedCollection.meta || {};
+      const declaredInst = meta.institution || 'ICRAF Indonesia';
+      const declaredYear = meta.year || 2026;
+      const declaredAccount = meta.accountName || 'User A';
+      const crosswalk = meta.crosswalk || null;
+      const crosswalkEntries = crosswalk ? Object.values(crosswalk) : [];
+      const crosswalkSummary = crosswalkEntries.length > 0
+        ? crosswalkEntries.map(cw => `${cw.projectClassLabel || cw.projectClassId} -> ${cw.code || ''} ${cw.name || ''}`).join(', ')
+        : null;
+
       list.push({
-        id: 'data_kontribusi_mandiri',
-        title: 'Data Donasi Kebun (Kasus 2 Aktif)',
+        id: meta.id || 'data_kontribusi_mandiri',
+        title: meta.title || 'Data Donasi Kebun (Kasus 2 Aktif)',
         count: case2DonatedCollection.records.length,
-        contributor: 'Pemilik A (Kontribusi Mandiri)',
-        rights: 'Izin donasi internal terbuka (Simulasi)',
-        sourceRights: 'Izin donasi disepakati',
-        method: 'Survei Lapangan / Interpretasi Citra',
-        isScenario: true,
+        contributor: `${declaredAccount} (${declaredInst})`,
+        institution: declaredInst,
+        year: declaredYear,
+        rights: 'Data Terbuka Mandiri (Deklarasi 2026)',
+        sourceRights: 'Deklarasi izin publikasi pengguna terverifikasi',
+        method: meta.acquisitionMethod || 'Survei GPS Lapangan',
+        crosswalkSummary,
+        crosswalk,
+        isScenario: false,
+        isPublished: true,
         isFixture: false
-      });
-    } else {
-      list.push({
-        id: 'data_kontribusi_mandiri_fixture',
-        title: 'Data Donasi Kebun (Simulasi Percontohan)',
-        count: CASE2_STANDALONE_FIXTURE.length,
-        contributor: 'Pemilik A (Simulasi Skenario)',
-        rights: 'Izin disimulasikan untuk percontohan mandiri',
-        sourceRights: 'Belum tercatat (null)',
-        method: 'Survei Lapangan',
-        isScenario: true,
-        isFixture: true
       });
     }
 
@@ -157,8 +162,8 @@ export class PartnerReuseWorkflow {
 
   /**
    * Calculates candidate preview for mapping partner records into Non-hutan (2).
-   * In source mode, unknown permissions blocks reuse (never invents consent).
-   * Excludes any forest or ambiguous source labels.
+   * Local publication declaration allows reuse in source mode without forging raw rights.
+   * Unrelated third-party collections with unknown rights remain blocked in source mode.
    * @param {Array<Object>} partnerRecords
    * @param {string} sourceId
    * @param {string} mode 'source' or 'scenario'
@@ -169,15 +174,22 @@ export class PartnerReuseWorkflow {
     const records = Array.isArray(partnerRecords) ? partnerRecords : [];
     const isScenario = mode === MODES.SCENARIO;
 
-    // 1. Permission check: source mode requires recorded rights, never infers open licence or invents consent
+    // 1. Permission check: source mode requires verified rights.
+    // Local publication declaration (from Case 2 publication) provides verified open reuse rights!
     let permissionBlocked = false;
     let permissionMessage = null;
 
     if (!isScenario) {
-      const hasUnverifiedRights = records.some(r => !r.rights_id || r.rights_id === 'unknown' || r.rights_id === 'simulated_open_donor_consent');
-      if (hasUnverifiedRights) {
-        permissionBlocked = true;
-        permissionMessage = 'Hak penggunaan data mitra belum tercatat pada berkas sumber asli (null). Pada mode sumber nyata yang ketat, penggunaan ulang data pihak ketiga diblokir sampai lisensi resmi diverifikasi.';
+      const isPublishedCollection =
+        sourceId === 'data_kontribusi_mandiri' ||
+        records.some(r => r.is_published === true || r.publication_metadata !== undefined);
+
+      if (!isPublishedCollection) {
+        const hasUnverifiedRights = records.some(r => !r.rights_id || r.rights_id === 'unknown' || r.rights_id === 'simulated_open_donor_consent');
+        if (hasUnverifiedRights) {
+          permissionBlocked = true;
+          permissionMessage = 'Hak penggunaan data mitra belum tercatat pada berkas sumber asli (null). Pada mode sumber nyata yang ketat, penggunaan ulang data pihak ketiga diblokir sampai lisensi resmi diverifikasi.';
+        }
       }
     }
 
@@ -192,7 +204,6 @@ export class PartnerReuseWorkflow {
       }
 
       const srcLabel = String(r.source_class_label || '').toLowerCase();
-      // Exclude forest or ambiguous labels when selecting Non-hutan
       if (srcLabel.includes('hutan') || srcLabel.includes('forest')) {
         excludedCandidates.push({ record: r, reason: 'Kelas sumber terindikasi Hutan, tidak dapat dipetakan ke Non-hutan' });
         continue;
@@ -201,7 +212,7 @@ export class PartnerReuseWorkflow {
       eligibleCandidates.push(r);
     }
 
-    // 3. Deduplicate against existing forest workspace points
+    // 3. Deduplicate against current forestry workspace points (idempotent)
     const existingIds = new Set(currentForestRecords.map(p => p.observation_id));
     const netNewPoints = [];
     const duplicatePoints = [];
@@ -216,27 +227,47 @@ export class PartnerReuseWorkflow {
           project_class_label: 'Non-hutan',
           donor_lineage: {
             donor_source_id: sourceId,
+            published_collection_id: r.publication_metadata?.collection_id || sourceId,
+            published_version: r.publication_metadata?.version || '1.0.0',
+            donor_institution: r.publication_metadata?.declared_institution || 'ICRAF Indonesia',
+            declared_year: r.publication_metadata?.declared_year || 2026,
+            taxonomy_snapshot: r.publication_metadata ? {
+              leaf_id: r.publication_metadata.crosswalk_leaf_id,
+              code: r.publication_metadata.crosswalk_leaf_code,
+              name: r.publication_metadata.crosswalk_leaf_name,
+              path: r.publication_metadata.crosswalk_leaf_path
+            } : null,
             original_source_class_id: r.source_class_id,
             original_source_class_label: r.source_class_label,
-            donor_contributor: r.contributor_id || 'Mitra Pertanian / Perkebunan',
+            donor_contributor: r.publication_metadata?.declared_institution || r.contributor_id || 'Mitra Pertanian / Perkebunan',
             reused_at: new Date().toISOString()
           }
         });
       }
     }
 
-    // 4. Build source attribution ledger
-    const ledger = netNewPoints.map(pt => ({
-      observationId: pt.observation_id,
-      sourceDataset: sourceId,
-      contributor: pt.contributor_id || 'Mitra Dinas / Konsorsium',
-      originalClass: pt.source_class_label || 'Tanpa label',
-      projectedClass: 'Non-hutan',
-      method: pt.method || 'Survei Lahan / Lapangan',
-      observedYear: pt.observed_time?.year || (isScenario ? 2025 : 'Belum tercatat'),
-      rightsState: isScenario ? 'Izin Terbuka (Simulasi Mitra)' : (pt.rights_id || 'Belum tercatat (null)'),
-      isScenarioOverlay: isScenario
-    }));
+    // 4. Build source attribution ledger (fix old fake 2025 attribution)
+    const ledger = netNewPoints.map(pt => {
+      const pubMeta = pt.publication_metadata;
+      const isPub = pt.is_published || Boolean(pubMeta);
+      const observedYear = pubMeta?.declared_year || (isPub ? 2026 : pt.observed_time?.year || (isScenario ? 2026 : 'Belum tercatat'));
+      const contributor = pubMeta?.declared_institution
+        ? `${pubMeta.declared_account_name || 'User A'} (${pubMeta.declared_institution})`
+        : (pt.contributor_id || 'Mitra Dinas / Konsorsium');
+      const rightsState = pubMeta?.declared_rights || (isPub ? 'Data Terbuka Mandiri (Deklarasi 2026)' : (isScenario ? 'Izin Terbuka (Simulasi Mitra)' : (pt.rights_id || 'Belum tercatat (null)')));
+
+      return {
+        observationId: pt.observation_id,
+        sourceDataset: sourceId,
+        contributor,
+        originalClass: pt.source_class_label || 'Tanpa label',
+        projectedClass: 'Non-hutan',
+        method: pubMeta?.declared_method || pt.method || 'Survei Lahan / Lapangan',
+        observedYear,
+        rightsState,
+        isScenarioOverlay: isScenario && !isPub
+      };
+    });
 
     return {
       sourceId,
@@ -260,7 +291,7 @@ export class PartnerReuseWorkflow {
    * Commits partner reuse into forestry workspace, producing combined dataset.
    * @param {Object} previewResult
    * @param {Array<Object>} currentForestRecords
-   * @returns {{ success: boolean, combinedRecords: Array<Object>, addedCount: number }}
+   * @returns {{ success: boolean, datasetId: string, title: string, combinedRecords: Array<Object>, addedCount: number, totalCount: number }}
    */
   confirmPartnerReuse(previewResult, currentForestRecords = []) {
     if (previewResult.permissionBlocked) {
@@ -271,8 +302,8 @@ export class PartnerReuseWorkflow {
 
     return {
       success: true,
-      datasetId: 'data_kehutanan_terpadu',
-      title: 'Data Kehutanan Terpadu (Hutan & Non-Hutan)',
+      datasetId: 'data_hutan_sawit_partisipatif',
+      title: 'Koleksi Kehutanan Terpadu (Kasus 3)',
       combinedRecords: combined,
       addedCount: previewResult.netNewPoints.length,
       totalCount: combined.length

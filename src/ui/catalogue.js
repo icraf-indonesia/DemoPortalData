@@ -1,13 +1,14 @@
 /**
  * src/ui/catalogue.js
- * Right panel dataset catalogue component.
- * Allows inspecting and switching between available reference datasets and private mixed dataset.
+ * Right panel dataset catalogue component for Portal Data Epistem.
+ * Supports tabs: "Data Anda" (Private/User workspace) and "Data Terbuka" (Public published collections).
  * 
  * Invariants:
- * - Includes all 6 point collections with honest metadata.
- * - Displays private Data Campuran #1 when created.
- * - Honest storage status acknowledgement.
- * - Actionable storage recovery when corrupted.
+ * - Data Anda: shows workspace datasets for active user; own plantation/mixed cards have "Bagikan Data" button with stopPropagation.
+ * - Data Terbuka: shows published collections with declared institution/year and status "Mandiri / Belum Ditelaah".
+ * - Published cards are loadable onto map and have "Unduh GeoJSON" button for real download.
+ * - User A / User B see same persisted published collection in Data Terbuka.
+ * - Honest storage status acknowledgement and actionable recovery box.
  */
 
 export class CatalogueView {
@@ -15,13 +16,17 @@ export class CatalogueView {
    * @param {HTMLElement|string} containerElement
    * @param {import('../state/workspace.js').WorkspaceState} workspace
    * @param {Function} onSelectDataset Callback when a dataset is chosen
+   * @param {Object} [callbacks] Additional actions { onShareDataset, onDownloadDataset }
    */
-  constructor(containerElement, workspace, onSelectDataset) {
+  constructor(containerElement, workspace, onSelectDataset, callbacks = {}) {
     this.container = typeof containerElement === 'string'
       ? document.getElementById(containerElement)
       : containerElement;
     this.workspace = workspace;
     this.onSelectDataset = onSelectDataset;
+    this.onShareDataset = callbacks.onShareDataset || null;
+    this.onDownloadDataset = callbacks.onDownloadDataset || null;
+    this.activeTab = 'data_anda'; // 'data_anda' or 'data_terbuka'
 
     this.init();
   }
@@ -29,6 +34,15 @@ export class CatalogueView {
   init() {
     if (!this.container) return;
     this.workspace.subscribe(state => this.render(state));
+  }
+
+  /**
+   * Switches the active catalogue tab.
+   * @param {'data_anda'|'data_terbuka'} tab
+   */
+  setActiveTab(tab) {
+    this.activeTab = tab;
+    this.render(this.workspace);
   }
 
   /**
@@ -53,89 +67,225 @@ export class CatalogueView {
     subtitleEl.textContent = 'Pilih koleksi data rujukan untuk memuat sebaran dan atribut pada peta.';
     headerWrapper.appendChild(subtitleEl);
 
+    // Tab Navigation: Data Anda / Data Terbuka
+    const tabNav = document.createElement('div');
+    tabNav.className = 'catalogue-tabs-nav';
+    tabNav.setAttribute('role', 'tablist');
+    tabNav.setAttribute('aria-label', 'Kategori Koleksi Data');
+
+    const tabAnda = document.createElement('button');
+    tabAnda.type = 'button';
+    tabAnda.className = `catalogue-tab-btn ${this.activeTab === 'data_anda' ? 'is-active' : ''}`;
+    tabAnda.setAttribute('role', 'tab');
+    tabAnda.setAttribute('aria-selected', String(this.activeTab === 'data_anda'));
+    tabAnda.setAttribute('data-tab', 'data_anda');
+    tabAnda.textContent = 'Data Anda';
+    tabAnda.addEventListener('click', () => {
+      this.setActiveTab('data_anda');
+    });
+    tabNav.appendChild(tabAnda);
+
+    const tabTerbuka = document.createElement('button');
+    tabTerbuka.type = 'button';
+    tabTerbuka.className = `catalogue-tab-btn ${this.activeTab === 'data_terbuka' ? 'is-active' : ''}`;
+    tabTerbuka.setAttribute('role', 'tab');
+    tabTerbuka.setAttribute('aria-selected', String(this.activeTab === 'data_terbuka'));
+    tabTerbuka.setAttribute('data-tab', 'data_terbuka');
+    tabTerbuka.textContent = 'Data Terbuka';
+    tabTerbuka.addEventListener('click', () => {
+      this.setActiveTab('data_terbuka');
+    });
+    tabNav.appendChild(tabTerbuka);
+
+    headerWrapper.appendChild(tabNav);
     this.container.appendChild(headerWrapper);
 
     // List container
     const listWrapper = document.createElement('div');
     listWrapper.className = 'catalogue-item-list';
 
-    for (const item of state.catalogueItems) {
-      const isActive = item.id === state.activeDatasetId;
+    // Determine items to display based on activeTab and activeUser
+    const isUserB = state.activeUser === 'user_b';
+    let filteredItems = [];
 
-      const card = document.createElement('div');
-      card.className = `catalogue-card ${isActive ? 'is-active' : ''} ${item.isPrivate ? 'is-private' : ''}`;
-      card.setAttribute('data-dataset-id', item.id);
-      card.tabIndex = 0;
-      card.setAttribute('role', 'button');
-      card.setAttribute('aria-pressed', String(isActive));
-
-      const metaHeader = document.createElement('div');
-      metaHeader.className = 'catalogue-card-meta';
-
-      const catBadge = document.createElement('span');
-      catBadge.className = `catalogue-badge ${item.isPrivate ? 'badge-private' : ''}`;
-      catBadge.textContent = item.category || 'Koleksi Data';
-      metaHeader.appendChild(catBadge);
-
-      if (isActive) {
-        const activeBadge = document.createElement('span');
-        activeBadge.className = 'catalogue-badge-active';
-        activeBadge.textContent = 'Aktif';
-        metaHeader.appendChild(activeBadge);
-      }
-      card.appendChild(metaHeader);
-
-      const cardTitle = document.createElement('h3');
-      cardTitle.className = 'catalogue-card-title';
-      cardTitle.textContent = item.title;
-      card.appendChild(cardTitle);
-
-      const cardDesc = document.createElement('p');
-      cardDesc.className = 'catalogue-card-desc';
-      cardDesc.textContent = item.description;
-      card.appendChild(cardDesc);
-
-      const detailsFooter = document.createElement('div');
-      detailsFooter.className = 'catalogue-card-footer';
-
-      const countSpan = document.createElement('span');
-      countSpan.className = 'footer-count';
-      if (item.featureCount !== null && item.featureCount !== undefined) {
-        if (item.archiveFeatureCount && item.archiveFeatureCount !== item.featureCount) {
-          countSpan.textContent = `${item.featureCount} titik AOI (${item.archiveFeatureCount} arsip)`;
-        } else {
-          countSpan.textContent = `${item.featureCount} titik`;
-        }
+    if (this.activeTab === 'data_anda') {
+      if (isUserB) {
+        // User B's workspace shows forestry datasets (data_hutan and Case 3 combined data_hutan_sawit_partisipatif)
+        filteredItems = state.catalogueItems.filter(i =>
+          i.id === 'data_hutan' ||
+          i.id === 'data_hutan_sawit_partisipatif' ||
+          (state.case3PrivateCollection && i.id === state.case3PrivateCollection.meta.id)
+        );
       } else {
-        countSpan.textContent = 'Inspeksi data';
+        // User A's workspace shows non-published plantation datasets, never leaking forestry or User B collections
+        filteredItems = state.catalogueItems.filter(i =>
+          !i.isPublished &&
+          i.id !== 'data_hutan' &&
+          i.id !== 'data_hutan_sawit_partisipatif' &&
+          (!state.case3PrivateCollection || i.id !== state.case3PrivateCollection.meta.id)
+        );
       }
-      detailsFooter.appendChild(countSpan);
+    } else {
+      // Data Terbuka: shows published collections (visible to both User A and User B!)
+      filteredItems = state.catalogueItems.filter(i => i.isPublished || i.id === 'data_kontribusi_mandiri');
+    }
 
-      if (item.isPrivate) {
-        const privSpan = document.createElement('span');
-        privSpan.className = 'footer-private';
-        privSpan.textContent = 'Koleksi Privat';
-        detailsFooter.appendChild(privSpan);
+    if (filteredItems.length === 0) {
+      const emptyBox = document.createElement('div');
+      emptyBox.className = 'catalogue-empty-notice';
+      if (this.activeTab === 'data_terbuka') {
+        emptyBox.textContent = 'Belum ada data observasi yang dipublikasikan secara terbuka. Gunakan tombol "Bagikan Data" pada data Anda untuk mempublikasikan.';
+      } else {
+        emptyBox.textContent = 'Tidak ada koleksi data pada tampilan ini.';
       }
+      listWrapper.appendChild(emptyBox);
+    } else {
+      for (const item of filteredItems) {
+        const isActive = item.id === state.activeDatasetId;
 
-      card.appendChild(detailsFooter);
+        const card = document.createElement('div');
+        card.className = `catalogue-card ${isActive ? 'is-active' : ''} ${item.isPrivate ? 'is-private' : ''} ${item.isPublished ? 'is-published' : ''}`;
+        card.setAttribute('data-dataset-id', item.id);
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-pressed', String(isActive));
 
-      // Event handlers
-      const triggerSelect = () => {
-        if (!isActive && typeof this.onSelectDataset === 'function') {
-          this.onSelectDataset(item.id);
+        const metaHeader = document.createElement('div');
+        metaHeader.className = 'catalogue-card-meta';
+
+        const catBadge = document.createElement('span');
+        catBadge.className = `catalogue-badge ${item.isPublished ? 'badge-public' : (item.isPrivate ? 'badge-private' : '')}`;
+        catBadge.textContent = item.isPublished ? 'Data Terbuka' : (item.category || 'Koleksi Data');
+        metaHeader.appendChild(catBadge);
+
+        if (item.isPublished) {
+          const statusBadge = document.createElement('span');
+          statusBadge.className = 'catalogue-badge badge-mandiri';
+          statusBadge.textContent = item.status || 'Mandiri / Belum Ditelaah';
+          metaHeader.appendChild(statusBadge);
         }
-      };
 
-      card.addEventListener('click', triggerSelect);
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          triggerSelect();
+        if (isActive) {
+          const activeBadge = document.createElement('span');
+          activeBadge.className = 'catalogue-badge-active';
+          activeBadge.textContent = 'Aktif';
+          metaHeader.appendChild(activeBadge);
         }
-      });
+        card.appendChild(metaHeader);
 
-      listWrapper.appendChild(card);
+        const cardTitle = document.createElement('h3');
+        cardTitle.className = 'catalogue-card-title';
+        cardTitle.textContent = item.title;
+        card.appendChild(cardTitle);
+
+        const cardDesc = document.createElement('p');
+        cardDesc.className = 'catalogue-card-desc';
+        cardDesc.textContent = item.description;
+        card.appendChild(cardDesc);
+
+        // Published metadata details: institution & confirmed year & dynamic crosswalk
+        if (item.isPublished) {
+          const pubMetaBox = document.createElement('div');
+          pubMetaBox.className = 'published-meta-info';
+          let cwText = '';
+          if (item.crosswalk) {
+            const cwItems = Object.values(item.crosswalk);
+            if (cwItems.length > 0) {
+              cwText = `<div class="pub-meta-line"><span class="pub-meta-label">Penyelarasan:</span> <span class="pub-meta-val">${cwItems.map(c => `${c.projectClassLabel || c.projectClassId}: ${c.code || ''} ${c.name || ''}`).join(', ')}</span></div>`;
+            }
+          }
+          pubMetaBox.innerHTML = `
+            <div class="pub-meta-line"><span class="pub-meta-label">Lembaga:</span> <span class="pub-meta-val">${item.institution || 'ICRAF Indonesia'}</span></div>
+            <div class="pub-meta-line"><span class="pub-meta-label">Tahun:</span> <span class="pub-meta-val">${item.year || 2026}</span> &bull; <span class="pub-meta-label">Wilayah:</span> Banyuasin</div>
+            ${cwText}
+          `;
+          card.appendChild(pubMetaBox);
+        }
+
+        const detailsFooter = document.createElement('div');
+        detailsFooter.className = 'catalogue-card-footer';
+
+        const countSpan = document.createElement('span');
+        countSpan.className = 'footer-count';
+        if (item.featureCount !== null && item.featureCount !== undefined) {
+          if (item.archiveFeatureCount && item.archiveFeatureCount !== item.featureCount) {
+            countSpan.textContent = `${item.featureCount} titik AOI (${item.archiveFeatureCount} arsip)`;
+          } else {
+            countSpan.textContent = `${item.featureCount} titik`;
+          }
+        } else {
+          countSpan.textContent = 'Inspeksi data';
+        }
+        detailsFooter.appendChild(countSpan);
+
+        // Card actions wrapper
+        const actionsWrapper = document.createElement('div');
+        actionsWrapper.className = 'card-actions-wrapper';
+
+        // Own card Share Button (in Data Anda tab)
+        const isOwnCard = item.id === 'data_kebun_sawit_karet_f' || item.id === 'data_campuran_1';
+        if (isOwnCard && this.activeTab === 'data_anda') {
+          const shareBtn = document.createElement('button');
+          shareBtn.type = 'button';
+          shareBtn.className = 'btn-card-share';
+          shareBtn.setAttribute('data-dataset-id', item.id);
+          shareBtn.textContent = 'Bagikan';
+          shareBtn.title = 'Bagikan data observasi mandiri ini ke konsorsium';
+          shareBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Stop propagation to avoid selecting/loading the card!
+            e.preventDefault();
+            if (typeof this.onShareDataset === 'function') {
+              this.onShareDataset(item.id);
+            }
+          });
+          actionsWrapper.appendChild(shareBtn);
+        }
+
+        // Published Card Download Button (in Data Terbuka tab)
+        if (item.isPublished) {
+          const downloadBtn = document.createElement('button');
+          downloadBtn.type = 'button';
+          downloadBtn.className = 'btn-card-download';
+          downloadBtn.setAttribute('data-dataset-id', item.id);
+          downloadBtn.textContent = 'Unduh GeoJSON';
+          downloadBtn.title = 'Unduh berkas GeoJSON publikasi lengkap dengan metadata';
+          downloadBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Stop propagation
+            e.preventDefault();
+            if (typeof this.onDownloadDataset === 'function') {
+              this.onDownloadDataset(item.id);
+            }
+          });
+          actionsWrapper.appendChild(downloadBtn);
+        }
+
+        if (item.isPrivate && !item.isPublished) {
+          const privSpan = document.createElement('span');
+          privSpan.className = 'footer-private';
+          privSpan.textContent = 'Koleksi Privat';
+          detailsFooter.appendChild(privSpan);
+        }
+
+        detailsFooter.appendChild(actionsWrapper);
+        card.appendChild(detailsFooter);
+
+        // Event handlers for selecting/loading the card
+        const triggerSelect = () => {
+          if (!isActive && typeof this.onSelectDataset === 'function') {
+            this.onSelectDataset(item.id);
+          }
+        };
+
+        card.addEventListener('click', triggerSelect);
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            triggerSelect();
+          }
+        });
+
+        listWrapper.appendChild(card);
+      }
     }
 
     this.container.appendChild(listWrapper);

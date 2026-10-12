@@ -19,7 +19,7 @@ import {
   CASE3_FORESTRY_CLASSES,
   CASE4_TARGET_CLASSES
 } from '../domain/taxonomy.js';
-import { mapScreenSubmissionToCase4 } from '../features/review.js';
+import { mapScreenSubmissionToCase4, mapPublicationObservationToCase4 } from '../features/review.js';
 import {
   savePreferences,
   loadPreferences,
@@ -52,6 +52,9 @@ export class WorkspaceState {
 
     // Case 2, 3 & 4 persisted states
     this.case2DonatedCollection = null;
+    this.publishedCollections = [];
+    this.case2PublicationDraft = null;
+    this.activeUser = 'user_a'; // 'user_a' or 'user_b'
     this.case2ScreenSubmissions = [];
     this.case2SamplingDraft = null;
     this.case3PrivateCollection = null;
@@ -101,6 +104,12 @@ export class WorkspaceState {
    * @returns {Object}
    */
   getActiveSchema() {
+    if (this.activeDatasetId === 'data_kontribusi_mandiri' || this.activeDatasetId === 'data_kebun_sawit_karet_f') {
+      return PROJECT_CLASSES;
+    }
+    if (this.activeDatasetId === 'data_hutan' || this.activeDatasetId === 'data_hutan_sawit_partisipatif') {
+      return CASE3_FORESTRY_CLASSES;
+    }
     if (this.activeCaseId === 3) return CASE3_FORESTRY_CLASSES;
     if (this.activeCaseId === 4) return CASE4_TARGET_CLASSES;
     return PROJECT_CLASSES;
@@ -143,8 +152,19 @@ export class WorkspaceState {
           this.mixedDataset = proj.mixedDataset;
           this.lastDelta = proj.lastDelta || 0;
         }
+        if (Array.isArray(proj.publishedCollections)) {
+          this.publishedCollections = proj.publishedCollections;
+        }
         if (proj.case2DonatedCollection) {
           this.case2DonatedCollection = proj.case2DonatedCollection;
+        } else if (this.publishedCollections.length > 0) {
+          this.case2DonatedCollection = this.publishedCollections[0];
+        }
+        if (proj.case2PublicationDraft) {
+          this.case2PublicationDraft = proj.case2PublicationDraft;
+        }
+        if (proj.activeUser) {
+          this.activeUser = proj.activeUser;
         }
         if (Array.isArray(proj.case2ScreenSubmissions)) {
           this.case2ScreenSubmissions = proj.case2ScreenSubmissions;
@@ -175,7 +195,7 @@ export class WorkspaceState {
 
   /**
    * Sets catalogue and manifest data.
-   * Ensures private Data Campuran #1, donated collections, and Case 3 collections are included in catalogue if present.
+   * Ensures private Data Campuran #1, donated/published collections, and Case 3 collections are included in catalogue if present.
    * @param {Object} manifest
    * @param {Array<Object>} items
    */
@@ -198,19 +218,32 @@ export class WorkspaceState {
       });
     }
 
-    // Restore donated collection if present
-    if (this.case2DonatedCollection && !this.catalogueItems.some(i => i.id === this.case2DonatedCollection.meta.id)) {
-      this.catalogueItems.push({
-        id: this.case2DonatedCollection.meta.id,
-        title: this.case2DonatedCollection.meta.title,
-        category: this.case2DonatedCollection.meta.category,
-        description: this.case2DonatedCollection.meta.description,
-        geojsonPath: null,
-        isPrimary: false,
-        isPrivate: true,
-        featureCount: this.case2DonatedCollection.records.length,
-        sha256: null
-      });
+    // Restore published/donated collections
+    const pubs = this.publishedCollections.length > 0
+      ? this.publishedCollections
+      : (this.case2DonatedCollection ? [this.case2DonatedCollection] : []);
+
+    for (const pub of pubs) {
+      if (pub && pub.meta && !this.catalogueItems.some(i => i.id === pub.meta.id)) {
+        this.catalogueItems.push({
+          id: pub.meta.id,
+          title: pub.meta.title,
+          category: 'Data Terbuka',
+          status: pub.meta.status || 'Mandiri / Belum Ditelaah',
+          description: pub.meta.description,
+          geojsonPath: null,
+          isPrimary: false,
+          isPrivate: false,
+          isPublished: true,
+          isDonated: true,
+          featureCount: pub.records.length,
+          institution: pub.meta.institution || 'ICRAF Indonesia',
+          year: pub.meta.year || 2026,
+          accountName: pub.meta.accountName || 'User A',
+          crosswalk: pub.meta.crosswalk || null,
+          sha256: null
+        });
+      }
     }
 
     // Restore Case 3 private collection if present
@@ -311,34 +344,166 @@ export class WorkspaceState {
   }
 
   /**
-   * Records a donated collection from Case 2.
-   * @param {Object} collectionPackage
+   * Sets active user identity ('user_a' or 'user_b').
+   * Isolates workspaces and switches active datasets cleanly.
+   * @param {string} userId
    */
-  setDonatedCollection(collectionPackage) {
-    this.case2DonatedCollection = collectionPackage;
+  setActiveUser(userId) {
+    const nextUser = userId === 'user_b' ? 'user_b' : 'user_a';
+    this.activeUser = nextUser;
 
-    const existingIdx = this.catalogueItems.findIndex(i => i.id === collectionPackage.meta.id);
+    if (this.activeUser === 'user_b') {
+      this.activeCaseId = 3;
+      if (this.case3PrivateCollection) {
+        this.setActiveDataset(
+          this.case3PrivateCollection.meta.id,
+          this.case3PrivateCollection.meta,
+          this.case3PrivateCollection.records
+        );
+      } else {
+        this.activeDatasetId = 'data_hutan';
+      }
+    } else {
+      this.activeCaseId = 1;
+      if (this.mixedDataset) {
+        this.setActiveDataset(
+          this.mixedDataset.meta.id,
+          this.mixedDataset.meta,
+          this.mixedDataset.records
+        );
+      } else {
+        this.activeDatasetId = 'data_kebun_sawit_karet_f';
+      }
+    }
+
+    this.saveProject();
+    this.notify();
+  }
+
+  /**
+   * Sets or clears persistent publication draft.
+   * @param {Object|null} draft
+   */
+  setPublicationDraft(draft) {
+    this.case2PublicationDraft = draft;
+    this.saveProject();
+    this.notify();
+  }
+
+  /**
+   * Records an approved published collection from Case 2.
+   * Handles storage failure honestly and returns operation status.
+   * Automatically queues the 240 owned points into Case 4 review queue (idempotently).
+   * @param {Object} collectionPackage
+   * @returns {{ success: boolean, error?: string }}
+   */
+  setPublishedCollection(collectionPackage) {
+    if (!collectionPackage || !collectionPackage.meta) {
+      return { success: false, error: 'Paket publikasi tidak valid.' };
+    }
+
+    const existingPubIdx = this.publishedCollections.findIndex(p => p.meta.id === collectionPackage.meta.id);
+    const nextPubs = [...this.publishedCollections];
+    if (existingPubIdx >= 0) {
+      nextPubs[existingPubIdx] = collectionPackage;
+    } else {
+      nextPubs.push(collectionPackage);
+    }
+
+    // Attempt persistence before mutating local state
+    const saveRes = saveProjectState({
+      mixedDataset: this.mixedDataset,
+      lastDelta: this.lastDelta,
+      case2DonatedCollection: collectionPackage,
+      publishedCollections: nextPubs,
+      case2PublicationDraft: this.case2PublicationDraft,
+      activeUser: this.activeUser,
+      case2ScreenSubmissions: this.case2ScreenSubmissions,
+      case4Reviews: this.case4Reviews,
+      case3PrivateCollection: this.case3PrivateCollection,
+      case4Adoptions: this.case4Adoptions,
+      case2SamplingDraft: this.case2SamplingDraft,
+      case4Queue: this.case4Queue,
+      case4Interpretations: this.case4Interpretations
+    });
+
+    if (!saveRes || !saveRes.success) {
+      const err = (saveRes && saveRes.error) || 'Gagal menyimpan status proyek ke penyimpanan lokal.';
+      this.lastProjectSaveError = err;
+      this.storageStatus = {
+        success: false,
+        label: `${PERSISTENCE_LABELS.FAILED}: ${err}`,
+        timestamp: null,
+        error: err
+      };
+      this.notify();
+      return { success: false, error: err };
+    }
+
+    // Persistence succeeded: commit state mutations
+    this.case2DonatedCollection = collectionPackage;
+    this.publishedCollections = nextPubs;
+
     const catItem = {
       id: collectionPackage.meta.id,
       title: collectionPackage.meta.title,
-      category: collectionPackage.meta.category,
+      category: 'Data Terbuka',
+      status: collectionPackage.meta.status || 'Mandiri / Belum Ditelaah',
       description: collectionPackage.meta.description,
       geojsonPath: null,
       isPrimary: false,
       isPrivate: false,
+      isPublished: true,
       isDonated: true,
       featureCount: collectionPackage.records.length,
+      institution: collectionPackage.meta.institution || 'ICRAF Indonesia',
+      year: collectionPackage.meta.year || 2026,
+      accountName: collectionPackage.meta.accountName || 'User A',
+      crosswalk: collectionPackage.meta.crosswalk || null,
       sha256: null
     };
 
+    const existingIdx = this.catalogueItems.findIndex(i => i.id === collectionPackage.meta.id);
     if (existingIdx >= 0) {
       this.catalogueItems[existingIdx] = catItem;
     } else {
       this.catalogueItems.push(catItem);
     }
 
+    // Queue 240 owned points into Case 4 review queue exactly once (idempotently)
+    for (const record of collectionPackage.records) {
+      if (
+        record.project_class_id === 3 ||
+        record.source_dataset_id === 'data_ref_mod_2b' ||
+        String(record.dataset_archive || '').includes('2b_Modular')
+      ) {
+        continue;
+      }
+
+      const mapped = mapPublicationObservationToCase4(record);
+      const existingQueueIdx = this.case4Queue.findIndex(q => q.observation_id === mapped.observation_id);
+      if (existingQueueIdx >= 0) {
+        this.case4Queue[existingQueueIdx] = {
+          ...mapped,
+          ...this.case4Queue[existingQueueIdx]
+        };
+      } else {
+        this.case4Queue.push(mapped);
+      }
+    }
+
+    this.case2PublicationDraft = null;
     this.saveProject();
     this.notify();
+    return { success: true };
+  }
+
+  /**
+   * Records a donated collection from Case 2 (backward-compatible alias).
+   * @param {Object} collectionPackage
+   */
+  setDonatedCollection(collectionPackage) {
+    this.setPublishedCollection(collectionPackage);
   }
 
   /**
@@ -397,6 +562,9 @@ export class WorkspaceState {
       mixedDataset: this.mixedDataset,
       lastDelta: this.lastDelta,
       case2DonatedCollection: this.case2DonatedCollection,
+      publishedCollections: this.publishedCollections,
+      case2PublicationDraft: this.case2PublicationDraft,
+      activeUser: this.activeUser,
       case2ScreenSubmissions: this.case2ScreenSubmissions,
       case4Reviews: this.case4Reviews,
       case3PrivateCollection: this.case3PrivateCollection,
@@ -661,6 +829,9 @@ export class WorkspaceState {
     this.lastProjectSaveError = null;
     this.mixedDataset = null;
     this.case2DonatedCollection = null;
+    this.publishedCollections = [];
+    this.case2PublicationDraft = null;
+    this.activeUser = 'user_a';
     this.case2ScreenSubmissions = [];
     this.case2SamplingDraft = null;
     this.case3PrivateCollection = null;

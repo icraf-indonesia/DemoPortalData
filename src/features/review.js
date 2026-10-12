@@ -124,6 +124,48 @@ export function mapScreenSubmissionToCase4(sub) {
 }
 
 /**
+ * Projects a Case 2 published observation into Case 4 schema:
+ * Rubber (1) -> Kebun karet (3)
+ * Palm (2) -> Kebun sawit (2)
+ * Quality tier: Tier 4 (Mandiri / Belum Ditelaah)
+ * Never queues borrowed reference records.
+ * @param {Object} pub Published observation
+ * @returns {Object} Mapped record
+ */
+export function mapPublicationObservationToCase4(pub) {
+  if (!pub) return null;
+  let mappedClassId = pub.project_class_id;
+  let mappedClassLabel = pub.project_class_label;
+
+  const srcLbl = String(pub.source_class_label || pub.project_class_label || '').toLowerCase();
+  if (pub.project_class_id === 1 || srcLbl.includes('karet')) {
+    mappedClassId = 3;
+    mappedClassLabel = 'Kebun karet';
+  } else if (pub.project_class_id === 2 || srcLbl.includes('sawit')) {
+    mappedClassId = 2;
+    mappedClassLabel = 'Kebun sawit';
+  }
+
+  return {
+    ...pub,
+    project_class_id: mappedClassId,
+    project_class_label: mappedClassLabel,
+    mappedClassId,
+    mappedClassLabel,
+    originalClassId: pub.project_class_id,
+    quality_tier: 4, // Mandiri / Belum Ditelaah
+    review_status: pub.review_status || REVIEW_STATUSES.UNREVIEWED,
+    review_priority: 'normal',
+    is_published_sample: true,
+    raw_properties: pub.raw_properties || {
+      dataset_id: pub.source_dataset_id || pub.dataset_archive,
+      ...pub.raw_attributes
+    },
+    reviews: Array.isArray(pub.reviews) ? [...pub.reviews] : []
+  };
+}
+
+/**
  * Builds the active membership collection for Case 4.
  * Invariant: 1239 source AOI records PLUS actual screen submissions.
  * When no screen points exist, remains exactly 1239.
@@ -199,29 +241,54 @@ export class ReviewWorkflow {
    * @param {Array<Object>} generalRecords General Case 4 dataset records
    * @returns {Array<Object>} Queue sorted by priority and review need
    */
-  buildQueue(screenSubmissions = [], generalRecords = []) {
+  buildQueue(screenSubmissions = [], generalRecords = [], publishedRecords = []) {
     const list = [];
+    const seenIds = new Set();
 
-    // 1. Add actual Case 2 screen submissions first
+    // 1. Add actual Case 2 screen submissions first (high priority)
     for (const sub of screenSubmissions) {
+      if (!sub || !sub.observation_id || seenIds.has(sub.observation_id)) continue;
       const mapped = mapScreenSubmissionToCase4(sub);
+      seenIds.add(sub.observation_id);
       list.push({
         ...mapped,
         review_priority: 'high'
       });
     }
 
-    // 2. If no submissions exist, inject standalone reproducible scenario draft
+    // 2. Add actual published Case 2 observations (240 points)
+    // Only owned points, never 687 borrowed reference points
+    const pubRecs = Array.isArray(publishedRecords) ? publishedRecords : (publishedRecords?.records || []);
+    for (const pub of pubRecs) {
+      if (!pub || !pub.observation_id || seenIds.has(pub.observation_id)) continue;
+      // Guard: strictly exclude borrowed reference data
+      if (
+        pub.project_class_id === 3 ||
+        pub.source_dataset_id === 'data_ref_mod_2b' ||
+        String(pub.dataset_archive || '').includes('2b_Modular') ||
+        String(pub.dataset_archive || '').includes('2_Data_Referensi')
+      ) {
+        continue;
+      }
+      const mapped = mapPublicationObservationToCase4(pub);
+      seenIds.add(pub.observation_id);
+      list.push(mapped);
+    }
+
+    // 3. If no submissions or publications exist, inject standalone reproducible scenario draft
     if (list.length === 0) {
       list.push({
         ...CASE4_STANDALONE_DRAFT,
         reviews: []
       });
+      seenIds.add(CASE4_STANDALONE_DRAFT.observation_id);
     }
 
-    // 3. Add sample from general Case 4 combinations
+    // 4. Add sample from general Case 4 combinations
     // Raw incomplete records must NOT be marked Tier 4
-    const samples = (generalRecords || []).slice(0, 10).map(r => {
+    const samples = (generalRecords || []).slice(0, 10);
+    for (const r of samples) {
+      if (!r || !r.observation_id || seenIds.has(r.observation_id)) continue;
       let cid = r.project_class_id;
       let clbl = r.project_class_label;
       if (cid === null || cid === undefined) {
@@ -235,16 +302,16 @@ export class ReviewWorkflow {
 
       const isComplete = !r.is_incomplete && r.observed_time && r.rights_id;
 
-      return {
+      seenIds.add(r.observation_id);
+      list.push({
         ...r,
         project_class_id: cid,
         project_class_label: clbl,
         review_priority: 'normal',
         quality_tier: r.quality_tier !== undefined && r.quality_tier !== null ? r.quality_tier : (isComplete ? 4 : null),
         reviews: r.reviews ? [...r.reviews] : []
-      };
-    });
-    list.push(...samples);
+      });
+    }
 
     this.queue = list;
     return this.queue;
@@ -566,3 +633,33 @@ export class ReviewWorkflow {
   }
 }
 
+/**
+ * Builds the Case 4 review queue idempotently.
+ * Adapts either standalone or class-based workflow calls.
+ * @param {Array<Object>} screenSubmissions
+ * @param {Object|Array<Object>} secondArg
+ * @param {Array<Object>} thirdArg
+ * @returns {Array<Object>}
+ */
+export function buildQueue(screenSubmissions = [], secondArg = [], thirdArg = []) {
+  let generalRecords = [];
+  let publishedRecords = [];
+
+  if (secondArg && typeof secondArg === 'object' && Array.isArray(secondArg.records)) {
+    publishedRecords = secondArg.records;
+    generalRecords = Array.isArray(thirdArg) ? thirdArg : [];
+  } else if (Array.isArray(secondArg) && secondArg.some(r => r.is_published || r.publication_metadata || r.contribution_type)) {
+    publishedRecords = secondArg;
+    generalRecords = Array.isArray(thirdArg) ? thirdArg : [];
+  } else {
+    generalRecords = Array.isArray(secondArg) ? secondArg : [];
+    if (thirdArg && typeof thirdArg === 'object' && Array.isArray(thirdArg.records)) {
+      publishedRecords = thirdArg.records;
+    } else {
+      publishedRecords = Array.isArray(thirdArg) ? thirdArg : [];
+    }
+  }
+
+  const workflow = new ReviewWorkflow();
+  return workflow.buildQueue(screenSubmissions, generalRecords, publishedRecords);
+}

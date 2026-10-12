@@ -65,9 +65,13 @@ test('Cases 2–4 E2E: Full multi-case user journeys in headless Chromium', asyn
       viewport: { width: 1366, height: 768 }
     });
     const page = await context.newPage();
+    page.on('pageerror', err => console.error('PAGE ERROR:', err));
+    page.on('console', msg => console.log('PAGE LOG:', msg.text()));
+    await page.route(/(cartocdn|tile\.openstreetmap|tiles\.maps\.eox\.at)/, route => route.abort());
 
     // 1. Load application
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
 
     // 2. Case 2: Open contribution modal & donate owned plantation observations
     const case2Btn = await page.$('.case-nav-btn[data-case-id="2"]');
@@ -80,17 +84,30 @@ test('Cases 2–4 E2E: Full multi-case user journeys in headless Chromium', asyn
 
     const modalBodyText = await page.textContent('.modal-body');
     assert.ok(modalBodyText.includes('Observasi Milik Mandiri (Dapat Dikontribusikan)'), 'Owned observations detected');
-    assert.ok(modalBodyText.includes('Vegetasi'), 'Provisional hierarchy rendered');
-    assert.ok(modalBodyText.includes('Perkebunan monokultur'), 'Provisional monoculture branch rendered');
 
-    // Click "Sumbangkan Observasi Milik Mandiri"
+    // Check actual visible class pickers
+    const karetPicker = await page.$('#cw-select-karet');
+    const sawitPicker = await page.$('#cw-select-sawit');
+    assert.ok(karetPicker, 'Visible Karet taxonomy picker rendered');
+    assert.ok(sawitPicker, 'Visible Kelapa sawit taxonomy picker rendered');
+
+    // Fill required declaration inputs (default blank / unchecked)
+    await page.fill('#pub-account-name', 'User A');
+    await page.fill('#pub-institution', 'ICRAF Indonesia');
+    await page.fill('#pub-email', 'usera@example.org');
+    await page.check('#pub-responsibility');
+
+    // Click "Konfirmasi & Bagikan Data"
     const donateBtn = await page.$('.modal-footer .btn-primary');
     await donateBtn.click();
-    await page.waitForTimeout(400);
+    await page.waitForFunction(() => {
+      const el = document.getElementById('error-banner');
+      return el && el.textContent && el.textContent.includes('data_kontribusi_mandiri');
+    }, { timeout: 4000 });
 
     // Verify donation notice banner
     const c2Notice = await page.textContent('#error-banner');
-    assert.ok(c2Notice.includes('Berhasil menyumbangkan'), 'Donation notice displayed');
+    assert.ok(c2Notice.includes('Berhasil menyumbangkan') || c2Notice.includes('Berhasil membagikan'), 'Donation notice displayed');
     assert.ok(c2Notice.includes('data_kontribusi_mandiri'), 'Target collection ID mentioned');
 
     // 3. Case 2: On-screen map sampling tool

@@ -9,6 +9,20 @@
  * Unmapped / Unknown: styled neutrally (#90A4AE) and labelled "Belum dipetakan"
  */
 
+import {
+  EPISTEM_MASTER_TAXONOMY,
+  getTaxonomyLeaves,
+  findTaxonomyNode,
+  DEFAULT_EPISTEM_CROSSWALK
+} from './epistem-taxonomy.js';
+
+export {
+  EPISTEM_MASTER_TAXONOMY,
+  getTaxonomyLeaves,
+  findTaxonomyNode,
+  DEFAULT_EPISTEM_CROSSWALK
+};
+
 export const PROJECT_CLASSES = Object.freeze({
   1: Object.freeze({
     id: 1,

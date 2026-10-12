@@ -133,3 +133,22 @@ test('WorkspaceState restores persisted preferences on initialize', () => {
   assert.equal(ws.activeDatasetId, 'restored_dataset');
   assert.equal(ws.isTableCollapsed, true);
 });
+
+test('WorkspaceState setPublishedCollection handles storage failure honestly and preserves draft', () => {
+  const ws = new WorkspaceState();
+  const testDraft = { accountName: 'Peneliti 1', owningInstitution: 'Lembaga 1' };
+  ws.setPublicationDraft(testDraft);
+
+  mockStorage.shouldThrow = true;
+
+  const pubPkg = {
+    meta: { id: 'data_kontribusi_mandiri', title: 'Publikasi Uji' },
+    records: [{ observation_id: 'pt_1', project_class_id: 1 }]
+  };
+
+  const res = ws.setPublishedCollection(pubPkg);
+  assert.equal(res.success, false, 'Reports failure honestly when storage fails');
+  assert.ok(res.error, 'Provides failure reason');
+  assert.equal(ws.case2DonatedCollection, null, 'Does not commit collection on failure');
+  assert.deepEqual(ws.case2PublicationDraft, testDraft, 'Preserves draft on failure for recovery');
+});

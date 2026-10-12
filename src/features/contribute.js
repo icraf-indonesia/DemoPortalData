@@ -1,21 +1,29 @@
 /**
  * src/features/contribute.js
- * Implementation of Case 2: Contribution and On-Screen Sampling.
+ * Implementation of Case 2: Contribution, Publication, and On-Screen Sampling.
  * 
  * Invariants:
- * - Separates owned initial plantation points from imported reference points.
- * - Shows excluded imported records and explains why (third-party reference data).
- * - Preserves source identity, raw labels, owner, and rights intact.
- * - Provisional hierarchical picker: Vegetasi > Sistem berbasis pohon > Perkebunan monokultur > Kebun karet / Kebun sawit.
- * - Records discrepancy: old MASTER_TAXONOMY has 21 leaf classes, not 22 authoritative.
+ * - Separates owned initial plantation points (240: 122 rubber, 118 palm) from imported reference points (687).
+ * - Distinguishes source unknown ownership from third-party data.
+ * - Accepts explicit user declaration in source mode without rewriting original null rights/contributor/date.
+ * - Operational Epistem crosswalk maps project classes independently to 21-leaf MASTER_TAXONOMY:
+ *   - Karet (1) -> veg-tb-mono-rubber (code 1132)
+ *   - Kelapa sawit (2) -> veg-tb-mono-oilpalm (code 1133)
+ *   - Lainnya (borrowed reference) excluded from publication, no forced leaf.
+ * - Form declarations: account name, owning institution, technical email, readonly Banyuasin, confirmed year 2026, GPS survey acquisition, responsibility checkbox.
+ * - Summary includes counts, mappings, and declarations before final publication confirmation.
  * - On-screen map sampling creates draft point; requires class, year, imagery ref, reason, uncertainty.
- * - Missing imagery evidence leaves draft incomplete; cannot become valid reviewed sample.
- * - Explicit origin: 'field_survey' vs 'image_interpretation'.
- * - Screen points assigned high review priority separately from quality tier.
- * - Idempotent submit, UUID-based IDs, persisted local simulated collection.
+ * - Idempotent publish and queue; cancellation does not publish.
  */
 
-import { PROVISIONAL_HIERARCHY, PROJECT_CLASSES } from '../domain/taxonomy.js';
+import {
+  PROVISIONAL_HIERARCHY,
+  PROJECT_CLASSES,
+  EPISTEM_MASTER_TAXONOMY,
+  getTaxonomyLeaves,
+  findTaxonomyNode,
+  DEFAULT_EPISTEM_CROSSWALK
+} from '../domain/taxonomy.js';
 import { resolveCanonicalDatasetId, MODES } from '../demo/scenarios.js';
 import { isPointInAoi } from '../domain/records.js';
 
@@ -35,49 +43,57 @@ export class ContributionWorkflow {
     this.activeMode = workspace?.activeMode || 'scenario';
     this.isSamplingModeActive = false;
     this.stagedDraft = null;
-    this.donatedCollection = null; // 'data_kontribusi_mandiri'
+    this.stagedPublicationDraft = null;
+    this.publishedCollection = null; // Canonical snapshot 'data_kontribusi_mandiri'
+    this.donatedCollection = null;   // Backward-compatibility alias
   }
 
   /**
-   * Evaluates active records to separate owned observations from imported third-party observations.
-   * In source mode, folder paths cannot be used to infer ownership.
+   * Evaluates active or selected records to separate owned observations from imported third-party observations.
+   * Separates 240 own plantation points (122 rubber, 118 palm) from 687 borrowed reference points.
+   * Source unknown ownership on initial plantation is distinguished from third-party reference data.
    * @param {Array<Object>} records
    * @returns {{
    *   owned: Array<Object>,
    *   excludedImported: Array<{ record: Object, reason: string }>,
-   *   summary: { total: number, ownedCount: number, excludedCount: number }
+   *   summary: { total: number, ownedCount: number, excludedCount: number, rubberCount: number, palmCount: number }
    * }}
    */
   separateOwnedObservations(records = []) {
     const list = Array.isArray(records) ? records : [];
     const owned = [];
     const excludedImported = [];
-    const mode = this.workspace?.activeMode || this.activeMode || 'scenario';
-    const isSourceMode = mode === 'source';
 
     for (const r of list) {
       const canonId = resolveCanonicalDatasetId(r.dataset_archive);
-      let isOwned = false;
+      const archive = String(r.dataset_archive || '');
+      const srcDatasetId = String(r.source_dataset_id || '');
 
-      if (isSourceMode) {
-        // In source mode, folder/archive path cannot infer ownership.
-        isOwned = (r.contributor_id === 'pemilik_a' || r.is_user_owned === true) &&
-                  !r.dataset_archive?.includes('2_Data_Rujukan') &&
-                  canonId !== 'data_ref_mod_2b' &&
-                  canonId !== 'data_ref_mod_f';
-      } else {
-        // In scenario mode, plantation observations have a labelled scenario assumption of ownership
-        isOwned = (canonId === 'data_kebun_sawit_karet_f' ||
-                   r.dataset_archive?.includes('Data_kebun_sawit_karet') ||
-                   r.dataset_archive?.includes('1_Data_Pengguna') ||
-                   r.contributor_id === 'pemilik_a' ||
-                   r.is_user_owned === true) &&
-                  !r.dataset_archive?.includes('2_Data_Rujukan') &&
-                  canonId !== 'data_ref_mod_2b' &&
-                  canonId !== 'data_ref_mod_f';
-      }
+      // Check if record is third-party borrowed reference data
+      const isThirdParty =
+        canonId === 'data_ref_mod_2b' ||
+        canonId === 'data_ref_mod_f' ||
+        canonId === 'data_hutan' ||
+        canonId === 'data_sawah' ||
+        srcDatasetId === 'data_ref_mod_2b' ||
+        archive.includes('2_Data_Referensi') ||
+        archive.includes('2b_Modular') ||
+        archive.includes('Data_rujukan') ||
+        archive.includes('3_Data_Koleksi_Pengguna_Mitra') ||
+        r.contributor_id === 'pihak_ketiga' ||
+        r.is_user_owned === false;
 
-      if (isOwned) {
+      // Check if record is user's own plantation observation (requires known plantation provenance)
+      const isInitialPlantation =
+        canonId === 'data_kebun_sawit_karet_f' ||
+        archive.includes('Data_kebun_sawit_karet') ||
+        archive.includes('1_Data_Pengguna') ||
+        r.source_schema_id === 'schema_case1_plantation' ||
+        r.source_schema_id === 'schema_pengguna_plantation_v1' ||
+        r.contributor_id === 'pemilik_a' ||
+        r.is_user_owned === true;
+
+      if (!isThirdParty && isInitialPlantation) {
         owned.push(r);
       } else {
         excludedImported.push({
@@ -87,99 +103,315 @@ export class ContributionWorkflow {
       }
     }
 
+    let rubberCount = 0;
+    let palmCount = 0;
+    for (const r of owned) {
+      if (r.project_class_id === 1 || String(r.source_class_label || '').toLowerCase().includes('karet')) {
+        rubberCount += 1;
+      } else if (r.project_class_id === 2 || String(r.source_class_label || '').toLowerCase().includes('sawit')) {
+        palmCount += 1;
+      }
+    }
+
     return {
       owned,
       excludedImported,
       summary: {
         total: list.length,
         ownedCount: owned.length,
-        excludedCount: excludedImported.length
+        excludedCount: excludedImported.length,
+        rubberCount,
+        palmCount
       }
     };
   }
 
   /**
-   * Creates a donated contribution package from owned observations.
-   * Independently rejects imported records at domain boundary.
-   * Preserves original source labels, IDs, rights, quality, and metadata intact.
-   * @param {Array<Object>} ownedRecords
-   * @returns {Object} Canonical donated collection metadata and points
+   * Initializes or updates persistent publication draft.
+   * @param {Object} partialDraft
+   * @returns {Object} Staged publication draft
    */
-  createDonatedPackage(ownedRecords) {
+  setPublicationDraft(partialDraft = {}) {
+    this.stagedPublicationDraft = {
+      selectedCollectionIds: partialDraft.selectedCollectionIds || ['data_kebun_sawit_karet_f'],
+      accountName: partialDraft.accountName ?? '',
+      owningInstitution: partialDraft.owningInstitution ?? '',
+      technicalEmail: partialDraft.technicalEmail ?? '',
+      confirmedYear: Number(partialDraft.confirmedYear) || 2026,
+      acquisitionMethod: partialDraft.acquisitionMethod || 'Survei GPS Lapangan',
+      boundaryAoi: 'Kabupaten Banyuasin',
+      responsibilityAccepted: Boolean(partialDraft.responsibilityAccepted),
+      crosswalk: {
+        1: partialDraft.crosswalk?.[1] || { ...DEFAULT_EPISTEM_CROSSWALK[1] },
+        2: partialDraft.crosswalk?.[2] || { ...DEFAULT_EPISTEM_CROSSWALK[2] }
+      },
+      updatedAt: new Date().toISOString()
+    };
+    return this.stagedPublicationDraft;
+  }
+
+  /**
+   * Creates an approved publication snapshot package from owned observations.
+   * Rejects third-party reference data at domain boundary.
+   * Preserves raw source attributes (nulls intact) while attaching explicit publication declaration.
+   * @param {Array<Object>} ownedRecords 240 owned plantation points
+   * @param {Object} [declarations] Metadata declarations
+   * @param {Object} [crosswalk] Epistem crosswalk mappings
+   * @returns {Object} Canonical published package
+   */
+  createPublishedPackage(ownedRecords, declarations = {}, crosswalk = DEFAULT_EPISTEM_CROSSWALK) {
     if (!Array.isArray(ownedRecords) || ownedRecords.length === 0) {
-      throw new Error('Tidak ada observasi milik mandiri yang dipilih untuk dikontribusikan.');
+      throw new Error('Tidak ada observasi milik mandiri yang dipilih untuk dibagikan.');
     }
 
-    // Boundary check: independently reject imported or non-owned partner records at domain boundary!
-    const currentMode = this.workspace?.activeMode || this.activeMode || 'scenario';
+    // Boundary check: strictly reject third-party and unknown ownership records
     for (const r of ownedRecords) {
       const canonId = resolveCanonicalDatasetId(r.dataset_archive);
-      const isNotOwned = canonId === 'data_ref_mod_2b' ||
-                         canonId === 'data_ref_mod_f' ||
-                         canonId === 'data_hutan' ||
-                         r.dataset_archive?.includes('Data_ref_mod') ||
-                         r.dataset_archive?.includes('2_Data_Rujukan') ||
-                         r.dataset_archive?.includes('Data_hutan') ||
-                         r.dataset_archive?.includes('3_Data_Koleksi_Pengguna_Mitra') ||
-                         r.is_user_owned === false;
-      if (isNotOwned) {
-        throw new Error('Hanya observasi kebun mandiri milik pengguna yang dapat didonasikan. Koleksi rujukan impor atau data mitra (hutan) ditolak di batas domain kontribusi.');
-      }
+      const archive = String(r.dataset_archive || '');
+      const srcDatasetId = String(r.source_dataset_id || '');
+      const isThirdParty =
+        canonId === 'data_ref_mod_2b' ||
+        canonId === 'data_ref_mod_f' ||
+        canonId === 'data_hutan' ||
+        canonId === 'data_sawah' ||
+        srcDatasetId === 'data_ref_mod_2b' ||
+        archive.includes('2_Data_Referensi') ||
+        archive.includes('2b_Modular') ||
+        archive.includes('Data_rujukan') ||
+        archive.includes('3_Data_Koleksi_Pengguna_Mitra') ||
+        r.contributor_id === 'pihak_ketiga' ||
+        r.is_user_owned === false;
 
-      // Source mode cannot treat simulated consent as a source licence
-      if (currentMode === 'source' || currentMode === MODES.SOURCE) {
-        if (!r.contributor_id || !r.rights_id) {
-          throw new Error('Mode sumber ketat menolak donasi dengan kepemilikan atau hak izin yang belum terverifikasi (unknown).');
-        }
+      const isKnownOwned =
+        canonId === 'data_kebun_sawit_karet_f' ||
+        archive.includes('Data_kebun_sawit_karet') ||
+        archive.includes('1_Data_Pengguna') ||
+        r.source_schema_id === 'schema_case1_plantation' ||
+        r.source_schema_id === 'schema_pengguna_plantation_v1' ||
+        r.contributor_id === 'pemilik_a' ||
+        r.is_user_owned === true;
+
+      if (isThirdParty || !isKnownOwned) {
+        throw new Error('Hanya observasi kebun mandiri milik pengguna yang dapat dibagikan. Data rujukan pihak ketiga ditolak di batas domain publikasi.');
       }
     }
 
-    const points = ownedRecords.map(r => ({
-      ...r,
-      is_contributed: true,
-      contribution_type: 'owned_plantation_donation',
-      // Preserved source fields intact:
-      contributor_id: r.contributor_id ?? null,
-      rights_id: r.rights_id ?? null,
-      quality_tier: r.quality_tier ?? null,
-      observed_time: r.observed_time ?? null,
-      method: r.method ?? 'unknown',
-      // Scenario/current interpretation fields separate:
-      simulated_owner: 'Pemilik A (Pengguna)',
-      simulated_rights_status: 'Izin donasi terbuka konsorsium (Simulasi)',
-      review_priority: REVIEW_PRIORITIES.NORMAL,
-      scenario_overlay: {
-        owner: 'Pemilik A (Pengguna)',
-        contributorDisplayName: 'Pemilik A (Kontribusi Mandiri)',
-        rightsStatus: 'Izin donasi terbuka konsorsium (Simulasi)',
-        method: r.method || 'Survei Lapangan',
-        qualityTier: 4,
-        assumptions: [
-          'Observasi kebun mandiri disumbangkan oleh Pemilik A untuk pelatihan konsorsium',
-          'Status telaah awal: Tier 4 (Lengkap belum ditelaah)'
-        ]
+    // Strict validation of user declarations
+    const accountName = String(declarations.accountName || '').trim();
+    if (!accountName) {
+      throw new Error('Nama akun atau peneliti wajib diisi.');
+    }
+
+    const institution = String(declarations.owningInstitution || '').trim();
+    if (!institution) {
+      throw new Error('Lembaga pemilik data wajib diisi.');
+    }
+
+    const technicalEmail = String(declarations.technicalEmail || '').trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!technicalEmail || !emailRegex.test(technicalEmail)) {
+      throw new Error('Email teknis wajib valid.');
+    }
+
+    if (declarations.responsibilityAccepted !== true) {
+      throw new Error('Pernyataan tanggung jawab atas keabsahan data wajib disetujui.');
+    }
+
+    const confirmedYear = Number(declarations.confirmedYear);
+    if (confirmedYear !== 2026) {
+      throw new Error('Tahun observasi dan proyek wajib dikonfirmasi sebagai 2026.');
+    }
+
+    const acquisitionMethod = String(declarations.acquisitionMethod || '').trim();
+    if (!acquisitionMethod) {
+      throw new Error('Metode akuisisi data wajib dicantumkan.');
+    }
+
+    // Resolve operational crosswalk against taxonomy leaf nodes dynamically
+    const resolvedCrosswalk = {};
+    for (const [classKey, cwDef] of Object.entries(crosswalk)) {
+      const classId = Number(classKey);
+      const leafId = cwDef?.epistemLeafId || (classId === 1 ? 'veg-tb-mono-rubber' : 'veg-tb-mono-oilpalm');
+      const leafNode = findTaxonomyNode(leafId, EPISTEM_MASTER_TAXONOMY);
+      if (!leafNode || (leafNode.children && leafNode.children.length > 0)) {
+        throw new Error(`Kelas daun taksonomi untuk kelas target ${classId} tidak valid.`);
       }
-    }));
+      resolvedCrosswalk[classId] = {
+        projectClassId: classId,
+        projectClassLabel: classId === 1 ? 'Karet' : 'Kelapa sawit',
+        epistemLeafId: leafNode.id,
+        code: leafNode.code,
+        name: leafNode.name,
+        path: leafNode.path || leafNode.name,
+        colour: classId === 1 ? '#7B1FA2' : '#E91E63'
+      };
+    }
+
+    // Versioning management: identical republish preserves version & createdAt
+    let version = '1.0.0';
+    let createdAt = new Date().toISOString();
+    let updatedAt = createdAt;
+
+    const prevPkg = this.publishedCollection;
+    if (prevPkg && prevPkg.meta) {
+      const isIdentical =
+        prevPkg.records.length === ownedRecords.length &&
+        prevPkg.records.every((rec, idx) => rec.observation_id === ownedRecords[idx].observation_id) &&
+        JSON.stringify(prevPkg.meta.crosswalk) === JSON.stringify(resolvedCrosswalk) &&
+        prevPkg.meta.institution === institution &&
+        prevPkg.meta.accountName === accountName &&
+        prevPkg.meta.year === confirmedYear &&
+        prevPkg.meta.technicalEmail === technicalEmail &&
+        prevPkg.meta.acquisitionMethod === acquisitionMethod;
+
+      if (isIdentical) {
+        version = prevPkg.meta.version || '1.0.0';
+        createdAt = prevPkg.meta.createdAt || createdAt;
+        updatedAt = prevPkg.meta.updatedAt || createdAt;
+      } else {
+        const parts = (prevPkg.meta.version || '1.0.0').split('.').map(Number);
+        version = `${parts[0] || 1}.${parts[1] || 0}.${(parts[2] || 0) + 1}`;
+        createdAt = prevPkg.meta.createdAt || createdAt;
+        updatedAt = new Date().toISOString();
+      }
+    }
+
+    const points = ownedRecords.map(r => {
+      const pClassId = Number(r.project_class_id) || 1;
+      const cw = resolvedCrosswalk[pClassId] || null;
+
+      const rawProps = {
+        rights_id: r.rights_id ?? null,
+        contributor_id: r.contributor_id ?? null,
+        observed_date: r.observed_date ?? r.observed_time ?? null,
+        dataset_id: r.source_dataset_id || r.dataset_id || r.dataset_archive || null,
+        ...(r.raw_properties || {}),
+        ...(r.raw_attributes || {})
+      };
+
+      return {
+        ...r,
+        coordinates: r.coordinates || (r.geometry ? r.geometry.coordinates : null),
+        project_class: r.project_class !== undefined ? r.project_class : r.project_class_id,
+        raw_properties: rawProps,
+        is_contributed: true,
+        is_published: true,
+        contribution_type: 'owned_plantation_publication',
+        // Preserve raw original source attributes without forging or overwriting nulls
+        contributor_id: r.contributor_id ?? null,
+        rights_id: r.rights_id ?? null,
+        quality_tier: r.quality_tier ?? null,
+        observed_time: r.observed_time ?? null,
+        method: r.method ?? 'unknown',
+        // Declared metadata stored separate in publication metadata
+        publication_metadata: {
+          collection_id: 'data_kontribusi_mandiri',
+          declared_institution: institution,
+          declared_account_name: accountName,
+          declared_email: technicalEmail,
+          declared_year: confirmedYear,
+          declared_method: acquisitionMethod,
+          declared_rights: 'Izin Publikasi Data Terbuka Mandiri (User Declared)',
+          crosswalk_leaf_id: cw ? cw.epistemLeafId : null,
+          crosswalk_leaf_code: cw ? cw.code : null,
+          crosswalk_leaf_name: cw ? cw.name : null,
+          crosswalk_leaf_path: cw ? cw.path : null,
+          version,
+          published_at: createdAt
+        },
+        simulated_owner: `${accountName} (${institution})`,
+        simulated_rights_status: 'Izin Publikasi Data Terbuka Mandiri',
+        review_priority: REVIEW_PRIORITIES.NORMAL,
+        review_status: 'unreviewed',
+        scenario_overlay: {
+          owner: 'Pemilik A (Pengguna)',
+          contributorDisplayName: `${accountName} (Kontribusi Mandiri)`,
+          rightsStatus: 'Izin donasi terbuka konsorsium (Simulasi)',
+          method: acquisitionMethod,
+          qualityTier: 4,
+          assumptions: [
+            'Observasi kebun mandiri disumbangkan oleh Pemilik A untuk pelatihan konsorsium',
+            'Status telaah awal: Tier 4 (Mandiri / Belum Ditelaah)'
+          ]
+        }
+      };
+    });
 
     const packageMeta = {
       id: 'data_kontribusi_mandiri',
-      title: 'Data Kontribusi Mandiri (Simulasi)',
-      category: 'Koleksi Kontribusi Pengguna (Kasus 2)',
-      description: 'Observasi kebun mandiri yang disumbangkan oleh pengguna untuk analisis lintas sektor.',
+      title: 'Data Kontribusi Mandiri (Perkebunan Banyuasin)',
+      category: 'Data Terbuka',
+      status: 'Mandiri / Belum Ditelaah',
+      publicationStatus: 'published_unreviewed',
+      version,
+      description: `Observasi kebun mandiri kelapa sawit dan karet di Kabupaten Banyuasin yang disumbangkan oleh ${accountName} (${institution}) untuk analisis terbuka konsorsium.`,
       isPrimary: false,
       isPrivate: false,
+      isPublished: true,
       isDonated: true,
       featureCount: points.length,
-      createdAt: new Date().toISOString(),
-      kind: 'point_observations'
+      institution,
+      accountName,
+      technicalEmail,
+      year: confirmedYear,
+      acquisitionMethod,
+      boundary: 'Kabupaten Banyuasin',
+      crosswalk: { ...resolvedCrosswalk },
+      publication_metadata: {
+        collection_id: 'data_kontribusi_mandiri',
+        declared_institution: institution,
+        declared_account_name: accountName,
+        declared_email: technicalEmail,
+        declared_year: confirmedYear,
+        declared_method: acquisitionMethod,
+        declared_rights: 'Izin Publikasi Data Terbuka Mandiri (User Declared)',
+        crosswalk: { ...resolvedCrosswalk },
+        version,
+        published_at: createdAt
+      },
+      createdAt,
+      updatedAt,
+      kind: 'point_observations',
+      lineage: {
+        sourceDatasets: [...new Set(ownedRecords.map(r => r.dataset_archive || 'data_kebun_sawit_karet_f'))],
+        ownedPointsPublished: points.length,
+        originalObservationIds: points.map(p => p.observation_id),
+        publishedVersion: version
+      }
     };
 
-    this.donatedCollection = {
+    this.publishedCollection = {
       meta: packageMeta,
-      records: points
+      records: points,
+      originalObservationIds: points.map(p => p.observation_id),
+      declarations: {
+        accountName,
+        owningInstitution: institution,
+        technicalEmail,
+        confirmedYear,
+        acquisitionMethod,
+        boundaryAoi: 'Kabupaten Banyuasin',
+        responsibilityAccepted: true
+      },
+      crosswalk: { ...resolvedCrosswalk }
     };
 
-    return this.donatedCollection;
+    this.case2DonatedCollection = this.publishedCollection;
+    this.donatedCollection = this.publishedCollection;
+
+    return this.publishedCollection;
+  }
+
+  /**
+   * Backward-compatible donation wrapper.
+   * Does not bypass declarations.
+   * @param {Array<Object>} ownedRecords
+   * @param {Object} [declarations]
+   * @param {Object} [crosswalk]
+   * @returns {Object}
+   */
+  createDonatedPackage(ownedRecords, declarations = {}, crosswalk = DEFAULT_EPISTEM_CROSSWALK) {
+    return this.createPublishedPackage(ownedRecords, declarations, crosswalk);
   }
 
   /**
@@ -217,16 +449,16 @@ export class ContributionWorkflow {
       source_class_label: null,
       project_class_id: null,
       project_class_label: null,
-      observed_time: null, // Unknown initially
+      observed_time: null,
       method: SAMPLING_ORIGINS.IMAGE_INTERPRETATION,
       imagery_ref: '',
       reason: '',
-      uncertainty: null, // Unknown initially
+      uncertainty: null,
       evidence_refs: [],
-      is_incomplete: true, // Incomplete until required fields validated
+      is_incomplete: true,
       review_status: 'draft',
       quality_tier: null,
-      review_priority: REVIEW_PRIORITIES.HIGH, // High review priority for new screen points
+      review_priority: REVIEW_PRIORITIES.HIGH,
       interpretation_version: 1,
       contributor_id: 'pemilik_a'
     };
@@ -236,10 +468,8 @@ export class ContributionWorkflow {
 
   /**
    * Validates and submits a sampling draft observation.
-   * Plain map drafts without imagery evidence remain incomplete.
-   * Unsupported classes (e.g. 999) cannot become complete.
    * @param {Object} draftPayload
-   * @param {Object} [boundaryGeoJson]
+   * @param {Object} [aoiBoundary]
    * @returns {{ valid: boolean, record: Object|null, errors: Array<string> }}
    */
   submitSamplingDraft(draftPayload, aoiBoundary = null) {
@@ -273,7 +503,7 @@ export class ContributionWorkflow {
       errors.push('Alasan/justifikasi penentuan kelas wajib disertakan.');
     }
 
-    // 5. Required Uncertainty (or explicit 'unknown' response)
+    // 5. Required Uncertainty
     const uncert = draftPayload.uncertainty !== undefined && draftPayload.uncertainty !== null
       ? String(draftPayload.uncertainty).trim()
       : '';
@@ -287,7 +517,6 @@ export class ContributionWorkflow {
     const trustedBoundary = aoiBoundary || this.workspace?.boundaryData;
 
     if (hasExplicitBoundary && !this.workspace?.boundaryData && !aoiBoundary) {
-      // Explicitly missing or null trusted AOI cannot be bypassed by a true payload flag
       errors.push('Batas AOI terpercaya tidak tersedia atau belum dimuat.');
     } else if (trustedBoundary && coords) {
       if (!isPointInAoi(coords, trustedBoundary)) {
@@ -323,7 +552,7 @@ export class ContributionWorkflow {
         : (imgRef ? [imgRef] : []),
       is_incomplete: isIncomplete,
       review_status: isIncomplete ? 'draft_incomplete' : 'submitted',
-      quality_tier: isIncomplete ? null : 4, // Tier 4 if complete unreviewed, null if incomplete
+      quality_tier: isIncomplete ? null : 4,
       review_priority: REVIEW_PRIORITIES.HIGH,
       interpretation_version: 1,
       submitted_at: new Date().toISOString(),
@@ -360,4 +589,3 @@ export class ContributionWorkflow {
     };
   }
 }
-

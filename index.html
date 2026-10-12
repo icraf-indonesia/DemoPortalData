@@ -44,6 +44,15 @@
     </div>
 
     <div class="header-right">
+      <!-- User Selector (User A / User B) -->
+      <div class="user-switcher-wrapper">
+        <label for="select-active-user-header" class="user-switcher-label">Pengguna:</label>
+        <select id="select-active-user-header" class="user-role-select" aria-label="Alihkan Peran Pengguna">
+          <option value="user_a" selected>Pengguna A (Pemilik Data)</option>
+          <option value="user_b">Pengguna B (Kehutanan)</option>
+        </select>
+      </div>
+
       <!-- Settings Button & Popover -->
       <div class="settings-wrapper">
         <button type="button" id="btn-settings" class="btn-settings" aria-label="Buka Pengaturan Mode dan Pemulihan" title="Pengaturan Sistem">
@@ -57,6 +66,14 @@
           <div class="popover-header">
             <h4 class="popover-title">Pengaturan Portal</h4>
             <button type="button" class="btn-popover-close" id="btn-close-settings">&times;</button>
+          </div>
+          <div class="popover-section">
+            <div class="popover-section-label">Peran Pengguna Aktif</div>
+            <select id="popover-user-role-select" class="user-role-select" style="width: 100%; padding: 6px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #cbd5e1;">
+              <option value="user_a" selected>Pengguna A (Pemilik Data Perkebunan)</option>
+              <option value="user_b">Pengguna B (Analis Kehutanan)</option>
+            </select>
+            <p class="settings-hint">Pengguna B mengakses data kehutanan dan dapat menggunakan ulang koleksi yang dipublikasikan oleh Pengguna A.</p>
           </div>
           <div class="popover-section">
             <div class="popover-section-label">Mode Data</div>

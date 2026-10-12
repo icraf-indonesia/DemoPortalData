@@ -84,7 +84,16 @@ test('ContributionWorkflow: createDonatedPackage preserves raw attributes and as
     }
   ];
 
-  const pkg = workflow.createDonatedPackage(ownedPoints);
+  const validDeclarations = {
+    accountName: 'User A',
+    owningInstitution: 'ICRAF Indonesia',
+    technicalEmail: 'usera@example.org',
+    confirmedYear: 2026,
+    acquisitionMethod: 'Survei Lapangan',
+    responsibilityAccepted: true
+  };
+
+  const pkg = workflow.createDonatedPackage(ownedPoints, validDeclarations);
 
   assert.equal(pkg.meta.id, 'data_kontribusi_mandiri');
   assert.equal(pkg.meta.isDonated, true);
@@ -102,10 +111,28 @@ test('ContributionWorkflow: createDonatedPackage preserves raw attributes and as
   assert.equal(donatedPoint.review_priority, REVIEW_PRIORITIES.NORMAL);
   assert.ok(donatedPoint.scenario_overlay.assumptions.length > 0);
 
+  // Rejects missing/incomplete declarations
+  assert.throws(() => {
+    workflow.createDonatedPackage(ownedPoints, {});
+  }, /Nama akun atau peneliti wajib diisi/);
+
+  assert.throws(() => {
+    workflow.createDonatedPackage(ownedPoints, { ...validDeclarations, responsibilityAccepted: false });
+  }, /Pernyataan tanggung jawab atas keabsahan data wajib disetujui/);
+
   // Rejects empty donation
   assert.throws(() => {
-    workflow.createDonatedPackage([]);
+    workflow.createDonatedPackage([], validDeclarations);
   }, /Tidak ada observasi milik mandiri/);
+
+  // Rejects unknown or third party records
+  assert.throws(() => {
+    workflow.createDonatedPackage([{
+      observation_id: 'unknown_1',
+      dataset_archive: 'unknown_archive.zip',
+      project_class_id: 1
+    }], validDeclarations);
+  }, /Hanya observasi kebun mandiri milik pengguna yang dapat dibagikan/);
 });
 
 test('PROVISIONAL_HIERARCHY: documents discrepancy note for 21 leaf classes without inventing 22nd class', () => {

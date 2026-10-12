@@ -85,7 +85,8 @@ test('Product UI: Comprehensive Browser Verification & Screenshots', async () =>
       viewport: { width: 1366, height: 768 }
     });
     const page = await context1366.newPage();
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
 
     // 1. Verify Header Branding & Context Lines
     const headerTitle = await page.textContent('.header-title');
@@ -180,7 +181,8 @@ test('Product UI: Comprehensive Browser Verification & Screenshots', async () =>
     await page.waitForTimeout(200);
 
     // Reload page and check persistence
-    await page.reload({ waitUntil: 'networkidle' });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
     await page.click('#btn-layer-menu');
     await page.waitForSelector('#popover-layer-menu', { state: 'visible' });
 
@@ -292,7 +294,8 @@ test('Product UI: Comprehensive Browser Verification & Screenshots', async () =>
       viewport: { width: 1440, height: 900 }
     });
     const page1440 = await context1440.newPage();
-    await page1440.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page1440.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+    await page1440.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
 
     // Verify clean layout and capture screenshot
     const title1440 = await page1440.textContent('.header-title');

@@ -79,7 +79,8 @@ test('Comprehensive Browser Integration Verification (6 User Requirements)', asy
     // -------------------------------------------------------------
     // Requirement 6: Layout & Header check at 1366px and 1440px
     // -------------------------------------------------------------
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
 
     // Verify no pending pill on any case button
     const pendingPills = await page.$$('.pending-pill');
@@ -211,8 +212,13 @@ test('Comprehensive Browser Integration Verification (6 User Requirements)', asy
     // Donate owned observations in Case 2
     await page.click('.case-nav-btn[data-case-id="2"]');
     await page.waitForSelector('.modal-title', { timeout: 3000 });
-    await page.click('.modal-footer .btn-primary'); // Donate
+    await page.fill('#pub-account-name', 'Researcher A');
+    await page.fill('#pub-institution', 'ICRAF Indonesia');
+    await page.fill('#pub-email', 'researcher@example.org');
+    await page.check('#pub-responsibility');
+    await page.click('.modal-footer .btn-primary');
     await page.waitForTimeout(300);
+    assert.equal(await page.locator('#app-modal-overlay').isVisible(), false, await page.locator('#app-modal-box').innerText());
 
     // -------------------------------------------------------------
     // Requirement 4: Case 3 Private Collection Persistence & Dedup
@@ -311,7 +317,8 @@ test('Comprehensive Browser Integration Verification (6 User Requirements)', asy
     // -------------------------------------------------------------
     // Refresh & Persistence Verification
     // -------------------------------------------------------------
-    await page.reload({ waitUntil: 'networkidle' });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
 
     // Case 4 interpretations and adoptions survived refresh
     const persistedAdoptions = await page.evaluate(() => window.portalApp.workspace.case4Adoptions.length);
