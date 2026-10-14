@@ -14,6 +14,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     id: 'data_kebun_sawit_karet_f',
     title: 'Data Kebun Sawit & Karet',
     category: 'Data Pengguna #1',
+    location: 'Kabupaten Banyuasin',
     description: 'Titik observasi komoditas kelapa sawit dan karet di Banyuasin. Metode survei dan kontributor belum tercatat.',
     geojsonPath: 'data/derived/data_kebun_sawit_karet_f.geojson',
     isPrimary: true,
@@ -23,6 +24,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     id: 'data_ref_mod_f',
     title: 'Data Referensi Modular (2a)',
     category: 'Data Referensi',
+    location: 'Kabupaten Banyuasin',
     description: 'Titik referensi modular tanpa label kelas sumber (hanya nomor titik). Metode dan kontributor belum tercatat.',
     geojsonPath: 'data/derived/data_ref_mod_f.geojson',
     isPrimary: false,
@@ -32,6 +34,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     id: 'data_ref_mod_2b',
     title: 'Data Referensi Modular (2b)',
     category: 'Data Referensi',
+    location: 'Kabupaten Banyuasin',
     description: 'Titik referensi modular dengan atribut kelas sumber LULCrcl. Metode dan kontributor belum tercatat.',
     geojsonPath: 'data/derived/data_ref_mod_2b.geojson',
     isPrimary: false,
@@ -41,7 +44,8 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     id: 'data_hutan',
     title: 'Data Tutupan Hutan',
     category: 'Koleksi Mitra',
-    description: 'Titik rujukan tutupan hutan. Metode pengumpulan dan identitas kontributor belum tercatat.',
+    location: 'Kabupaten Banyuasin',
+    description: 'Titik rujukan tutupan hutan dari Dinas Kehutanan (2024). Metode pengumpulan inventarisasi hutan.',
     geojsonPath: 'data/derived/data_hutan.geojson',
     isPrimary: false,
     kind: 'point_observations'
@@ -50,6 +54,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     id: 'data_sawah',
     title: 'Data Lahan Sawah',
     category: 'Koleksi Mitra',
+    location: 'Kabupaten Banyuasin',
     description: 'Titik rujukan lahan sawah. Metode pengumpulan dan identitas kontributor belum tercatat.',
     geojsonPath: 'data/derived/data_sawah.geojson',
     isPrimary: false,
@@ -59,6 +64,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     id: 'case4_data_kombinasi_f',
     title: 'Data Kombinasi Multi-Sumber',
     category: 'Koleksi Terpadu (Kasus 4)',
+    location: 'Kabupaten Banyuasin',
     description: 'Koleksi gabungan multi-sumber untuk studi Kasus 4. Metode dan kontributor belum tercatat.',
     geojsonPath: 'data/derived/case4_data_kombinasi_f.geojson',
     isPrimary: false,
@@ -100,6 +106,7 @@ export async function loadCatalogue(manifestUrl = 'data/derived/manifest.json') 
       id: def.id,
       title: def.title,
       category: def.category,
+      location: def.location || 'Kabupaten Banyuasin',
       description: def.description,
       geojsonPath: def.geojsonPath,
       isPrimary: def.isPrimary,
@@ -159,6 +166,44 @@ export async function loadDataset(datasetId) {
       }
       return r;
     });
+  } else if (datasetId === 'data_ref_mod_2b') {
+    const REF_2B_MAP = {
+      1: { id: 1, label: 'Hutan' },
+      2: { id: 2, label: 'Kebun sawit' },
+      3: { id: 3, label: 'Kebun karet' },
+      4: { id: 4, label: 'Sawah' },
+      5: { id: 5, label: 'Lainnya' }
+    };
+    records = records.map(r => {
+      const srcId = Number(r.source_class_id);
+      const mapped = REF_2B_MAP[srcId];
+      if (mapped) {
+        return {
+          ...r,
+          project_class_id: mapped.id,
+          project_class_label: mapped.label
+        };
+      }
+      return r;
+    });
+  } else if (datasetId === 'data_sawah') {
+    records = records.map(r => ({
+      ...r,
+      project_class_id: 1,
+      project_class_label: 'Sawah'
+    }));
+  } else if (datasetId === 'data_hutan') {
+    records = records.map(r => ({
+      ...r,
+      project_class_id: 1,
+      project_class_label: 'Hutan'
+    }));
+  } else if (datasetId === 'data_ref_mod_f') {
+    records = records.map(r => ({
+      ...r,
+      project_class_id: 1,
+      project_class_label: 'Titik Rujukan (Tanpa Label)'
+    }));
   }
 
   return {

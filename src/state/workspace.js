@@ -16,8 +16,13 @@
 import {
   computeClassCounts,
   PROJECT_CLASSES,
+  SHARED_PLANTATION_CLASSES,
   CASE3_FORESTRY_CLASSES,
-  CASE4_TARGET_CLASSES
+  CASE4_TARGET_CLASSES,
+  REF_MOD_2B_SCHEMA,
+  DATA_SAWAH_SCHEMA,
+  DATA_HUTAN_SCHEMA,
+  DATA_REF_MOD_F_SCHEMA
 } from '../domain/taxonomy.js';
 import { mapScreenSubmissionToCase4, mapPublicationObservationToCase4 } from '../features/review.js';
 import {
@@ -65,6 +70,40 @@ export class WorkspaceState {
     this.isSamplingActive = false;
     this.isEoxBasemapActive = false;
 
+    // Luma modeling and technical quality context (Cases 1 & 2)
+    this.lumaContext = {
+      activeModule: 'module7', // 'module6' (draft) or 'module7' (thematic accuracy verified)
+      aoiName: 'Kabupaten Banyuasin',
+      targetYear: 2026,
+      sensor: 'Komposit Landsat 9 / Sentinel-2 (2026)',
+      separabilityReport: {
+        method: 'Jeffries-Matusita Distance (Modul 4)',
+        pairs: [
+          { pair: 'Karet vs Kelapa sawit', distance: 1.88, status: 'Baik (Dapat Dipisahkan)' },
+          { pair: 'Karet vs Lainnya', distance: 1.94, status: 'Sangat Baik' },
+          { pair: 'Kelapa sawit vs Lainnya', distance: 1.91, status: 'Sangat Baik' }
+        ]
+      },
+      modelParams: {
+        algorithm: 'Random Forest (Modul 6)',
+        numTrees: 100,
+        minSplit: 2,
+        baggingFraction: 0.8,
+        predictors: ['Blue', 'Green', 'Red', 'NIR', 'SWIR1', 'SWIR2', 'NDVI', 'NDRE']
+      },
+      thematicAccuracy: {
+        method: 'Matriks Konfusi Sampel Uji Independen (Modul 7)',
+        overallAccuracy: 89.2,
+        kappa: 0.835,
+        testSampleSize: 150,
+        classes: [
+          { classLabel: 'Karet', producerAccuracy: 87.5, userAccuracy: 89.1 },
+          { classLabel: 'Kelapa sawit', producerAccuracy: 91.2, userAccuracy: 88.6 },
+          { classLabel: 'Lainnya', producerAccuracy: 88.9, userAccuracy: 90.0 }
+        ]
+      }
+    };
+
     this.storageStatus = {
       success: true,
       label: PERSISTENCE_LABELS.NOT_STORED,
@@ -104,14 +143,52 @@ export class WorkspaceState {
    * @returns {Object}
    */
   getActiveSchema() {
-    if (this.activeDatasetId === 'data_kontribusi_mandiri' || this.activeDatasetId === 'data_kebun_sawit_karet_f') {
-      return PROJECT_CLASSES;
+    if (!this.activeDatasetId) {
+      return {};
     }
-    if (this.activeDatasetId === 'data_hutan' || this.activeDatasetId === 'data_hutan_sawit_partisipatif') {
+    if (
+      this.activeDatasetId === 'data_kontribusi_mandiri' ||
+      (this.case2DonatedCollection && this.activeDatasetId === this.case2DonatedCollection.meta.id) ||
+      (this.publishedCollections || []).some(p => (p.meta && p.meta.id === this.activeDatasetId) || p.id === this.activeDatasetId)
+    ) {
+      return SHARED_PLANTATION_CLASSES;
+    }
+    if (this.activeDatasetId === 'data_ref_mod_2b') {
+      return REF_MOD_2B_SCHEMA;
+    }
+    if (this.activeDatasetId === 'data_sawah') {
+      return DATA_SAWAH_SCHEMA;
+    }
+    if (this.activeDatasetId === 'data_ref_mod_f') {
+      return DATA_REF_MOD_F_SCHEMA;
+    }
+    if (this.activeDatasetId === 'case4_data_kombinasi_f') {
+      return CASE4_TARGET_CLASSES;
+    }
+    if (this.activeDatasetId === 'data_hutan') {
+      if (this.activeCaseId === 3 || this.activeUser === 'user_b') {
+        return CASE3_FORESTRY_CLASSES;
+      }
+      return DATA_HUTAN_SCHEMA;
+    }
+    if (
+      this.activeDatasetId === 'data_hutan_sawit_partisipatif' ||
+      (this.case3PrivateCollection && this.activeDatasetId === this.case3PrivateCollection.meta.id)
+    ) {
       return CASE3_FORESTRY_CLASSES;
     }
-    if (this.activeCaseId === 3) return CASE3_FORESTRY_CLASSES;
-    if (this.activeCaseId === 4) return CASE4_TARGET_CLASSES;
+    if (
+      this.activeDatasetId === 'data_kebun_sawit_karet_f' ||
+      this.activeDatasetId === 'data_campuran_1'
+    ) {
+      return PROJECT_CLASSES;
+    }
+    if (this.activeCaseId === 4) {
+      return CASE4_TARGET_CLASSES;
+    }
+    if (this.activeCaseId === 3 || this.activeUser === 'user_b') {
+      return CASE3_FORESTRY_CLASSES;
+    }
     return PROJECT_CLASSES;
   }
 
@@ -187,6 +264,9 @@ export class WorkspaceState {
         if (proj.case4Interpretations && typeof proj.case4Interpretations === 'object') {
           this.case4Interpretations = proj.case4Interpretations;
         }
+        if (proj.lumaActiveModule && this.lumaContext) {
+          this.lumaContext.activeModule = Number(proj.lumaActiveModule);
+        }
       }
     } catch (err) {
       this.storageRecoveryNotice = `Perhatian: ${err.message}. Anda dapat mereset data penyimpanan lokal jika diperlukan.`;
@@ -228,7 +308,7 @@ export class WorkspaceState {
         this.catalogueItems.push({
           id: pub.meta.id,
           title: pub.meta.title,
-          category: 'Data Terbuka',
+          category: 'Koleksi Mitra',
           status: pub.meta.status || 'Mandiri / Belum Ditelaah',
           description: pub.meta.description,
           geojsonPath: null,
@@ -276,15 +356,17 @@ export class WorkspaceState {
   /**
    * Sets active dataset and recalculates class totals and selections.
    * Persists changes to browser localStorage.
-   * @param {string} datasetId
-   * @param {Object} meta
+   * @param {string|null} datasetId
+   * @param {Object|null} meta
    * @param {Array<Object>} records
    */
   setActiveDataset(datasetId, meta, records, delta = 0) {
     this.activeDatasetId = datasetId;
     this.activeDatasetMeta = meta;
     this.activeRecords = records || [];
-    this.classCounts = computeClassCounts(this.activeRecords, this.getActiveSchema());
+    this.classCounts = datasetId
+      ? computeClassCounts(this.activeRecords, this.getActiveSchema())
+      : { unmapped: 0, total: 0, sourceClasses: {} };
     this.selectedPointId = null;
     this.errorMessage = null;
 
@@ -294,14 +376,23 @@ export class WorkspaceState {
       this.lastDelta = 0;
     }
 
-    const catItem = this.catalogueItems.find(i => i.id === datasetId);
-    if (catItem) {
-      if (meta && meta.featureCount !== undefined) catItem.featureCount = meta.featureCount;
-      if (meta && meta.archiveFeatureCount !== undefined) catItem.archiveFeatureCount = meta.archiveFeatureCount;
+    if (datasetId) {
+      const catItem = this.catalogueItems.find(i => i.id === datasetId);
+      if (catItem) {
+        if (meta && meta.featureCount !== undefined) catItem.featureCount = meta.featureCount;
+        if (meta && meta.archiveFeatureCount !== undefined) catItem.archiveFeatureCount = meta.archiveFeatureCount;
+      }
     }
 
     this.persist();
     this.notify();
+  }
+
+  /**
+   * Clears the active dataset selection so no collection is active.
+   */
+  clearActiveDataset() {
+    this.setActiveDataset(null, null, []);
   }
 
   /**
@@ -447,7 +538,7 @@ export class WorkspaceState {
     const catItem = {
       id: collectionPackage.meta.id,
       title: collectionPackage.meta.title,
-      category: 'Data Terbuka',
+      category: 'Koleksi Mitra',
       status: collectionPackage.meta.status || 'Mandiri / Belum Ditelaah',
       description: collectionPackage.meta.description,
       geojsonPath: null,
@@ -554,6 +645,22 @@ export class WorkspaceState {
   }
 
   /**
+   * Updates the active Luma module context (Module 6: Draf Pra-Klasifikasi, Module 7: Tervalidasi Akurasi Tematik).
+   * @param {number|string} moduleId
+   */
+  setLumaActiveModule(moduleId) {
+    const mod = Number(moduleId);
+    if (mod === 6 || mod === 7) {
+      if (!this.lumaContext) {
+        this.lumaContext = {};
+      }
+      this.lumaContext.activeModule = mod;
+      this.saveProject();
+      this.notify();
+    }
+  }
+
+  /**
    * Persists private project state across cases.
    * Tracks project save failure independently so preference saves do not mask failure.
    */
@@ -571,7 +678,8 @@ export class WorkspaceState {
       case4Adoptions: this.case4Adoptions,
       case2SamplingDraft: this.case2SamplingDraft,
       case4Queue: this.case4Queue,
-      case4Interpretations: this.case4Interpretations
+      case4Interpretations: this.case4Interpretations,
+      lumaActiveModule: this.lumaContext ? this.lumaContext.activeModule : 7
     });
     if (!res || !res.success) {
       this.lastProjectSaveError = (res && res.error) || 'Gagal menyimpan status proyek';

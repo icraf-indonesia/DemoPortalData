@@ -42,6 +42,42 @@ export class CatalogueView {
    */
   setActiveTab(tab) {
     this.activeTab = tab;
+    // Check if current active dataset belongs to the newly activated tab
+    const isUserB = this.workspace.activeUser === 'user_b';
+    const activeId = this.workspace.activeDatasetId;
+    let isPresentInNewTab = false;
+
+    if (tab === 'data_anda') {
+      if (isUserB) {
+        isPresentInNewTab = (
+          activeId === 'data_hutan' ||
+          activeId === 'data_hutan_sawit_partisipatif' ||
+          (this.workspace.case3PrivateCollection && activeId === this.workspace.case3PrivateCollection.meta.id)
+        );
+      } else {
+        isPresentInNewTab = (
+          activeId === 'data_kebun_sawit_karet_f' ||
+          activeId === 'data_campuran_1'
+        );
+      }
+    } else {
+      isPresentInNewTab = (
+        activeId === 'data_kontribusi_mandiri' ||
+        activeId === 'data_ref_mod_f' ||
+        activeId === 'data_ref_mod_2b' ||
+        activeId === 'data_sawah' ||
+        activeId === 'data_hutan' ||
+        activeId === 'case4_data_kombinasi_f' ||
+        (this.workspace.publishedCollections || []).some(p => p.meta && p.meta.id === activeId)
+      );
+    }
+
+    if (!isPresentInNewTab && activeId !== null) {
+      if (typeof this.onSelectDataset === 'function') {
+        this.onSelectDataset(null);
+      }
+    }
+
     this.render(this.workspace);
   }
 
@@ -110,24 +146,30 @@ export class CatalogueView {
 
     if (this.activeTab === 'data_anda') {
       if (isUserB) {
-        // User B's workspace shows forestry datasets (data_hutan and Case 3 combined data_hutan_sawit_partisipatif)
+        // User B's workspace shows user-owned forestry datasets (data_hutan and Case 3 combined data_hutan_sawit_partisipatif)
         filteredItems = state.catalogueItems.filter(i =>
           i.id === 'data_hutan' ||
           i.id === 'data_hutan_sawit_partisipatif' ||
           (state.case3PrivateCollection && i.id === state.case3PrivateCollection.meta.id)
         );
       } else {
-        // User A's workspace shows non-published plantation datasets, never leaking forestry or User B collections
+        // User A's workspace shows only user-owned plantation datasets (initial plantation and private mixed dataset)
         filteredItems = state.catalogueItems.filter(i =>
-          !i.isPublished &&
-          i.id !== 'data_hutan' &&
-          i.id !== 'data_hutan_sawit_partisipatif' &&
-          (!state.case3PrivateCollection || i.id !== state.case3PrivateCollection.meta.id)
+          i.id === 'data_kebun_sawit_karet_f' ||
+          i.id === 'data_campuran_1'
         );
       }
     } else {
-      // Data Terbuka: shows published collections (visible to both User A and User B!)
-      filteredItems = state.catalogueItems.filter(i => i.isPublished || i.id === 'data_kontribusi_mandiri');
+      // Data Terbuka: shows open reference data, partner collections, integrated Case 4 collection, and published collections
+      filteredItems = state.catalogueItems.filter(i =>
+        i.isPublished ||
+        i.id === 'data_kontribusi_mandiri' ||
+        i.id === 'data_ref_mod_f' ||
+        i.id === 'data_ref_mod_2b' ||
+        i.id === 'data_sawah' ||
+        i.id === 'data_hutan' ||
+        i.id === 'case4_data_kombinasi_f'
+      );
     }
 
     if (filteredItems.length === 0) {
@@ -144,7 +186,7 @@ export class CatalogueView {
         const isActive = item.id === state.activeDatasetId;
 
         const card = document.createElement('div');
-        card.className = `catalogue-card ${isActive ? 'is-active' : ''} ${item.isPrivate ? 'is-private' : ''} ${item.isPublished ? 'is-published' : ''}`;
+        card.className = `catalogue-card ${isActive ? 'is-active' : ''} ${item.isPrivate ? 'is-private' : ''}`;
         card.setAttribute('data-dataset-id', item.id);
         card.tabIndex = 0;
         card.setAttribute('role', 'button');
@@ -154,16 +196,9 @@ export class CatalogueView {
         metaHeader.className = 'catalogue-card-meta';
 
         const catBadge = document.createElement('span');
-        catBadge.className = `catalogue-badge ${item.isPublished ? 'badge-public' : (item.isPrivate ? 'badge-private' : '')}`;
-        catBadge.textContent = item.isPublished ? 'Data Terbuka' : (item.category || 'Koleksi Data');
+        catBadge.className = `catalogue-badge ${item.isPrivate ? 'badge-private' : ''}`;
+        catBadge.textContent = item.category || 'Koleksi Mitra';
         metaHeader.appendChild(catBadge);
-
-        if (item.isPublished) {
-          const statusBadge = document.createElement('span');
-          statusBadge.className = 'catalogue-badge badge-mandiri';
-          statusBadge.textContent = item.status || 'Mandiri / Belum Ditelaah';
-          metaHeader.appendChild(statusBadge);
-        }
 
         if (isActive) {
           const activeBadge = document.createElement('span');
@@ -183,25 +218,6 @@ export class CatalogueView {
         cardDesc.textContent = item.description;
         card.appendChild(cardDesc);
 
-        // Published metadata details: institution & confirmed year & dynamic crosswalk
-        if (item.isPublished) {
-          const pubMetaBox = document.createElement('div');
-          pubMetaBox.className = 'published-meta-info';
-          let cwText = '';
-          if (item.crosswalk) {
-            const cwItems = Object.values(item.crosswalk);
-            if (cwItems.length > 0) {
-              cwText = `<div class="pub-meta-line"><span class="pub-meta-label">Penyelarasan:</span> <span class="pub-meta-val">${cwItems.map(c => `${c.projectClassLabel || c.projectClassId}: ${c.code || ''} ${c.name || ''}`).join(', ')}</span></div>`;
-            }
-          }
-          pubMetaBox.innerHTML = `
-            <div class="pub-meta-line"><span class="pub-meta-label">Lembaga:</span> <span class="pub-meta-val">${item.institution || 'ICRAF Indonesia'}</span></div>
-            <div class="pub-meta-line"><span class="pub-meta-label">Tahun:</span> <span class="pub-meta-val">${item.year || 2026}</span> &bull; <span class="pub-meta-label">Wilayah:</span> Banyuasin</div>
-            ${cwText}
-          `;
-          card.appendChild(pubMetaBox);
-        }
-
         const detailsFooter = document.createElement('div');
         detailsFooter.className = 'catalogue-card-footer';
 
@@ -211,7 +227,7 @@ export class CatalogueView {
           if (item.archiveFeatureCount && item.archiveFeatureCount !== item.featureCount) {
             countSpan.textContent = `${item.featureCount} titik AOI (${item.archiveFeatureCount} arsip)`;
           } else {
-            countSpan.textContent = `${item.featureCount} titik`;
+            countSpan.textContent = `${item.featureCount} titik AOI`;
           }
         } else {
           countSpan.textContent = 'Inspeksi data';
@@ -269,10 +285,14 @@ export class CatalogueView {
         detailsFooter.appendChild(actionsWrapper);
         card.appendChild(detailsFooter);
 
-        // Event handlers for selecting/loading the card
+        // Event handlers for selecting/toggling the card
         const triggerSelect = () => {
-          if (!isActive && typeof this.onSelectDataset === 'function') {
-            this.onSelectDataset(item.id);
+          if (typeof this.onSelectDataset === 'function') {
+            if (isActive) {
+              this.onSelectDataset(null);
+            } else {
+              this.onSelectDataset(item.id);
+            }
           }
         };
 

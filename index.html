@@ -75,6 +75,14 @@
             </select>
             <p class="settings-hint">Pengguna B mengakses data kehutanan dan dapat menggunakan ulang koleksi yang dipublikasikan oleh Pengguna A.</p>
           </div>
+          <div class="popover-section" id="popover-section-luma">
+            <div class="popover-section-label">Tahap Siklus Luma (Kasus 2)</div>
+            <select id="popover-luma-module-select" class="user-role-select" style="width: 100%; padding: 6px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #cbd5e1;">
+              <option value="6">Modul 6: Draf Pra-Klasifikasi (Belum Uji Akurasi)</option>
+              <option value="7" selected>Modul 7: Tervalidasi Akurasi Tematik (OA: 89.2%, Kappa: 0.835)</option>
+            </select>
+            <p class="settings-hint">Pilih tahap modul Luma yang sedang dijalankan untuk memverifikasi mutu model sebelum publikasi.</p>
+          </div>
           <div class="popover-section">
             <div class="popover-section-label">Mode Data</div>
             <div class="mode-control-group">
@@ -154,6 +162,6 @@
   <!-- Vendored Local JSZip, Leaflet & Application Scripts -->
   <script src="vendor/jszip/jszip.min.js"></script>
   <script src="vendor/leaflet/leaflet.js"></script>
-  <script type="module" src="src/main.js"></script>
+  <script type="module" src="src/main.js?v=20261014_2"></script>
 </body>
 </html>

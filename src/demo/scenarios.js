@@ -99,6 +99,7 @@ export function resolveCanonicalDatasetId(archiveOrId) {
 export const DATASET_SCENARIOS = Object.freeze({
   data_kebun_sawit_karet_f: {
     observedYear: 2026,
+    location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Pemilik A (Pengguna)',
     contributorDisplayName: 'Pemilik A',
     rightsStatus: 'Izin penggunaan internal (Simulasi)',
@@ -111,8 +112,9 @@ export const DATASET_SCENARIOS = Object.freeze({
   },
   data_ref_mod_2b: {
     observedYear: 2025,
+    location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Koleksi Mitra Rujukan',
-    contributorDisplayName: 'Tim Telaah Mitra',
+    contributorDisplayName: 'Tim Telaah Mitra (2025)',
     rightsStatus: 'Izin penggunaan terbuka (Simulasi Mitra)',
     method: 'Interpretasi Citra & Uji Lapang',
     qualityTier: 2,
@@ -124,19 +126,21 @@ export const DATASET_SCENARIOS = Object.freeze({
   },
   data_hutan: {
     observedYear: 2024,
-    owner: 'Konsorsium Mitra Kehutanan',
-    contributorDisplayName: 'Mitra Kehutanan',
+    location: 'Kabupaten Banyuasin, Sumatera Selatan',
+    owner: 'Dinas Kehutanan Provinsi Sumatera Selatan',
+    contributorDisplayName: 'Dinas Kehutanan (2024)',
     rightsStatus: 'Izin data terbuka (Simulasi)',
     method: 'Inventarisasi Hutan',
     qualityTier: 3,
     assumptions: [
-      'Titik hutan diamati tahun 2024 dengan izin terbuka mitra'
+      'Titik hutan diamati tahun 2024 oleh Dinas Kehutanan dengan izin terbuka'
     ]
   },
   data_sawah: {
     observedYear: 2025,
+    location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Dinas Pertanian Daerah',
-    contributorDisplayName: 'Penyuluh Pertanian',
+    contributorDisplayName: 'Dinas Pertanian (2025)',
     rightsStatus: 'Izin data terbuka (Simulasi)',
     method: 'Survei Lahan Pertanian',
     qualityTier: 3,
@@ -146,8 +150,9 @@ export const DATASET_SCENARIOS = Object.freeze({
   },
   data_ref_mod_f: {
     observedYear: 2025,
+    location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Koleksi Referensi 2a',
-    contributorDisplayName: 'Sumber Rujukan',
+    contributorDisplayName: 'Sumber Rujukan (2025)',
     rightsStatus: 'Belum terverifikasi',
     method: 'unknown',
     qualityTier: null,
@@ -157,8 +162,9 @@ export const DATASET_SCENARIOS = Object.freeze({
   },
   case4_data_kombinasi_f: {
     observedYear: 2025,
+    location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Koleksi Gabungan',
-    contributorDisplayName: 'Multi-Sumber',
+    contributorDisplayName: 'Multi-instansi (2025)',
     rightsStatus: 'Simulasi Terpadu',
     method: 'Campuran',
     qualityTier: null,

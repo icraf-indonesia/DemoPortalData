@@ -135,12 +135,13 @@ export class ContributionWorkflow {
     this.stagedPublicationDraft = {
       selectedCollectionIds: partialDraft.selectedCollectionIds || ['data_kebun_sawit_karet_f'],
       accountName: partialDraft.accountName ?? '',
-      owningInstitution: partialDraft.owningInstitution ?? '',
+      owningInstitution: partialDraft.owningInstitution || 'Dinas Perkebunan Kabupaten Banyuasin',
       technicalEmail: partialDraft.technicalEmail ?? '',
       confirmedYear: Number(partialDraft.confirmedYear) || 2026,
       acquisitionMethod: partialDraft.acquisitionMethod || 'Survei GPS Lapangan',
       boundaryAoi: 'Kabupaten Banyuasin',
       responsibilityAccepted: Boolean(partialDraft.responsibilityAccepted),
+      includeLumaMetadata: partialDraft.includeLumaMetadata !== undefined ? Boolean(partialDraft.includeLumaMetadata) : true,
       crosswalk: {
         1: partialDraft.crosswalk?.[1] || { ...DEFAULT_EPISTEM_CROSSWALK[1] },
         2: partialDraft.crosswalk?.[2] || { ...DEFAULT_EPISTEM_CROSSWALK[2] }
@@ -276,6 +277,17 @@ export class ContributionWorkflow {
       }
     }
 
+    const includeLuma = Boolean(declarations.includeLumaMetadata);
+    const lumaModeling = (includeLuma && declarations.lumaContext)
+      ? {
+          activeModule: declarations.lumaContext.activeModule,
+          status: declarations.lumaContext.activeModule === 7 ? 'Tervalidasi Akurasi Tematik (Modul 7)' : 'Draf Pra-Klasifikasi (Modul 6)',
+          module4Separability: declarations.lumaContext.module4Separability || null,
+          module6Classification: declarations.lumaContext.module6Classification || null,
+          module7Validation: declarations.lumaContext.module7Validation || null
+        }
+      : null;
+
     const points = ownedRecords.map(r => {
       const pClassId = Number(r.project_class_id) || 1;
       const cw = resolvedCrosswalk[pClassId] || null;
@@ -316,6 +328,7 @@ export class ContributionWorkflow {
           crosswalk_leaf_code: cw ? cw.code : null,
           crosswalk_leaf_name: cw ? cw.name : null,
           crosswalk_leaf_path: cw ? cw.path : null,
+          luma_module: declarations.lumaContext ? declarations.lumaContext.activeModule : null,
           version,
           published_at: createdAt
         },
@@ -340,7 +353,7 @@ export class ContributionWorkflow {
     const packageMeta = {
       id: 'data_kontribusi_mandiri',
       title: 'Data Kontribusi Mandiri (Perkebunan Banyuasin)',
-      category: 'Data Terbuka',
+      category: 'Koleksi Mitra',
       status: 'Mandiri / Belum Ditelaah',
       publicationStatus: 'published_unreviewed',
       version,
@@ -357,6 +370,7 @@ export class ContributionWorkflow {
       acquisitionMethod,
       boundary: 'Kabupaten Banyuasin',
       crosswalk: { ...resolvedCrosswalk },
+      luma_modeling: lumaModeling,
       publication_metadata: {
         collection_id: 'data_kontribusi_mandiri',
         declared_institution: institution,
@@ -366,6 +380,7 @@ export class ContributionWorkflow {
         declared_method: acquisitionMethod,
         declared_rights: 'Izin Publikasi Data Terbuka Mandiri (User Declared)',
         crosswalk: { ...resolvedCrosswalk },
+        luma_modeling: lumaModeling,
         version,
         published_at: createdAt
       },
@@ -391,7 +406,9 @@ export class ContributionWorkflow {
         confirmedYear,
         acquisitionMethod,
         boundaryAoi: 'Kabupaten Banyuasin',
-        responsibilityAccepted: true
+        responsibilityAccepted: true,
+        includeLumaMetadata: includeLuma,
+        luma_modeling: lumaModeling
       },
       crosswalk: { ...resolvedCrosswalk }
     };

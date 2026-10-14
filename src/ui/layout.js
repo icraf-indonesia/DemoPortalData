@@ -117,34 +117,46 @@ export class LayoutController {
    * @param {import('../state/workspace.js').WorkspaceState} state
    */
   syncLayout(state) {
+    const hasActiveDataset = Boolean(state.activeDatasetId && state.activeRecords && state.activeRecords.length > 0);
     const isLeftCollapsed = Boolean(state.isLeftCollapsed);
     const isRightCollapsed = Boolean(state.isRightCollapsed);
     const isTableCollapsed = Boolean(state.isTableCollapsed);
 
     // 1. Workspace container layout modifier classes
     if (this.workspaceLayout) {
-      this.workspaceLayout.classList.toggle('left-collapsed', isLeftCollapsed);
+      this.workspaceLayout.classList.toggle('left-collapsed', isLeftCollapsed || !hasActiveDataset);
       this.workspaceLayout.classList.toggle('right-collapsed', isRightCollapsed);
-      this.workspaceLayout.classList.toggle('table-expanded', !isTableCollapsed);
+      this.workspaceLayout.classList.toggle('table-expanded', !isTableCollapsed && hasActiveDataset);
     }
 
-    // 2. Left Panel sync
+    // 2. Left Panel sync: completely hide if no active dataset
     if (this.panelLeftContainer) {
-      this.panelLeftContainer.classList.toggle('is-collapsed', isLeftCollapsed);
-      this.panelLeftContainer.setAttribute('aria-hidden', String(isLeftCollapsed));
-      if (isLeftCollapsed) {
+      if (!hasActiveDataset) {
+        this.panelLeftContainer.style.display = 'none';
+        this.panelLeftContainer.setAttribute('aria-hidden', 'true');
         this.panelLeftContainer.setAttribute('inert', '');
       } else {
-        this.panelLeftContainer.removeAttribute('inert');
+        this.panelLeftContainer.style.display = '';
+        this.panelLeftContainer.classList.toggle('is-collapsed', isLeftCollapsed);
+        this.panelLeftContainer.setAttribute('aria-hidden', String(isLeftCollapsed));
+        if (isLeftCollapsed) {
+          this.panelLeftContainer.setAttribute('inert', '');
+        } else {
+          this.panelLeftContainer.removeAttribute('inert');
+        }
       }
     }
     if (this.btnCollapseLeft) {
       this.btnCollapseLeft.setAttribute('aria-expanded', String(!isLeftCollapsed));
     }
     if (this.btnReopenLeft) {
-      this.btnReopenLeft.style.display = isLeftCollapsed ? 'inline-flex' : 'none';
-      this.btnReopenLeft.setAttribute('aria-expanded', String(!isLeftCollapsed));
-      this.btnReopenLeft.setAttribute('aria-hidden', String(!isLeftCollapsed));
+      if (!hasActiveDataset) {
+        this.btnReopenLeft.style.display = 'none';
+      } else {
+        this.btnReopenLeft.style.display = isLeftCollapsed ? 'inline-flex' : 'none';
+        this.btnReopenLeft.setAttribute('aria-expanded', String(!isLeftCollapsed));
+        this.btnReopenLeft.setAttribute('aria-hidden', String(!isLeftCollapsed));
+      }
     }
 
     // 3. Right Panel sync

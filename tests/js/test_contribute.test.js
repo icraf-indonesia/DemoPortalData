@@ -200,3 +200,84 @@ test('ContributionWorkflow: on-screen sampling rejects non-finite coordinates an
   assert.equal(completeResult.record.method, SAMPLING_ORIGINS.IMAGE_INTERPRETATION);
   assert.equal(completeResult.record.is_screen_sample, true);
 });
+
+test('ContributionWorkflow: setPublicationDraft defaults institution to Dinas Perkebunan and sets includeLumaMetadata', () => {
+  const workflow = new ContributionWorkflow();
+
+  const draft = workflow.setPublicationDraft({});
+
+  assert.equal(draft.owningInstitution, 'Dinas Perkebunan Kabupaten Banyuasin');
+  assert.equal(draft.confirmedYear, 2026);
+  assert.equal(draft.acquisitionMethod, 'Survei GPS Lapangan');
+  assert.equal(draft.boundaryAoi, 'Kabupaten Banyuasin');
+  assert.equal(draft.includeLumaMetadata, true);
+});
+
+test('ContributionWorkflow: createPublishedPackage embeds Luma modeling metadata for Module 7 and Module 6', () => {
+  const workflow = new ContributionWorkflow();
+
+  const ownedPoints = [
+    {
+      observation_id: 'pt_owned_1',
+      geometry: { type: 'Point', coordinates: [104.5, -2.5] },
+      dataset_archive: '1_Data_Pengguna_1/Data_kebun_sawit_karet_F.zip',
+      source_class_id: '1',
+      source_class_label: 'Kebun sawit',
+      project_class_id: 1,
+      project_class_label: 'Kelapa sawit',
+      observed_time: { year: 2026 },
+      method: 'Survei GPS Lapangan'
+    }
+  ];
+
+  const lumaContextMock = {
+    activeModule: 7,
+    module4Separability: {
+      method: 'Jeffries-Matusita Distance (JM)',
+      pairs: [{ pair: 'Karet vs Kelapa sawit', distance: 1.84, rating: 'Baik (>1.8)' }]
+    },
+    module6Classification: {
+      algorithm: 'Random Forest (RF)',
+      numberOfTrees: 100,
+      features: 'Sentinel-2 (B2-B12, NDVI)'
+    },
+    module7Validation: {
+      overallAccuracy: 89.2,
+      kappa: 0.835,
+      testSampleSize: 150
+    }
+  };
+
+  const declarations = {
+    accountName: 'Staf GIS',
+    owningInstitution: 'Dinas Perkebunan Kabupaten Banyuasin',
+    technicalEmail: 'disbun@banyuasinkab.go.id',
+    confirmedYear: 2026,
+    acquisitionMethod: 'Survei GPS Lapangan',
+    responsibilityAccepted: true,
+    includeLumaMetadata: true,
+    lumaContext: lumaContextMock
+  };
+
+  const pkgMod7 = workflow.createPublishedPackage(ownedPoints, declarations);
+
+  assert.ok(pkgMod7.meta.luma_modeling, 'Luma modeling must be attached to packageMeta');
+  assert.equal(pkgMod7.meta.luma_modeling.activeModule, 7);
+  assert.equal(pkgMod7.meta.luma_modeling.module7Validation.overallAccuracy, 89.2);
+  assert.equal(pkgMod7.records[0].publication_metadata.luma_module, 7);
+
+  // Test Module 6 Draft
+  const declarationsMod6 = {
+    ...declarations,
+    lumaContext: {
+      ...lumaContextMock,
+      activeModule: 6
+    }
+  };
+
+  const pkgMod6 = workflow.createPublishedPackage(ownedPoints, declarationsMod6);
+  assert.equal(pkgMod6.meta.luma_modeling.activeModule, 6);
+  assert.ok(pkgMod6.meta.luma_modeling.status.includes('Draf Pra-Klasifikasi'));
+  assert.equal(pkgMod6.records[0].publication_metadata.luma_module, 6);
+});
+

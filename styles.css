@@ -826,13 +826,14 @@ select:focus-visible {
 }
 
 .catalogue-card.is-published {
-  border-color: #86efac;
-  background-color: #fcfdfd;
+  border-color: var(--luma-border);
+  background-color: var(--luma-surface);
 }
 
 .catalogue-card.is-published.is-active {
-  border-color: #16a34a;
-  box-shadow: 0 0 0 1px #16a34a;
+  border-color: var(--luma-pink);
+  background-color: #fff9fb;
+  box-shadow: 0 0 0 1px var(--luma-pink);
 }
 
 .badge-public {
@@ -1128,14 +1129,25 @@ select:focus-visible {
 .modal-box {
   background: var(--luma-surface);
   border-radius: var(--luma-radius);
-  max-width: 660px;
+  max-width: 680px;
   width: 90%;
-  max-height: 85vh;
+  max-height: 88vh;
   display: flex;
   flex-direction: column;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
   border: 1px solid var(--luma-border);
   overflow: hidden;
+}
+
+.modal-box > div,
+.contribution-modal-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 88vh;
+  min-height: 0;
+  overflow: hidden;
+  flex: 1 1 auto;
 }
 
 .modal-header {
@@ -1180,10 +1192,13 @@ select:focus-visible {
 .modal-body {
   padding: 16px 20px;
   overflow-y: auto;
-  flex: 1;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
+  scrollbar-width: thin;
 }
 
 .modal-footer {
@@ -1325,6 +1340,206 @@ select:focus-visible {
 
 .btn-primary:hover {
   background-color: var(--luma-pink-hover);
+}
+
+/* Complement Flow: Katalog Terbuka Search, Filter & Card List */
+.complement-search-box {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
+.complement-search-input {
+  width: 100%;
+  padding: 8px 12px 8px 34px;
+  font-size: 0.8rem;
+  border: 1px solid var(--luma-border);
+  border-radius: var(--luma-radius);
+  background: #ffffff;
+  color: var(--luma-text);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.complement-search-input:focus {
+  border-color: var(--luma-pink);
+  box-shadow: 0 0 0 2px rgba(204, 71, 120, 0.15);
+}
+
+.complement-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--luma-muted);
+  pointer-events: none;
+}
+
+.complement-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--luma-radius);
+}
+
+.complement-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.complement-filter-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--luma-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.complement-filter-select {
+  padding: 5px 8px;
+  font-size: 0.74rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--luma-text);
+  outline: none;
+}
+
+.complement-filter-select:focus {
+  border-color: var(--luma-pink);
+}
+
+.complement-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 380px;
+  padding-right: 2px;
+}
+
+.complement-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.complement-card:hover {
+  border-color: var(--luma-pink);
+  box-shadow: 0 4px 10px -2px rgba(204, 71, 120, 0.08);
+}
+
+.complement-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.complement-card-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--luma-text);
+}
+
+.complement-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+
+.complement-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.complement-card-badge.badge-loc {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #dbeafe;
+}
+
+.complement-card-badge.badge-count {
+  background: #fdf2f8;
+  color: #be185d;
+  border: 1px solid #fce7f3;
+}
+
+.complement-card-badge.badge-inst {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #dcfce7;
+}
+
+.complement-card-desc {
+  font-size: 0.74rem;
+  color: var(--luma-muted);
+  line-height: 1.4;
+}
+
+.complement-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.btn-select-collection {
+  background-color: var(--luma-pink);
+  color: #ffffff;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-select-collection:hover {
+  background-color: var(--luma-pink-hover);
+}
+
+.complement-empty-notice {
+  padding: 24px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--luma-muted);
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+}
+
+.selected-collection-infobar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #fdf2f8;
+  border: 1px solid #fce7f3;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  color: #9d174d;
+  font-weight: 600;
 }
 
 /* Reset Demo Button */
@@ -2196,4 +2411,349 @@ select:focus-visible {
     width: calc(100% - 32px);
     max-width: 320px;
   }
+}
+
+/* ==========================================================================
+   Case 2: Luma Modeling Quality Section (Panel Kiri)
+   ========================================================================== */
+
+.luma-quality-details {
+  margin: 10px 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.luma-quality-details[open] {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.luma-quality-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #f8fafc;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1e293b;
+  border-bottom: 1px solid transparent;
+  transition: background 0.15s ease;
+}
+
+.luma-quality-details[open] .luma-quality-summary {
+  border-bottom-color: #e2e8f0;
+}
+
+.luma-quality-summary:hover {
+  background: #f1f5f9;
+}
+
+.luma-summary-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.luma-summary-icon {
+  color: #0284c7;
+  flex-shrink: 0;
+}
+
+.luma-summary-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.luma-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 12px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.luma-badge-success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.luma-badge-warning {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.luma-quality-body {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #ffffff;
+}
+
+/* Luma Module Switcher Pills */
+.luma-module-switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.luma-switch-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.luma-switch-btn-group {
+  display: flex;
+  gap: 4px;
+}
+
+.btn-luma-tab {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-luma-tab:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.btn-luma-tab.active {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  box-shadow: 0 1px 2px rgba(2, 132, 199, 0.25);
+}
+
+/* Subcards inside Luma Details */
+.luma-subcard {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.luma-subcard-title {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 4px;
+}
+
+.luma-subcard-desc {
+  font-size: 0.69rem;
+  color: #64748b;
+  margin-bottom: 6px;
+}
+
+/* Tables for Separability & Confusion Matrix */
+.luma-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.7rem;
+}
+
+.luma-table th {
+  text-align: left;
+  font-weight: 600;
+  color: #64748b;
+  padding: 3px 4px;
+  border-bottom: 1px solid #cbd5e1;
+}
+
+.luma-table td {
+  padding: 3px 4px;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.luma-table td.num,
+.luma-table td.pair-val {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.badge-mini-good {
+  display: inline-block;
+  background: #ecfdf5;
+  color: #047857;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+/* KPI Summary Block */
+.luma-kpi-row {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+.luma-kpi {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #d1fae5;
+  border-radius: 4px;
+  padding: 6px;
+  text-align: center;
+}
+
+.luma-kpi .kpi-val {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #047857;
+  line-height: 1.1;
+}
+
+.luma-kpi .kpi-lbl {
+  display: block;
+  font-size: 0.65rem;
+  color: #475569;
+  margin-top: 2px;
+}
+
+/* Key-Value Rows */
+.luma-meta-kv {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.7rem;
+}
+
+.luma-meta-kv .kv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.bands-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.66rem;
+  background: #e2e8f0;
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: #334155;
+  word-break: break-all;
+}
+
+.luma-notice-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 6px 8px;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-radius: 4px;
+  color: #92400e;
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   Case 2: Epistem Visual Hierarchy Tree Flow Cards (Modal Bagikan Data)
+   ========================================================================== */
+
+.taxonomy-tree-card {
+  margin: 6px 0 8px 0;
+  padding: 6px 8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.tree-flow-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tree-flow-step {
+  display: inline-flex;
+  flex-direction: column;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 4px 6px;
+  min-width: 70px;
+  max-width: 140px;
+}
+
+.tree-flow-step.tree-flow-leaf {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.1);
+}
+
+.tree-level-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #64748b;
+  background: #e2e8f0;
+  padding: 1px 4px;
+  border-radius: 2px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.tree-level-badge.leaf-badge {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.tree-node-title {
+  font-size: 0.69rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.2;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tree-flow-leaf .tree-node-title {
+  color: #1d4ed8;
+  font-weight: 700;
+}
+
+.tree-node-code {
+  font-size: 0.64rem;
+  font-family: ui-monospace, monospace;
+  color: #0284c7;
+  margin-top: 1px;
+}
+
+.tree-flow-arrow {
+  color: #94a3b8;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0 1px;
 }

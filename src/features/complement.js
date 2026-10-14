@@ -15,6 +15,7 @@ import { evaluateCandidateEligibility, MODES } from '../demo/scenarios.js';
 
 export const COMPLEMENT_STEPS = Object.freeze({
   CLOSED: 'closed',
+  CATALOGUE: 'catalogue',
   SELECTING: 'selecting',
   PREVIEWING: 'previewing'
 });
@@ -30,6 +31,36 @@ export const REF_MOD_2B_CLASSES = Object.freeze([
   { id: '5', label: 'Lainnya', isTargetClass: false, description: 'Tutupan non-perkebunan rujukan lainnya' }
 ]);
 
+export const DATASET_COMPLEMENT_CLASSES = Object.freeze({
+  data_ref_mod_2b: REF_MOD_2B_CLASSES,
+  data_sawah: Object.freeze([
+    { id: '1', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah (Koleksi Mitra)' },
+    { id: '4', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah' },
+    { id: '5', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah' }
+  ]),
+  data_hutan: Object.freeze([
+    { id: '1', label: 'Hutan', isTargetClass: false, description: 'Tutupan hutan alam / sekunder (Dinas Kehutanan 2024)' },
+    { id: '4', label: 'Hutan', isTargetClass: false, description: 'Tutupan hutan alam / sekunder (Dinas Kehutanan 2024)' }
+  ]),
+  case4_data_kombinasi_f: Object.freeze([
+    { id: '1', label: 'Hutan', isTargetClass: false, description: 'Tutupan lahan hutan' },
+    { id: '2', label: 'Kebun sawit', isTargetClass: true, description: 'Kelas target proyek (Kelapa sawit) - dikecualikan' },
+    { id: '3', label: 'Kebun karet', isTargetClass: true, description: 'Kelas target proyek (Karet) - dikecualikan' },
+    { id: '4', label: 'Sawah', isTargetClass: false, description: 'Lahan pertanian sawah' },
+    { id: '5', label: 'Lainnya', isTargetClass: false, description: 'Tutupan non-perkebunan lainnya' }
+  ]),
+  data_ref_mod_f: Object.freeze([
+    { id: '1', label: 'Titik Rujukan (Tanpa Label)', isTargetClass: false, description: 'Titik rujukan sampling acak/grid tanpa label kelas sumber' }
+  ])
+});
+
+export function getComplementClassesForSource(sourceId) {
+  if (sourceId && DATASET_COMPLEMENT_CLASSES[sourceId]) {
+    return DATASET_COMPLEMENT_CLASSES[sourceId];
+  }
+  return REF_MOD_2B_CLASSES;
+}
+
 export class ComplementWorkflow {
   constructor(workspace) {
     this.workspace = workspace;
@@ -38,6 +69,14 @@ export class ComplementWorkflow {
     this.selectedClassIds = new Set(['1', '4', '5']); // Default non-target classes
     this.cachedSourceRecords = [];
     this.lastOperationReceipt = null;
+  }
+
+  /**
+   * Resolves available classes for current source dataset.
+   * @returns {Array<Object>}
+   */
+  getSourceClasses() {
+    return getComplementClassesForSource(this.selectedSourceId);
   }
 
   /**
@@ -57,10 +96,11 @@ export class ComplementWorkflow {
    * Selects all non-target classes (excluding sawit and karet).
    */
   selectNonTargetClasses() {
+    const classes = this.getSourceClasses();
     this.selectedClassIds = new Set(
-      REF_MOD_2B_CLASSES
+      classes
         .filter(c => !c.isTargetClass)
-        .map(c => c.id)
+        .map(c => String(c.id))
     );
   }
 
@@ -78,7 +118,8 @@ export class ComplementWorkflow {
    * @param {boolean} [forced]
    */
   toggleClass(classId, forced = null) {
-    const classDef = REF_MOD_2B_CLASSES.find(c => c.id === String(classId));
+    const classes = this.getSourceClasses();
+    const classDef = classes.find(c => String(c.id) === String(classId));
     if (classDef && classDef.isTargetClass) {
       // Disallowed: cannot map target class to Lainnya
       return;
@@ -134,8 +175,9 @@ export class ComplementWorkflow {
     const excludedByClass = [];
 
     for (const obs of evalResult.eligible) {
-      const srcCid = String(obs.source_class_id ?? '');
-      if (this.selectedClassIds.has(srcCid)) {
+      const srcCid = String(obs.source_class_id ?? obs.project_class_id ?? '');
+      const projCid = String(obs.project_class_id ?? '');
+      if (this.selectedClassIds.has(srcCid) || this.selectedClassIds.has(projCid)) {
         matchedByClass.push(obs);
       } else {
         excludedByClass.push(obs);
@@ -155,12 +197,17 @@ export class ComplementWorkflow {
     }
 
     // Breakdown of selected points by source class
+    const classes = this.getSourceClasses();
     const classBreakdown = {};
     for (const cid of this.selectedClassIds) {
-      const def = REF_MOD_2B_CLASSES.find(c => c.id === cid);
+      const def = classes.find(c => String(c.id) === String(cid));
       const label = def ? def.label : `Kelas ${cid}`;
-      const count = netNewPoints.filter(p => String(p.source_class_id) === cid).length;
-      classBreakdown[label] = count;
+      const count = netNewPoints.filter(p =>
+        String(p.source_class_id) === String(cid) || String(p.project_class_id) === String(cid)
+      ).length;
+      if (count > 0 || !classBreakdown[label]) {
+        classBreakdown[label] = (classBreakdown[label] || 0) + count;
+      }
     }
 
     return {

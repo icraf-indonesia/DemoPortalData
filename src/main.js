@@ -24,7 +24,20 @@ import { CatalogueView } from './ui/catalogue.js';
 import { AttributeTableView } from './ui/attribute-table.js';
 import { LayoutController } from './ui/layout.js';
 import { ModalDialog } from './ui/dialog.js';
-import { ComplementWorkflow, REF_MOD_2B_CLASSES } from './features/complement.js';
+import { ComplementWorkflow, REF_MOD_2B_CLASSES, getComplementClassesForSource } from './features/complement.js?v=20261014_2';
+
+// Ensure getSourceClasses and dynamic class selection exist on ComplementWorkflow prototype (safe against stale browser module cache)
+ComplementWorkflow.prototype.getSourceClasses = function() {
+  return getComplementClassesForSource(this.selectedSourceId);
+};
+ComplementWorkflow.prototype.selectNonTargetClasses = function() {
+  const classes = this.getSourceClasses();
+  this.selectedClassIds = new Set(
+    classes
+      .filter(c => !c.isTargetClass)
+      .map(c => String(c.id))
+  );
+};
 import { ContributionWorkflow, SAMPLING_ORIGINS, REVIEW_PRIORITIES } from './features/contribute.js';
 import { PartnerReuseWorkflow } from './features/partner-reuse.js';
 import {
@@ -67,6 +80,83 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
+function getDatasetComplementMeta(item) {
+  if (!item) return { title: '', contributor: '', year: 2025, location: 'Kabupaten Banyuasin', category: 'Data Terbuka', rights: 'Terbuka', hasLabel: true };
+  if (item.isPublished || item.category === 'Publikasi Mandiri') {
+    return {
+      title: item.title,
+      contributor: item.institution || 'ICRAF Indonesia',
+      year: item.year || 2026,
+      location: item.location || 'Kabupaten Banyuasin',
+      category: 'Publikasi Mandiri',
+      rights: 'Terbuka (Mandiri)',
+      hasLabel: true
+    };
+  }
+  switch (item.id) {
+    case 'data_ref_mod_2b':
+      return {
+        title: 'Data Referensi Modular (2b)',
+        contributor: 'Tim Telaah Mitra (2025)',
+        year: 2025,
+        location: item.location || 'Kabupaten Banyuasin',
+        category: 'Data Referensi',
+        rights: 'Izin Terbuka Simulasi Mitra',
+        hasLabel: true
+      };
+    case 'data_sawah':
+      return {
+        title: 'Data Lahan Sawah',
+        contributor: 'Dinas Pertanian (2025)',
+        year: 2025,
+        location: item.location || 'Kabupaten Banyuasin',
+        category: 'Koleksi Mitra',
+        rights: 'Terbuka (Mitra Pertanian)',
+        hasLabel: true
+      };
+    case 'data_hutan':
+      return {
+        title: 'Data Tutupan Hutan',
+        contributor: 'Dinas Kehutanan (2024)',
+        year: 2024,
+        location: item.location || 'Kabupaten Banyuasin',
+        category: 'Koleksi Mitra',
+        rights: 'Terbuka (Dinas Kehutanan)',
+        hasLabel: true
+      };
+    case 'data_ref_mod_f':
+      return {
+        title: 'Data Referensi Modular (2a)',
+        contributor: 'Koleksi Referensi (2024)',
+        year: 2024,
+        location: item.location || 'Kabupaten Banyuasin',
+        category: 'Data Referensi',
+        rights: 'Terbuka (Modular)',
+        hasLabel: false
+      };
+    case 'case4_data_kombinasi_f':
+      return {
+        title: 'Data Kombinasi Multi-Sumber',
+        contributor: 'Konsorsium Mitra (2025)',
+        year: 2025,
+        location: item.location || 'Kabupaten Banyuasin',
+        category: 'Koleksi Terpadu (Kasus 4)',
+        rights: 'Terbuka (Multi-Sumber)',
+        hasLabel: true
+      };
+    default:
+      return {
+        title: item.title || item.id,
+        contributor: item.institution || 'Tim Epistem',
+        year: item.year || 2025,
+        location: item.location || 'Kabupaten Banyuasin',
+        category: item.category || 'Data Terbuka',
+        rights: 'Terbuka',
+        hasLabel: true
+      };
+  }
+}
+
 class PortalApp {
   constructor() {
     this.workspace = new WorkspaceState();
@@ -82,6 +172,13 @@ class PortalApp {
     this.contributionWorkflow = new ContributionWorkflow(this.workspace);
     this.partnerReuseWorkflow = new PartnerReuseWorkflow(this.workspace);
     this.reviewWorkflow = new ReviewWorkflow(this.workspace);
+
+    // Case 1: Complement search and filter state
+    this.complementSearchQuery = '';
+    this.complementFilterCategory = 'all';
+    this.complementFilterLocation = 'all';
+    this.complementFilterYear = 'all';
+    this.complementFilterLabel = 'all';
 
     // Header and global elements
     this.errorBanner = document.getElementById('error-banner');
@@ -167,6 +264,33 @@ class PortalApp {
       popoverUserRole.addEventListener('change', (e) => syncUser(e.target.value));
     }
 
+    // Sync Luma Module Selector in settings popover
+    const popoverLumaModule = document.getElementById('popover-luma-module-select');
+    if (popoverLumaModule) {
+      popoverLumaModule.value = String(this.workspace.lumaContext?.activeModule || 7);
+      popoverLumaModule.addEventListener('change', (e) => {
+        this.workspace.setLumaActiveModule(e.target.value);
+      });
+    }
+
+    // Support URL search params e.g. ?case=2&module=6
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('module')) {
+        const m = Number(urlParams.get('module'));
+        if (m === 6 || m === 7) {
+          this.workspace.setLumaActiveModule(m);
+          if (popoverLumaModule) popoverLumaModule.value = String(m);
+        }
+      }
+      if (urlParams.has('case')) {
+        const c = Number(urlParams.get('case'));
+        if (c >= 1 && c <= 4) {
+          this.workspace.setCase(c);
+        }
+      }
+    } catch (_) {}
+
     // Listen to workspace for table collapse to invalidate map size without resetting centre or zoom
     this.workspace.subscribe((state) => {
       if (this.lastCollapsedState !== state.isTableCollapsed) {
@@ -182,6 +306,9 @@ class PortalApp {
       }
       if (popoverUserRole && popoverUserRole.value !== state.activeUser) {
         popoverUserRole.value = state.activeUser || 'user_a';
+      }
+      if (popoverLumaModule && state.lumaContext && popoverLumaModule.value !== String(state.lumaContext.activeModule)) {
+        popoverLumaModule.value = String(state.lumaContext.activeModule);
       }
       this.updateModeControls();
       this.updateCaseNavHighlight(state.activeCaseId);
@@ -256,6 +383,11 @@ class PortalApp {
     this.datasetError = null;
     this.updateErrorBanner();
 
+    if (!datasetId) {
+      this.workspace.clearActiveDataset();
+      return;
+    }
+
     if (datasetId === 'data_campuran_1') {
       if (this.workspace.mixedDataset) {
         this.workspace.setActiveDataset(
@@ -275,6 +407,12 @@ class PortalApp {
           this.workspace.case2DonatedCollection.records
         );
       }
+      return;
+    }
+
+    const pub = (this.workspace.publishedCollections || []).find(p => p.meta && p.meta.id === datasetId);
+    if (pub) {
+      this.workspace.setActiveDataset(pub.meta.id, pub.meta, pub.records);
       return;
     }
 
@@ -504,25 +642,19 @@ class PortalApp {
   }
 
   // ==========================================
-  // CASE 1: STAGED COMPLEMENT FLOW
+  // CASE 1: STAGED COMPLEMENT FLOW (3-STEP WIZARD)
   // ==========================================
 
-  async openComplementModal() {
-    let candidateRecords = [];
-    try {
-      const candidateDataset = await loadDataset('data_ref_mod_2b');
-      candidateRecords = candidateDataset.records;
-    } catch (err) {
-      this.datasetError = `Gagal memuat kandidat data referensi: ${err.message}`;
-      this.updateErrorBanner();
-      return;
-    }
-
-    this.complementWorkflow.startFlow(candidateRecords, 'data_ref_mod_2b');
-    this.renderComplementStepSelect();
+  openComplementModal() {
+    this.complementSearchQuery = '';
+    this.complementFilterCategory = 'all';
+    this.complementFilterLocation = 'all';
+    this.complementFilterYear = 'all';
+    this.complementFilterLabel = 'all';
+    this.renderComplementStepCatalogue();
   }
 
-  renderComplementStepSelect() {
+  renderComplementStepCatalogue() {
     const isScenario = this.workspace.activeMode === MODES.SCENARIO;
     const container = document.createElement('div');
 
@@ -535,7 +667,398 @@ class PortalApp {
 
     const subtitle = document.createElement('p');
     subtitle.className = 'modal-subtitle';
-    subtitle.textContent = 'Pilih kelas non-target dari Data Referensi Modular (2b) untuk melengkapi kelas proyek "3. Lainnya".';
+    subtitle.textContent = 'Cari dan pilih koleksi data terbuka';
+    header.appendChild(subtitle);
+    container.appendChild(header);
+
+    const body = document.createElement('div');
+    body.className = 'modal-body';
+
+    // 1. Search Box
+    const searchBox = document.createElement('div');
+    searchBox.className = 'complement-search-box';
+
+    const searchIcon = document.createElement('span');
+    searchIcon.className = 'complement-search-icon';
+    searchIcon.textContent = '🔍';
+    searchBox.appendChild(searchIcon);
+
+    const searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.className = 'complement-search-input';
+    searchInput.placeholder = 'Cari nama koleksi, lembaga kontributor, kata kunci...';
+    searchInput.value = this.complementSearchQuery;
+    searchBox.appendChild(searchInput);
+    body.appendChild(searchBox);
+
+    // 2. Filter Grid
+    const filterGrid = document.createElement('div');
+    filterGrid.className = 'complement-filter-grid';
+
+    // Kategori Filter
+    const catGroup = document.createElement('div');
+    catGroup.className = 'complement-filter-group';
+    const catLabel = document.createElement('label');
+    catLabel.className = 'complement-filter-label';
+    catLabel.textContent = 'Kategori';
+    const catSelect = document.createElement('select');
+    catSelect.className = 'complement-filter-select';
+    catSelect.innerHTML = `
+      <option value="all">Semua Kategori</option>
+      <option value="Data Referensi">Data Referensi</option>
+      <option value="Koleksi Mitra">Koleksi Mitra</option>
+      <option value="Koleksi Terpadu">Koleksi Terpadu</option>
+      <option value="Publikasi Mandiri">Publikasi Mandiri</option>
+    `;
+    catSelect.value = this.complementFilterCategory;
+    catGroup.appendChild(catLabel);
+    catGroup.appendChild(catSelect);
+    filterGrid.appendChild(catGroup);
+
+    // Lokasi Filter (User requested: "please add filter based on location")
+    const locGroup = document.createElement('div');
+    locGroup.className = 'complement-filter-group';
+    const locLabel = document.createElement('label');
+    locLabel.className = 'complement-filter-label';
+    locLabel.textContent = 'Lokasi / Wilayah';
+    const locSelect = document.createElement('select');
+    locSelect.className = 'complement-filter-select';
+    locSelect.innerHTML = `
+      <option value="all">Semua Lokasi</option>
+      <option value="banyuasin">Kabupaten Banyuasin (AOI)</option>
+      <option value="sumsel">Provinsi Sumatera Selatan</option>
+      <option value="other">Wilayah Lain / Luar AOI</option>
+    `;
+    locSelect.value = this.complementFilterLocation;
+    locGroup.appendChild(locLabel);
+    locGroup.appendChild(locSelect);
+    filterGrid.appendChild(locGroup);
+
+    // Tahun Filter
+    const yearGroup = document.createElement('div');
+    yearGroup.className = 'complement-filter-group';
+    const yearLabel = document.createElement('label');
+    yearLabel.className = 'complement-filter-label';
+    yearLabel.textContent = 'Tahun';
+    const yearSelect = document.createElement('select');
+    yearSelect.className = 'complement-filter-select';
+    yearSelect.innerHTML = `
+      <option value="all">Semua Tahun</option>
+      <option value="2026">2026</option>
+      <option value="2025">2025</option>
+      <option value="2024">2024</option>
+    `;
+    yearSelect.value = this.complementFilterYear;
+    yearGroup.appendChild(yearLabel);
+    yearGroup.appendChild(yearSelect);
+    filterGrid.appendChild(yearGroup);
+
+    // Status Label Filter
+    const labelGroup = document.createElement('div');
+    labelGroup.className = 'complement-filter-group';
+    const labelLabel = document.createElement('label');
+    labelLabel.className = 'complement-filter-label';
+    labelLabel.textContent = 'Status Label';
+    const labelSelect = document.createElement('select');
+    labelSelect.className = 'complement-filter-select';
+    labelSelect.innerHTML = `
+      <option value="all">Semua Status</option>
+      <option value="labeled">Berlabel Kelas</option>
+      <option value="unlabeled">Tanpa Label (Unlabeled)</option>
+    `;
+    labelSelect.value = this.complementFilterLabel;
+    labelGroup.appendChild(labelLabel);
+    labelGroup.appendChild(labelSelect);
+    filterGrid.appendChild(labelGroup);
+
+    body.appendChild(filterGrid);
+
+    // 3. Card List Container
+    const cardList = document.createElement('div');
+    cardList.className = 'complement-card-list';
+    body.appendChild(cardList);
+    container.appendChild(body);
+
+    // 4. Modal Footer
+    const footer = document.createElement('div');
+    footer.className = 'modal-footer';
+
+    const cancelBtn = document.createElement('button');
+    cancelBtn.className = 'btn-secondary';
+    cancelBtn.type = 'button';
+    cancelBtn.textContent = 'Batal';
+    cancelBtn.addEventListener('click', () => {
+      this.complementWorkflow.cancel();
+      this.dialog.close();
+    });
+    footer.appendChild(cancelBtn);
+    container.appendChild(footer);
+
+    // Function to render cards based on active search & filters
+    const updateCardList = () => {
+      cardList.textContent = '';
+
+      const openItems = (this.workspace.catalogueItems || []).filter(i =>
+        i.isPublished ||
+        i.id === 'data_kontribusi_mandiri' ||
+        i.id === 'data_ref_mod_f' ||
+        i.id === 'data_ref_mod_2b' ||
+        i.id === 'data_sawah' ||
+        i.id === 'data_hutan' ||
+        i.id === 'case4_data_kombinasi_f'
+      );
+
+      const q = this.complementSearchQuery.trim().toLowerCase();
+      const filtered = openItems.filter(item => {
+        const meta = getDatasetComplementMeta(item);
+
+        // Search text matching
+        if (q) {
+          const matchTitle = (item.title || '').toLowerCase().includes(q);
+          const matchDesc = (item.description || '').toLowerCase().includes(q);
+          const matchCat = (meta.category || item.category || '').toLowerCase().includes(q);
+          const matchLoc = (meta.location || item.location || '').toLowerCase().includes(q);
+          const matchInst = (meta.contributor || '').toLowerCase().includes(q);
+          if (!matchTitle && !matchDesc && !matchCat && !matchLoc && !matchInst) {
+            return false;
+          }
+        }
+
+        // Category filter
+        if (this.complementFilterCategory !== 'all') {
+          if (this.complementFilterCategory === 'Publikasi Mandiri') {
+            if (!item.isPublished && meta.category !== 'Publikasi Mandiri') return false;
+          } else if (!meta.category.includes(this.complementFilterCategory) && !(item.category || '').includes(this.complementFilterCategory)) {
+            return false;
+          }
+        }
+
+        // Location filter
+        if (this.complementFilterLocation !== 'all') {
+          const locStr = (meta.location || item.location || '').toLowerCase();
+          if (this.complementFilterLocation === 'banyuasin') {
+            if (!locStr.includes('banyuasin')) return false;
+          } else if (this.complementFilterLocation === 'sumsel') {
+            if (!locStr.includes('sumatera selatan') && !locStr.includes('banyuasin')) return false;
+          } else if (this.complementFilterLocation === 'other') {
+            if (locStr.includes('banyuasin') || locStr.includes('sumatera')) return false;
+          }
+        }
+
+        // Year filter
+        if (this.complementFilterYear !== 'all') {
+          if (String(meta.year) !== this.complementFilterYear) return false;
+        }
+
+        // Label status filter
+        if (this.complementFilterLabel !== 'all') {
+          if (this.complementFilterLabel === 'labeled' && !meta.hasLabel) return false;
+          if (this.complementFilterLabel === 'unlabeled' && meta.hasLabel) return false;
+        }
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        const emptyNotice = document.createElement('div');
+        emptyNotice.className = 'complement-empty-notice';
+        emptyNotice.innerHTML = `
+          <strong>Tidak ada koleksi data yang sesuai dengan kriteria filter.</strong><br>
+          <span style="font-size:0.75rem;">Coba sesuaikan kata kunci pencarian atau ubah opsi filter lokasi/kategori/tahun.</span>
+        `;
+        cardList.appendChild(emptyNotice);
+        return;
+      }
+
+      for (const item of filtered) {
+        const meta = getDatasetComplementMeta(item);
+        const card = document.createElement('div');
+        card.className = 'complement-card';
+
+        const cardHeader = document.createElement('div');
+        cardHeader.className = 'complement-card-header';
+        const cardTitle = document.createElement('div');
+        cardTitle.className = 'complement-card-title';
+        cardTitle.textContent = item.title;
+        cardHeader.appendChild(cardTitle);
+
+        const catBadge = document.createElement('span');
+        catBadge.className = 'complement-card-badge';
+        catBadge.textContent = meta.category || item.category || 'Data Terbuka';
+        cardHeader.appendChild(catBadge);
+        card.appendChild(cardHeader);
+
+        const badgesRow = document.createElement('div');
+        badgesRow.className = 'complement-card-badges';
+
+        const countBadge = document.createElement('span');
+        countBadge.className = 'complement-card-badge badge-count';
+        countBadge.textContent = `📍 ${item.featureCount ?? 0} titik di AOI`;
+        badgesRow.appendChild(countBadge);
+
+        const locBadge = document.createElement('span');
+        locBadge.className = 'complement-card-badge badge-loc';
+        locBadge.textContent = `🗺️ ${meta.location}`;
+        badgesRow.appendChild(locBadge);
+
+        const instBadge = document.createElement('span');
+        instBadge.className = 'complement-card-badge badge-inst';
+        instBadge.textContent = `🏛️ ${meta.contributor}`;
+        badgesRow.appendChild(instBadge);
+
+        const labelBadge = document.createElement('span');
+        labelBadge.className = 'complement-card-badge';
+        labelBadge.textContent = meta.hasLabel ? '🏷️ Berlabel' : '🏷️ Tanpa Label';
+        badgesRow.appendChild(labelBadge);
+
+        card.appendChild(badgesRow);
+
+        const cardDesc = document.createElement('div');
+        cardDesc.className = 'complement-card-desc';
+        cardDesc.textContent = item.description || '';
+        card.appendChild(cardDesc);
+
+        const cardFooter = document.createElement('div');
+        cardFooter.className = 'complement-card-footer';
+
+        const rightsNotice = document.createElement('span');
+        rightsNotice.style.fontSize = '0.72rem';
+        rightsNotice.style.color = 'var(--luma-muted)';
+        rightsNotice.textContent = `Status Hak: ${meta.rights}`;
+        cardFooter.appendChild(rightsNotice);
+
+        const selectBtn = document.createElement('button');
+        selectBtn.type = 'button';
+        selectBtn.className = 'btn-select-collection';
+        selectBtn.textContent = 'Pilih Koleksi Ini →';
+        selectBtn.addEventListener('click', async () => {
+          selectBtn.disabled = true;
+          selectBtn.textContent = 'Memuat...';
+          try {
+            await this.selectComplementSource(item.id);
+          } catch (err) {
+            console.error(`Gagal memuat kandidat data ${item.id}:`, err);
+            alert(`Gagal memuat kandidat data "${item.title || item.id}": ${err.message}`);
+          } finally {
+            if (selectBtn && selectBtn.isConnected) {
+              selectBtn.disabled = false;
+              selectBtn.textContent = 'Pilih Koleksi Ini →';
+            }
+          }
+        });
+        cardFooter.appendChild(selectBtn);
+        card.appendChild(cardFooter);
+
+        cardList.appendChild(card);
+      }
+    };
+
+    searchInput.addEventListener('input', (e) => {
+      this.complementSearchQuery = e.target.value;
+      updateCardList();
+    });
+
+    catSelect.addEventListener('change', (e) => {
+      this.complementFilterCategory = e.target.value;
+      updateCardList();
+    });
+
+    locSelect.addEventListener('change', (e) => {
+      this.complementFilterLocation = e.target.value;
+      updateCardList();
+    });
+
+    yearSelect.addEventListener('change', (e) => {
+      this.complementFilterYear = e.target.value;
+      updateCardList();
+    });
+
+    labelSelect.addEventListener('change', (e) => {
+      this.complementFilterLabel = e.target.value;
+      updateCardList();
+    });
+
+    updateCardList();
+
+    this.dialog.open(container, () => this.complementWorkflow.cancel());
+  }
+
+  async selectComplementSource(datasetId) {
+    if (!this.loadedDatasetCache) {
+      this.loadedDatasetCache = new Map();
+    }
+
+    let candidateRecords = [];
+
+    // 1. Check published collections
+    const pub = (this.workspace.publishedCollections || []).find(p => (p.meta && p.meta.id === datasetId) || p.id === datasetId);
+    if (pub && pub.records && pub.records.length > 0) {
+      candidateRecords = pub.records;
+    } else if (
+      this.workspace.case2DonatedCollection &&
+      (datasetId === 'data_kontribusi_mandiri' || (this.workspace.case2DonatedCollection.meta && this.workspace.case2DonatedCollection.meta.id === datasetId))
+    ) {
+      // 2. Check Case 2 donated collection
+      candidateRecords = this.workspace.case2DonatedCollection.records || [];
+    } else if (
+      this.workspace.mixedDataset &&
+      (datasetId === 'data_campuran_1' || (this.workspace.mixedDataset.meta && this.workspace.mixedDataset.meta.id === datasetId))
+    ) {
+      // 3. Check mixed dataset
+      candidateRecords = this.workspace.mixedDataset.records || [];
+    } else if (
+      this.workspace.case3PrivateCollection &&
+      (this.workspace.case3PrivateCollection.meta && this.workspace.case3PrivateCollection.meta.id === datasetId)
+    ) {
+      // 4. Check Case 3 private collection
+      candidateRecords = this.workspace.case3PrivateCollection.records || [];
+    } else if (this.workspace.activeDatasetId === datasetId && this.workspace.records && this.workspace.records.length > 0) {
+      // 5. Use active workspace records if already in memory
+      candidateRecords = this.workspace.records;
+    } else if (this.loadedDatasetCache.has(datasetId)) {
+      // 6. Use cached dataset if previously fetched
+      candidateRecords = this.loadedDatasetCache.get(datasetId).records || [];
+    } else {
+      // 7. Load from static derived GeoJSON
+      try {
+        const dataset = await loadDataset(datasetId);
+        this.loadedDatasetCache.set(datasetId, dataset);
+        candidateRecords = dataset.records;
+      } catch (err) {
+        this.datasetError = `Gagal memuat kandidat data ${datasetId}: ${err.message}`;
+        this.updateErrorBanner();
+        throw err;
+      }
+    }
+
+    this.complementWorkflow.startFlow(candidateRecords, datasetId);
+    this.renderComplementStepSelect();
+  }
+
+  renderComplementStepSelect() {
+    const isScenario = this.workspace.activeMode === MODES.SCENARIO;
+    const sourceId = this.complementWorkflow.selectedSourceId;
+    const sourceClasses = (typeof this.complementWorkflow?.getSourceClasses === 'function')
+      ? this.complementWorkflow.getSourceClasses()
+      : getComplementClassesForSource(sourceId);
+
+    const catalogItem = (this.workspace.catalogueItems || []).find(i => i.id === sourceId) ||
+      (this.workspace.publishedCollections || []).find(p => p.meta && p.meta.id === sourceId) ||
+      { id: sourceId, title: sourceId };
+    const meta = getDatasetComplementMeta(catalogItem);
+
+    const container = document.createElement('div');
+
+    const header = document.createElement('div');
+    header.className = 'modal-header';
+    const title = document.createElement('h3');
+    title.className = 'modal-title';
+    title.textContent = 'Tambah Data Rujukan → Pilih Kelas Sumber';
+    header.appendChild(title);
+
+    const subtitle = document.createElement('p');
+    subtitle.className = 'modal-subtitle';
+    subtitle.textContent = `Pilih kelas non-target dari ${meta.title} untuk melengkapi kelas proyek "3. Lainnya".`;
     header.appendChild(subtitle);
 
     const banner = document.createElement('div');
@@ -549,7 +1072,17 @@ class PortalApp {
     const body = document.createElement('div');
     body.className = 'modal-body';
 
+    // Info bar for selected collection
+    const infoBar = document.createElement('div');
+    infoBar.className = 'selected-collection-infobar';
+    infoBar.innerHTML = `
+      <span>📦 Koleksi Terpilih: <strong>${escapeHtml(meta.title)}</strong> (${this.complementWorkflow.cachedSourceRecords.length} titik di AOI) · ${escapeHtml(meta.contributor)}</span>
+      <span style="font-size:0.72rem;font-weight:normal;opacity:0.9;">Langkah 2 dari 3</span>
+    `;
+    body.appendChild(infoBar);
+
     const intro = document.createElement('p');
+    intro.style.marginTop = '8px';
     intro.textContent = 'Pilih kelas sumber yang akan dipetakan ke kelas Lainnya. Komoditas target (Karet dan Kelapa sawit) dikecualikan:';
     body.appendChild(intro);
 
@@ -566,7 +1099,7 @@ class PortalApp {
     const listWrapper = document.createElement('div');
     listWrapper.className = 'class-selector-list';
 
-    for (const c of REF_MOD_2B_CLASSES) {
+    for (const c of sourceClasses) {
       const itemWrapper = document.createElement('label');
       itemWrapper.className = `class-checkbox-item ${c.isTargetClass ? 'is-disabled' : ''}`;
 
@@ -574,7 +1107,7 @@ class PortalApp {
       chk.type = 'checkbox';
       chk.value = c.id;
       chk.disabled = c.isTargetClass;
-      chk.checked = !c.isTargetClass && this.complementWorkflow.selectedClassIds.has(c.id);
+      chk.checked = !c.isTargetClass && this.complementWorkflow.selectedClassIds.has(String(c.id));
 
       chk.addEventListener('change', () => {
         this.complementWorkflow.toggleClass(c.id, chk.checked);
@@ -599,7 +1132,7 @@ class PortalApp {
 
       const itemDesc = document.createElement('div');
       itemDesc.className = 'class-item-desc';
-      itemDesc.textContent = c.description;
+      itemDesc.textContent = c.description || '';
       infoBox.appendChild(itemDesc);
 
       itemWrapper.appendChild(infoBox);
@@ -610,6 +1143,16 @@ class PortalApp {
 
     const footer = document.createElement('div');
     footer.className = 'modal-footer';
+
+    // Step 2 -> Back to Step 1 (Katalog)
+    const backBtn = document.createElement('button');
+    backBtn.className = 'btn-secondary';
+    backBtn.type = 'button';
+    backBtn.textContent = '← Kembali ke Katalog';
+    backBtn.addEventListener('click', () => {
+      this.renderComplementStepCatalogue();
+    });
+    footer.appendChild(backBtn);
 
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'btn-secondary';
@@ -626,6 +1169,10 @@ class PortalApp {
     nextBtn.type = 'button';
     nextBtn.textContent = 'Tinjau Penambahan →';
     nextBtn.addEventListener('click', () => {
+      if (this.complementWorkflow.selectedClassIds.size === 0) {
+        alert('Silakan pilih setidaknya satu kelas sumber untuk melengkapi kelas Lainnya.');
+        return;
+      }
       this.renderComplementStepPreview();
     });
     footer.appendChild(nextBtn);
@@ -636,6 +1183,12 @@ class PortalApp {
 
   renderComplementStepPreview() {
     const isScenario = this.workspace.activeMode === MODES.SCENARIO;
+    const sourceId = this.complementWorkflow.selectedSourceId;
+    const catalogItem = (this.workspace.catalogueItems || []).find(i => i.id === sourceId) ||
+      (this.workspace.publishedCollections || []).find(p => p.meta && p.meta.id === sourceId) ||
+      { id: sourceId, title: sourceId };
+    const meta = getDatasetComplementMeta(catalogItem);
+
     const preview = this.complementWorkflow.calculatePreview(this.workspace.activeMode);
 
     const container = document.createElement('div');
@@ -671,10 +1224,11 @@ class PortalApp {
       table.appendChild(tr);
     };
 
-    addRow('Koleksi Sumber:', 'Data Referensi Modular (2b)');
+    addRow('Koleksi Sumber:', `${meta.title} (${meta.contributor})`);
+    addRow('Lokasi & Wilayah:', `${meta.location}`);
     addRow('Mode Operasi:', isScenario ? 'Skenario Percontohan (Metadatanya asumsi skenario)' : 'Sumber Nyata (Pencarian Ketat)');
-    addRow('Waktu Pengamatan:', isScenario ? '2025 (Asumsi Skenario Penelaahan Tier 2)' : 'Tidak tercatat (null - dikecualikan)');
-    addRow('Status Hak/Izin:', isScenario ? 'Izin Terbuka Simulasi Mitra' : 'Belum terverifikasi');
+    addRow('Waktu Pengamatan:', isScenario ? `${meta.year} (Asumsi Skenario Penelaahan)` : 'Tidak tercatat (null - dikecualikan)');
+    addRow('Status Hak/Izin:', isScenario ? meta.rights : 'Belum terverifikasi');
     addRow('Kandidat Sumber Total:', `${preview.totalSourceCandidates} titik`);
     addRow('Lolos Saringan Kriteria:', `${preview.eligibleAfterFilters} titik (${preview.excludedByFilter} dikecualikan)`);
     addRow('Titik Duplikat (Dilewati):', `${preview.duplicateCount} titik`);
@@ -704,10 +1258,11 @@ class PortalApp {
     const footer = document.createElement('div');
     footer.className = 'modal-footer';
 
+    // Step 3 -> Back to Step 2 (Pilih Kelas)
     const backBtn = document.createElement('button');
     backBtn.className = 'btn-secondary';
     backBtn.type = 'button';
-    backBtn.textContent = '← Kembali';
+    backBtn.textContent = '← Kembali ke Pilihan Kelas';
     backBtn.addEventListener('click', () => this.renderComplementStepSelect());
     footer.appendChild(backBtn);
 
@@ -724,7 +1279,7 @@ class PortalApp {
     const confirmBtn = document.createElement('button');
     confirmBtn.className = 'btn-primary';
     confirmBtn.type = 'button';
-    confirmBtn.textContent = 'Konfirmasi Penambahan';
+    confirmBtn.textContent = 'Konfirmasi & Gabungkan Data';
     confirmBtn.addEventListener('click', () => {
       const res = this.complementWorkflow.confirmAddition(this.workspace.activeMode);
       this.dialog.close();
@@ -1005,6 +1560,38 @@ class PortalApp {
 
       pickerWrap.appendChild(labelBar);
 
+      // Visual Tree Hierarchy Card
+      const treeContainer = document.createElement('div');
+      treeContainer.className = 'taxonomy-tree-card';
+      const renderTreeFlow = (leafId) => {
+        const leaf = leaves.find(l => l.id === leafId) || findTaxonomyNode(leafId, EPISTEM_MASTER_TAXONOMY);
+        if (!leaf) {
+          treeContainer.innerHTML = '';
+          return;
+        }
+        const pathStr = leaf.path || leaf.name;
+        const segments = pathStr.split(' > ');
+        treeContainer.innerHTML = `
+          <div class="tree-flow-row">
+            ${segments.map((seg, idx) => {
+              const isLast = idx === segments.length - 1;
+              const lvl = `L${idx + 1}`;
+              const codeDisplay = isLast ? (leaf.code || '') : '';
+              return `
+                <div class="tree-flow-step ${isLast ? 'tree-flow-leaf' : ''}">
+                  <span class="tree-level-badge ${isLast ? 'leaf-badge' : ''}">${isLast ? `${lvl} Daun` : lvl}</span>
+                  <span class="tree-node-title">${escapeHtml(seg)}</span>
+                  ${codeDisplay ? `<span class="tree-node-code">Kode: ${escapeHtml(codeDisplay)}</span>` : ''}
+                </div>
+                ${!isLast ? '<span class="tree-flow-arrow">&rarr;</span>' : ''}
+              `;
+            }).join('')}
+          </div>
+        `;
+      };
+      renderTreeFlow(currentSelectedId);
+      pickerWrap.appendChild(treeContainer);
+
       const searchInp = document.createElement('input');
       searchInp.type = 'text';
       searchInp.id = searchId;
@@ -1091,6 +1678,7 @@ class PortalApp {
       select.addEventListener('change', () => {
         if (select.value) {
           currentSelectedId = select.value;
+          renderTreeFlow(currentSelectedId);
           if (typeof onPickerChange === 'function') {
             onPickerChange();
           }
@@ -1175,9 +1763,10 @@ class PortalApp {
 
     // Owning Institution
     const instWrap = document.createElement('div');
+    const defaultInst = draft.owningInstitution || 'Dinas Perkebunan Kabupaten Banyuasin';
     instWrap.innerHTML = `
       <label for="pub-institution" style="display:block; font-weight:700; margin-bottom:2px;">Lembaga Pemilik Data *:</label>
-      <input type="text" id="pub-institution" value="${escapeHtml(draft.owningInstitution)}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
+      <input type="text" id="pub-institution" value="${escapeHtml(defaultInst)}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
       <div id="err-institution" style="color:#dc2626; font-size:0.7rem; display:none; margin-top:2px;"></div>
     `;
     formFields.appendChild(instWrap);
@@ -1229,6 +1818,19 @@ class PortalApp {
       <div id="err-responsibility" style="color:#dc2626; font-size:0.7rem; display:none; margin-top:2px; margin-left:20px;"></div>
     `;
     formSection.appendChild(respWrap);
+
+    // Luma Modeling Metadata Checkbox
+    const lumaWrap = document.createElement('div');
+    lumaWrap.style.marginTop = '8px';
+    const isLumaChecked = draft.includeLumaMetadata !== false;
+    const lumaModuleId = this.workspace.lumaContext?.activeModule || 7;
+    lumaWrap.innerHTML = `
+      <label style="display:flex; align-items:flex-start; gap:6px; font-size:0.74rem; cursor:pointer;">
+        <input type="checkbox" id="pub-include-luma" ${isLumaChecked ? 'checked' : ''} style="margin-top:2px;">
+        <span><strong>Sertakan Bukti Mutu Luma:</strong> Sertakan laporan teknis separabilitas spektral (Modul 4: JM 1.84) dan bukti uji akurasi tematik (Modul 7: OA 89.2%, Kappa 0.835) ke dalam metadata paket publik.</span>
+      </label>
+    `;
+    formSection.appendChild(lumaWrap);
     body.appendChild(formSection);
 
     // Section 4: Summary Box before final button
@@ -1245,12 +1847,13 @@ class PortalApp {
         selectedCollectionIds: [selectedDatasetId],
         selectedDatasetId,
         accountName: document.getElementById('pub-account-name')?.value || '',
-        owningInstitution: document.getElementById('pub-institution')?.value || '',
+        owningInstitution: document.getElementById('pub-institution')?.value || 'Dinas Perkebunan Kabupaten Banyuasin',
         technicalEmail: document.getElementById('pub-email')?.value || '',
         confirmedYear: 2026,
         acquisitionMethod: 'Survei GPS Lapangan',
         boundaryAoi: 'Kabupaten Banyuasin',
         responsibilityAccepted: Boolean(document.getElementById('pub-responsibility')?.checked),
+        includeLumaMetadata: Boolean(document.getElementById('pub-include-luma')?.checked),
         crosswalk: {
           1: { epistemLeafId: karetPicker.getSelectedLeafId() },
           2: { epistemLeafId: sawitPicker.getSelectedLeafId() }
@@ -1260,9 +1863,11 @@ class PortalApp {
 
     const updateSummarySection = () => {
       const accInp = document.getElementById('pub-account-name')?.value || draft.accountName;
-      const instInp = document.getElementById('pub-institution')?.value || draft.owningInstitution;
+      const instInp = document.getElementById('pub-institution')?.value || defaultInst;
       const leaf1 = findTaxonomyNode(karetPicker.getSelectedLeafId(), EPISTEM_MASTER_TAXONOMY);
       const leaf2 = findTaxonomyNode(sawitPicker.getSelectedLeafId(), EPISTEM_MASTER_TAXONOMY);
+      const isLumaIncluded = Boolean(document.getElementById('pub-include-luma')?.checked);
+      const lumaMod = this.workspace.lumaContext?.activeModule || 7;
 
       summaryCard.innerHTML = `
         <h5 style="margin:0 0 4px 0; font-size:0.78rem; font-weight:700; color:#1e293b;">Ringkasan Sebelum Konfirmasi:</h5>
@@ -1271,6 +1876,7 @@ class PortalApp {
           <div>&bull; <strong>Pemetaan Taksonomi:</strong> Karet &rarr; ${leaf1 ? `${leaf1.code} ${leaf1.name}` : 'Belum dipilih'}, Kelapa sawit &rarr; ${leaf2 ? `${leaf2.code} ${leaf2.name}` : 'Belum dipilih'}</div>
           <div>&bull; <strong>Lembaga & Peneliti:</strong> ${escapeHtml(accInp)} (${escapeHtml(instInp)})</div>
           <div>&bull; <strong>Tahun & Status:</strong> 2026 &bull; Mandiri / Belum Ditelaah (Tier 4)</div>
+          <div>&bull; <strong>Mutu Pemodelan Luma:</strong> ${isLumaIncluded ? `Dilampirkan (Modul ${lumaMod}: Separabilitas M4 & Akurasi Tematik M7)` : 'Tidak dilampirkan'}</div>
         </div>
       `;
     };
@@ -1406,7 +2012,9 @@ class PortalApp {
             confirmedYear: 2026,
             acquisitionMethod: 'Survei GPS Lapangan',
             boundaryAoi: 'Kabupaten Banyuasin',
-            responsibilityAccepted: true
+            responsibilityAccepted: true,
+            includeLumaMetadata: Boolean(document.getElementById('pub-include-luma')?.checked),
+            lumaContext: this.workspace.lumaContext
           },
           crosswalk
         );

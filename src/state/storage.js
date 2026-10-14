@@ -111,6 +111,7 @@ export function saveProjectState(state) {
       case2SamplingDraft: state.case2SamplingDraft || null,
       case4Queue: Array.isArray(state.case4Queue) ? state.case4Queue : [],
       case4Interpretations: state.case4Interpretations || null,
+      lumaActiveModule: state.lumaActiveModule || state.lumaContext?.activeModule || 'module7',
       updatedAt: new Date().toISOString()
     };
     window.localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(payload));
