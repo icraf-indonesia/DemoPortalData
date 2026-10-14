@@ -139,9 +139,9 @@ export class ClassificationView {
       textGroup.appendChild(countEl);
       itemCard.appendChild(textGroup);
 
-      // Add Data button for Case 1 & Case 2 (Lainnya) ONLY when active dataset is User A's plantation data
+      // Add Data button for Case 1 (Lainnya) ONLY when active dataset is User A's plantation data
       if (
-        (caseId === 1 || caseId === 2) &&
+        caseId === 1 &&
         def.label === 'Lainnya' &&
         (state.activeDatasetId === 'data_kebun_sawit_karet_f' || state.activeDatasetId === 'data_campuran_1')
       ) {
@@ -188,41 +188,30 @@ export class ClassificationView {
 
     // Case Specific Action Section
     if (caseId === 2) {
-      const case2Actions = document.createElement('div');
-      case2Actions.className = 'case-action-box';
-      case2Actions.innerHTML = `
-        <h4 style="font-size: 0.8rem; font-weight: 600; color: #1e293b; margin-bottom: 8px;">Aksi Kontribusi Mandiri:</h4>
+      this.container.appendChild(this.renderLumaModelingSection(state));
+    } else if (caseId === 3) {
+      const case3Actions = document.createElement('div');
+      case3Actions.className = 'case-action-box';
+      case3Actions.innerHTML = `
+        <h4 style="font-size: 0.8rem; font-weight: 600; color: #1e293b; margin-bottom: 8px;">Aksi Pengguna B (Kasus 3):</h4>
       `;
 
-      const contributeBtn = document.createElement('button');
-      contributeBtn.className = 'btn-case-action';
-      contributeBtn.type = 'button';
-      contributeBtn.textContent = 'Sumbangkan Observasi Kebun';
-      contributeBtn.addEventListener('click', () => {
-        if (typeof this.actions.onOpenContribute === 'function') {
-          this.actions.onOpenContribute();
+      const reuseBtn = document.createElement('button');
+      reuseBtn.className = 'btn-case-action';
+      reuseBtn.type = 'button';
+      reuseBtn.textContent = 'Gunakan Ulang Data Mitra';
+      reuseBtn.addEventListener('click', () => {
+        if (typeof this.actions.onOpenPartnerReuse === 'function') {
+          this.actions.onOpenPartnerReuse();
         }
       });
-      case2Actions.appendChild(contributeBtn);
-
-      const samplingBtn = document.createElement('button');
-      samplingBtn.className = 'btn-case-action btn-sampling-toggle';
-      samplingBtn.type = 'button';
-      samplingBtn.textContent = state.isSamplingActive ? 'Nonaktifkan Sampling Peta' : 'Mode Sampling di Peta';
-      samplingBtn.addEventListener('click', () => {
-        if (typeof this.actions.onToggleSampling === 'function') {
-          this.actions.onToggleSampling();
-        }
-      });
-      case2Actions.appendChild(samplingBtn);
-
-      this.container.appendChild(case2Actions);
-      this.container.appendChild(this.renderLumaModelingSection(state));
+      case3Actions.appendChild(reuseBtn);
+      this.container.appendChild(case3Actions);
     } else if (caseId === 4) {
       const case4Actions = document.createElement('div');
       case4Actions.className = 'case-action-box';
       case4Actions.innerHTML = `
-        <h4 style="font-size: 0.8rem; font-weight: 600; color: #1e293b; margin-bottom: 8px;">Aksi Telaah Mutu:</h4>
+        <h4 style="font-size: 0.8rem; font-weight: 600; color: #1e293b; margin-bottom: 8px;">Aksi Pengguna C (Kasus 4):</h4>
       `;
 
       const reviewBtn = document.createElement('button');
@@ -239,43 +228,45 @@ export class ClassificationView {
       this.container.appendChild(case4Actions);
     }
 
-    // Source Classes Breakdown Section (Optional Collapsible)
-    const sourceDetails = document.createElement('details');
-    sourceDetails.className = 'source-classes-details source-classes-section';
+    // Source Classes Breakdown Section (Omitted for Kasus 1 and Kasus 2)
+    if (caseId !== 1 && caseId !== 2) {
+      const sourceDetails = document.createElement('details');
+      sourceDetails.className = 'source-classes-details source-classes-section';
 
-    const sourceHeading = document.createElement('summary');
-    sourceHeading.className = 'source-section-title';
-    sourceHeading.textContent = 'Distribusi Kelas Sumber';
-    sourceDetails.appendChild(sourceHeading);
+      const sourceHeading = document.createElement('summary');
+      sourceHeading.className = 'source-section-title';
+      sourceHeading.textContent = 'Distribusi Kelas Sumber';
+      sourceDetails.appendChild(sourceHeading);
 
-    const sourceList = document.createElement('ul');
-    sourceList.className = 'source-class-list';
+      const sourceList = document.createElement('ul');
+      sourceList.className = 'source-class-list';
 
-    const sourceEntries = Object.entries(counts.sourceClasses || {});
-    if (sourceEntries.length === 0) {
-      const emptyLi = document.createElement('li');
-      emptyLi.textContent = 'Belum ada data kelas sumber.';
-      sourceList.appendChild(emptyLi);
-    } else {
-      for (const [lbl, cnt] of sourceEntries) {
-        const li = document.createElement('li');
-        li.className = 'source-class-item';
+      const sourceEntries = Object.entries(counts.sourceClasses || {});
+      if (sourceEntries.length === 0) {
+        const emptyLi = document.createElement('li');
+        emptyLi.textContent = 'Belum ada data kelas sumber.';
+        sourceList.appendChild(emptyLi);
+      } else {
+        for (const [lbl, cnt] of sourceEntries) {
+          const li = document.createElement('li');
+          li.className = 'source-class-item';
 
-        const nameSpan = document.createElement('span');
-        nameSpan.className = 'source-item-name';
-        nameSpan.textContent = lbl;
-        li.appendChild(nameSpan);
+          const nameSpan = document.createElement('span');
+          nameSpan.className = 'source-item-name';
+          nameSpan.textContent = lbl;
+          li.appendChild(nameSpan);
 
-        const countSpan = document.createElement('span');
-        countSpan.className = 'source-item-count';
-        countSpan.textContent = `${cnt.toLocaleString('id-ID')} titik`;
-        li.appendChild(countSpan);
+          const countSpan = document.createElement('span');
+          countSpan.className = 'source-item-count';
+          countSpan.textContent = `${cnt.toLocaleString('id-ID')} titik`;
+          li.appendChild(countSpan);
 
-        sourceList.appendChild(li);
+          sourceList.appendChild(li);
+        }
       }
+      sourceDetails.appendChild(sourceList);
+      this.container.appendChild(sourceDetails);
     }
-    sourceDetails.appendChild(sourceList);
-    this.container.appendChild(sourceDetails);
 
     // Total footer
     const totalFooter = document.createElement('div');
@@ -295,13 +286,13 @@ export class ClassificationView {
   }
 
   /**
-   * Renders collapsible section for Luma modeling technical report and validation metrics (Case 2).
+   * Renders simplified Luma modeling quality section (Case 2: Analisis Separabilitas Spektral).
+   * Modul 7 and Random Forest classification have been completely removed.
    * @param {import('../state/workspace.js').WorkspaceState} state
    * @returns {HTMLElement}
    */
   renderLumaModelingSection(state) {
     const luma = state.lumaContext || {
-      activeModule: 7,
       module4Separability: {
         method: 'Jeffries-Matusita Distance (JM)',
         pairs: [
@@ -309,27 +300,8 @@ export class ClassificationView {
           { pair: 'Karet vs Lainnya', distance: 1.91, rating: 'Sangat Baik' },
           { pair: 'Kelapa sawit vs Lainnya', distance: 1.78, rating: 'Baik' }
         ]
-      },
-      module6Classification: {
-        algorithm: 'Random Forest (RF)',
-        numberOfTrees: 100,
-        features: 'Sentinel-2 (B2, B3, B4, B8, B11, B12, NDVI, NDWI)',
-        status: 'Draf Pra-Klasifikasi Selesai'
-      },
-      module7Validation: {
-        method: 'Matriks Konfusi Sampel Uji Independen (Modul 7)',
-        overallAccuracy: 89.2,
-        kappa: 0.835,
-        testSampleSize: 150,
-        classes: [
-          { classLabel: 'Karet', producerAccuracy: 87.5, userAccuracy: 89.1 },
-          { classLabel: 'Kelapa sawit', producerAccuracy: 91.2, userAccuracy: 88.6 },
-          { classLabel: 'Lainnya', producerAccuracy: 88.9, userAccuracy: 90.0 }
-        ]
       }
     };
-
-    const isMod7 = Number(luma.activeModule) === 7;
 
     const details = document.createElement('details');
     details.className = 'luma-quality-details';
@@ -344,36 +316,12 @@ export class ClassificationView {
         </svg>
         <span class="luma-summary-title">Deskripsi & Mutu Luma</span>
       </div>
-      <span class="luma-badge ${isMod7 ? 'luma-badge-success' : 'luma-badge-warning'}">
-        ${isMod7 ? 'Modul 7: Valid' : 'Modul 6: Draf'}
-      </span>
+      <span class="luma-badge luma-badge-success">Separabilitas</span>
     `;
     details.appendChild(summary);
 
     const body = document.createElement('div');
     body.className = 'luma-quality-body';
-
-    // Module Switcher Pills
-    const switchRow = document.createElement('div');
-    switchRow.className = 'luma-module-switch-row';
-    switchRow.innerHTML = `
-      <span class="luma-switch-label">Tahap Siklus:</span>
-      <div class="luma-switch-btn-group" role="group" aria-label="Pilih Tahap Modul Luma">
-        <button type="button" class="btn-luma-tab ${!isMod7 ? 'active' : ''}" data-mod="6">Modul 6 (Draf)</button>
-        <button type="button" class="btn-luma-tab ${isMod7 ? 'active' : ''}" data-mod="7">Modul 7 (Valid)</button>
-      </div>
-    `;
-    switchRow.querySelectorAll('.btn-luma-tab').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const mod = Number(btn.getAttribute('data-mod'));
-        if (typeof this.workspace.setLumaActiveModule === 'function') {
-          this.workspace.setLumaActiveModule(mod);
-        }
-      });
-    });
-    body.appendChild(switchRow);
 
     // Separability (Modul 4)
     const m4Box = document.createElement('div');
@@ -387,73 +335,13 @@ export class ClassificationView {
     `).join('');
 
     m4Box.innerHTML = `
-      <div class="luma-subcard-title">Keterpisahan Spektral (Modul 4)</div>
+      <div class="luma-subcard-title">Keterpisahan Spektral (Analisis Separabilitas)</div>
       <div class="luma-subcard-desc">Jarak Jeffries-Matusita (JM) antar-kelas:</div>
       <table class="luma-table">
         <tbody>${pairsHtml}</tbody>
       </table>
     `;
     body.appendChild(m4Box);
-
-    // Classification Parameters (Modul 6)
-    const m6Box = document.createElement('div');
-    m6Box.className = 'luma-subcard';
-    m6Box.innerHTML = `
-      <div class="luma-subcard-title">Klasifikasi Random Forest (Modul 6)</div>
-      <div class="luma-meta-kv">
-        <div class="kv-row"><span>Algoritma:</span> <strong>${luma.module6Classification?.algorithm || 'Random Forest'}</strong></div>
-        <div class="kv-row"><span>Jumlah Pohon:</span> <strong>${luma.module6Classification?.numberOfTrees || 100} Trees</strong></div>
-        <div class="kv-row"><span>Fitur Band:</span> <span class="bands-code">${luma.module6Classification?.features || 'Sentinel-2 (B2-B12, NDVI)'}</span></div>
-      </div>
-    `;
-    body.appendChild(m6Box);
-
-    // Thematic Validation (Modul 7)
-    const m7Box = document.createElement('div');
-    m7Box.className = 'luma-subcard';
-    if (isMod7) {
-      const classRows = (luma.module7Validation?.classes || []).map(c => `
-        <tr>
-          <td>${c.classLabel}</td>
-          <td class="num">${c.producerAccuracy}%</td>
-          <td class="num">${c.userAccuracy}%</td>
-        </tr>
-      `).join('');
-
-      m7Box.innerHTML = `
-        <div class="luma-subcard-title" style="color: #047857;">Uji Akurasi Tematik (Modul 7)</div>
-        <div class="luma-kpi-row">
-          <div class="luma-kpi">
-            <span class="kpi-val">${luma.module7Validation?.overallAccuracy || 89.2}%</span>
-            <span class="kpi-lbl">Akurasi Total (OA)</span>
-          </div>
-          <div class="luma-kpi">
-            <span class="kpi-val">${luma.module7Validation?.kappa || 0.835}</span>
-            <span class="kpi-lbl">Koefisien Kappa</span>
-          </div>
-        </div>
-        <div class="luma-subcard-desc" style="margin-top: 6px;">Sampel uji independen: ${luma.module7Validation?.testSampleSize || 150} titik</div>
-        <table class="luma-table" style="margin-top: 4px;">
-          <thead>
-            <tr><th>Kelas</th><th>Prod. (PA)</th><th>Pengg. (UA)</th></tr>
-          </thead>
-          <tbody>${classRows}</tbody>
-        </table>
-      `;
-    } else {
-      m7Box.innerHTML = `
-        <div class="luma-subcard-title" style="color: #b45309;">Uji Akurasi Tematik (Modul 7)</div>
-        <div class="luma-notice-warning">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-          </svg>
-          <span>Modul 6 adalah draf pra-klasifikasi internal. Uji akurasi independen (Modul 7) belum dijalankan.</span>
-        </div>
-      `;
-    }
-    body.appendChild(m7Box);
 
     details.appendChild(body);
     return details;

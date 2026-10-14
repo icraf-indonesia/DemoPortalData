@@ -239,50 +239,67 @@ class PortalApp {
       }
     );
 
-    // Sync User Role Selector
+    // Sync User & Case Role Selector
     const selectUserRole = document.getElementById('select-active-user-header') || document.getElementById('select-user-role');
     const popoverUserRole = document.getElementById('popover-user-role-select');
-    const syncUser = async (uid) => {
-      if (selectUserRole) selectUserRole.value = uid;
-      if (popoverUserRole) popoverUserRole.value = uid;
-      this.workspace.setActiveUser(uid);
-      if (uid === 'user_b') {
-        const target = this.workspace.case3PrivateCollection ? this.workspace.case3PrivateCollection.meta.id : 'data_hutan';
-        await this.switchDataset(target);
+
+    this.syncCase = async (caseKey) => {
+      let caseId = 1;
+      let userId = 'user_a';
+      let targetDataset = 'data_kebun_sawit_karet_f';
+
+      if (caseKey === 'case_2' || caseKey === 2) {
+        caseId = 2;
+        userId = 'user_a';
+        targetDataset = this.workspace.case2DonatedCollection
+          ? this.workspace.case2DonatedCollection.meta.id
+          : 'data_kebun_sawit_karet_f';
+      } else if (caseKey === 'case_3' || caseKey === 3 || caseKey === 'user_b') {
+        caseId = 3;
+        userId = 'user_b';
+        targetDataset = this.workspace.case3PrivateCollection
+          ? this.workspace.case3PrivateCollection.meta.id
+          : 'data_hutan';
+      } else if (caseKey === 'case_4' || caseKey === 4 || caseKey === 'user_c') {
+        caseId = 4;
+        userId = 'user_c';
+        targetDataset = 'case4_data_kombinasi_f';
       } else {
-        const target = this.workspace.mixedDataset ? 'data_campuran_1' : 'data_kebun_sawit_karet_f';
-        await this.switchDataset(target);
+        caseId = 1;
+        userId = 'user_a';
+        targetDataset = this.workspace.mixedDataset
+          ? 'data_campuran_1'
+          : 'data_kebun_sawit_karet_f';
       }
+
+      const normalizedKey = `case_${caseId}`;
+      if (selectUserRole) selectUserRole.value = normalizedKey;
+      if (popoverUserRole) popoverUserRole.value = normalizedKey;
+
+      // Disable sampling mode if switching away from case 2
+      if (caseId !== 2 && this.workspace.isSamplingActive) {
+        this.toggleMapSampling();
+      }
+
+      this.workspace.setCase(caseId);
+      this.workspace.setActiveUser(userId);
+      this.updateCaseNavHighlight(caseId);
+      await this.switchDataset(targetDataset);
     };
 
+    const currentCaseKey = this.workspace.getActiveCaseKey ? this.workspace.getActiveCaseKey() : `case_${this.workspace.activeCaseId || 1}`;
     if (selectUserRole) {
-      selectUserRole.value = this.workspace.activeUser || 'user_a';
-      selectUserRole.addEventListener('change', (e) => syncUser(e.target.value));
+      selectUserRole.value = currentCaseKey;
+      selectUserRole.addEventListener('change', (e) => this.syncCase(e.target.value));
     }
     if (popoverUserRole) {
-      popoverUserRole.value = this.workspace.activeUser || 'user_a';
-      popoverUserRole.addEventListener('change', (e) => syncUser(e.target.value));
+      popoverUserRole.value = currentCaseKey;
+      popoverUserRole.addEventListener('change', (e) => this.syncCase(e.target.value));
     }
 
-    // Sync Luma Module Selector in settings popover
-    const popoverLumaModule = document.getElementById('popover-luma-module-select');
-    if (popoverLumaModule) {
-      popoverLumaModule.value = String(this.workspace.lumaContext?.activeModule || 7);
-      popoverLumaModule.addEventListener('change', (e) => {
-        this.workspace.setLumaActiveModule(e.target.value);
-      });
-    }
-
-    // Support URL search params e.g. ?case=2&module=6
+    // Support URL search params e.g. ?case=2
     try {
       const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.has('module')) {
-        const m = Number(urlParams.get('module'));
-        if (m === 6 || m === 7) {
-          this.workspace.setLumaActiveModule(m);
-          if (popoverLumaModule) popoverLumaModule.value = String(m);
-        }
-      }
       if (urlParams.has('case')) {
         const c = Number(urlParams.get('case'));
         if (c >= 1 && c <= 4) {
@@ -301,14 +318,12 @@ class PortalApp {
           }
         }, 260);
       }
-      if (selectUserRole && selectUserRole.value !== state.activeUser) {
-        selectUserRole.value = state.activeUser || 'user_a';
+      const expectedKey = state.getActiveCaseKey ? state.getActiveCaseKey() : `case_${state.activeCaseId || 1}`;
+      if (selectUserRole && selectUserRole.value !== expectedKey) {
+        selectUserRole.value = expectedKey;
       }
-      if (popoverUserRole && popoverUserRole.value !== state.activeUser) {
-        popoverUserRole.value = state.activeUser || 'user_a';
-      }
-      if (popoverLumaModule && state.lumaContext && popoverLumaModule.value !== String(state.lumaContext.activeModule)) {
-        popoverLumaModule.value = String(state.lumaContext.activeModule);
+      if (popoverUserRole && popoverUserRole.value !== expectedKey) {
+        popoverUserRole.value = expectedKey;
       }
       this.updateModeControls();
       this.updateCaseNavHighlight(state.activeCaseId);
@@ -540,43 +555,16 @@ class PortalApp {
     }
   }
 
-  /**
-   * Handles user switching case tabs (1..4).
-   * @param {number} caseId
-   */
   async handleCaseNavigation(caseId) {
-    if (caseId === 1) {
-      this.workspace.setCase(1);
-      if (this.workspace.activeDatasetId !== 'data_kebun_sawit_karet_f' && this.workspace.activeDatasetId !== 'data_campuran_1') {
-        await this.switchDataset(this.workspace.mixedDataset ? 'data_campuran_1' : 'data_kebun_sawit_karet_f');
-      }
-    } else if (caseId === 2) {
-      const prevCaseId = this.workspace.activeCaseId;
-      this.workspace.setCase(2);
-      this.openContributeModal(() => {
-        if (prevCaseId === 1) {
-          this.workspace.setCase(1);
-        }
-      });
+    if (this.workspace.activeCaseId !== caseId) {
+      await this.syncCase(`case_${caseId}`);
+    }
+
+    if (caseId === 2) {
+      this.openContributeModal();
     } else if (caseId === 3) {
-      this.workspace.setCase(3);
-      if (this.workspace.case3PrivateCollection) {
-        if (this.workspace.activeDatasetId !== this.workspace.case3PrivateCollection.meta.id) {
-          this.workspace.setActiveDataset(
-            this.workspace.case3PrivateCollection.meta.id,
-            this.workspace.case3PrivateCollection.meta,
-            this.workspace.case3PrivateCollection.records
-          );
-        }
-      } else if (this.workspace.activeDatasetId !== 'data_hutan') {
-        await this.switchDataset('data_hutan');
-      }
       this.openPartnerReuseModal();
     } else if (caseId === 4) {
-      this.workspace.setCase(4);
-      if (this.workspace.activeDatasetId !== 'case4_data_kombinasi_f') {
-        await this.switchDataset('case4_data_kombinasi_f');
-      }
       this.openReviewModal();
     }
   }
@@ -1061,12 +1049,6 @@ class PortalApp {
     subtitle.textContent = `Pilih kelas non-target dari ${meta.title} untuk melengkapi kelas proyek "3. Lainnya".`;
     header.appendChild(subtitle);
 
-    const banner = document.createElement('div');
-    banner.className = `modal-banner ${isScenario ? 'banner-scenario' : 'banner-source'}`;
-    banner.textContent = isScenario
-      ? 'Skenario Percontohan: Metadatanya asumsi skenario (Tahun 2024–2026, Izin Terbuka Disimulasikan).'
-      : 'Mode Sumber Nyata: Pencarian ketat mengecualikan observasi tanpa tanggal terverifikasi (null).';
-    header.appendChild(banner);
     container.appendChild(header);
 
     const body = document.createElement('div');
@@ -1823,11 +1805,10 @@ class PortalApp {
     const lumaWrap = document.createElement('div');
     lumaWrap.style.marginTop = '8px';
     const isLumaChecked = draft.includeLumaMetadata !== false;
-    const lumaModuleId = this.workspace.lumaContext?.activeModule || 7;
     lumaWrap.innerHTML = `
       <label style="display:flex; align-items:flex-start; gap:6px; font-size:0.74rem; cursor:pointer;">
         <input type="checkbox" id="pub-include-luma" ${isLumaChecked ? 'checked' : ''} style="margin-top:2px;">
-        <span><strong>Sertakan Bukti Mutu Luma:</strong> Sertakan laporan teknis separabilitas spektral (Modul 4: JM 1.84) dan bukti uji akurasi tematik (Modul 7: OA 89.2%, Kappa 0.835) ke dalam metadata paket publik.</span>
+        <span><strong>Sertakan Bukti Mutu Luma:</strong> Sertakan laporan teknis analisis separabilitas spektral (Jarak Jeffries-Matusita antar-kelas) ke dalam metadata paket publik.</span>
       </label>
     `;
     formSection.appendChild(lumaWrap);
@@ -1867,7 +1848,6 @@ class PortalApp {
       const leaf1 = findTaxonomyNode(karetPicker.getSelectedLeafId(), EPISTEM_MASTER_TAXONOMY);
       const leaf2 = findTaxonomyNode(sawitPicker.getSelectedLeafId(), EPISTEM_MASTER_TAXONOMY);
       const isLumaIncluded = Boolean(document.getElementById('pub-include-luma')?.checked);
-      const lumaMod = this.workspace.lumaContext?.activeModule || 7;
 
       summaryCard.innerHTML = `
         <h5 style="margin:0 0 4px 0; font-size:0.78rem; font-weight:700; color:#1e293b;">Ringkasan Sebelum Konfirmasi:</h5>
@@ -1876,7 +1856,7 @@ class PortalApp {
           <div>&bull; <strong>Pemetaan Taksonomi:</strong> Karet &rarr; ${leaf1 ? `${leaf1.code} ${leaf1.name}` : 'Belum dipilih'}, Kelapa sawit &rarr; ${leaf2 ? `${leaf2.code} ${leaf2.name}` : 'Belum dipilih'}</div>
           <div>&bull; <strong>Lembaga & Peneliti:</strong> ${escapeHtml(accInp)} (${escapeHtml(instInp)})</div>
           <div>&bull; <strong>Tahun & Status:</strong> 2026 &bull; Mandiri / Belum Ditelaah (Tier 4)</div>
-          <div>&bull; <strong>Mutu Pemodelan Luma:</strong> ${isLumaIncluded ? `Dilampirkan (Modul ${lumaMod}: Separabilitas M4 & Akurasi Tematik M7)` : 'Tidak dilampirkan'}</div>
+          <div>&bull; <strong>Mutu Pemodelan Luma:</strong> ${isLumaIncluded ? 'Dilampirkan (Analisis Separabilitas Spektral)' : 'Tidak dilampirkan'}</div>
         </div>
       `;
     };
@@ -3056,6 +3036,11 @@ class PortalApp {
     confirmBtn.textContent = 'Ya, Reset Sekarang';
     confirmBtn.addEventListener('click', async () => {
       this.workspace.resetWorkspace();
+      const selectUserRole = document.getElementById('select-active-user-header') || document.getElementById('select-user-role');
+      const popoverUserRole = document.getElementById('popover-user-role-select');
+      if (selectUserRole) selectUserRole.value = 'case_1';
+      if (popoverUserRole) popoverUserRole.value = 'case_1';
+      this.updateCaseNavHighlight(1);
       await this.switchDataset('data_kebun_sawit_karet_f');
       this.dialog.close();
       this.noticeMessage = 'Status percontohan lokal berhasil direset ke kondisi awal.';

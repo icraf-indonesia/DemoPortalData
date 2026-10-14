@@ -44,12 +44,14 @@
     </div>
 
     <div class="header-right">
-      <!-- User Selector (User A / User B) -->
+      <!-- User Selector (User A / User B / User C per case) -->
       <div class="user-switcher-wrapper">
         <label for="select-active-user-header" class="user-switcher-label">Pengguna:</label>
-        <select id="select-active-user-header" class="user-role-select" aria-label="Alihkan Peran Pengguna">
-          <option value="user_a" selected>Pengguna A (Pemilik Data)</option>
-          <option value="user_b">Pengguna B (Kehutanan)</option>
+        <select id="select-active-user-header" class="user-role-select" aria-label="Alihkan Kasus dan Peran Pengguna">
+          <option value="case_1" selected>Pengguna A (Kasus 1)</option>
+          <option value="case_2">Pengguna A (Kasus 2)</option>
+          <option value="case_3">Pengguna B (Kasus 3)</option>
+          <option value="case_4">Pengguna C (Kasus 4)</option>
         </select>
       </div>
 
@@ -68,20 +70,14 @@
             <button type="button" class="btn-popover-close" id="btn-close-settings">&times;</button>
           </div>
           <div class="popover-section">
-            <div class="popover-section-label">Peran Pengguna Aktif</div>
+            <div class="popover-section-label">Kasus dan Peran Pengguna Aktif</div>
             <select id="popover-user-role-select" class="user-role-select" style="width: 100%; padding: 6px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #cbd5e1;">
-              <option value="user_a" selected>Pengguna A (Pemilik Data Perkebunan)</option>
-              <option value="user_b">Pengguna B (Analis Kehutanan)</option>
+              <option value="case_1" selected>Pengguna A (Kasus 1)</option>
+              <option value="case_2">Pengguna A (Kasus 2)</option>
+              <option value="case_3">Pengguna B (Kasus 3)</option>
+              <option value="case_4">Pengguna C (Kasus 4)</option>
             </select>
-            <p class="settings-hint">Pengguna B mengakses data kehutanan dan dapat menggunakan ulang koleksi yang dipublikasikan oleh Pengguna A.</p>
-          </div>
-          <div class="popover-section" id="popover-section-luma">
-            <div class="popover-section-label">Tahap Siklus Luma (Kasus 2)</div>
-            <select id="popover-luma-module-select" class="user-role-select" style="width: 100%; padding: 6px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #cbd5e1;">
-              <option value="6">Modul 6: Draf Pra-Klasifikasi (Belum Uji Akurasi)</option>
-              <option value="7" selected>Modul 7: Tervalidasi Akurasi Tematik (OA: 89.2%, Kappa: 0.835)</option>
-            </select>
-            <p class="settings-hint">Pilih tahap modul Luma yang sedang dijalankan untuk memverifikasi mutu model sebelum publikasi.</p>
+            <p class="settings-hint">Alihkan skenario kasus untuk mengubah ruang kerja, dataset awal, dan alur demonstrasi.</p>
           </div>
           <div class="popover-section">
             <div class="popover-section-label">Mode Data</div>

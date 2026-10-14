@@ -221,3 +221,41 @@ test('WorkspaceState getActiveSchema adapts flexibly to active dataset selection
   assert.equal(ws.classCounts.total, 0);
   assert.deepEqual(ws.getActiveSchema(), {});
 });
+
+test('WorkspaceState handles 4-case dropdown switching with state and dataset isolation', () => {
+  const ws = new WorkspaceState();
+
+  // 1. Pengguna A (Kasus 1)
+  ws.setActiveUser('case_1');
+  assert.equal(ws.activeCaseId, 1);
+  assert.equal(ws.activeUser, 'user_a');
+  assert.equal(ws.getActiveCaseKey(), 'case_1');
+  assert.equal(ws.activeDatasetId, 'data_kebun_sawit_karet_f');
+
+  // 2. Pengguna A (Kasus 2)
+  ws.setActiveUser('case_2');
+  assert.equal(ws.activeCaseId, 2);
+  assert.equal(ws.activeUser, 'user_a');
+  assert.equal(ws.getActiveCaseKey(), 'case_2');
+  assert.equal(ws.activeDatasetId, 'data_kebun_sawit_karet_f');
+
+  // 3. Pengguna B (Kasus 3)
+  ws.setActiveUser('case_3');
+  assert.equal(ws.activeCaseId, 3);
+  assert.equal(ws.activeUser, 'user_b');
+  assert.equal(ws.getActiveCaseKey(), 'case_3');
+  assert.equal(ws.activeDatasetId, 'data_hutan');
+
+  // 4. Pengguna C (Kasus 4)
+  ws.setActiveUser('case_4');
+  assert.equal(ws.activeCaseId, 4);
+  assert.equal(ws.activeUser, 'user_c');
+  assert.equal(ws.getActiveCaseKey(), 'case_4');
+  assert.equal(ws.activeDatasetId, 'case4_data_kombinasi_f');
+
+  // Back to Case 1
+  ws.setActiveUser('case_1');
+  assert.equal(ws.activeCaseId, 1);
+  assert.equal(ws.activeUser, 'user_a');
+  assert.equal(ws.getActiveCaseKey(), 'case_1');
+});

@@ -259,25 +259,13 @@ test('ContributionWorkflow: createPublishedPackage embeds Luma modeling metadata
     lumaContext: lumaContextMock
   };
 
-  const pkgMod7 = workflow.createPublishedPackage(ownedPoints, declarations);
+  const pkg = workflow.createPublishedPackage(ownedPoints, declarations);
 
-  assert.ok(pkgMod7.meta.luma_modeling, 'Luma modeling must be attached to packageMeta');
-  assert.equal(pkgMod7.meta.luma_modeling.activeModule, 7);
-  assert.equal(pkgMod7.meta.luma_modeling.module7Validation.overallAccuracy, 89.2);
-  assert.equal(pkgMod7.records[0].publication_metadata.luma_module, 7);
-
-  // Test Module 6 Draft
-  const declarationsMod6 = {
-    ...declarations,
-    lumaContext: {
-      ...lumaContextMock,
-      activeModule: 6
-    }
-  };
-
-  const pkgMod6 = workflow.createPublishedPackage(ownedPoints, declarationsMod6);
-  assert.equal(pkgMod6.meta.luma_modeling.activeModule, 6);
-  assert.ok(pkgMod6.meta.luma_modeling.status.includes('Draf Pra-Klasifikasi'));
-  assert.equal(pkgMod6.records[0].publication_metadata.luma_module, 6);
+  assert.ok(pkg.meta.luma_modeling, 'Luma modeling must be attached to packageMeta');
+  assert.ok(pkg.meta.luma_modeling.module4Separability, 'Separability must be present');
+  assert.equal(pkg.meta.luma_modeling.module4Separability.pairs.length, 1);
+  assert.equal(pkg.meta.luma_modeling.module6Classification, undefined);
+  assert.equal(pkg.meta.luma_modeling.module7Validation, undefined);
+  assert.ok(pkg.meta.luma_modeling.status.includes('Separabilitas'));
 });
 

@@ -280,11 +280,8 @@ export class ContributionWorkflow {
     const includeLuma = Boolean(declarations.includeLumaMetadata);
     const lumaModeling = (includeLuma && declarations.lumaContext)
       ? {
-          activeModule: declarations.lumaContext.activeModule,
-          status: declarations.lumaContext.activeModule === 7 ? 'Tervalidasi Akurasi Tematik (Modul 7)' : 'Draf Pra-Klasifikasi (Modul 6)',
-          module4Separability: declarations.lumaContext.module4Separability || null,
-          module6Classification: declarations.lumaContext.module6Classification || null,
-          module7Validation: declarations.lumaContext.module7Validation || null
+          status: 'Analisis Separabilitas Spektral Selesai',
+          module4Separability: declarations.lumaContext.module4Separability || null
         }
       : null;
 
@@ -328,7 +325,6 @@ export class ContributionWorkflow {
           crosswalk_leaf_code: cw ? cw.code : null,
           crosswalk_leaf_name: cw ? cw.name : null,
           crosswalk_leaf_path: cw ? cw.path : null,
-          luma_module: declarations.lumaContext ? declarations.lumaContext.activeModule : null,
           version,
           published_at: createdAt
         },

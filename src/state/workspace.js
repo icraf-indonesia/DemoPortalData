@@ -183,7 +183,7 @@ export class WorkspaceState {
     ) {
       return PROJECT_CLASSES;
     }
-    if (this.activeCaseId === 4) {
+    if (this.activeCaseId === 4 || this.activeUser === 'user_c') {
       return CASE4_TARGET_CLASSES;
     }
     if (this.activeCaseId === 3 || this.activeUser === 'user_b') {
@@ -435,12 +435,28 @@ export class WorkspaceState {
   }
 
   /**
-   * Sets active user identity ('user_a' or 'user_b').
+  /**
+   * Sets active user identity and case ('user_a', 'user_b', 'user_c', or 'case_1'..'case_4').
    * Isolates workspaces and switches active datasets cleanly.
    * @param {string} userId
    */
   setActiveUser(userId) {
-    const nextUser = userId === 'user_b' ? 'user_b' : 'user_a';
+    let nextUser = 'user_a';
+    if (userId === 'user_b' || userId === 'case_3') {
+      nextUser = 'user_b';
+      this.activeCaseId = 3;
+    } else if (userId === 'user_c' || userId === 'case_4') {
+      nextUser = 'user_c';
+      this.activeCaseId = 4;
+    } else if (userId === 'case_2') {
+      nextUser = 'user_a';
+      this.activeCaseId = 2;
+    } else if (userId === 'case_1') {
+      nextUser = 'user_a';
+      this.activeCaseId = 1;
+    } else {
+      nextUser = userId === 'user_b' ? 'user_b' : (userId === 'user_c' ? 'user_c' : 'user_a');
+    }
     this.activeUser = nextUser;
 
     if (this.activeUser === 'user_b') {
@@ -454,21 +470,48 @@ export class WorkspaceState {
       } else {
         this.activeDatasetId = 'data_hutan';
       }
+    } else if (this.activeUser === 'user_c') {
+      this.activeCaseId = 4;
+      this.activeDatasetId = 'case4_data_kombinasi_f';
     } else {
-      this.activeCaseId = 1;
-      if (this.mixedDataset) {
-        this.setActiveDataset(
-          this.mixedDataset.meta.id,
-          this.mixedDataset.meta,
-          this.mixedDataset.records
-        );
+      // user_a
+      if (this.activeCaseId === 2) {
+        if (this.case2DonatedCollection) {
+          this.setActiveDataset(
+            this.case2DonatedCollection.meta.id,
+            this.case2DonatedCollection.meta,
+            this.case2DonatedCollection.records
+          );
+        } else {
+          this.activeDatasetId = 'data_kebun_sawit_karet_f';
+        }
       } else {
-        this.activeDatasetId = 'data_kebun_sawit_karet_f';
+        this.activeCaseId = 1;
+        if (this.mixedDataset) {
+          this.setActiveDataset(
+            this.mixedDataset.meta.id,
+            this.mixedDataset.meta,
+            this.mixedDataset.records
+          );
+        } else {
+          this.activeDatasetId = 'data_kebun_sawit_karet_f';
+        }
       }
     }
 
     this.saveProject();
     this.notify();
+  }
+
+  /**
+   * Returns current case dropdown key ('case_1', 'case_2', 'case_3', or 'case_4').
+   * @returns {string}
+   */
+  getActiveCaseKey() {
+    if (this.activeCaseId === 2) return 'case_2';
+    if (this.activeCaseId === 3 || this.activeUser === 'user_b') return 'case_3';
+    if (this.activeCaseId === 4 || this.activeUser === 'user_c') return 'case_4';
+    return 'case_1';
   }
 
   /**
@@ -821,6 +864,13 @@ export class WorkspaceState {
    */
   setCase(caseId) {
     this.activeCaseId = caseId;
+    if (caseId === 3) {
+      this.activeUser = 'user_b';
+    } else if (caseId === 4) {
+      this.activeUser = 'user_c';
+    } else {
+      this.activeUser = 'user_a';
+    }
     this.classCounts = computeClassCounts(this.activeRecords, this.getActiveSchema());
     this.persist();
     this.notify();
