@@ -644,7 +644,17 @@ export class MapView {
       this.fitToContent();
     }
 
-    const schema = this.resolveActiveSchema(state.activeCaseId);
+    // If no dataset selected, clear all points and highlights from map canvas
+    if (!state.activeDatasetId || !state.activeRecords || state.activeRecords.length === 0) {
+      this.lastRenderedDatasetId = null;
+      this.lastRenderedCaseId = null;
+      this.pointsLayer.clearLayers();
+      this.highlightLayer.clearLayers();
+      this.markerMap.clear();
+      return;
+    }
+
+    const schema = state.getActiveSchema();
 
     // 2. Render Point Observations if dataset changed, case changed, or newly loaded
     const needsRerender = this.lastRenderedDatasetId !== state.activeDatasetId ||

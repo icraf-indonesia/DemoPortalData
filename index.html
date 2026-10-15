@@ -44,6 +44,17 @@
     </div>
 
     <div class="header-right">
+      <!-- User Selector (User A / User B / User C per case) -->
+      <div class="user-switcher-wrapper">
+        <label for="select-active-user-header" class="user-switcher-label">Pengguna:</label>
+        <select id="select-active-user-header" class="user-role-select" aria-label="Alihkan Kasus dan Peran Pengguna">
+          <option value="case_1" selected>Pengguna A (Kasus 1)</option>
+          <option value="case_2">Pengguna A (Kasus 2)</option>
+          <option value="case_3">Pengguna B (Kasus 3)</option>
+          <option value="case_4">Pengguna C (Kasus 4)</option>
+        </select>
+      </div>
+
       <!-- Settings Button & Popover -->
       <div class="settings-wrapper">
         <button type="button" id="btn-settings" class="btn-settings" aria-label="Buka Pengaturan Mode dan Pemulihan" title="Pengaturan Sistem">
@@ -57,6 +68,16 @@
           <div class="popover-header">
             <h4 class="popover-title">Pengaturan Portal</h4>
             <button type="button" class="btn-popover-close" id="btn-close-settings">&times;</button>
+          </div>
+          <div class="popover-section">
+            <div class="popover-section-label">Kasus dan Peran Pengguna Aktif</div>
+            <select id="popover-user-role-select" class="user-role-select" style="width: 100%; padding: 6px; font-size: 0.8rem; border-radius: 4px; border: 1px solid #cbd5e1;">
+              <option value="case_1" selected>Pengguna A (Kasus 1)</option>
+              <option value="case_2">Pengguna A (Kasus 2)</option>
+              <option value="case_3">Pengguna B (Kasus 3)</option>
+              <option value="case_4">Pengguna C (Kasus 4)</option>
+            </select>
+            <p class="settings-hint">Alihkan skenario kasus untuk mengubah ruang kerja, dataset awal, dan alur demonstrasi.</p>
           </div>
           <div class="popover-section">
             <div class="popover-section-label">Mode Data</div>
@@ -137,6 +158,6 @@
   <!-- Vendored Local JSZip, Leaflet & Application Scripts -->
   <script src="vendor/jszip/jszip.min.js"></script>
   <script src="vendor/leaflet/leaflet.js"></script>
-  <script type="module" src="src/main.js"></script>
+  <script type="module" src="src/main.js?v=20261014_2"></script>
 </body>
 </html>

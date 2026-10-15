@@ -41,12 +41,12 @@ test('PartnerReuseWorkflow: initForestryRole normalizes forest records to Hutan 
   assert.equal(forestryPoints[0].role_context, 'role_b_forestry');
 });
 
-test('PartnerReuseWorkflow: discoverPartnerCatalogues discovers partner paddy and respects Case 2 lineage or standalone fixture', () => {
+test('PartnerReuseWorkflow: discoverPartnerCatalogues discovers partner paddy and respects Case 2 lineage without synthetic fixture', () => {
   const workflow = new PartnerReuseWorkflow();
 
-  // 1. Without Case 2 donation: discovers paddy and labelled standalone fixture
+  // 1. Without Case 2 donation: discovers only partner paddy, no synthetic fixture
   const catalogWithoutCase2 = workflow.discoverPartnerCatalogues(null);
-  assert.equal(catalogWithoutCase2.length, 2);
+  assert.equal(catalogWithoutCase2.length, 1, 'Only real partner paddy is discovered without publication');
 
   const paddyEntry = catalogWithoutCase2.find(c => c.id === 'data_sawah');
   assert.ok(paddyEntry);
@@ -54,9 +54,7 @@ test('PartnerReuseWorkflow: discoverPartnerCatalogues discovers partner paddy an
   assert.equal(paddyEntry.contributor, 'Dinas Pertanian Daerah (Penyuluh)');
 
   const fixtureEntry = catalogWithoutCase2.find(c => c.id === 'data_kontribusi_mandiri_fixture');
-  assert.ok(fixtureEntry);
-  assert.equal(fixtureEntry.isFixture, true);
-  assert.equal(fixtureEntry.count, CASE2_STANDALONE_FIXTURE.length);
+  assert.equal(fixtureEntry, undefined, 'No synthetic fixture present when unpublished');
 
   // 2. With actual Case 2 donation
   const actualCase2Collection = {
@@ -67,6 +65,7 @@ test('PartnerReuseWorkflow: discoverPartnerCatalogues discovers partner paddy an
     ]
   };
   const catalogWithCase2 = workflow.discoverPartnerCatalogues(actualCase2Collection);
+  assert.equal(catalogWithCase2.length, 2, 'Discovers both paddy and actual published collection');
   const donatedEntry = catalogWithCase2.find(c => c.id === 'data_kontribusi_mandiri');
   assert.ok(donatedEntry);
   assert.equal(donatedEntry.isFixture, false);

@@ -84,7 +84,16 @@ test('ContributionWorkflow: createDonatedPackage preserves raw attributes and as
     }
   ];
 
-  const pkg = workflow.createDonatedPackage(ownedPoints);
+  const validDeclarations = {
+    accountName: 'User A',
+    owningInstitution: 'ICRAF Indonesia',
+    technicalEmail: 'usera@example.org',
+    confirmedYear: 2026,
+    acquisitionMethod: 'Survei Lapangan',
+    responsibilityAccepted: true
+  };
+
+  const pkg = workflow.createDonatedPackage(ownedPoints, validDeclarations);
 
   assert.equal(pkg.meta.id, 'data_kontribusi_mandiri');
   assert.equal(pkg.meta.isDonated, true);
@@ -102,10 +111,28 @@ test('ContributionWorkflow: createDonatedPackage preserves raw attributes and as
   assert.equal(donatedPoint.review_priority, REVIEW_PRIORITIES.NORMAL);
   assert.ok(donatedPoint.scenario_overlay.assumptions.length > 0);
 
+  // Rejects missing/incomplete declarations
+  assert.throws(() => {
+    workflow.createDonatedPackage(ownedPoints, {});
+  }, /Nama akun atau peneliti wajib diisi/);
+
+  assert.throws(() => {
+    workflow.createDonatedPackage(ownedPoints, { ...validDeclarations, responsibilityAccepted: false });
+  }, /Pernyataan tanggung jawab atas keabsahan data wajib disetujui/);
+
   // Rejects empty donation
   assert.throws(() => {
-    workflow.createDonatedPackage([]);
+    workflow.createDonatedPackage([], validDeclarations);
   }, /Tidak ada observasi milik mandiri/);
+
+  // Rejects unknown or third party records
+  assert.throws(() => {
+    workflow.createDonatedPackage([{
+      observation_id: 'unknown_1',
+      dataset_archive: 'unknown_archive.zip',
+      project_class_id: 1
+    }], validDeclarations);
+  }, /Hanya observasi kebun mandiri milik pengguna yang dapat dibagikan/);
 });
 
 test('PROVISIONAL_HIERARCHY: documents discrepancy note for 21 leaf classes without inventing 22nd class', () => {
@@ -173,3 +200,72 @@ test('ContributionWorkflow: on-screen sampling rejects non-finite coordinates an
   assert.equal(completeResult.record.method, SAMPLING_ORIGINS.IMAGE_INTERPRETATION);
   assert.equal(completeResult.record.is_screen_sample, true);
 });
+
+test('ContributionWorkflow: setPublicationDraft defaults institution to Dinas Perkebunan and sets includeLumaMetadata', () => {
+  const workflow = new ContributionWorkflow();
+
+  const draft = workflow.setPublicationDraft({});
+
+  assert.equal(draft.owningInstitution, 'Dinas Perkebunan Kabupaten Banyuasin');
+  assert.equal(draft.confirmedYear, 2026);
+  assert.equal(draft.acquisitionMethod, 'Survei GPS Lapangan');
+  assert.equal(draft.boundaryAoi, 'Kabupaten Banyuasin');
+  assert.equal(draft.includeLumaMetadata, true);
+});
+
+test('ContributionWorkflow: createPublishedPackage embeds Luma modeling metadata for Module 7 and Module 6', () => {
+  const workflow = new ContributionWorkflow();
+
+  const ownedPoints = [
+    {
+      observation_id: 'pt_owned_1',
+      geometry: { type: 'Point', coordinates: [104.5, -2.5] },
+      dataset_archive: '1_Data_Pengguna_1/Data_kebun_sawit_karet_F.zip',
+      source_class_id: '1',
+      source_class_label: 'Kebun sawit',
+      project_class_id: 1,
+      project_class_label: 'Kelapa sawit',
+      observed_time: { year: 2026 },
+      method: 'Survei GPS Lapangan'
+    }
+  ];
+
+  const lumaContextMock = {
+    activeModule: 7,
+    module4Separability: {
+      method: 'Jeffries-Matusita Distance (JM)',
+      pairs: [{ pair: 'Karet vs Kelapa sawit', distance: 1.84, rating: 'Baik (>1.8)' }]
+    },
+    module6Classification: {
+      algorithm: 'Random Forest (RF)',
+      numberOfTrees: 100,
+      features: 'Sentinel-2 (B2-B12, NDVI)'
+    },
+    module7Validation: {
+      overallAccuracy: 89.2,
+      kappa: 0.835,
+      testSampleSize: 150
+    }
+  };
+
+  const declarations = {
+    accountName: 'Staf GIS',
+    owningInstitution: 'Dinas Perkebunan Kabupaten Banyuasin',
+    technicalEmail: 'disbun@banyuasinkab.go.id',
+    confirmedYear: 2026,
+    acquisitionMethod: 'Survei GPS Lapangan',
+    responsibilityAccepted: true,
+    includeLumaMetadata: true,
+    lumaContext: lumaContextMock
+  };
+
+  const pkg = workflow.createPublishedPackage(ownedPoints, declarations);
+
+  assert.ok(pkg.meta.luma_modeling, 'Luma modeling must be attached to packageMeta');
+  assert.ok(pkg.meta.luma_modeling.module4Separability, 'Separability must be present');
+  assert.equal(pkg.meta.luma_modeling.module4Separability.pairs.length, 1);
+  assert.equal(pkg.meta.luma_modeling.module6Classification, undefined);
+  assert.equal(pkg.meta.luma_modeling.module7Validation, undefined);
+  assert.ok(pkg.meta.luma_modeling.status.includes('Separabilitas'));
+});
+

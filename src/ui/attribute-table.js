@@ -96,8 +96,12 @@ export class AttributeTableView {
 
     const countInfo = document.createElement('span');
     countInfo.className = 'table-count-info';
-    const totalCount = state.activeRecords.length;
-    countInfo.textContent = `${totalCount} rekaman dari "${state.activeDatasetMeta ? state.activeDatasetMeta.title : 'Koleksi Aktif'}"`;
+    if (state.activeDatasetId) {
+      const totalCount = state.activeRecords.length;
+      countInfo.textContent = `${totalCount} rekaman dari "${state.activeDatasetMeta ? state.activeDatasetMeta.title : 'Koleksi Aktif'}"`;
+    } else {
+      countInfo.textContent = 'Tidak ada koleksi data yang dipilih';
+    }
     titleGroup.appendChild(countInfo);
 
     if (state.activeMode === MODES.SCENARIO) {
@@ -168,13 +172,14 @@ export class AttributeTableView {
       emptyRow.appendChild(emptyCell);
       tbody.appendChild(emptyRow);
     } else {
+      const schema = state.getActiveSchema();
       for (const obs of state.activeRecords) {
         const tr = document.createElement('tr');
         tr.className = `table-row ${obs.observation_id === state.selectedPointId ? 'is-selected' : ''}`;
         tr.setAttribute('data-obs-id', obs.observation_id);
         tr.tabIndex = 0; // Accessible keyboard focus
 
-        const classDef = getProjectClass(obs.project_class_id);
+        const classDef = getProjectClass(obs.project_class_id, schema);
         const overlay = isScenario ? getScenarioOverlay(obs.dataset_archive || state.activeDatasetId, obs) : null;
 
         // 1. ID

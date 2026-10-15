@@ -9,6 +9,20 @@
  * Unmapped / Unknown: styled neutrally (#90A4AE) and labelled "Belum dipetakan"
  */
 
+import {
+  EPISTEM_MASTER_TAXONOMY,
+  getTaxonomyLeaves,
+  findTaxonomyNode,
+  DEFAULT_EPISTEM_CROSSWALK
+} from './epistem-taxonomy.js';
+
+export {
+  EPISTEM_MASTER_TAXONOMY,
+  getTaxonomyLeaves,
+  findTaxonomyNode,
+  DEFAULT_EPISTEM_CROSSWALK
+};
+
 export const PROJECT_CLASSES = Object.freeze({
   1: Object.freeze({
     id: 1,
@@ -27,6 +41,21 @@ export const PROJECT_CLASSES = Object.freeze({
     label: 'Lainnya',
     colour: '#757575',
     description: 'Tutupan non-perkebunan / referensi lainnya'
+  })
+});
+
+export const SHARED_PLANTATION_CLASSES = Object.freeze({
+  1: Object.freeze({
+    id: 1,
+    label: 'Karet',
+    colour: '#7B1FA2',
+    description: 'Tutupan lahan komoditas karet'
+  }),
+  2: Object.freeze({
+    id: 2,
+    label: 'Kelapa sawit',
+    colour: '#E91E63',
+    description: 'Tutupan lahan kelapa sawit'
   })
 });
 
@@ -82,6 +111,66 @@ export const CASE4_TARGET_CLASSES = Object.freeze({
     label: 'Lainnya',
     colour: '#757575',
     description: 'Tutupan non-perkebunan / non-hutan lainnya'
+  })
+});
+
+export const REF_MOD_2B_SCHEMA = Object.freeze({
+  1: Object.freeze({
+    id: 1,
+    label: 'Hutan',
+    colour: '#1B5E20',
+    description: 'Tutupan hutan alam / sekunder'
+  }),
+  2: Object.freeze({
+    id: 2,
+    label: 'Kebun sawit',
+    colour: '#E91E63',
+    description: 'Tutupan perkebunan kelapa sawit'
+  }),
+  3: Object.freeze({
+    id: 3,
+    label: 'Kebun karet',
+    colour: '#7B1FA2',
+    description: 'Tutupan perkebunan karet'
+  }),
+  4: Object.freeze({
+    id: 4,
+    label: 'Sawah',
+    colour: '#2E7D32',
+    description: 'Lahan basah pertanian sawah'
+  }),
+  5: Object.freeze({
+    id: 5,
+    label: 'Lainnya',
+    colour: '#757575',
+    description: 'Tutupan non-perkebunan / referensi lainnya'
+  })
+});
+
+export const DATA_SAWAH_SCHEMA = Object.freeze({
+  1: Object.freeze({
+    id: 1,
+    label: 'Sawah',
+    colour: '#2E7D32',
+    description: 'Lahan basah pertanian sawah (Koleksi Mitra)'
+  })
+});
+
+export const DATA_HUTAN_SCHEMA = Object.freeze({
+  1: Object.freeze({
+    id: 1,
+    label: 'Hutan',
+    colour: '#1B5E20',
+    description: 'Tutupan hutan alam / sekunder'
+  })
+});
+
+export const DATA_REF_MOD_F_SCHEMA = Object.freeze({
+  1: Object.freeze({
+    id: 1,
+    label: 'Titik Rujukan (Tanpa Label)',
+    colour: '#607D8B',
+    description: 'Titik rujukan sampling acak/grid tanpa label kelas sumber'
   })
 });
 

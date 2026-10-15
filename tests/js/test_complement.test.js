@@ -119,3 +119,33 @@ test('ComplementWorkflow preview and confirm handles selection, deduplication, a
   assert.equal(res2.duplicateSkipped, 2);
   assert.equal(workspace.classCounts.total, 4);
 });
+
+test('ComplementWorkflow supports alternative sources (data_hutan from Dinas Kehutanan, data_sawah)', () => {
+  const workspace = new WorkspaceState();
+  const initialPoints = [
+    { observation_id: 'init_sawit_1', project_class_id: 2, project_class_label: 'Kelapa sawit', is_within_aoi: true }
+  ];
+  workspace.setActiveDataset('data_kebun_sawit_karet_f', { title: 'Data Kebun Sawit & Karet' }, initialPoints);
+
+  const workflow = new ComplementWorkflow(workspace);
+  const forestRecords = [
+    { observation_id: 'hutan_pt_1', source_class_id: '1', source_class_label: 'Hutan', is_within_aoi: true, observed_time: '2024-05-10', rights_id: 'rights_forestry' },
+    { observation_id: 'hutan_pt_2', source_class_id: '1', source_class_label: 'Hutan', is_within_aoi: true, observed_time: '2024-06-15', rights_id: 'rights_forestry' }
+  ];
+
+  workflow.startFlow(forestRecords, 'data_hutan');
+  const sourceClasses = workflow.getSourceClasses();
+  assert.ok(sourceClasses.length >= 1);
+  assert.equal(sourceClasses[0].label, 'Hutan');
+  assert.equal(sourceClasses[0].isTargetClass, false);
+
+  const preview = workflow.calculatePreview(MODES.SCENARIO);
+  assert.equal(preview.netNewCount, 2);
+  assert.equal(preview.projectedTotalCount, 3);
+
+  const res = workflow.confirmAddition(MODES.SCENARIO);
+  assert.equal(res.success, true);
+  assert.equal(res.addedCount, 2);
+  assert.equal(workspace.classCounts[3], 2); // 2 Lainnya points
+});
+

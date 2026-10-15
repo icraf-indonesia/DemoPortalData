@@ -75,7 +75,8 @@ test('Browser E2E: Verified UI components, labels, and interactions', async (t) 
     const page = await context.newPage();
 
     // 1. Load application
-    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
 
     // 2. Verify Header Branding & Context Lines (no demo jargon or badges)
     const headerTitle = await page.textContent('.header-title');
@@ -120,7 +121,7 @@ test('Browser E2E: Verified UI components, labels, and interactions', async (t) 
 
     // 5. Verify Right Panel Dataset Catalogue contains all 6 point collections
     const catalogueCards = await page.$$('.catalogue-card');
-    assert.equal(catalogueCards.length, 6, 'Catalogue includes all 6 point observation collections');
+    assert.equal(catalogueCards.length, 5, 'User A catalogue excludes the User B forest workspace');
 
     const activeCard = await page.$('.catalogue-card.is-active');
     assert.ok(activeCard, 'Active dataset card exists');
@@ -174,7 +175,8 @@ test('Browser E2E: Verified UI components, labels, and interactions', async (t) 
     assert.ok(newTitle.includes('Data Referensi Modular (2a)'));
 
     // 10. Test Refresh and Persistence Recovery
-    await page.reload({ waitUntil: 'networkidle' });
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await page.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
     const reloadedActiveCard = await page.$('.catalogue-card.is-active');
     const reloadedTitle = await reloadedActiveCard.textContent();
     assert.ok(reloadedTitle.includes('Data Referensi Modular (2a)'), 'Restored active dataset after refresh');

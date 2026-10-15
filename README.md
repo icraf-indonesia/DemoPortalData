@@ -50,6 +50,18 @@ Opening `index.html` directly is unsupported because the application loads JavaS
 
 Drafts, review state, combinations, and display preferences are stored in the browser. They do not sync between computers or browser profiles. Changing the server port also creates a separate browser-storage origin.
 
+## Publish data and reuse it as User B
+
+1. As **Pengguna A**, open **Bagikan Data** from the header or an owned collection card.
+2. Select the plantation or mixed collection. The mixed collection contains 240 owned observations and 687 borrowed references. Only the owned observations are published.
+3. Map rubber and oil palm separately to the Epistem hierarchy. Enter the researcher name, owning institution and technical email, then accept the responsibility declaration.
+4. Confirm publication and open **Data Terbuka**. The published collection contains 240 observations and supports GeoJSON download with publication metadata.
+5. Switch to **Pengguna B (Kehutanan)**. Open **Data Mitra**, choose the published plantation collection and confirm reuse into Non-hutan. The private forestry collection contains 326 observations, including 86 forest points. Repeating reuse adds no duplicates.
+
+Publication and reuse survive reload in the same browser profile and server address. They do not publish to a remote server. Publication retains the private original and queues the 240 observations for review without promoting their quality status. The user-declared observation year is 2026 for the initial rubber and oil-palm example. Missing source dates, rights and contributor fields remain unchanged.
+
+![User B reuses the published plantation observations](docs/images/case3-reuse.png)
+
 ## Develop and test
 
 Edit `index.html`, `styles.css`, or files under `src/`, then reload the browser. Runtime libraries are vendored locally; Node.js is only needed for the JavaScript tests.
@@ -91,6 +103,6 @@ The original source archives are not needed to run the demo and are not included
 
 ## Scope and limitations
 
-This is a demonstration, not an authenticated multi-user service. Contribution, roles, permissions, and reviews run locally. Source metadata remains unknown where absent; scenario assumptions are labelled separately. The study period of 2026 does not establish an observation date or a basemap acquisition date. Export packages are checked locally, but live import into Luma remains untested.
+This is a demonstration, not an authenticated multi-user service. Contribution, roles, permissions, and reviews run locally. Source metadata remains unknown where absent; scenario assumptions are labelled separately. The project year is 2026. Publication records the user-declared 2026 observation year for the initial plantation example separately from unknown source dates. Basemap dates remain independent. Export packages are checked locally, but live import into Luma remains untested.
 
 The application and browser tests have been verified on macOS. Windows launch instructions are provided; native Windows execution remains untested. Historical documents may refer to local verification artefacts under `.work`, which are excluded from this repository.

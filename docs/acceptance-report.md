@@ -61,3 +61,13 @@ Verification covered desktop laptop sizes. Windows execution and live Luma impor
 ## Repository packaging, 12 October 2026
 
 The repository package includes the prepared real demo data, a developer quickstart, current UI screenshot, pinned Playwright dependency and portable browser test setup. Temporary work, caches, generated export ZIPs and machine-specific run receipts are excluded. A separate staged-file checkout passes all 43 JavaScript/browser tests using npm-installed Playwright and its Chromium, all 15 Python importer tests, and the independent full-canvas browser check. Node.js 22 syntax detection emits a module-type warning for the existing mixed ESM tests and CommonJS helper; the tests pass. Native Windows execution and live Luma import remain untested.
+
+## Case 2 publication and Case 3 handoff, 12 October 2026
+
+Codex completed the remaining corrections directly after the user authorised the change of writer. Two earlier agy runs timed out and were not accepted as completed deliveries. The final integrated JavaScript and browser suite passes all 45 tests. Evidence is recorded locally in `.work/case2-integrated-final.log`.
+
+The publication journey verifies 240 owned observations separated from 687 borrowed references, required declarations, independent taxonomy selections, draft recovery, actual GeoJSON download, original raw-field preservation and repeated publication without duplicate queue entries. A deliberately changed leaf is saved and downloaded with its matching code and name. Identical republication retains the collection version and creation time. A storage-failure test confirms that publication does not commit and the draft remains recoverable.
+
+User B discovers the persisted publication, reuses 240 observations as Non-hutan with 86 forest points, and retains the 326-point private collection after reload. Repeated reuse adds zero observations. Publication lineage includes the published version and mapping. Published plantation previews retain their own schema in User B's workspace. All 240 published observations enter the review queue with explicit class conversion; publication alone does not promote scientific quality. Existing sampling, review adoption and private export regressions pass.
+
+The main data and vendor files match the baseline hashes. All ten protected source files match their earlier hashes. Screenshots were inspected at 1440 and 1366 pixels. The README includes the User B result. Windows execution remains untested. This is a local simulation within one browser profile and origin, with no authentication or shared server. Luma, classified rasters and reports remain outside this implementation.

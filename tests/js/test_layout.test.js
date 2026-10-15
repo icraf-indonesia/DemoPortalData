@@ -78,7 +78,8 @@ test('Full-Canvas Layout: Comprehensive Acceptance at 1440x900 and 1366x768', as
       viewport: { width: 1440, height: 900 }
     });
     const page1440 = await context1440.newPage();
-    await page1440.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page1440.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+    await page1440.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
 
     // 1. Fresh profile defaults verification
     const leftPanel = page1440.locator('#panel-left-container');
@@ -185,7 +186,8 @@ test('Full-Canvas Layout: Comprehensive Acceptance at 1440x900 and 1366x768', as
     assert.equal(centerAfterCollapse.zoom, centerBefore.zoom, 'Zoom preserved');
 
     // 7. Verify Preference Persistence across page reload
-    await page1440.reload({ waitUntil: 'networkidle' });
+    await page1440.reload({ waitUntil: 'domcontentloaded' });
+    await page1440.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
     assert.ok(await page1440.locator('#panel-left-container').evaluate(el => el.classList.contains('is-collapsed')), 'Left panel remains collapsed after refresh');
     assert.ok(await page1440.locator('#panel-right-container').evaluate(el => el.classList.contains('is-collapsed')), 'Right panel remains collapsed after refresh');
 
@@ -229,7 +231,8 @@ test('Full-Canvas Layout: Comprehensive Acceptance at 1440x900 and 1366x768', as
       viewport: { width: 1366, height: 768 }
     });
     const page1366 = await context1366.newPage();
-    await page1366.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page1366.goto(baseUrl, { waitUntil: 'domcontentloaded' });
+    await page1366.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
 
     // Verify map dimensions at 1366x768
     const wsBox1366 = await page1366.locator('#workspace-layout').boundingBox();

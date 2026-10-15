@@ -99,6 +99,11 @@ export function saveProjectState(state) {
       mixedDataset: state.mixedDataset || null,
       lastDelta: state.lastDelta || 0,
       case2DonatedCollection: state.case2DonatedCollection || null,
+      publishedCollections: Array.isArray(state.publishedCollections)
+        ? state.publishedCollections
+        : (state.case2DonatedCollection ? [state.case2DonatedCollection] : []),
+      case2PublicationDraft: state.case2PublicationDraft || null,
+      activeUser: state.activeUser || 'user_a',
       case2ScreenSubmissions: Array.isArray(state.case2ScreenSubmissions) ? state.case2ScreenSubmissions : [],
       case4Reviews: Array.isArray(state.case4Reviews) ? state.case4Reviews : [],
       case3PrivateCollection: state.case3PrivateCollection || null,
@@ -106,6 +111,7 @@ export function saveProjectState(state) {
       case2SamplingDraft: state.case2SamplingDraft || null,
       case4Queue: Array.isArray(state.case4Queue) ? state.case4Queue : [],
       case4Interpretations: state.case4Interpretations || null,
+      lumaActiveModule: state.lumaActiveModule || state.lumaContext?.activeModule || 'module7',
       updatedAt: new Date().toISOString()
     };
     window.localStorage.setItem(PROJECT_STORAGE_KEY, JSON.stringify(payload));
@@ -136,6 +142,9 @@ export function loadProjectState() {
       }
       if (parsed.case4Adoptions !== undefined && parsed.case4Adoptions !== null && !Array.isArray(parsed.case4Adoptions)) {
         throw new Error('Struktur data proyek rusak: case4Adoptions bukan array');
+      }
+      if (parsed.publishedCollections !== undefined && parsed.publishedCollections !== null && !Array.isArray(parsed.publishedCollections)) {
+        throw new Error('Struktur data proyek rusak: publishedCollections bukan array');
       }
     } else {
       throw new Error('Struktur data proyek rusak: payload bukan objek');

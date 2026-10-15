@@ -21,8 +21,8 @@ Browser storage belongs to this browser profile and origin. It is not a shared d
 ## Rehearse the four cases
 
 1. In Case 1, inspect the plantation collection and the empty Lainnya class. Select a reference collection, inspect the mapping and provenance, then confirm a private combination. Source archives remain unchanged.
-2. In Case 2, distinguish owned observations from imported records before preparing a simulated contribution. Create a screen interpretation by choosing a map location and entering its imagery reference, time, reason and uncertainty. An interpretation without supporting metadata remains incomplete.
-3. In Case 3, inspect the forestry classes and partner attribution. Preview a mapping into Non-hutan before confirming a private addition. Repeat an addition to check duplicate handling, then refresh to check recovery.
+2. In Case 2, open Bagikan Data, select the owned plantation or mixed collection, and review the 240 owned observations separated from borrowed references. Choose an Epistem leaf for each project class. Enter the researcher, institution and technical email and accept responsibility before confirming publication. Data Terbuka shows the saved collection and offers its GeoJSON download. The private original remains intact. Sampling di Peta remains a separate optional interpretation workflow.
+3. Switch to Pengguna B. In Data Mitra, select the actual Case 2 publication and inspect its institution, 2026 declaration and taxonomy mapping. Preview 240 Non-hutan candidates alongside 86 forest observations, then confirm the 326-point private collection. Reload and repeat reuse to confirm zero new points. The public publication remains unchanged.
 4. In Case 4, use the labelled simulated reviewer identities. Enter an independent class, reason and evidence. Two agreeing reviews create a candidate. An authorised simulated actor must explicitly adopt it with a reason. Disagreement and stale reviews must remain visible and cannot be used to certify a changed interpretation.
 
 ## Inspect an export
