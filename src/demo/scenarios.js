@@ -65,7 +65,7 @@ export const PROJECT_CONTEXT = Object.freeze({
     start: '2026-01-01',
     end: '2026-06-30',
     basis: 'declared',
-    label: 'Semester 1 2026 (Asumsi Skenario)'
+    label: 'Semester 1 2026'
   },
   discoveryWindow: {
     startYear: 2024,
@@ -85,6 +85,7 @@ export function resolveCanonicalDatasetId(archiveOrId) {
   if (s.includes('kebun_sawit_karet')) return 'data_kebun_sawit_karet_f';
   if (s.includes('data_ref_mod_2b')) return 'data_ref_mod_2b';
   if (s.includes('data_ref_mod_f') || s.includes('data_ref_mod')) return 'data_ref_mod_f';
+  if (s.includes('data_hutan_campuran') || s.includes('hutan_sawit')) return 'data_hutan_campuran';
   if (s.includes('data_hutan')) return 'data_hutan';
   if (s.includes('data_sawah')) return 'data_sawah';
   if (s.includes('case4_data_kombinasi') || s.includes('case4')) return 'case4_data_kombinasi_f';
@@ -102,11 +103,11 @@ export const DATASET_SCENARIOS = Object.freeze({
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Pemilik A (Pengguna)',
     contributorDisplayName: 'Pemilik A',
-    rightsStatus: 'Izin penggunaan internal (Simulasi)',
+    rightsStatus: 'Izin penggunaan internal',
     method: 'Survei Lapangan',
     qualityTier: null,
     assumptions: [
-      'Titik observasi awal diasumsikan diamati pada tahun 2026 oleh Pemilik A',
+      'Titik observasi awal diamati pada tahun 2026 oleh Pemilik A',
       'Izin penggunaan internal percontohan'
     ]
   },
@@ -115,11 +116,11 @@ export const DATASET_SCENARIOS = Object.freeze({
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Koleksi Mitra Rujukan',
     contributorDisplayName: 'Tim Telaah Mitra (2025)',
-    rightsStatus: 'Izin penggunaan terbuka (Simulasi Mitra)',
+    rightsStatus: 'Izin penggunaan terbuka',
     method: 'Interpretasi Citra & Uji Lapang',
     qualityTier: 2,
     assumptions: [
-      'Observasi referensi 2b diasumsikan diamati tahun 2025',
+      'Observasi referensi 2b diamati tahun 2025',
       'Telah melalui penelaahan independen Tier 2',
       'Izin penggunaan data terbuka untuk pelatihan'
     ]
@@ -129,7 +130,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Dinas Kehutanan Provinsi Sumatera Selatan',
     contributorDisplayName: 'Dinas Kehutanan (2024)',
-    rightsStatus: 'Izin data terbuka (Simulasi)',
+    rightsStatus: 'Izin data terbuka',
     method: 'Inventarisasi Hutan',
     qualityTier: 3,
     assumptions: [
@@ -141,7 +142,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Dinas Pertanian Daerah',
     contributorDisplayName: 'Dinas Pertanian (2025)',
-    rightsStatus: 'Izin data terbuka (Simulasi)',
+    rightsStatus: 'Izin data terbuka',
     method: 'Survei Lahan Pertanian',
     qualityTier: 3,
     assumptions: [
@@ -165,7 +166,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Koleksi Gabungan',
     contributorDisplayName: 'Multi-instansi (2025)',
-    rightsStatus: 'Simulasi Terpadu',
+    rightsStatus: 'Koleksi Terpadu',
     method: 'Campuran',
     qualityTier: null,
     assumptions: [
@@ -176,7 +177,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     observedYear: 2026,
     owner: 'Koleksi Gabungan Pengguna',
     contributorDisplayName: 'Pemilik A & Mitra',
-    rightsStatus: 'Izin penggunaan internal percontohan (Simulasi)',
+    rightsStatus: 'Izin penggunaan internal percontohan',
     method: 'Campuran',
     qualityTier: null,
     assumptions: [
@@ -187,12 +188,23 @@ export const DATASET_SCENARIOS = Object.freeze({
     observedYear: 2026,
     owner: 'Pemilik A (Pengguna)',
     contributorDisplayName: 'Pemilik A (Kontribusi Mandiri)',
-    rightsStatus: 'Izin donasi internal terbuka (Simulasi)',
+    rightsStatus: 'Izin donasi internal terbuka',
     method: 'Interpretasi Citra / Survei Lapangan',
     qualityTier: null,
     assumptions: [
       'Titik kontribusi mandiri diamati pada tahun 2026 oleh Pemilik A',
       'Izin donasi data untuk mitra konsorsium'
+    ]
+  },
+  data_hutan_campuran: {
+    observedYear: 2026,
+    owner: 'Pengguna B (Kehutanan)',
+    contributorDisplayName: 'Pengguna B & Mitra',
+    rightsStatus: 'Izin penggunaan internal percontohan',
+    method: 'Campuran',
+    qualityTier: null,
+    assumptions: [
+      'Gabungan data tutupan hutan pengguna B dan rujukan mitra'
     ]
   }
 });
@@ -477,6 +489,8 @@ export function evaluateExportEligibility(records = [], options = {}) {
           obs.is_user_owned === true ||
           obs.is_screen_sample === true ||
           canonId === 'data_kebun_sawit_karet_f' ||
+          canonId === 'data_hutan' ||
+          canonId === 'data_hutan_campuran' ||
           obs.dataset_archive?.includes('Data_kebun_sawit_karet') ||
           obs.dataset_archive?.includes('1_Data_Pengguna')
         )

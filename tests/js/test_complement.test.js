@@ -149,3 +149,161 @@ test('ComplementWorkflow supports alternative sources (data_hutan from Dinas Keh
   assert.equal(workspace.classCounts[3], 2); // 2 Lainnya points
 });
 
+test('ComplementWorkflow supports Case 3 (Pengguna B) with custom title and Non-hutan mapping', () => {
+  const workspace = new WorkspaceState();
+  workspace.setCase(3);
+  workspace.setActiveUser('user_b');
+
+  // Initial forest points (Hutan = 1)
+  const initialForestPoints = [
+    { observation_id: 'forest_1', project_class_id: 1, project_class_label: 'Hutan', is_within_aoi: true },
+    { observation_id: 'forest_2', project_class_id: 1, project_class_label: 'Hutan', is_within_aoi: true }
+  ];
+  workspace.setActiveDataset('data_hutan', { id: 'data_hutan', title: 'Data Tutupan Hutan', category: 'Data Pengguna' }, initialForestPoints);
+  assert.equal(workspace.classCounts.total, 2);
+  assert.equal(workspace.classCounts[1], 2);
+  assert.equal(workspace.classCounts[2], 0, 'Non-hutan must initially be 0');
+
+  const workflow = new ComplementWorkflow(workspace);
+
+  // Candidate reference points from 2b
+  const candidateRecords = [
+    { observation_id: 'ref_hutan_disallowed', source_class_id: '1', source_class_label: 'Hutan', is_within_aoi: true, geometry: { coordinates: [104.5, -2.5] } },
+    { observation_id: 'ref_sawit_allowed', source_class_id: '2', source_class_label: 'Kebun sawit', is_within_aoi: true, geometry: { coordinates: [104.6, -2.6] } },
+    { observation_id: 'ref_sawah_allowed', source_class_id: '4', source_class_label: 'Sawah', is_within_aoi: true, geometry: { coordinates: [104.7, -2.7] } }
+  ];
+
+  workflow.startFlow(candidateRecords, 'data_ref_mod_2b');
+
+  // Verify class classification for Case 3: Hutan is target class, sawit and sawah are not target classes
+  const classes = workflow.getSourceClasses();
+  const hutanClass = classes.find(c => c.label === 'Hutan');
+  const sawitClass = classes.find(c => c.label === 'Kebun sawit');
+  assert.equal(hutanClass.isTargetClass, true, 'Hutan must be marked as target class in Case 3');
+  assert.equal(sawitClass.isTargetClass, false, 'Kebun sawit must NOT be target class in Case 3');
+
+  // Calculate preview
+  const preview = workflow.calculatePreview(MODES.SCENARIO);
+  assert.equal(preview.matchedSelectedClassesCount, 2, 'Sawit and sawah should be selected');
+  assert.equal(preview.netNewCount, 2);
+
+  // Confirm addition with custom title entered by user
+  const customTitle = 'Data Campuran Tutupan Lahan Banyuasin';
+  const res = workflow.confirmAddition(MODES.SCENARIO, customTitle);
+  assert.equal(res.success, true);
+  assert.equal(res.addedCount, 2);
+  assert.equal(res.title, customTitle);
+
+  // Verify workspace state in Case 3
+  assert.ok(workspace.case3PrivateCollection);
+  assert.equal(workspace.case3PrivateCollection.meta.title, customTitle);
+  assert.equal(workspace.classCounts[1], 2, 'Hutan count unchanged');
+  assert.equal(workspace.classCounts[2], 2, 'Non-hutan count must now be 2');
+  assert.equal(workspace.classCounts.total, 4);
+
+  // Verify catalogue contains the new dataset in Data Anda
+  const catItem = workspace.catalogueItems.find(i => i.id === res.datasetId);
+  assert.ok(catItem, 'Combined dataset must exist in catalogueItems');
+  assert.equal(catItem.title, customTitle);
+});
+
+test('ComplementWorkflow supports custom dataset title in Case 1', () => {
+  const workspace = new WorkspaceState();
+  workspace.setCase(1);
+
+  const initialPoints = [
+    { observation_id: 'sawit_1', project_class_id: 2, project_class_label: 'Kelapa sawit', is_within_aoi: true }
+  ];
+  workspace.setActiveDataset('data_kebun_sawit_karet_f', { title: 'Data Kebun Sawit & Karet' }, initialPoints);
+
+  const workflow = new ComplementWorkflow(workspace);
+  const candidateRecords = [
+    { observation_id: 'sawah_1', source_class_id: '4', source_class_label: 'Sawah', is_within_aoi: true }
+  ];
+  workflow.startFlow(candidateRecords, 'data_ref_mod_2b');
+
+  const customTitle = 'Data Kebun & Rujukan Khusus';
+  const res = workflow.confirmAddition(MODES.SCENARIO, customTitle);
+  assert.equal(res.success, true);
+  assert.equal(res.title, customTitle);
+  assert.equal(workspace.mixedDataset.meta.title, customTitle);
+});
+
+test('ComplementWorkflow in Case 3 allows adding shared plantation data (sawit & karet) into Non-hutan', () => {
+  const workspace = new WorkspaceState();
+  workspace.setCase(3);
+  workspace.setActiveUser('user_b');
+
+  const initialForestPoints = [
+    { observation_id: 'forest_1', project_class_id: 1, project_class_label: 'Hutan', is_within_aoi: true }
+  ];
+  workspace.setActiveDataset('data_hutan', { id: 'data_hutan', title: 'Data Tutupan Hutan', category: 'Data Pengguna' }, initialForestPoints);
+
+  const workflow = new ComplementWorkflow(workspace);
+  const sharedPlantationRecords = [
+    { observation_id: 'rec_karet', project_class_id: 1, project_class_label: 'Karet', source_class_id: '2', is_within_aoi: true },
+    { observation_id: 'rec_sawit', project_class_id: 2, project_class_label: 'Kelapa sawit', source_class_id: '1', is_within_aoi: true }
+  ];
+
+  workflow.startFlow(sharedPlantationRecords, 'data_kontribusi_mandiri');
+
+  // In Case 3, both Karet and Sawit are NOT target classes (target is Hutan)
+  const classes = workflow.getSourceClasses();
+  assert.equal(classes.length, 2);
+  const karetClass = classes.find(c => c.label === 'Karet');
+  const sawitClass = classes.find(c => c.label === 'Kelapa sawit');
+  assert.equal(karetClass.isTargetClass, false, 'Karet must be selectable in Case 3');
+  assert.equal(sawitClass.isTargetClass, false, 'Kelapa sawit must be selectable in Case 3');
+  assert.ok(workflow.selectedClassIds.has('1'), 'Karet class ID 1 is selected by default');
+  assert.ok(workflow.selectedClassIds.has('2'), 'Sawit class ID 2 is selected by default');
+
+  const preview = workflow.calculatePreview(MODES.SCENARIO);
+  assert.equal(preview.matchedSelectedClassesCount, 2);
+  assert.equal(preview.netNewCount, 2);
+
+  const res = workflow.confirmAddition(MODES.SCENARIO, 'Data Hutan & Kebun Campuran');
+  assert.equal(res.success, true);
+  assert.equal(res.addedCount, 2);
+  assert.equal(workspace.classCounts[1], 1, 'Hutan remains 1');
+  assert.equal(workspace.classCounts[2], 2, 'Non-hutan is now 2');
+  assert.equal(workspace.classCounts.total, 3);
+});
+
+test('ComplementWorkflow supports per-class target class selection in Case 1', () => {
+  const workspace = new WorkspaceState();
+  const initialPoints = [
+    { observation_id: 'init_karet_1', project_class_id: 1, project_class_label: 'Karet', is_within_aoi: true }
+  ];
+  workspace.setActiveDataset('data_kebun_sawit_karet_f', { title: 'Data Kebun Sawit & Karet' }, initialPoints);
+
+  const workflow = new ComplementWorkflow(workspace);
+  const candidates = [
+    { observation_id: 'ref_hutan', source_class_id: '1', source_class_label: 'Hutan', is_within_aoi: true },
+    { observation_id: 'ref_sawah', source_class_id: '4', source_class_label: 'Sawah', is_within_aoi: true }
+  ];
+
+  workflow.startFlow(candidates, 'data_ref_mod_2b');
+  assert.equal(workflow.targetClassMapping['1'], '3', 'Defaults to Lainnya (3)');
+  assert.equal(workflow.targetClassMapping['4'], '3', 'Defaults to Lainnya (3)');
+
+  // Explicitly customize target mapping:
+  // Map class 1 (Hutan) to Kebun Sawit (2)
+  workflow.setTargetClass('1', '2');
+  // Leave class 4 (Sawah) mapped to Lainnya (3)
+
+  const res = workflow.confirmAddition(MODES.SCENARIO, 'Custom Mapped Dataset');
+  assert.equal(res.success, true);
+  assert.equal(res.addedCount, 2);
+
+  // Check the points in workspace
+  const sawitPoint = workspace.activeRecords.find(p => p.observation_id === 'ref_hutan');
+  assert.equal(sawitPoint.project_class_id, 2, 'Mapped to Kebun Sawit');
+  assert.equal(sawitPoint.project_class_label, 'Kelapa sawit');
+
+  const lainnyaPoint = workspace.activeRecords.find(p => p.observation_id === 'ref_sawah');
+  assert.equal(lainnyaPoint.project_class_id, 3, 'Mapped to Lainnya');
+  assert.equal(lainnyaPoint.project_class_label, 'Lainnya');
+});
+
+
+

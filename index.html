@@ -8,6 +8,79 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Fullscreen Login Screen -->
+  <div id="login-screen" class="login-screen" role="dialog" aria-modal="true" aria-label="Halaman Masuk Portal Data Epistem">
+    <div class="login-split-card">
+      <!-- Left Column: Platform Branding & Identity -->
+      <div class="login-branding-panel">
+        <div class="login-brand-header">
+          <div class="login-badge">Portal Data Epistem</div>
+          <h1 class="login-brand-title">Portal Data Epistem</h1>
+          <p class="login-brand-subtitle">Sistem Perekaman Data Pengamatan &amp; Penggunaan Ulang Lintas Sektor</p>
+        </div>
+
+        <div class="login-brand-features">
+          <div class="login-feature-item">
+            <span class="login-feature-icon" aria-hidden="true">&#10003;</span>
+            <div class="login-feature-text">
+              <strong>Standardisasi &amp; Harmonisasi Taksonomi</strong>
+              <span>Penyelarasan skema tutupan lahan proyek ke taksonomi hierarkis Epistem.</span>
+            </div>
+          </div>
+
+          <div class="login-feature-item">
+            <span class="login-feature-icon" aria-hidden="true">&#10003;</span>
+            <div class="login-feature-text">
+              <strong>Kolaborasi &amp; Berbagi Data Rujukan</strong>
+              <span>Penggunaan ulang observasi lapang lintas instansi dan multi-sektor.</span>
+            </div>
+          </div>
+
+          <div class="login-feature-item">
+            <span class="login-feature-icon" aria-hidden="true">&#10003;</span>
+            <div class="login-feature-text">
+              <strong>Integrasi Pemodelan Luma</strong>
+              <span>Ekspor terverifikasi paket data pelatihan model klasifikasi tutupan lahan.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="login-brand-footer">
+          <span class="brand-footer-pill">Platform Kolaboratif Data Observasi</span>
+        </div>
+      </div>
+
+      <!-- Right Column: Login Form -->
+      <div class="login-form-panel">
+        <div class="login-form-header">
+          <h2 class="login-form-title">Masuk ke Ruang Kerja</h2>
+          <p class="login-form-desc">Masukkan email dan kata sandi akun Anda untuk membuka ruang kerja data.</p>
+        </div>
+
+        <div id="login-error-banner" class="login-error-banner" style="display: none;" role="alert"></div>
+
+        <form id="login-form" class="login-form">
+          <div class="login-form-group">
+            <label for="input-login-email" class="login-label">Email / Nama Pengguna</label>
+            <input type="text" id="input-login-email" class="login-input" placeholder="Masukkan email atau nama akun" required autocomplete="username">
+          </div>
+
+          <div class="login-form-group">
+            <label for="input-login-password" class="login-label">Kata Sandi</label>
+            <input type="password" id="input-login-password" class="login-input" placeholder="Masukkan kata sandi" required autocomplete="current-password">
+          </div>
+
+          <button type="submit" id="btn-login-submit" class="btn-login-submit">
+            <span>Masuk ke Portal</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Header Bar -->
   <header class="app-header">
     <div class="header-left">
@@ -44,15 +117,38 @@
     </div>
 
     <div class="header-right">
-      <!-- User Selector (User A / User B / User C per case) -->
-      <div class="user-switcher-wrapper">
-        <label for="select-active-user-header" class="user-switcher-label">Pengguna:</label>
-        <select id="select-active-user-header" class="user-role-select" aria-label="Alihkan Kasus dan Peran Pengguna">
-          <option value="case_1" selected>Pengguna A (Kasus 1)</option>
-          <option value="case_2">Pengguna A (Kasus 2)</option>
-          <option value="case_3">Pengguna B (Kasus 3)</option>
-          <option value="case_4">Pengguna C (Kasus 4)</option>
-        </select>
+      <!-- User Profile Pill & Dropdown -->
+      <div id="user-profile-wrapper" class="user-profile-wrapper">
+        <button type="button" id="btn-user-profile" class="btn-user-profile" aria-expanded="false" aria-label="Buka Profil Pengguna">
+          <span id="user-avatar-badge" class="user-avatar-badge" style="background-color: #059669;">R</span>
+          <span class="user-profile-text">
+            <span id="user-display-name" class="user-display-name">Rizki</span>
+            <span id="user-display-role" class="user-display-role">Pengguna A</span>
+          </span>
+          <svg class="profile-caret-icon" viewBox="0 0 20 20" fill="currentColor" width="12" height="12" aria-hidden="true">
+            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <button type="button" id="btn-header-logout" class="btn-header-logout" title="Keluar dari sesi (Log out)">
+          <svg class="logout-icon" viewBox="0 0 20 20" fill="currentColor" width="13" height="13" aria-hidden="true">
+            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+          </svg>
+          <span>Keluar</span>
+        </button>
+
+        <!-- Profile Popover / Dropdown Menu -->
+        <div id="popover-profile" class="popover-profile" style="display: none;" role="dialog" aria-label="Menu Profil Pengguna">
+          <div class="popover-profile-header">
+            <div id="popover-avatar-badge" class="popover-avatar-badge" style="background-color: #059669;">R</div>
+            <div class="popover-profile-meta">
+              <div id="popover-user-name" class="popover-user-name">Rizki Pratama</div>
+              <div id="popover-user-email" class="popover-user-email">rizki@mail.com</div>
+              <div id="popover-user-inst" class="popover-user-inst">Dinas Perkebunan Kabupaten Banyuasin</div>
+            </div>
+            <button type="button" class="btn-popover-close" id="btn-close-profile" aria-label="Tutup menu profil">&times;</button>
+          </div>
+        </div>
       </div>
 
       <!-- Settings Button & Popover -->
@@ -86,9 +182,9 @@
                 <span class="mode-dot"></span>
                 <span id="mode-toggle-text">Mode Skenario</span>
               </button>
-              <span id="scenario-disclaimer-badge" class="scenario-disclaimer-badge" title="Asumsi skenario percontohan aktif">Metadatanya asumsi skenario</span>
+              <span id="scenario-disclaimer-badge" class="scenario-disclaimer-badge" title="Asumsi skenario percontohan aktif" style="display: none;"></span>
             </div>
-            <p class="settings-hint">Mode Skenario menyimulasikan kelengkapan metadata; Mode Sumber Nyata membatasi pada data dengan izin/waktu asli.</p>
+            <p class="settings-hint">Mode Skenario menampilkan kelengkapan metadata; Mode Sumber Nyata membatasi pada data dengan izin/waktu asli.</p>
           </div>
           <div class="popover-section">
             <div class="popover-section-label">Pemulihan Data Peramban</div>
@@ -122,9 +218,9 @@
     <!-- Floating Left Panel: Classification Schema Breakdown -->
     <div id="panel-left-container" class="floating-panel floating-panel-left" role="region" aria-label="Panel Skema Klasifikasi">
       <div class="floating-panel-topbar">
-        <button type="button" id="btn-collapse-left" class="btn-panel-toggle btn-panel-collapse" aria-controls="panel-left-container" aria-expanded="true" aria-label="Ciutkan panel Skema Klasifikasi" title="Ciutkan Skema Klasifikasi">
+        <button type="button" id="btn-collapse-left" class="btn-panel-toggle btn-panel-collapse" aria-controls="panel-left-container" aria-expanded="true" aria-label="Tutup panel Skema Klasifikasi" title="Tutup Skema Klasifikasi">
           <span class="toggle-icon" aria-hidden="true">&#9664;</span>
-          <span class="toggle-text">Ciutkan</span>
+          <span class="toggle-text">Tutup</span>
         </button>
       </div>
       <aside id="panel-left" class="panel panel-left panel-content" aria-label="Distribusi Kelas Proyek"></aside>
@@ -138,8 +234,8 @@
     <!-- Floating Right Panel: Dataset Catalogue -->
     <div id="panel-right-container" class="floating-panel floating-panel-right" role="region" aria-label="Panel Katalog Koleksi Data">
       <div class="floating-panel-topbar">
-        <button type="button" id="btn-collapse-right" class="btn-panel-toggle btn-panel-collapse" aria-controls="panel-right-container" aria-expanded="true" aria-label="Ciutkan panel Katalog Data" title="Ciutkan Katalog Data">
-          <span class="toggle-text">Ciutkan</span>
+        <button type="button" id="btn-collapse-right" class="btn-panel-toggle btn-panel-collapse" aria-controls="panel-right-container" aria-expanded="true" aria-label="Tutup panel Katalog Data" title="Tutup Katalog Data">
+          <span class="toggle-text">Tutup</span>
           <span class="toggle-icon" aria-hidden="true">&#9654;</span>
         </button>
       </div>
@@ -158,6 +254,6 @@
   <!-- Vendored Local JSZip, Leaflet & Application Scripts -->
   <script src="vendor/jszip/jszip.min.js"></script>
   <script src="vendor/leaflet/leaflet.js"></script>
-  <script type="module" src="src/main.js?v=20261014_2"></script>
+  <script type="module" src="src/main.js?v=20261015_10"></script>
 </body>
 </html>

@@ -66,7 +66,6 @@ export class CatalogueView {
         activeId === 'data_ref_mod_f' ||
         activeId === 'data_ref_mod_2b' ||
         activeId === 'data_sawah' ||
-        activeId === 'data_hutan' ||
         activeId === 'case4_data_kombinasi_f' ||
         (this.workspace.publishedCollections || []).some(p => p.meta && p.meta.id === activeId)
       );
@@ -167,7 +166,6 @@ export class CatalogueView {
         i.id === 'data_ref_mod_f' ||
         i.id === 'data_ref_mod_2b' ||
         i.id === 'data_sawah' ||
-        i.id === 'data_hutan' ||
         i.id === 'case4_data_kombinasi_f'
       );
     }
@@ -239,7 +237,12 @@ export class CatalogueView {
         actionsWrapper.className = 'card-actions-wrapper';
 
         // Own card Share Button (in Data Anda tab)
-        const isOwnCard = item.id === 'data_kebun_sawit_karet_f' || item.id === 'data_campuran_1';
+        const isOwnCard = item.id === 'data_kebun_sawit_karet_f' ||
+                          item.id === 'data_campuran_1' ||
+                          item.id === 'data_hutan' ||
+                          (state.case3PrivateCollection && item.id === state.case3PrivateCollection.meta.id) ||
+                          item.id === 'data_hutan_campuran' ||
+                          item.id === 'data_hutan_sawit_partisipatif';
         if (isOwnCard && this.activeTab === 'data_anda') {
           const shareBtn = document.createElement('button');
           shareBtn.type = 'button';
@@ -257,23 +260,6 @@ export class CatalogueView {
           actionsWrapper.appendChild(shareBtn);
         }
 
-        // Published Card Download Button (in Data Terbuka tab)
-        if (item.isPublished) {
-          const downloadBtn = document.createElement('button');
-          downloadBtn.type = 'button';
-          downloadBtn.className = 'btn-card-download';
-          downloadBtn.setAttribute('data-dataset-id', item.id);
-          downloadBtn.textContent = 'Unduh GeoJSON';
-          downloadBtn.title = 'Unduh berkas GeoJSON publikasi lengkap dengan metadata';
-          downloadBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Stop propagation
-            e.preventDefault();
-            if (typeof this.onDownloadDataset === 'function') {
-              this.onDownloadDataset(item.id);
-            }
-          });
-          actionsWrapper.appendChild(downloadBtn);
-        }
 
         if (item.isPrivate && !item.isPublished) {
           const privSpan = document.createElement('span');

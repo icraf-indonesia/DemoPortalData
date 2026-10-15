@@ -162,19 +162,26 @@ export class ClassificationView {
         itemCard.appendChild(actionRow);
       }
 
-      // Case 3 Non-hutan reuse trigger ONLY when viewing base forestry data
-      if (caseId === 3 && def.label === 'Non-hutan' && state.activeDatasetId === 'data_hutan') {
+      // Case 3 Non-hutan complement trigger
+      if (
+        caseId === 3 &&
+        def.label === 'Non-hutan' &&
+        (state.activeDatasetId === 'data_hutan' ||
+         state.activeDatasetId === 'data_hutan_campuran' ||
+         state.activeDatasetId === 'data_hutan_sawit_partisipatif' ||
+         (state.case3PrivateCollection && state.activeDatasetId === state.case3PrivateCollection.meta.id))
+      ) {
         const actionRow = document.createElement('div');
         actionRow.className = 'legend-action-row';
         const addPartnerBtn = document.createElement('button');
         addPartnerBtn.className = 'btn-add-data-lainnya';
         addPartnerBtn.type = 'button';
-        addPartnerBtn.textContent = '+ Gunakan Data Mitra';
-        addPartnerBtn.setAttribute('aria-label', 'Gunakan data mitra untuk melengkapi Non-hutan');
+        addPartnerBtn.textContent = '+ Tambah Data Rujukan';
+        addPartnerBtn.setAttribute('aria-label', 'Buka katalog terbuka untuk melengkapi kelas Non-hutan');
         addPartnerBtn.addEventListener('click', (e) => {
           e.stopPropagation();
-          if (typeof this.actions.onOpenPartnerReuse === 'function') {
-            this.actions.onOpenPartnerReuse();
+          if (typeof this.actions.onOpenComplement === 'function') {
+            this.actions.onOpenComplement();
           }
         });
         actionRow.appendChild(addPartnerBtn);
@@ -189,24 +196,6 @@ export class ClassificationView {
     // Case Specific Action Section
     if (caseId === 2) {
       this.container.appendChild(this.renderLumaModelingSection(state));
-    } else if (caseId === 3) {
-      const case3Actions = document.createElement('div');
-      case3Actions.className = 'case-action-box';
-      case3Actions.innerHTML = `
-        <h4 style="font-size: 0.8rem; font-weight: 600; color: #1e293b; margin-bottom: 8px;">Aksi Pengguna B (Kasus 3):</h4>
-      `;
-
-      const reuseBtn = document.createElement('button');
-      reuseBtn.className = 'btn-case-action';
-      reuseBtn.type = 'button';
-      reuseBtn.textContent = 'Gunakan Ulang Data Mitra';
-      reuseBtn.addEventListener('click', () => {
-        if (typeof this.actions.onOpenPartnerReuse === 'function') {
-          this.actions.onOpenPartnerReuse();
-        }
-      });
-      case3Actions.appendChild(reuseBtn);
-      this.container.appendChild(case3Actions);
     } else if (caseId === 4) {
       const case4Actions = document.createElement('div');
       case4Actions.className = 'case-action-box';
@@ -228,8 +217,8 @@ export class ClassificationView {
       this.container.appendChild(case4Actions);
     }
 
-    // Source Classes Breakdown Section (Omitted for Kasus 1 and Kasus 2)
-    if (caseId !== 1 && caseId !== 2) {
+    // Source Classes Breakdown Section (Omitted for Kasus 1, Kasus 2, and Kasus 3)
+    if (caseId === 4) {
       const sourceDetails = document.createElement('details');
       sourceDetails.className = 'source-classes-details source-classes-section';
 

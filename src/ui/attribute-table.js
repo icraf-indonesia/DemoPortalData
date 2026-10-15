@@ -103,14 +103,6 @@ export class AttributeTableView {
       countInfo.textContent = 'Tidak ada koleksi data yang dipilih';
     }
     titleGroup.appendChild(countInfo);
-
-    if (state.activeMode === MODES.SCENARIO) {
-      const modeBadge = document.createElement('span');
-      modeBadge.className = 'table-mode-badge';
-      modeBadge.textContent = 'Asumsi Skenario';
-      titleGroup.appendChild(modeBadge);
-    }
-
     headerBar.appendChild(titleGroup);
 
     // Toggle button
@@ -118,8 +110,8 @@ export class AttributeTableView {
     toggleBtn.className = 'table-toggle-btn';
     toggleBtn.type = 'button';
     toggleBtn.setAttribute('aria-expanded', String(!state.isTableCollapsed));
-    toggleBtn.setAttribute('aria-label', state.isTableCollapsed ? 'Buka tabel atribut' : 'Ciutkan tabel atribut');
-    toggleBtn.textContent = state.isTableCollapsed ? '▲ Buka Tabel' : '▼ Ciutkan Tabel';
+    toggleBtn.setAttribute('aria-label', state.isTableCollapsed ? 'Buka tabel atribut' : 'Tutup tabel atribut');
+    toggleBtn.textContent = state.isTableCollapsed ? '▲ Buka Tabel' : '▼ Tutup Tabel';
     toggleBtn.addEventListener('click', () => {
       this.workspace.toggleTable();
     });
@@ -215,7 +207,7 @@ export class AttributeTableView {
         // 5. Observed Time (Clean Indonesian label, zero literal (null))
         const tdTime = document.createElement('td');
         if (overlay && overlay.observedYear) {
-          tdTime.textContent = `${overlay.observedYear} (Asumsi)`;
+          tdTime.textContent = String(overlay.observedYear);
         } else if (obs.observed_time && obs.observed_time.year) {
           tdTime.textContent = String(obs.observed_time.year);
         } else {
@@ -227,7 +219,7 @@ export class AttributeTableView {
         // 6. Method
         const tdMethod = document.createElement('td');
         if (overlay && overlay.method && overlay.method !== 'unknown') {
-          tdMethod.textContent = `${overlay.method} (Asumsi)`;
+          tdMethod.textContent = overlay.method;
         } else if (obs.method && obs.method !== 'unknown') {
           tdMethod.textContent = obs.method;
         } else {
@@ -239,7 +231,7 @@ export class AttributeTableView {
         // 7. Quality Tier
         const tdQuality = document.createElement('td');
         if (overlay && overlay.qualityTier) {
-          tdQuality.textContent = `Tier ${overlay.qualityTier} (Simulasi)`;
+          tdQuality.textContent = `Tier ${overlay.qualityTier}`;
         } else if (obs.quality_tier !== null) {
           tdQuality.textContent = `Tier ${obs.quality_tier}`;
         } else {
@@ -251,7 +243,7 @@ export class AttributeTableView {
         // 8. Rights
         const tdRights = document.createElement('td');
         if (overlay && overlay.rightsStatus) {
-          tdRights.textContent = overlay.rightsStatus;
+          tdRights.textContent = String(overlay.rightsStatus).replace(/\s*\((?:Simulasi|Asumsi)[^)]*\)/gi, '');
         } else if (obs.rights_id) {
           tdRights.textContent = String(obs.rights_id);
         } else {

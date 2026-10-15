@@ -59,54 +59,87 @@ export class ContributionWorkflow {
    *   summary: { total: number, ownedCount: number, excludedCount: number, rubberCount: number, palmCount: number }
    * }}
    */
-  separateOwnedObservations(records = []) {
+  separateOwnedObservations(records = [], contextCaseId = 1) {
     const list = Array.isArray(records) ? records : [];
     const owned = [];
     const excludedImported = [];
+    const isForestryContext = contextCaseId === 3;
 
     for (const r of list) {
       const canonId = resolveCanonicalDatasetId(r.dataset_archive);
       const archive = String(r.dataset_archive || '');
       const srcDatasetId = String(r.source_dataset_id || '');
 
-      // Check if record is third-party borrowed reference data
-      const isThirdParty =
-        canonId === 'data_ref_mod_2b' ||
-        canonId === 'data_ref_mod_f' ||
-        canonId === 'data_hutan' ||
-        canonId === 'data_sawah' ||
-        srcDatasetId === 'data_ref_mod_2b' ||
-        archive.includes('2_Data_Referensi') ||
-        archive.includes('2b_Modular') ||
-        archive.includes('Data_rujukan') ||
-        archive.includes('3_Data_Koleksi_Pengguna_Mitra') ||
-        r.contributor_id === 'pihak_ketiga' ||
-        r.is_user_owned === false;
+      if (isForestryContext) {
+        const isForestryThirdParty =
+          canonId === 'data_ref_mod_2b' ||
+          canonId === 'data_ref_mod_f' ||
+          canonId === 'data_sawah' ||
+          canonId === 'data_kebun_sawit_karet_f' ||
+          canonId === 'data_kontribusi_mandiri' ||
+          srcDatasetId === 'data_ref_mod_2b' ||
+          srcDatasetId === 'data_sawah' ||
+          srcDatasetId === 'data_kontribusi_mandiri' ||
+          r.contributor_id === 'pihak_ketiga' ||
+          r.is_user_owned === false;
 
-      // Check if record is user's own plantation observation (requires known plantation provenance)
-      const isInitialPlantation =
-        canonId === 'data_kebun_sawit_karet_f' ||
-        archive.includes('Data_kebun_sawit_karet') ||
-        archive.includes('1_Data_Pengguna') ||
-        r.source_schema_id === 'schema_case1_plantation' ||
-        r.source_schema_id === 'schema_pengguna_plantation_v1' ||
-        r.contributor_id === 'pemilik_a' ||
-        r.is_user_owned === true;
+        const isForestryOwned =
+          canonId === 'data_hutan' ||
+          archive.includes('Data_hutan') ||
+          archive.includes('3_Data_Kehutanan') ||
+          r.role_context === 'role_b_forestry' ||
+          r.is_user_owned === true;
 
-      if (!isThirdParty && isInitialPlantation) {
-        owned.push(r);
+        if (!isForestryThirdParty && isForestryOwned) {
+          owned.push(r);
+        } else {
+          excludedImported.push({
+            record: r,
+            reason: 'Koleksi rujukan pihak ketiga bukan milik pengguna kehutanan dan dikecualikan dari kontribusi mandiri.'
+          });
+        }
       } else {
-        excludedImported.push({
-          record: r,
-          reason: 'Koleksi rujukan pihak ketiga (data impor rujukan modular 2b) bukan milik pengguna dan dikecualikan dari kontribusi mandiri.'
-        });
+        // Case 1/2 plantation context
+        const isThirdParty =
+          canonId === 'data_ref_mod_2b' ||
+          canonId === 'data_ref_mod_f' ||
+          canonId === 'data_hutan' ||
+          canonId === 'data_sawah' ||
+          srcDatasetId === 'data_ref_mod_2b' ||
+          archive.includes('2_Data_Referensi') ||
+          archive.includes('2b_Modular') ||
+          archive.includes('Data_rujukan') ||
+          archive.includes('3_Data_Koleksi_Pengguna_Mitra') ||
+          r.contributor_id === 'pihak_ketiga' ||
+          r.is_user_owned === false;
+
+        const isInitialPlantation =
+          canonId === 'data_kebun_sawit_karet_f' ||
+          archive.includes('Data_kebun_sawit_karet') ||
+          archive.includes('1_Data_Pengguna') ||
+          r.source_schema_id === 'schema_case1_plantation' ||
+          r.source_schema_id === 'schema_pengguna_plantation_v1' ||
+          r.contributor_id === 'pemilik_a' ||
+          r.is_user_owned === true;
+
+        if (!isThirdParty && isInitialPlantation) {
+          owned.push(r);
+        } else {
+          excludedImported.push({
+            record: r,
+            reason: 'Koleksi rujukan pihak ketiga (data impor rujukan modular 2b) bukan milik pengguna dan dikecualikan dari kontribusi mandiri.'
+          });
+        }
       }
     }
 
     let rubberCount = 0;
     let palmCount = 0;
+    let forestCount = 0;
     for (const r of owned) {
-      if (r.project_class_id === 1 || String(r.source_class_label || '').toLowerCase().includes('karet')) {
+      if (isForestryContext) {
+        forestCount += 1;
+      } else if (r.project_class_id === 1 || String(r.source_class_label || '').toLowerCase().includes('karet')) {
         rubberCount += 1;
       } else if (r.project_class_id === 2 || String(r.source_class_label || '').toLowerCase().includes('sawit')) {
         palmCount += 1;
@@ -121,7 +154,8 @@ export class ContributionWorkflow {
         ownedCount: owned.length,
         excludedCount: excludedImported.length,
         rubberCount,
-        palmCount
+        palmCount,
+        forestCount
       }
     };
   }

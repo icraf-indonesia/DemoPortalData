@@ -148,3 +148,31 @@ test('resolveSourceToProjectClass maps ONLY plantation and leaves others null', 
   assert.equal(ref2a.project_class_id, null);
   assert.equal(ref2a.project_class_label, null);
 });
+
+test('EPISTEM_MASTER_TAXONOMY defines 24 Indonesian LULC leaf classes and crosswalk', async () => {
+  const { EPISTEM_MASTER_TAXONOMY, getTaxonomyLeaves, DEFAULT_EPISTEM_CROSSWALK } = await import('../../src/domain/epistem-taxonomy.js');
+  const leaves = getTaxonomyLeaves(EPISTEM_MASTER_TAXONOMY);
+  assert.equal(leaves.length, 24, 'Must have 24 leaf classes');
+
+  // Verify Indonesian names
+  const karetLeaf = leaves.find(l => l.code === '1132');
+  assert.ok(karetLeaf);
+  assert.equal(karetLeaf.name, 'Monokultur Karet');
+
+  const sawitLeaf = leaves.find(l => l.code === '1133');
+  assert.ok(sawitLeaf);
+  assert.equal(sawitLeaf.name, 'Monokultur Kelapa Sawit');
+
+  const hutanLahanKering = leaves.find(l => l.code === '1111');
+  assert.ok(hutanLahanKering);
+  assert.equal(hutanLahanKering.name, 'Hutan Lahan Kering Primer');
+
+  const sawah = leaves.find(l => l.code === '1220');
+  assert.ok(sawah);
+  assert.equal(sawah.name, 'Sawah');
+
+  // Crosswalk matches
+  assert.equal(DEFAULT_EPISTEM_CROSSWALK[1].name, 'Monokultur Karet');
+  assert.equal(DEFAULT_EPISTEM_CROSSWALK[2].name, 'Monokultur Kelapa Sawit');
+});
+

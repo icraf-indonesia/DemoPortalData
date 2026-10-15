@@ -67,13 +67,14 @@ test('generatePointShapefile is parseable by pyshp and matches values exactly', 
   fs.writeFileSync(shxPath, Buffer.from(shpPackage.shx));
   fs.writeFileSync(dbfPath, Buffer.from(shpPackage.dbf));
 
-  // Run python script using pyshp from .work/python
-  const pythonPath = '/opt/homebrew/Caskroom/miniconda/base/bin/python';
+  // Run python script using pyshp from .work/python or system python
+  const pythonPath = process.env.PYTHON_PATH || (process.platform === 'win32' ? 'python' : '/opt/homebrew/Caskroom/miniconda/base/bin/python');
   const pythonLib = path.resolve(ROOT_DIR, '../python');
 
+  const normalizedShpPath = shpPath.replace(/\\/g, '/');
   const script = `
 import shapefile, sys, json
-sf = shapefile.Reader('${shpPath}')
+sf = shapefile.Reader('${normalizedShpPath}')
 assert len(sf) == 3, f"Expected 3 records, got {len(sf)}"
 fields = [f[0] for f in sf.fields[1:]]
 assert fields[0] == 'class_id', f"First field must be class_id, got {fields[0]}"

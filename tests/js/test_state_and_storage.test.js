@@ -13,6 +13,7 @@ import {
   loadPreferences,
   clearPreferences
 } from '../../src/state/storage.js';
+import { CATALOGUE_DEFINITIONS } from '../../src/data/catalogue.js';
 
 // Setup mock window.localStorage for Node environment
 class MockLocalStorage {
@@ -258,4 +259,76 @@ test('WorkspaceState handles 4-case dropdown switching with state and dataset is
   assert.equal(ws.activeCaseId, 1);
   assert.equal(ws.activeUser, 'user_a');
   assert.equal(ws.getActiveCaseKey(), 'case_1');
+});
+
+test('WorkspaceState resetWorkspace clears dynamic data and restores base catalogue across all cases', () => {
+  const ws = new WorkspaceState();
+  ws.setCatalogue({}, Object.values(CATALOGUE_DEFINITIONS));
+
+  // Populate state across Cases 1, 2, 3, and 4
+  ws.setMixedDataset(
+    'data_campuran_1',
+    { id: 'data_campuran_1', title: 'Data Campuran #1', category: 'Data Campuran (Privat)' },
+    [{ observation_id: 'rec_mix', project_class_id: 3 }],
+    50
+  );
+
+  ws.setPublishedCollection({
+    meta: { id: 'data_kontribusi_mandiri', title: 'Data Kontribusi Peneliti' },
+    records: [{ observation_id: 'rec_pub', project_class_id: 1 }]
+  });
+
+  ws.setPublicationDraft({ title: 'Draf Publikasi' });
+  ws.setSamplingDraft({ selectedUuid: 'uuid-123' });
+
+  ws.setCase3PrivateCollection({
+    meta: { id: 'data_hutan_campuran', title: 'Data Campuran Tutupan Lahan' },
+    records: [{ observation_id: 'rec_c3', project_class_id: 2 }],
+    addedCount: 30
+  });
+
+  ws.recordReview({ observation_id: 'obs_c4', review: 'approved' });
+  ws.recordAdoption({ observation_id: 'obs_c4', adopted_by: 'user_c' });
+  ws.case4Queue = [{ observation_id: 'obs_c4' }];
+  ws.case4Interpretations = { obs_c4: { project_class_id: 1 } };
+  ws.activeCaseId = 3;
+  ws.activeUser = 'user_b';
+
+  // Verify dynamic items were added to catalogue
+  assert.ok(ws.catalogueItems.some(i => i.id === 'data_campuran_1'));
+  assert.ok(ws.catalogueItems.some(i => i.id === 'data_kontribusi_mandiri'));
+  assert.ok(ws.catalogueItems.some(i => i.id === 'data_hutan_campuran'));
+
+  // Trigger deterministic workspace reset
+  ws.resetWorkspace();
+
+  // Assert all dynamic state is cleared
+  assert.equal(ws.mixedDataset, null, 'Case 1 mixedDataset is cleared');
+  assert.equal(ws.case2DonatedCollection, null, 'Case 2 donated collection is cleared');
+  assert.deepEqual(ws.publishedCollections, [], 'Published collections list is empty');
+  assert.equal(ws.case2PublicationDraft, null, 'Case 2 publication draft is cleared');
+  assert.deepEqual(ws.case2ScreenSubmissions, [], 'Case 2 screen submissions is empty');
+  assert.equal(ws.case2SamplingDraft, null, 'Case 2 sampling draft is cleared');
+  assert.equal(ws.case3PrivateCollection, null, 'Case 3 private collection is cleared');
+  assert.deepEqual(ws.case4Reviews, [], 'Case 4 reviews are cleared');
+  assert.deepEqual(ws.case4Adoptions, [], 'Case 4 adoptions are cleared');
+  assert.deepEqual(ws.case4Queue, [], 'Case 4 queue is cleared');
+  assert.deepEqual(ws.case4Interpretations, {}, 'Case 4 interpretations cache is empty');
+
+  // Assert user and active dataset are restored to Case 1 default
+  assert.equal(ws.activeCaseId, 1);
+  assert.equal(ws.activeUser, 'user_a');
+  assert.equal(ws.activeDatasetId, 'data_kebun_sawit_karet_f');
+
+  // Assert catalogueItems contains only base canonical items and no dynamic/mixed/published cards
+  assert.ok(!ws.catalogueItems.some(i => i.id === 'data_campuran_1'), 'Case 1 mixed data card removed from catalogue');
+  assert.ok(!ws.catalogueItems.some(i => i.id === 'data_kontribusi_mandiri'), 'Case 2 published card removed from catalogue');
+  assert.ok(!ws.catalogueItems.some(i => i.id === 'data_hutan_campuran'), 'Case 3 mixed data card removed from catalogue');
+  assert.ok(!ws.catalogueItems.some(i => i.isPublished || i.isDonated), 'No published or donated cards remain in catalogue');
+
+  // Base datasets must be present
+  const baseIds = ['data_kebun_sawit_karet_f', 'data_ref_mod_f', 'data_ref_mod_2b', 'data_hutan', 'data_sawah', 'case4_data_kombinasi_f'];
+  baseIds.forEach(id => {
+    assert.ok(ws.catalogueItems.some(i => i.id === id), `Base dataset ${id} remains in catalogue`);
+  });
 });

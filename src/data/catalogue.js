@@ -13,7 +13,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
   data_kebun_sawit_karet_f: {
     id: 'data_kebun_sawit_karet_f',
     title: 'Data Kebun Sawit & Karet',
-    category: 'Data Pengguna #1',
+    category: 'Data Pengguna',
     location: 'Kabupaten Banyuasin',
     description: 'Titik observasi komoditas kelapa sawit dan karet di Banyuasin. Metode survei dan kontributor belum tercatat.',
     geojsonPath: 'data/derived/data_kebun_sawit_karet_f.geojson',
@@ -43,9 +43,9 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
   data_hutan: {
     id: 'data_hutan',
     title: 'Data Tutupan Hutan',
-    category: 'Koleksi Mitra',
+    category: 'Data Pengguna',
     location: 'Kabupaten Banyuasin',
-    description: 'Titik rujukan tutupan hutan dari Dinas Kehutanan (2024). Metode pengumpulan inventarisasi hutan.',
+    description: 'Titik observasi tutupan hutan di Banyuasin. Metode survei inventarisasi hutan.',
     geojsonPath: 'data/derived/data_hutan.geojson',
     isPrimary: false,
     kind: 'point_observations'
