@@ -249,6 +249,7 @@ test('ContributionWorkflow: createPublishedPackage embeds Luma modeling metadata
   };
 
   const declarations = {
+    title: 'Data Kebun Mandiri Sawit & Karet 2026',
     accountName: 'Staf GIS',
     owningInstitution: 'Dinas Perkebunan Kabupaten Banyuasin',
     technicalEmail: 'disbun@banyuasinkab.go.id',
@@ -261,11 +262,11 @@ test('ContributionWorkflow: createPublishedPackage embeds Luma modeling metadata
 
   const pkg = workflow.createPublishedPackage(ownedPoints, declarations);
 
+  assert.equal(pkg.meta.title, 'Data Kebun Mandiri Sawit & Karet 2026', 'Custom title must be used');
   assert.ok(pkg.meta.luma_modeling, 'Luma modeling must be attached to packageMeta');
-  assert.ok(pkg.meta.luma_modeling.module4Separability, 'Separability must be present');
-  assert.equal(pkg.meta.luma_modeling.module4Separability.pairs.length, 1);
+  assert.equal(pkg.meta.luma_modeling.module4Separability, undefined, 'Separability must not be present');
   assert.equal(pkg.meta.luma_modeling.module6Classification, undefined);
   assert.equal(pkg.meta.luma_modeling.module7Validation, undefined);
-  assert.ok(pkg.meta.luma_modeling.status.includes('Separabilitas'));
+  assert.equal(pkg.meta.luma_modeling.status, 'Metadata Terlampir');
 });
 

@@ -311,11 +311,11 @@ export class ContributionWorkflow {
       }
     }
 
+    const packageTitle = (declarations.title || declarations.datasetTitle || '').trim() || 'Data Kontribusi Mandiri (Perkebunan Banyuasin)';
     const includeLuma = Boolean(declarations.includeLumaMetadata);
     const lumaModeling = (includeLuma && declarations.lumaContext)
       ? {
-          status: 'Analisis Separabilitas Spektral Selesai',
-          module4Separability: declarations.lumaContext.module4Separability || null
+          status: 'Metadata Terlampir'
         }
       : null;
 
@@ -382,7 +382,7 @@ export class ContributionWorkflow {
 
     const packageMeta = {
       id: 'data_kontribusi_mandiri',
-      title: 'Data Kontribusi Mandiri (Perkebunan Banyuasin)',
+      title: packageTitle,
       category: 'Koleksi Mitra',
       status: 'Mandiri / Belum Ditelaah',
       publicationStatus: 'published_unreviewed',

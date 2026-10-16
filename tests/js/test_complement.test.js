@@ -305,5 +305,18 @@ test('ComplementWorkflow supports per-class target class selection in Case 1', (
   assert.equal(lainnyaPoint.project_class_label, 'Lainnya');
 });
 
+test('getDatasetYearText formats standard years and range for mixed collections', async () => {
+  const { getDatasetYearText } = await import('../../src/ui/catalogue.js');
+  assert.equal(getDatasetYearText({ id: 'data_hutan' }), '2024');
+  assert.equal(getDatasetYearText({ id: 'data_ref_mod_f' }), '2024');
+  assert.equal(getDatasetYearText({ id: 'data_ref_mod_2b' }), '2025');
+  assert.equal(getDatasetYearText({ id: 'data_kebun_sawit_karet_f' }), '2025');
+  assert.equal(getDatasetYearText({ id: 'data_sawah' }), '2025');
+  assert.equal(getDatasetYearText({ id: 'case4_data_kombinasi_f' }), '2026');
+  assert.equal(getDatasetYearText({ id: 'data_campuran_1' }), '2025–2026');
+  assert.equal(getDatasetYearText({ id: 'data_hutan_sawit_partisipatif' }), '2024–2026');
+  assert.equal(getDatasetYearText({ id: 'data_kontribusi_mandiri', isPublished: true }), '2026');
+});
+
 
 

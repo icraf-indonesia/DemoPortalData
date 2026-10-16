@@ -76,14 +76,6 @@ export class WorkspaceState {
       aoiName: 'Kabupaten Banyuasin',
       targetYear: 2026,
       sensor: 'Komposit Landsat 9 / Sentinel-2 (2026)',
-      separabilityReport: {
-        method: 'Jeffries-Matusita Distance (Modul 4)',
-        pairs: [
-          { pair: 'Karet vs Kelapa sawit', distance: 1.88, status: 'Baik (Dapat Dipisahkan)' },
-          { pair: 'Karet vs Lainnya', distance: 1.94, status: 'Sangat Baik' },
-          { pair: 'Kelapa sawit vs Lainnya', distance: 1.91, status: 'Sangat Baik' }
-        ]
-      },
       modelParams: {
         algorithm: 'Random Forest (Modul 6)',
         numTrees: 100,
@@ -468,6 +460,9 @@ export class WorkspaceState {
           this.case3PrivateCollection.records
         );
       } else {
+        if (this.activeDatasetId !== 'data_hutan') {
+          this.activeRecords = [];
+        }
         this.activeDatasetId = 'data_hutan';
       }
     } else if (this.activeUser === 'user_c') {

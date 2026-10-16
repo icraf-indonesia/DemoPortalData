@@ -150,10 +150,10 @@ export const DATASET_SCENARIOS = Object.freeze({
     ]
   },
   data_ref_mod_f: {
-    observedYear: 2025,
+    observedYear: 2024,
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Koleksi Referensi 2a',
-    contributorDisplayName: 'Sumber Rujukan (2025)',
+    contributorDisplayName: 'Koleksi Referensi (2024)',
     rightsStatus: 'Belum terverifikasi',
     method: 'unknown',
     qualityTier: null,

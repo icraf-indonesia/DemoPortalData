@@ -11,6 +11,7 @@ test('authenticateUser: successfully authenticates Rizki (Pengguna A)', () => {
   const user = authenticateUser('rizki@mail.com', 'password123');
   assert.ok(user, 'Rizki should authenticate');
   assert.equal(user.name, 'Rizki');
+  assert.equal(user.fullName, 'Rizki');
   assert.equal(user.id, 'user_a');
   assert.equal(user.role, 'Pengguna A');
   assert.equal(user.defaultCaseId, 1);

@@ -214,7 +214,8 @@ class PortalApp {
       (id) => this.switchDataset(id),
       {
         onShareDataset: (id) => this.openContributeModal(null, id),
-        onDownloadDataset: (id) => this.downloadPublishedGeoJson(id)
+        onDownloadDataset: (id) => this.downloadPublishedGeoJson(id),
+        onOpenExplore: () => this.openComplementModal()
       }
     );
 
@@ -2036,6 +2037,23 @@ class PortalApp {
 
     body.appendChild(cwSection);
 
+    // Section 2.5: Nama Koleksi Data (before Deklarasi Metadata & Legalitas)
+    const isForestry = selectedDatasetId === 'data_hutan' ||
+      selectedDatasetId === 'data_hutan_campuran' ||
+      (this.workspace.case3PrivateCollection && selectedDatasetId === this.workspace.case3PrivateCollection.meta.id);
+
+    const titleSection = document.createElement('div');
+    titleSection.className = 'modal-section pub-title-section';
+    titleSection.style.marginTop = '12px';
+
+    const defaultTitle = draft.datasetTitle || (isForestry ? 'Data Kontribusi Mandiri (Kehutanan Banyuasin)' : 'Data Kontribusi Mandiri (Perkebunan Banyuasin)');
+    titleSection.innerHTML = `
+      <label for="pub-dataset-title" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px; color:#1e293b;">Nama Koleksi Data *:</label>
+      <input type="text" id="pub-dataset-title" value="${escapeHtml(defaultTitle)}" placeholder="Masukkan nama koleksi data yang akan dibagikan" style="width:100%; padding:6px 8px; font-size:0.8rem; border:1px solid #cbd5e1; border-radius:4px; box-sizing:border-box;">
+      <div id="err-dataset-title" style="color:#dc2626; font-size:0.7rem; display:none; margin-top:2px;"></div>
+    `;
+    body.appendChild(titleSection);
+
     // Section 3: Deklarasi Metadata & Legalitas Form
     const formSection = document.createElement('div');
     formSection.className = 'modal-section pub-form-section';
@@ -2120,17 +2138,6 @@ class PortalApp {
     `;
     formSection.appendChild(respWrap);
 
-    // Luma Modeling Metadata Checkbox
-    const lumaWrap = document.createElement('div');
-    lumaWrap.style.marginTop = '8px';
-    const isLumaChecked = draft.includeLumaMetadata !== false;
-    lumaWrap.innerHTML = `
-      <label style="display:flex; align-items:flex-start; gap:6px; font-size:0.74rem; cursor:pointer;">
-        <input type="checkbox" id="pub-include-luma" ${isLumaChecked ? 'checked' : ''} style="margin-top:2px;">
-        <span><strong>Sertakan Bukti Mutu Luma:</strong> Sertakan laporan teknis analisis separabilitas spektral (Jarak Jeffries-Matusita antar-kelas) ke dalam metadata paket publik.</span>
-      </label>
-    `;
-    formSection.appendChild(lumaWrap);
     body.appendChild(formSection);
 
     // Section 4: Summary Box before final button
@@ -2146,6 +2153,7 @@ class PortalApp {
       this.workspace.setPublicationDraft({
         selectedCollectionIds: [selectedDatasetId],
         selectedDatasetId,
+        datasetTitle: document.getElementById('pub-dataset-title')?.value || defaultTitle,
         accountName: document.getElementById('pub-account-name')?.value || defaultAccountName,
         owningInstitution: document.getElementById('pub-institution')?.value || defaultInstitution,
         technicalEmail: document.getElementById('pub-email')?.value || defaultEmail,
@@ -2153,7 +2161,6 @@ class PortalApp {
         acquisitionMethod: document.getElementById('pub-method')?.value || defaultMethod,
         boundaryAoi: document.getElementById('pub-aoi')?.value || 'Kabupaten Banyuasin',
         responsibilityAccepted: Boolean(document.getElementById('pub-responsibility')?.checked),
-        includeLumaMetadata: Boolean(document.getElementById('pub-include-luma')?.checked),
         crosswalk: {
           1: { epistemLeafId: karetPicker.getSelectedLeafId() },
           2: { epistemLeafId: sawitPicker.getSelectedLeafId() }
@@ -2166,11 +2173,11 @@ class PortalApp {
         selectedDatasetId === 'data_hutan_campuran' ||
         (this.workspace.case3PrivateCollection && selectedDatasetId === this.workspace.case3PrivateCollection.meta.id);
 
+      const titleInp = document.getElementById('pub-dataset-title')?.value || defaultTitle;
       const accInp = document.getElementById('pub-account-name')?.value || draft.accountName;
       const instInp = document.getElementById('pub-institution')?.value || defaultInst;
       const leaf1 = findTaxonomyNode(karetPicker.getSelectedLeafId(), EPISTEM_MASTER_TAXONOMY);
       const leaf2 = findTaxonomyNode(sawitPicker.getSelectedLeafId(), EPISTEM_MASTER_TAXONOMY);
-      const isLumaIncluded = Boolean(document.getElementById('pub-include-luma')?.checked);
 
       const countText = isForestry
         ? `${separation.summary.ownedCount} titik (Hutan)`
@@ -2183,21 +2190,23 @@ class PortalApp {
       summaryCard.innerHTML = `
         <h5 style="margin:0 0 4px 0; font-size:0.78rem; font-weight:700; color:#1e293b;">Ringkasan Sebelum Konfirmasi:</h5>
         <div style="font-size:0.73rem; line-height:1.45; color:#334155;">
+          <div>&bull; <strong>Nama Koleksi:</strong> ${escapeHtml(titleInp)}</div>
           <div>&bull; <strong>Titik Mandiri Dibagikan:</strong> ${countText}</div>
           <div>&bull; <strong>Pemetaan Taksonomi:</strong> ${mapText}</div>
           <div>&bull; <strong>Lembaga & Peneliti:</strong> ${escapeHtml(accInp)} (${escapeHtml(instInp)})</div>
           <div>&bull; <strong>Tahun & Status:</strong> 2026 &bull; Mandiri / Belum Ditelaah (Tier 4)</div>
-          <div>&bull; <strong>Mutu Pemodelan Luma:</strong> ${isLumaIncluded ? 'Dilampirkan (Analisis Separabilitas Spektral)' : 'Tidak dilampirkan'}</div>
         </div>
       `;
     };
     updateSummarySection();
     body.appendChild(summaryCard);
 
-    formSection.addEventListener('input', () => {
+    const handleFormChange = () => {
       updateSummarySection();
       saveDraftState();
-    });
+    };
+    titleSection.addEventListener('input', handleFormChange);
+    formSection.addEventListener('input', handleFormChange);
 
     container.appendChild(body);
 
@@ -2228,17 +2237,25 @@ class PortalApp {
         return;
       }
 
+      const titleInp = document.getElementById('pub-dataset-title');
       const accInp = document.getElementById('pub-account-name');
       const instInp = document.getElementById('pub-institution');
       const emailInp = document.getElementById('pub-email');
       const respInp = document.getElementById('pub-responsibility');
 
+      const errTitle = document.getElementById('err-dataset-title');
       const errAcc = document.getElementById('err-account-name');
       const errInst = document.getElementById('err-institution');
       const errEmail = document.getElementById('err-email');
       const errResp = document.getElementById('err-responsibility');
 
       let isValid = true;
+
+      const titleVal = (titleInp?.value || '').trim();
+      if (!titleVal) {
+        if (errTitle) { errTitle.textContent = 'Nama koleksi data wajib diisi.'; errTitle.style.display = 'block'; }
+        isValid = false;
+      } else if (errTitle) { errTitle.style.display = 'none'; }
 
       const accVal = (accInp?.value || '').trim();
       if (!accVal) {
@@ -2317,15 +2334,14 @@ class PortalApp {
         publishedPkg = this.contributionWorkflow.createPublishedPackage(
           separation.owned,
           {
+            title: titleVal,
             accountName: accVal,
             owningInstitution: instVal,
             technicalEmail: emailVal,
             confirmedYear: Number(document.getElementById('pub-year')?.value) || 2026,
             acquisitionMethod: document.getElementById('pub-method')?.value || defaultMethod,
             boundaryAoi: document.getElementById('pub-aoi')?.value || 'Kabupaten Banyuasin',
-            responsibilityAccepted: true,
-            includeLumaMetadata: Boolean(document.getElementById('pub-include-luma')?.checked),
-            lumaContext: this.workspace.lumaContext
+            responsibilityAccepted: true
           },
           crosswalk
         );
