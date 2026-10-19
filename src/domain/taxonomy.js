@@ -152,7 +152,7 @@ export const DATA_SAWAH_SCHEMA = Object.freeze({
     id: 1,
     label: 'Sawah',
     colour: '#2E7D32',
-    description: 'Lahan basah pertanian sawah (Koleksi Mitra)'
+    description: 'Lahan basah pertanian sawah (Kontribusi Pengguna)'
   })
 });
 

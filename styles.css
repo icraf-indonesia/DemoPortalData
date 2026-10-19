@@ -751,6 +751,20 @@ select:focus-visible {
   font-weight: 600;
 }
 
+.catalogue-badge.catalogue-badge-classes {
+  background-color: #f8fafc;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  font-weight: 600;
+}
+
+.catalogue-badge.badge-new {
+  background-color: #10b981;
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid #059669;
+}
+
 .catalogue-badge-active {
   font-size: 0.68rem;
   font-weight: 700;
@@ -777,11 +791,38 @@ select:focus-visible {
 
 .catalogue-card-footer {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 4px;
   font-size: 0.7rem;
   color: var(--luma-faint);
   border-top: 1px dashed #e2e8f0;
-  padding-top: 4px;
+  padding-top: 5px;
+  margin-top: 4px;
+}
+
+.footer-counts-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 0.7rem;
+}
+
+.footer-count-left {
+  font-weight: 600;
+  color: #334155;
+}
+
+.footer-count-right {
+  font-weight: 500;
+  color: #64748b;
+}
+
+.footer-actions-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
 }
 
 .footer-sha {

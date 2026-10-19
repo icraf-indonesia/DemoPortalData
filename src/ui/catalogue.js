@@ -257,13 +257,34 @@ export class CatalogueView {
 
         const catBadge = document.createElement('span');
         catBadge.className = `catalogue-badge ${item.isPrivate ? 'badge-private' : ''}`;
-        catBadge.textContent = item.category || 'Koleksi Mitra';
+        const displayedCategory = item.category === 'Koleksi Mitra' ? 'Kontribusi Pengguna' : (item.category || 'Kontribusi Pengguna');
+        catBadge.textContent = displayedCategory;
         metaHeader.appendChild(catBadge);
 
         const yearBadge = document.createElement('span');
         yearBadge.className = 'catalogue-badge catalogue-badge-year';
         yearBadge.textContent = getDatasetYearText(item);
         metaHeader.appendChild(yearBadge);
+
+        const classBadge = document.createElement('span');
+        classBadge.className = 'catalogue-badge catalogue-badge-classes';
+        let numClasses = item.classCount;
+        if (numClasses === undefined || numClasses === null) {
+          if (item.id === 'data_ref_mod_f') numClasses = 0;
+          else if (item.id === 'data_hutan' || item.id === 'data_sawah') numClasses = 1;
+          else if (item.id === 'data_ref_mod_2b' || item.id === 'case4_data_kombinasi_f') numClasses = 5;
+          else if (item.crosswalk) numClasses = Object.keys(item.crosswalk).length;
+          else numClasses = 2;
+        }
+        classBadge.textContent = `${numClasses} Kelas`;
+        metaHeader.appendChild(classBadge);
+
+        if (item.isNew) {
+          const newBadge = document.createElement('span');
+          newBadge.className = 'catalogue-badge badge-new';
+          newBadge.textContent = 'Baru';
+          metaHeader.appendChild(newBadge);
+        }
 
         if (isActive) {
           const activeBadge = document.createElement('span');
@@ -286,18 +307,23 @@ export class CatalogueView {
         const detailsFooter = document.createElement('div');
         detailsFooter.className = 'catalogue-card-footer';
 
-        const countSpan = document.createElement('span');
-        countSpan.className = 'footer-count';
-        if (item.featureCount !== null && item.featureCount !== undefined) {
-          if (item.archiveFeatureCount && item.archiveFeatureCount !== item.featureCount) {
-            countSpan.textContent = `${item.featureCount} titik AOI (${item.archiveFeatureCount} arsip)`;
-          } else {
-            countSpan.textContent = `${item.featureCount} titik AOI`;
-          }
-        } else {
-          countSpan.textContent = 'Inspeksi data';
-        }
-        detailsFooter.appendChild(countSpan);
+        const countsRow = document.createElement('div');
+        countsRow.className = 'footer-counts-row';
+
+        const totalRef = item.archiveFeatureCount || item.featureCount || 0;
+        const aoiRef = item.featureCount !== null && item.featureCount !== undefined ? item.featureCount : 0;
+
+        const countLeft = document.createElement('span');
+        countLeft.className = 'footer-count-left';
+        countLeft.textContent = `${totalRef} Titik Referensi`;
+        countsRow.appendChild(countLeft);
+
+        const countRight = document.createElement('span');
+        countRight.className = 'footer-count-right';
+        countRight.textContent = `${aoiRef} Titik dalam AOI`;
+        countsRow.appendChild(countRight);
+
+        detailsFooter.appendChild(countsRow);
 
         // Card actions wrapper
         const actionsWrapper = document.createElement('div');
@@ -327,15 +353,20 @@ export class CatalogueView {
           actionsWrapper.appendChild(shareBtn);
         }
 
-
         if (item.isPrivate && !item.isPublished) {
           const privSpan = document.createElement('span');
           privSpan.className = 'footer-private';
           privSpan.textContent = 'Koleksi Privat';
-          detailsFooter.appendChild(privSpan);
+          actionsWrapper.appendChild(privSpan);
         }
 
-        detailsFooter.appendChild(actionsWrapper);
+        if (actionsWrapper.hasChildNodes()) {
+          const actionsRow = document.createElement('div');
+          actionsRow.className = 'footer-actions-row';
+          actionsRow.appendChild(actionsWrapper);
+          detailsFooter.appendChild(actionsRow);
+        }
+
         card.appendChild(detailsFooter);
 
         // Event handlers for selecting/toggling the card

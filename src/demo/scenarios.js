@@ -114,7 +114,7 @@ export const DATASET_SCENARIOS = Object.freeze({
   data_ref_mod_2b: {
     observedYear: 2025,
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
-    owner: 'Koleksi Mitra Rujukan',
+    owner: 'Kontribusi Pengguna Rujukan',
     contributorDisplayName: 'Tim Telaah Mitra (2025)',
     rightsStatus: 'Izin penggunaan terbuka',
     method: 'Interpretasi Citra & Uji Lapang',
@@ -128,13 +128,13 @@ export const DATASET_SCENARIOS = Object.freeze({
   data_hutan: {
     observedYear: 2024,
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
-    owner: 'Dinas Kehutanan Provinsi Sumatera Selatan',
-    contributorDisplayName: 'Dinas Kehutanan (2024)',
+    owner: 'Instansi Kehutanan B',
+    contributorDisplayName: 'Instansi Kehutanan B (2024)',
     rightsStatus: 'Izin data terbuka',
     method: 'Inventarisasi Hutan',
     qualityTier: 3,
     assumptions: [
-      'Titik hutan diamati tahun 2024 oleh Dinas Kehutanan dengan izin terbuka'
+      'Titik hutan diamati tahun 2024 oleh Instansi Kehutanan B dengan izin terbuka'
     ]
   },
   data_sawah: {

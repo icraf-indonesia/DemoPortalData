@@ -34,17 +34,17 @@ export const REF_MOD_2B_CLASSES = Object.freeze([
 export const DATASET_COMPLEMENT_CLASSES = Object.freeze({
   data_ref_mod_2b: REF_MOD_2B_CLASSES,
   data_kontribusi_mandiri: Object.freeze([
-    { id: '1', label: 'Kebun sawit', isTargetClass: false, description: 'Observasi kebun kelapa sawit mandiri (Dinas Perkebunan)' },
-    { id: '2', label: 'Kebun karet', isTargetClass: false, description: 'Observasi kebun karet mandiri (Dinas Perkebunan)' }
+    { id: '1', label: 'Kebun sawit', isTargetClass: false, description: 'Observasi kebun kelapa sawit mandiri (Instansi Perkebunan A)' },
+    { id: '2', label: 'Kebun karet', isTargetClass: false, description: 'Observasi kebun karet mandiri (Instansi Perkebunan A)' }
   ]),
   data_sawah: Object.freeze([
-    { id: '1', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah (Koleksi Mitra)' },
+    { id: '1', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah (Kontribusi Pengguna)' },
     { id: '4', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah' },
     { id: '5', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah' }
   ]),
   data_hutan: Object.freeze([
-    { id: '1', label: 'Hutan', isTargetClass: false, description: 'Tutupan hutan alam / sekunder (Dinas Kehutanan 2024)' },
-    { id: '4', label: 'Hutan', isTargetClass: false, description: 'Tutupan hutan alam / sekunder (Dinas Kehutanan 2024)' }
+    { id: '1', label: 'Hutan', isTargetClass: false, description: 'Tutupan hutan alam / sekunder (Instansi Kehutanan B 2024)' },
+    { id: '4', label: 'Hutan', isTargetClass: false, description: 'Tutupan hutan alam / sekunder (Instansi Kehutanan B 2024)' }
   ]),
   case4_data_kombinasi_f: Object.freeze([
     { id: '1', label: 'Hutan', isTargetClass: false, description: 'Tutupan lahan hutan' },

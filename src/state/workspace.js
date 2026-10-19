@@ -297,10 +297,10 @@ export class WorkspaceState {
 
     for (const pub of pubs) {
       if (pub && pub.meta && !this.catalogueItems.some(i => i.id === pub.meta.id)) {
-        this.catalogueItems.push({
+        this.catalogueItems.unshift({
           id: pub.meta.id,
           title: pub.meta.title,
-          category: 'Koleksi Mitra',
+          category: 'Kontribusi Pengguna',
           status: pub.meta.status || 'Mandiri / Belum Ditelaah',
           description: pub.meta.description,
           geojsonPath: null,
@@ -309,7 +309,10 @@ export class WorkspaceState {
           isPublished: true,
           isDonated: true,
           featureCount: pub.records.length,
-          institution: pub.meta.institution || 'ICRAF Indonesia',
+          archiveFeatureCount: pub.records.length,
+          classCount: pub.meta.classCount || (pub.meta.crosswalk ? Object.keys(pub.meta.crosswalk).length : 2),
+          isNew: false,
+          institution: pub.meta.institution || 'Instansi Perkebunan A',
           year: pub.meta.year || 2026,
           accountName: pub.meta.accountName || 'User A',
           crosswalk: pub.meta.crosswalk || null,
@@ -576,7 +579,7 @@ export class WorkspaceState {
     const catItem = {
       id: collectionPackage.meta.id,
       title: collectionPackage.meta.title,
-      category: 'Koleksi Mitra',
+      category: 'Kontribusi Pengguna',
       status: collectionPackage.meta.status || 'Mandiri / Belum Ditelaah',
       description: collectionPackage.meta.description,
       geojsonPath: null,
@@ -585,7 +588,10 @@ export class WorkspaceState {
       isPublished: true,
       isDonated: true,
       featureCount: collectionPackage.records.length,
-      institution: collectionPackage.meta.institution || 'ICRAF Indonesia',
+      archiveFeatureCount: collectionPackage.records.length,
+      classCount: collectionPackage.meta.classCount || (collectionPackage.meta.crosswalk ? Object.keys(collectionPackage.meta.crosswalk).length : 2),
+      isNew: true,
+      institution: collectionPackage.meta.institution || 'Instansi Perkebunan A',
       year: collectionPackage.meta.year || 2026,
       accountName: collectionPackage.meta.accountName || 'User A',
       crosswalk: collectionPackage.meta.crosswalk || null,
@@ -594,10 +600,9 @@ export class WorkspaceState {
 
     const existingIdx = this.catalogueItems.findIndex(i => i.id === collectionPackage.meta.id);
     if (existingIdx >= 0) {
-      this.catalogueItems[existingIdx] = catItem;
-    } else {
-      this.catalogueItems.push(catItem);
+      this.catalogueItems.splice(existingIdx, 1);
     }
+    this.catalogueItems.unshift(catItem);
 
     // Queue 240 owned points into Case 4 review queue exactly once (idempotently)
     for (const record of collectionPackage.records) {

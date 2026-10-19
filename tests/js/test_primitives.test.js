@@ -59,7 +59,7 @@ test('createPublishedPackage attaches primitives to records and raw_properties',
   const declarations = {
     title: 'Test Published Package',
     accountName: 'Peneliti Uji',
-    owningInstitution: 'Dinas Perkebunan',
+    owningInstitution: 'Instansi Perkebunan A',
     technicalEmail: 'uji@example.org',
     confirmedYear: 2026,
     acquisitionMethod: 'Survei GPS Lapangan',

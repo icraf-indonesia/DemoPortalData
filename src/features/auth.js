@@ -33,7 +33,7 @@ export const DEMO_USERS = Object.freeze({
     password: 'password123',
     role: 'Pengguna A',
     roleTitle: 'Spesialis Komoditas Perkebunan',
-    institution: 'Dinas Perkebunan Kabupaten Banyuasin',
+    institution: 'Instansi Perkebunan A',
     defaultCaseId: 1,
     avatarBg: '#059669', // Emerald
     avatarInitial: 'R'
@@ -47,7 +47,7 @@ export const DEMO_USERS = Object.freeze({
     password: 'password123',
     role: 'Pengguna B',
     roleTitle: 'Pengelola Data Kehutanan',
-    institution: 'Dinas Kehutanan / KPH Banyuasin',
+    institution: 'Instansi Kehutanan B',
     defaultCaseId: 3,
     avatarBg: '#2563eb', // Blue
     avatarInitial: 'B'

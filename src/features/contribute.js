@@ -169,7 +169,7 @@ export class ContributionWorkflow {
     this.stagedPublicationDraft = {
       selectedCollectionIds: partialDraft.selectedCollectionIds || ['data_kebun_sawit_karet_f'],
       accountName: partialDraft.accountName ?? '',
-      owningInstitution: partialDraft.owningInstitution || 'Dinas Perkebunan Kabupaten Banyuasin',
+      owningInstitution: partialDraft.owningInstitution || 'Instansi Perkebunan A',
       technicalEmail: partialDraft.technicalEmail ?? '',
       confirmedYear: Number(partialDraft.confirmedYear) || 2026,
       acquisitionMethod: partialDraft.acquisitionMethod || 'Survei GPS Lapangan',
@@ -311,7 +311,7 @@ export class ContributionWorkflow {
       }
     }
 
-    const packageTitle = (declarations.title || declarations.datasetTitle || '').trim() || 'Data Kontribusi Mandiri (Perkebunan Banyuasin)';
+    const packageTitle = (declarations.title || declarations.datasetTitle || '').trim() || 'Data Referensi Kelapa Sawit & Karet, Banyuasin 2026';
     const includeLuma = Boolean(declarations.includeLumaMetadata);
     const lumaModeling = (includeLuma && declarations.lumaContext)
       ? {
@@ -391,16 +391,20 @@ export class ContributionWorkflow {
     const packageMeta = {
       id: 'data_kontribusi_mandiri',
       title: packageTitle,
-      category: 'Koleksi Mitra',
+      category: 'Kontribusi Pengguna',
       status: 'Mandiri / Belum Ditelaah',
       publicationStatus: 'published_unreviewed',
       version,
-      description: `Observasi kebun mandiri kelapa sawit dan karet di Kabupaten Banyuasin yang disumbangkan oleh ${accountName} (${institution}) untuk analisis terbuka konsorsium.`,
+      description: declarations.description || 'Hasil survei lapangan di Kabupaten Banyuasin oleh Instansi Perkebunan A',
       isPrimary: false,
       isPrivate: false,
       isPublished: true,
       isDonated: true,
       featureCount: points.length,
+      archiveFeatureCount: points.length,
+      classCount: Object.keys(resolvedCrosswalk).length || 2,
+      isNew: true,
+      updatedAt,
       institution,
       accountName,
       technicalEmail,

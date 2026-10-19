@@ -201,12 +201,12 @@ test('ContributionWorkflow: on-screen sampling rejects non-finite coordinates an
   assert.equal(completeResult.record.is_screen_sample, true);
 });
 
-test('ContributionWorkflow: setPublicationDraft defaults institution to Dinas Perkebunan and sets includeLumaMetadata', () => {
+test('ContributionWorkflow: setPublicationDraft defaults institution to Instansi Perkebunan A and sets includeLumaMetadata', () => {
   const workflow = new ContributionWorkflow();
 
   const draft = workflow.setPublicationDraft({});
 
-  assert.equal(draft.owningInstitution, 'Dinas Perkebunan Kabupaten Banyuasin');
+  assert.equal(draft.owningInstitution, 'Instansi Perkebunan A');
   assert.equal(draft.confirmedYear, 2026);
   assert.equal(draft.acquisitionMethod, 'Survei GPS Lapangan');
   assert.equal(draft.boundaryAoi, 'Kabupaten Banyuasin');
@@ -251,7 +251,7 @@ test('ContributionWorkflow: createPublishedPackage embeds Luma modeling metadata
   const declarations = {
     title: 'Data Kebun Mandiri Sawit & Karet 2026',
     accountName: 'Staf GIS',
-    owningInstitution: 'Dinas Perkebunan Kabupaten Banyuasin',
+    owningInstitution: 'Instansi Perkebunan A',
     technicalEmail: 'disbun@banyuasinkab.go.id',
     confirmedYear: 2026,
     acquisitionMethod: 'Survei GPS Lapangan',

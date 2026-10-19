@@ -120,7 +120,7 @@ test('ComplementWorkflow preview and confirm handles selection, deduplication, a
   assert.equal(workspace.classCounts.total, 4);
 });
 
-test('ComplementWorkflow supports alternative sources (data_hutan from Dinas Kehutanan, data_sawah)', () => {
+test('ComplementWorkflow supports alternative sources (data_hutan from Instansi Kehutanan B, data_sawah)', () => {
   const workspace = new WorkspaceState();
   const initialPoints = [
     { observation_id: 'init_sawit_1', project_class_id: 2, project_class_label: 'Kelapa sawit', is_within_aoi: true }

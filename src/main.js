@@ -57,7 +57,7 @@ import {
 } from './domain/taxonomy.js';
 import { isPointInAoi } from './domain/records.js';
 import { createTrainingExportPackage, triggerBrowserDownload } from './export/luma-adapter.js';
-import { DEMO_USERS, authenticateUser, getUserById, getUserByCaseId } from './features/auth.js?v=20261019_admin';
+import { DEMO_USERS, authenticateUser, getUserById, getUserByCaseId } from './features/auth.js';
 
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
@@ -99,18 +99,18 @@ function getDatasetComplementMeta(item) {
         contributor: 'Dinas Pertanian (2025)',
         year: 2025,
         location: item.location || 'Kabupaten Banyuasin',
-        category: 'Koleksi Mitra',
+        category: 'Kontribusi Pengguna',
         rights: 'Terbuka (Mitra Pertanian)',
         hasLabel: true
       };
     case 'data_hutan':
       return {
         title: 'Data Tutupan Hutan',
-        contributor: 'Dinas Kehutanan (2024)',
+        contributor: 'Instansi Kehutanan B (2024)',
         year: 2024,
         location: item.location || 'Kabupaten Banyuasin',
-        category: 'Koleksi Mitra',
-        rights: 'Terbuka (Dinas Kehutanan)',
+        category: 'Kontribusi Pengguna',
+        rights: 'Terbuka (Instansi Kehutanan B)',
         hasLabel: true
       };
     case 'data_ref_mod_f':
@@ -857,7 +857,7 @@ class PortalApp {
     catSelect.innerHTML = `
       <option value="all">Semua Kategori</option>
       <option value="Data Referensi">Data Referensi</option>
-      <option value="Koleksi Mitra">Koleksi Mitra</option>
+      <option value="Kontribusi Pengguna">Kontribusi Pengguna</option>
       <option value="Koleksi Terpadu">Koleksi Terpadu</option>
     `;
     catSelect.value = this.complementFilterCategory;
@@ -1675,7 +1675,7 @@ class PortalApp {
 
     const defaultAccountName = isForestryDataset ? 'Budi' : 'Rizki';
     const defaultEmail = isForestryDataset ? 'budi@mail.com' : 'rizki@mail.com';
-    const defaultInstitution = isForestryDataset ? 'Dinas Kehutanan Kabupaten Banyuasin' : 'Dinas Perkebunan Kabupaten Banyuasin';
+    const defaultInstitution = isForestryDataset ? 'Instansi Kehutanan B' : 'Instansi Perkebunan A';
     const defaultMethod = isForestryDataset ? 'Inventarisasi Hutan' : 'Survei GPS Lapangan';
 
     // Staged draft: pre-filled with active user profile
@@ -2296,7 +2296,7 @@ class PortalApp {
     titleSection.className = 'modal-section pub-title-section';
     titleSection.style.marginTop = '12px';
 
-    const defaultTitle = draft.datasetTitle || (isForestry ? 'Data Kontribusi Mandiri (Kehutanan Banyuasin)' : 'Data Kontribusi Mandiri (Perkebunan Banyuasin)');
+    const defaultTitle = draft.datasetTitle || (isForestry ? 'Data Referensi Tutupan Hutan, Banyuasin 2026' : 'Data Referensi Kelapa Sawit & Karet, Banyuasin 2026');
     titleSection.innerHTML = `
       <label for="pub-dataset-title" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px; color:#1e293b;">Nama Koleksi Data *:</label>
       <input type="text" id="pub-dataset-title" value="${escapeHtml(defaultTitle)}" placeholder="Masukkan nama koleksi data yang akan dibagikan" style="width:100%; padding:6px 8px; font-size:0.8rem; border:1px solid #cbd5e1; border-radius:4px; box-sizing:border-box;">
@@ -2962,7 +2962,7 @@ class PortalApp {
     pHeading.style.fontSize = '0.8rem';
     pHeading.style.fontWeight = '700';
     pHeading.style.marginBottom = '6px';
-    pHeading.textContent = 'Pilih Koleksi Mitra yang Ditemukan:';
+    pHeading.textContent = 'Pilih Kontribusi Pengguna yang Ditemukan:';
     body.appendChild(pHeading);
 
     const selectEl = document.createElement('select');
@@ -3027,7 +3027,7 @@ class PortalApp {
       const summaryTable = document.createElement('table');
       summaryTable.className = 'preview-table';
       summaryTable.innerHTML = `
-        <tr><th>Koleksi Mitra:</th><td>${escapeHtml(chosenId)}</td></tr>
+        <tr><th>Kontribusi Pengguna:</th><td>${escapeHtml(chosenId)}</td></tr>
         <tr><th>Kandidat Ditemukan:</th><td>${preview.totalSourceCandidates} titik</td></tr>
         <tr><th>Lolos Kriteria Non-hutan:</th><td>${preview.eligibleCandidateCount} titik (${preview.excludedCount} dikecualikan)</td></tr>
         <tr><th>Duplikat Terlewati:</th><td>${preview.duplicateCount} titik</td></tr>
@@ -3111,8 +3111,8 @@ class PortalApp {
         meta: {
           id: 'data_hutan_sawit_partisipatif',
           title: 'Koleksi Kehutanan Terpadu (Kasus 3)',
-          category: 'Koleksi Mitra Terpadu',
-          description: 'Koleksi tutupan lahan kehutanan terpadu (Hutan dan Non-hutan dari mitra).',
+          category: 'Kontribusi Pengguna Terpadu',
+          description: 'Koleksi tutupan lahan kehutanan terpadu (Hutan dan Non-hutan dari kontribusi pengguna).',
           isPrimary: false,
           isPrivate: true,
           featureCount: confirmed.totalCount
