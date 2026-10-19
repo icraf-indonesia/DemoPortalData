@@ -13,7 +13,8 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
   data_kebun_sawit_karet_f: {
     id: 'data_kebun_sawit_karet_f',
     title: 'Data Kebun Sawit & Karet',
-    category: 'Data Pengguna #1',
+    category: 'Data Pengguna',
+    year: 2025,
     location: 'Kabupaten Banyuasin',
     description: 'Titik observasi komoditas kelapa sawit dan karet di Banyuasin. Metode survei dan kontributor belum tercatat.',
     geojsonPath: 'data/derived/data_kebun_sawit_karet_f.geojson',
@@ -24,6 +25,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     id: 'data_ref_mod_f',
     title: 'Data Referensi Modular (2a)',
     category: 'Data Referensi',
+    year: 2024,
     location: 'Kabupaten Banyuasin',
     description: 'Titik referensi modular tanpa label kelas sumber (hanya nomor titik). Metode dan kontributor belum tercatat.',
     geojsonPath: 'data/derived/data_ref_mod_f.geojson',
@@ -34,6 +36,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     id: 'data_ref_mod_2b',
     title: 'Data Referensi Modular (2b)',
     category: 'Data Referensi',
+    year: 2025,
     location: 'Kabupaten Banyuasin',
     description: 'Titik referensi modular dengan atribut kelas sumber LULCrcl. Metode dan kontributor belum tercatat.',
     geojsonPath: 'data/derived/data_ref_mod_2b.geojson',
@@ -43,9 +46,10 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
   data_hutan: {
     id: 'data_hutan',
     title: 'Data Tutupan Hutan',
-    category: 'Koleksi Mitra',
+    category: 'Data Pengguna',
+    year: 2024,
     location: 'Kabupaten Banyuasin',
-    description: 'Titik rujukan tutupan hutan dari Dinas Kehutanan (2024). Metode pengumpulan inventarisasi hutan.',
+    description: 'Titik observasi tutupan hutan di Banyuasin. Metode survei inventarisasi hutan.',
     geojsonPath: 'data/derived/data_hutan.geojson',
     isPrimary: false,
     kind: 'point_observations'
@@ -54,6 +58,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     id: 'data_sawah',
     title: 'Data Lahan Sawah',
     category: 'Koleksi Mitra',
+    year: 2025,
     location: 'Kabupaten Banyuasin',
     description: 'Titik rujukan lahan sawah. Metode pengumpulan dan identitas kontributor belum tercatat.',
     geojsonPath: 'data/derived/data_sawah.geojson',
@@ -64,6 +69,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     id: 'case4_data_kombinasi_f',
     title: 'Data Kombinasi Multi-Sumber',
     category: 'Koleksi Terpadu (Kasus 4)',
+    year: 2026,
     location: 'Kabupaten Banyuasin',
     description: 'Koleksi gabungan multi-sumber untuk studi Kasus 4. Metode dan kontributor belum tercatat.',
     geojsonPath: 'data/derived/case4_data_kombinasi_f.geojson',
@@ -106,6 +112,7 @@ export async function loadCatalogue(manifestUrl = 'data/derived/manifest.json') 
       id: def.id,
       title: def.title,
       category: def.category,
+      year: def.year || 2025,
       location: def.location || 'Kabupaten Banyuasin',
       description: def.description,
       geojsonPath: def.geojsonPath,
@@ -204,6 +211,25 @@ export async function loadDataset(datasetId) {
       project_class_id: 1,
       project_class_label: 'Titik Rujukan (Tanpa Label)'
     }));
+  } else if (datasetId === 'data_kebun_sawit_karet_f') {
+    records = records.map(r => {
+      const srcId = Number(r.source_class_id);
+      if (srcId === 1) {
+        return {
+          ...r,
+          project_class_id: 1,
+          project_class_label: 'Kebun sawit'
+        };
+      }
+      if (srcId === 2) {
+        return {
+          ...r,
+          project_class_id: 2,
+          project_class_label: 'Kebun karet'
+        };
+      }
+      return r;
+    });
   }
 
   return {

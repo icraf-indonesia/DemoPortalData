@@ -10,3 +10,10 @@ __pycache__/
 !.env.example
 /screenshot*.png
 /data/derived/run-receipt.json
+data/primitives/Banyuasin_datarefmod_Case2b.cpg
+data/primitives/Banyuasin_datarefmod_Case2b.csv
+data/primitives/Banyuasin_datarefmod_Case2b.dbf
+data/primitives/Banyuasin_datarefmod_Case2b.fix
+data/primitives/Banyuasin_datarefmod_Case2b.prj
+data/primitives/Banyuasin_datarefmod_Case2b.shp
+data/primitives/Banyuasin_datarefmod_Case2b.shx

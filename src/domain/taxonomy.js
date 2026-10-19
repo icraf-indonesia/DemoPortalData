@@ -26,20 +26,20 @@ export {
 export const PROJECT_CLASSES = Object.freeze({
   1: Object.freeze({
     id: 1,
-    label: 'Karet',
-    colour: '#7B1FA2',
-    description: 'Tutupan lahan komoditas karet'
+    label: 'Kebun sawit',
+    colour: '#D81C5C',
+    description: 'Tutupan lahan kelapa sawit'
   }),
   2: Object.freeze({
     id: 2,
-    label: 'Kelapa sawit',
-    colour: '#E91E63',
-    description: 'Tutupan lahan kelapa sawit'
+    label: 'Kebun karet',
+    colour: '#761C97',
+    description: 'Tutupan lahan komoditas karet'
   }),
   3: Object.freeze({
     id: 3,
     label: 'Lainnya',
-    colour: '#757575',
+    colour: '#6E6E6E',
     description: 'Tutupan non-perkebunan / referensi lainnya'
   })
 });
@@ -47,15 +47,15 @@ export const PROJECT_CLASSES = Object.freeze({
 export const SHARED_PLANTATION_CLASSES = Object.freeze({
   1: Object.freeze({
     id: 1,
-    label: 'Karet',
-    colour: '#7B1FA2',
-    description: 'Tutupan lahan komoditas karet'
+    label: 'Kebun sawit',
+    colour: '#D81C5C',
+    description: 'Tutupan lahan kelapa sawit'
   }),
   2: Object.freeze({
     id: 2,
-    label: 'Kelapa sawit',
-    colour: '#E91E63',
-    description: 'Tutupan lahan kelapa sawit'
+    label: 'Kebun karet',
+    colour: '#761C97',
+    description: 'Tutupan lahan komoditas karet'
   })
 });
 
@@ -290,8 +290,8 @@ export function resolveSourceToProjectClass(datasetSlug, rawAttributes = {}) {
   
   if (slug.includes('kebun_sawit_karet') || slug.includes('data_kebun_sawit_karet')) {
     const val = rawAttributes.Id_LULC ?? rawAttributes.ID_LULC;
-    if (val === 1 || val === '1') return { project_class_id: 2, project_class_label: 'Kelapa sawit' };
-    if (val === 2 || val === '2') return { project_class_id: 1, project_class_label: 'Karet' };
+    if (val === 1 || val === '1') return { project_class_id: 1, project_class_label: 'Kebun sawit' };
+    if (val === 2 || val === '2') return { project_class_id: 2, project_class_label: 'Kebun karet' };
     return { project_class_id: null, project_class_label: null };
   }
 

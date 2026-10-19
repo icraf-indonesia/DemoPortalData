@@ -76,14 +76,6 @@ export class WorkspaceState {
       aoiName: 'Kabupaten Banyuasin',
       targetYear: 2026,
       sensor: 'Komposit Landsat 9 / Sentinel-2 (2026)',
-      separabilityReport: {
-        method: 'Jeffries-Matusita Distance (Modul 4)',
-        pairs: [
-          { pair: 'Karet vs Kelapa sawit', distance: 1.88, status: 'Baik (Dapat Dipisahkan)' },
-          { pair: 'Karet vs Lainnya', distance: 1.94, status: 'Sangat Baik' },
-          { pair: 'Kelapa sawit vs Lainnya', distance: 1.91, status: 'Sangat Baik' }
-        ]
-      },
       modelParams: {
         algorithm: 'Random Forest (Modul 6)',
         numTrees: 100,
@@ -468,6 +460,9 @@ export class WorkspaceState {
           this.case3PrivateCollection.records
         );
       } else {
+        if (this.activeDatasetId !== 'data_hutan') {
+          this.activeRecords = [];
+        }
         this.activeDatasetId = 'data_hutan';
       }
     } else if (this.activeUser === 'user_c') {
@@ -743,18 +738,24 @@ export class WorkspaceState {
    */
   setCase3PrivateCollection(collection) {
     this.case3PrivateCollection = collection;
-    if (this.case3PrivateCollection && !this.catalogueItems.some(i => i.id === this.case3PrivateCollection.meta.id)) {
-      this.catalogueItems.push({
+    if (this.case3PrivateCollection) {
+      const catItem = {
         id: this.case3PrivateCollection.meta.id,
         title: this.case3PrivateCollection.meta.title,
-        category: this.case3PrivateCollection.meta.category,
+        category: this.case3PrivateCollection.meta.category || 'Data Campuran (Privat)',
         description: this.case3PrivateCollection.meta.description,
         geojsonPath: null,
         isPrimary: false,
         isPrivate: true,
         featureCount: this.case3PrivateCollection.records.length,
         sha256: null
-      });
+      };
+      const existingIdx = this.catalogueItems.findIndex(i => i.id === this.case3PrivateCollection.meta.id);
+      if (existingIdx >= 0) {
+        this.catalogueItems[existingIdx] = catItem;
+      } else {
+        this.catalogueItems.push(catItem);
+      }
     }
     this.setActiveDataset(
       collection.meta.id,
@@ -1006,11 +1007,16 @@ export class WorkspaceState {
     this.activeDatasetId = 'data_kebun_sawit_karet_f';
     this.activeCaseId = 1;
     this.activeMode = MODES.SCENARIO;
-    this.storageRecoveryNotice = null;
-    // Remove mixed, donated, and Case 3 datasets from catalogue
-    this.catalogueItems = this.catalogueItems.filter(
-      i => i.id !== 'data_campuran_1' && i.id !== 'data_kontribusi_mandiri' && i.id !== 'data_kehutanan_terpadu'
-    );
+    // Remove all dynamic mixed, donated, and published collections from all cases
+    const baseIds = new Set([
+      'data_kebun_sawit_karet_f',
+      'data_ref_mod_f',
+      'data_ref_mod_2b',
+      'data_hutan',
+      'data_sawah',
+      'case4_data_kombinasi_f'
+    ]);
+    this.catalogueItems = this.catalogueItems.filter(i => baseIds.has(i.id) && !i.isPublished && !i.isDonated);
     this.persist();
     this.notify();
   }

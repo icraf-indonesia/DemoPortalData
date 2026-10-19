@@ -16,29 +16,17 @@
  * - Rejects unmapped records and non-finite coordinates at export boundary.
  */
 
-import { WorkspaceState } from './state/workspace.js';
-import { loadCatalogue, loadBoundary, loadDataset, CATALOGUE_DEFINITIONS } from './data/catalogue.js';
-import { MapView } from './ui/map.js';
-import { ClassificationView } from './ui/classification.js';
-import { CatalogueView } from './ui/catalogue.js';
-import { AttributeTableView } from './ui/attribute-table.js';
-import { LayoutController } from './ui/layout.js';
-import { ModalDialog } from './ui/dialog.js';
-import { ComplementWorkflow, REF_MOD_2B_CLASSES, getComplementClassesForSource } from './features/complement.js?v=20261014_2';
-
-// Ensure getSourceClasses and dynamic class selection exist on ComplementWorkflow prototype (safe against stale browser module cache)
-ComplementWorkflow.prototype.getSourceClasses = function() {
-  return getComplementClassesForSource(this.selectedSourceId);
-};
-ComplementWorkflow.prototype.selectNonTargetClasses = function() {
-  const classes = this.getSourceClasses();
-  this.selectedClassIds = new Set(
-    classes
-      .filter(c => !c.isTargetClass)
-      .map(c => String(c.id))
-  );
-};
-import { ContributionWorkflow, SAMPLING_ORIGINS, REVIEW_PRIORITIES } from './features/contribute.js';
+import { WorkspaceState } from './state/workspace.js?v=20261015_4';
+import { loadCatalogue, loadBoundary, loadDataset, CATALOGUE_DEFINITIONS } from './data/catalogue.js?v=20261015_4';
+import { MapView } from './ui/map.js?v=20261015_4';
+import { ClassificationView } from './ui/classification.js?v=20261015_4';
+import { CatalogueView } from './ui/catalogue.js?v=20261015_4';
+import { AttributeTableView } from './ui/attribute-table.js?v=20261015_4';
+import { LayoutController } from './ui/layout.js?v=20261015_4';
+import { ModalDialog } from './ui/dialog.js?v=20261015_4';
+import { ComplementWorkflow, REF_MOD_2B_CLASSES, getComplementClassesForSource } from './features/complement.js?v=20261015_4';
+import { ContributionWorkflow, SAMPLING_ORIGINS, REVIEW_PRIORITIES } from './features/contribute.js?v=20261015_4';
+import { extractPrimitivesForRecords, loadPrimitivesReference } from './features/primitives.js';
 import { PartnerReuseWorkflow } from './features/partner-reuse.js';
 import {
   ReviewWorkflow,
@@ -55,7 +43,7 @@ import {
   getScenarioOverlay,
   resolveCanonicalDatasetId,
   evaluateExportEligibility
-} from './demo/scenarios.js';
+} from './demo/scenarios.js?v=20261015_4';
 import {
   PROJECT_CLASSES,
   CASE3_FORESTRY_CLASSES,
@@ -69,6 +57,7 @@ import {
 } from './domain/taxonomy.js';
 import { isPointInAoi } from './domain/records.js';
 import { createTrainingExportPackage, triggerBrowserDownload } from './export/luma-adapter.js';
+import { DEMO_USERS, authenticateUser, getUserById, getUserByCaseId } from './features/auth.js';
 
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
@@ -134,6 +123,16 @@ function getDatasetComplementMeta(item) {
         rights: 'Terbuka (Modular)',
         hasLabel: false
       };
+    case 'data_campuran_1':
+      return {
+        title: item.title || 'Data Campuran #1 (Sawit, Karet & Lainnya)',
+        contributor: 'Pengguna A (2025–2026)',
+        year: '2025–2026',
+        location: item.location || 'Kabupaten Banyuasin',
+        category: 'Data Campuran (Rujukan)',
+        rights: 'Izin Terbuka (Koleksi Pengguna)',
+        hasLabel: true
+      };
     case 'case4_data_kombinasi_f':
       return {
         title: 'Data Kombinasi Multi-Sumber',
@@ -166,6 +165,7 @@ class PortalApp {
     this.attributeTableView = null;
     this.layoutController = null;
     this.dialog = new ModalDialog();
+    this.currentUser = null;
 
     // Feature workflows
     this.complementWorkflow = new ComplementWorkflow(this.workspace);
@@ -225,7 +225,8 @@ class PortalApp {
       (id) => this.switchDataset(id),
       {
         onShareDataset: (id) => this.openContributeModal(null, id),
-        onDownloadDataset: (id) => this.downloadPublishedGeoJson(id)
+        onDownloadDataset: (id) => this.downloadPublishedGeoJson(id),
+        onOpenExplore: () => this.openComplementModal()
       }
     );
 
@@ -284,6 +285,11 @@ class PortalApp {
       this.workspace.setCase(caseId);
       this.workspace.setActiveUser(userId);
       this.updateCaseNavHighlight(caseId);
+      const matchedUser = getUserByCaseId(caseId);
+      if (matchedUser) {
+        this.currentUser = matchedUser;
+        this.updateUserProfileUI(matchedUser);
+      }
       await this.switchDataset(targetDataset);
     };
 
@@ -385,6 +391,158 @@ class PortalApp {
       console.error('Fatal initialization error:', err);
       this.datasetError = `Gagal menginisialisasi Portal Data Epistem: ${err.message}`;
       this.updateErrorBanner();
+    }
+
+    // 7. Initialize Authentication & User Profile UI
+    this.initAuthUI();
+  }
+
+  /**
+   * Updates user profile pill and popover with active user details.
+   * @param {Object} user
+   */
+  updateUserProfileUI(user) {
+    if (!user) return;
+    const userAvatarBadge = document.getElementById('user-avatar-badge');
+    const userDisplayName = document.getElementById('user-display-name');
+    const userDisplayRole = document.getElementById('user-display-role');
+    const popoverAvatarBadge = document.getElementById('popover-avatar-badge');
+    const popoverUserName = document.getElementById('popover-user-name');
+    const popoverUserEmail = document.getElementById('popover-user-email');
+    const popoverUserInst = document.getElementById('popover-user-inst');
+
+    if (userAvatarBadge) {
+      userAvatarBadge.textContent = user.avatarInitial || 'U';
+      userAvatarBadge.style.backgroundColor = user.avatarBg || '#059669';
+    }
+    if (userDisplayName) userDisplayName.textContent = user.name;
+    if (userDisplayRole) userDisplayRole.textContent = user.role;
+
+    if (popoverAvatarBadge) {
+      popoverAvatarBadge.textContent = user.avatarInitial || 'U';
+      popoverAvatarBadge.style.backgroundColor = user.avatarBg || '#059669';
+    }
+    if (popoverUserName) popoverUserName.textContent = user.fullName || user.name;
+    if (popoverUserEmail) popoverUserEmail.textContent = user.email;
+    if (popoverUserInst) popoverUserInst.textContent = user.institution;
+  }
+
+  /**
+   * Initializes login screen, demo account handlers, and user profile popover controls.
+   */
+  initAuthUI() {
+    const loginScreen = document.getElementById('login-screen');
+    const loginForm = document.getElementById('login-form');
+    const inputEmail = document.getElementById('input-login-email');
+    const inputPassword = document.getElementById('input-login-password');
+    const errorBanner = document.getElementById('login-error-banner');
+    const btnProfile = document.getElementById('btn-user-profile');
+    const popoverProfile = document.getElementById('popover-profile');
+    const btnCloseProfile = document.getElementById('btn-close-profile');
+    const btnHeaderLogout = document.getElementById('btn-header-logout');
+
+    // Profile Popover Toggle
+    if (btnProfile && popoverProfile) {
+      btnProfile.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = popoverProfile.style.display === 'none' || !popoverProfile.style.display;
+        popoverProfile.style.display = isHidden ? 'block' : 'none';
+        btnProfile.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+      });
+    }
+
+    if (btnCloseProfile && popoverProfile) {
+      btnCloseProfile.addEventListener('click', (e) => {
+        e.stopPropagation();
+        popoverProfile.style.display = 'none';
+        if (btnProfile) btnProfile.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    // Dismiss popover on outside click
+    document.addEventListener('click', (e) => {
+      if (popoverProfile && popoverProfile.style.display !== 'none') {
+        const wrapper = document.getElementById('user-profile-wrapper');
+        if (wrapper && !wrapper.contains(e.target)) {
+          popoverProfile.style.display = 'none';
+          if (btnProfile) btnProfile.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+
+    // Logout Handler
+    const handleLogout = () => {
+      this.currentUser = null;
+      if (popoverProfile) popoverProfile.style.display = 'none';
+      if (btnProfile) btnProfile.setAttribute('aria-expanded', 'false');
+      if (inputPassword) inputPassword.value = '';
+      if (errorBanner) errorBanner.style.display = 'none';
+      if (loginScreen) {
+        loginScreen.style.display = 'flex';
+        if (inputEmail) inputEmail.focus();
+      }
+    };
+
+    if (btnHeaderLogout) btnHeaderLogout.addEventListener('click', handleLogout);
+
+    // Login Form Submit
+    if (loginForm) {
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = inputEmail ? inputEmail.value.trim() : '';
+        const password = inputPassword ? inputPassword.value.trim() : '';
+
+        const user = authenticateUser(email, password);
+        if (!user) {
+          if (errorBanner) {
+            errorBanner.textContent = 'Email atau kata sandi tidak valid. Silakan periksa kembali email dan kata sandi Anda.';
+            errorBanner.style.display = 'block';
+          }
+          if (inputPassword) {
+            inputPassword.value = '';
+            inputPassword.focus();
+          }
+          return;
+        }
+
+        // Login success
+        if (errorBanner) errorBanner.style.display = 'none';
+        this.currentUser = user;
+        this.updateUserProfileUI(user);
+        if (loginScreen) loginScreen.style.display = 'none';
+
+        // Automatically launch the corresponding case
+        await this.syncCase(user.defaultCaseId);
+
+        // Invalidate map size so Leaflet renders properly
+        window.setTimeout(() => {
+          if (this.mapView && this.mapView.map) {
+            this.mapView.map.invalidateSize();
+          }
+        }, 150);
+      });
+    }
+
+    // Check URL parameters for autologin/test mode
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('autologin') || urlParams.get('test') === 'true') {
+        const autoKey = (urlParams.get('autologin') || '').toLowerCase();
+        let autoUser = DEMO_USERS[autoKey] || getUserById(autoKey);
+        if (!autoUser && urlParams.has('case')) {
+          autoUser = getUserByCaseId(Number(urlParams.get('case')));
+        }
+        if (!autoUser) autoUser = DEMO_USERS.rizki;
+
+        this.currentUser = autoUser;
+        this.updateUserProfileUI(autoUser);
+        if (loginScreen) loginScreen.style.display = 'none';
+      } else {
+        // By default, activate login screen for every launch as requested
+        if (loginScreen) loginScreen.style.display = 'flex';
+      }
+    } catch (_) {
+      if (loginScreen) loginScreen.style.display = 'flex';
     }
   }
 
@@ -556,14 +714,15 @@ class PortalApp {
   }
 
   async handleCaseNavigation(caseId) {
-    if (this.workspace.activeCaseId !== caseId) {
+    const isAlreadyOnCase = this.workspace.activeCaseId === caseId;
+    if (!isAlreadyOnCase) {
       await this.syncCase(`case_${caseId}`);
     }
 
     if (caseId === 2) {
       this.openContributeModal();
-    } else if (caseId === 3) {
-      this.openPartnerReuseModal();
+    } else if (caseId === 3 && isAlreadyOnCase) {
+      this.openComplementModal();
     } else if (caseId === 4) {
       this.openReviewModal();
     }
@@ -625,7 +784,7 @@ class PortalApp {
       this.modeToggleText.textContent = isScenario ? 'Mode Skenario' : 'Mode Sumber Nyata';
     }
     if (this.scenarioBadge) {
-      this.scenarioBadge.style.display = isScenario ? 'inline-block' : 'none';
+      this.scenarioBadge.style.display = 'none';
     }
   }
 
@@ -696,7 +855,6 @@ class PortalApp {
       <option value="Data Referensi">Data Referensi</option>
       <option value="Koleksi Mitra">Koleksi Mitra</option>
       <option value="Koleksi Terpadu">Koleksi Terpadu</option>
-      <option value="Publikasi Mandiri">Publikasi Mandiri</option>
     `;
     catSelect.value = this.complementFilterCategory;
     catGroup.appendChild(catLabel);
@@ -787,12 +945,12 @@ class PortalApp {
       cardList.textContent = '';
 
       const openItems = (this.workspace.catalogueItems || []).filter(i =>
-        i.isPublished ||
+        (i.isPublished && i.id !== 'data_hutan') ||
+        i.id === 'data_campuran_1' ||
         i.id === 'data_kontribusi_mandiri' ||
         i.id === 'data_ref_mod_f' ||
         i.id === 'data_ref_mod_2b' ||
         i.id === 'data_sawah' ||
-        i.id === 'data_hutan' ||
         i.id === 'case4_data_kombinasi_f'
       );
 
@@ -1028,7 +1186,7 @@ class PortalApp {
     const sourceId = this.complementWorkflow.selectedSourceId;
     const sourceClasses = (typeof this.complementWorkflow?.getSourceClasses === 'function')
       ? this.complementWorkflow.getSourceClasses()
-      : getComplementClassesForSource(sourceId);
+      : getComplementClassesForSource(sourceId, this.workspace?.activeCaseId || 1, this.complementWorkflow?.cachedSourceRecords || []);
 
     const catalogItem = (this.workspace.catalogueItems || []).find(i => i.id === sourceId) ||
       (this.workspace.publishedCollections || []).find(p => p.meta && p.meta.id === sourceId) ||
@@ -1036,6 +1194,9 @@ class PortalApp {
     const meta = getDatasetComplementMeta(catalogItem);
 
     const container = document.createElement('div');
+
+    const isCase3 = this.workspace.activeCaseId === 3;
+    const missingClassLabel = isCase3 ? '2. Non-hutan' : '3. Lainnya';
 
     const header = document.createElement('div');
     header.className = 'modal-header';
@@ -1046,7 +1207,7 @@ class PortalApp {
 
     const subtitle = document.createElement('p');
     subtitle.className = 'modal-subtitle';
-    subtitle.textContent = `Pilih kelas non-target dari ${meta.title} untuk melengkapi kelas proyek "3. Lainnya".`;
+    subtitle.textContent = `Pilih kelas non-target dari ${meta.title} untuk melengkapi kelas proyek "${missingClassLabel}".`;
     header.appendChild(subtitle);
 
     container.appendChild(header);
@@ -1065,13 +1226,15 @@ class PortalApp {
 
     const intro = document.createElement('p');
     intro.style.marginTop = '8px';
-    intro.textContent = 'Pilih kelas sumber yang akan dipetakan ke kelas Lainnya. Komoditas target (Karet dan Kelapa sawit) dikecualikan:';
+    intro.textContent = 'Pilih kelas sumber yang akan diklasifikasikan ulang berdasarkan skema klasifikasi Anda';
     body.appendChild(intro);
 
     const selectAllBtn = document.createElement('button');
     selectAllBtn.className = 'btn-select-all';
     selectAllBtn.type = 'button';
-    selectAllBtn.textContent = 'Pilih semua kelas selain karet dan kelapa sawit';
+    selectAllBtn.textContent = isCase3
+      ? 'Pilih semua kelas selain hutan'
+      : 'Pilih semua kelas selain karet dan kelapa sawit';
     selectAllBtn.addEventListener('click', () => {
       this.complementWorkflow.selectNonTargetClasses();
       this.renderComplementStepSelect();
@@ -1082,8 +1245,19 @@ class PortalApp {
     listWrapper.className = 'class-selector-list';
 
     for (const c of sourceClasses) {
-      const itemWrapper = document.createElement('label');
+      const itemWrapper = document.createElement('div');
       itemWrapper.className = `class-checkbox-item ${c.isTargetClass ? 'is-disabled' : ''}`;
+      itemWrapper.style.display = 'flex';
+      itemWrapper.style.alignItems = 'center';
+      itemWrapper.style.justifyContent = 'space-between';
+
+      const checkLabel = document.createElement('label');
+      checkLabel.className = 'class-item-left-label';
+      checkLabel.style.display = 'flex';
+      checkLabel.style.alignItems = 'flex-start';
+      checkLabel.style.gap = '10px';
+      checkLabel.style.flex = '1';
+      checkLabel.style.cursor = c.isTargetClass ? 'not-allowed' : 'pointer';
 
       const chk = document.createElement('input');
       chk.type = 'checkbox';
@@ -1091,11 +1265,7 @@ class PortalApp {
       chk.disabled = c.isTargetClass;
       chk.checked = !c.isTargetClass && this.complementWorkflow.selectedClassIds.has(String(c.id));
 
-      chk.addEventListener('change', () => {
-        this.complementWorkflow.toggleClass(c.id, chk.checked);
-      });
-
-      itemWrapper.appendChild(chk);
+      checkLabel.appendChild(chk);
 
       const infoBox = document.createElement('div');
       infoBox.className = 'class-item-info';
@@ -1114,10 +1284,91 @@ class PortalApp {
 
       const itemDesc = document.createElement('div');
       itemDesc.className = 'class-item-desc';
-      itemDesc.textContent = c.description || '';
+      itemDesc.textContent = (c.description || '').replace(/\s*-\s*dikecualikan/gi, '').trim();
       infoBox.appendChild(itemDesc);
 
-      itemWrapper.appendChild(infoBox);
+      checkLabel.appendChild(infoBox);
+      itemWrapper.appendChild(checkLabel);
+
+      // Target class mapping dropdown on the right side
+      if (!c.isTargetClass) {
+        const selectWrapper = document.createElement('div');
+        selectWrapper.className = 'target-class-select-wrapper';
+        selectWrapper.style.marginLeft = '12px';
+        selectWrapper.style.display = 'flex';
+        selectWrapper.style.alignItems = 'center';
+        selectWrapper.style.gap = '6px';
+        selectWrapper.style.flexShrink = '0';
+
+        const selLabel = document.createElement('span');
+        selLabel.style.fontSize = '0.72rem';
+        selLabel.style.color = '#64748b';
+        selLabel.style.whiteSpace = 'nowrap';
+        selLabel.textContent = 'Petakan ke:';
+        selectWrapper.appendChild(selLabel);
+
+        const targetSelect = document.createElement('select');
+        targetSelect.className = 'target-class-select';
+        targetSelect.style.padding = '4px 8px';
+        targetSelect.style.fontSize = '0.75rem';
+        targetSelect.style.borderRadius = '4px';
+        targetSelect.style.border = '1px solid #cbd5e1';
+        targetSelect.style.backgroundColor = '#ffffff';
+        targetSelect.style.cursor = 'pointer';
+        targetSelect.disabled = !chk.checked;
+
+        if (isCase3) {
+          // Case 3 (Pengguna B): Hutan and Non-hutan, default Non-hutan
+          const optForest = document.createElement('option');
+          optForest.value = '1';
+          optForest.textContent = 'Hutan';
+          const optNonForest = document.createElement('option');
+          optNonForest.value = '2';
+          optNonForest.textContent = 'Non-hutan';
+          targetSelect.appendChild(optForest);
+          targetSelect.appendChild(optNonForest);
+          const currentVal = this.complementWorkflow.targetClassMapping[String(c.id)] || '2';
+          targetSelect.value = currentVal;
+          this.complementWorkflow.setTargetClass(c.id, currentVal);
+        } else {
+          // Case 1 (Pengguna A): Kebun sawit, Kebun karet, Lainnya, default Lainnya
+          const optSawit = document.createElement('option');
+          optSawit.value = '1';
+          optSawit.textContent = 'Kebun sawit';
+          const optKaret = document.createElement('option');
+          optKaret.value = '2';
+          optKaret.textContent = 'Kebun karet';
+          const optLainnya = document.createElement('option');
+          optLainnya.value = '3';
+          optLainnya.textContent = 'Lainnya';
+          targetSelect.appendChild(optSawit);
+          targetSelect.appendChild(optKaret);
+          targetSelect.appendChild(optLainnya);
+          const currentVal = this.complementWorkflow.targetClassMapping[String(c.id)] || '3';
+          targetSelect.value = currentVal;
+          this.complementWorkflow.setTargetClass(c.id, currentVal);
+        }
+
+        targetSelect.addEventListener('change', () => {
+          this.complementWorkflow.setTargetClass(c.id, targetSelect.value);
+        });
+
+        targetSelect.addEventListener('click', (e) => e.stopPropagation());
+        targetSelect.addEventListener('mousedown', (e) => e.stopPropagation());
+
+        chk.addEventListener('change', () => {
+          this.complementWorkflow.toggleClass(c.id, chk.checked);
+          targetSelect.disabled = !chk.checked;
+        });
+
+        selectWrapper.appendChild(targetSelect);
+        itemWrapper.appendChild(selectWrapper);
+      } else {
+        chk.addEventListener('change', () => {
+          this.complementWorkflow.toggleClass(c.id, chk.checked);
+        });
+      }
+
       listWrapper.appendChild(itemWrapper);
     }
     body.appendChild(listWrapper);
@@ -1152,7 +1403,7 @@ class PortalApp {
     nextBtn.textContent = 'Tinjau Penambahan →';
     nextBtn.addEventListener('click', () => {
       if (this.complementWorkflow.selectedClassIds.size === 0) {
-        alert('Silakan pilih setidaknya satu kelas sumber untuk melengkapi kelas Lainnya.');
+        alert(`Silakan pilih setidaknya satu kelas sumber untuk melengkapi kelas ${isCase3 ? 'Non-hutan' : 'Lainnya'}.`);
         return;
       }
       this.renderComplementStepPreview();
@@ -1208,17 +1459,50 @@ class PortalApp {
 
     addRow('Koleksi Sumber:', `${meta.title} (${meta.contributor})`);
     addRow('Lokasi & Wilayah:', `${meta.location}`);
-    addRow('Mode Operasi:', isScenario ? 'Skenario Percontohan (Metadatanya asumsi skenario)' : 'Sumber Nyata (Pencarian Ketat)');
-    addRow('Waktu Pengamatan:', isScenario ? `${meta.year} (Asumsi Skenario Penelaahan)` : 'Tidak tercatat (null - dikecualikan)');
-    addRow('Status Hak/Izin:', isScenario ? meta.rights : 'Belum terverifikasi');
+    addRow('Mode Operasi:', isScenario ? 'Skenario Percontohan' : 'Sumber Nyata (Pencarian Ketat)');
+    addRow('Waktu Pengamatan:', `${meta.year}`);
+    const cleanRights = meta.rights ? String(meta.rights).replace(/\s*\((?:Simulasi|Asumsi)[^)]*\)/gi, '') : 'Belum terverifikasi';
+    addRow('Status Hak/Izin:', isScenario ? cleanRights : 'Belum terverifikasi');
     addRow('Kandidat Sumber Total:', `${preview.totalSourceCandidates} titik`);
     addRow('Lolos Saringan Kriteria:', `${preview.eligibleAfterFilters} titik (${preview.excludedByFilter} dikecualikan)`);
     addRow('Titik Duplikat (Dilewati):', `${preview.duplicateCount} titik`);
     addRow('Titik Baru Bersih:', `+${preview.netNewCount} titik`);
+    const isCase3 = this.workspace.activeCaseId === 3;
+    const targetClassLabel = isCase3 ? 'Non-hutan' : 'Lainnya';
+
     addRow('Total Proyek Sebelum:', `${preview.currentTotalCount} titik`);
-    addRow('Total Proyek Setelah:', `${preview.projectedTotalCount} titik (Lainnya: ${preview.netNewCount} titik)`);
+    addRow('Total Proyek Setelah:', `${preview.projectedTotalCount} titik (+${preview.netNewCount} titik baru)`);
 
     body.appendChild(table);
+
+    // Custom dataset name input field (User requested: "Provide a column that user can filled out. and please implement this to the case 1 as well")
+    const nameWrapper = document.createElement('div');
+    nameWrapper.className = 'custom-dataset-name-field';
+    nameWrapper.style.marginTop = '14px';
+    nameWrapper.style.marginBottom = '8px';
+
+    const nameLabel = document.createElement('label');
+    nameLabel.style.display = 'block';
+    nameLabel.style.fontSize = '0.78rem';
+    nameLabel.style.fontWeight = '600';
+    nameLabel.style.marginBottom = '4px';
+    nameLabel.textContent = 'Nama Koleksi Data Campuran:';
+
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.className = 'custom-name-input';
+    nameInput.style.width = '100%';
+    nameInput.style.padding = '8px 10px';
+    nameInput.style.fontSize = '0.8rem';
+    nameInput.style.borderRadius = '4px';
+    nameInput.style.border = '1px solid #cbd5e1';
+    const defaultName = isCase3 ? 'Data Campuran Tutupan Lahan' : 'Data Campuran #1';
+    nameInput.value = defaultName;
+    nameInput.placeholder = 'Masukkan nama koleksi data gabungan...';
+
+    nameWrapper.appendChild(nameLabel);
+    nameWrapper.appendChild(nameInput);
+    body.appendChild(nameWrapper);
 
     const breakdownTitle = document.createElement('h4');
     breakdownTitle.style.fontSize = '0.82rem';
@@ -1263,9 +1547,10 @@ class PortalApp {
     confirmBtn.type = 'button';
     confirmBtn.textContent = 'Konfirmasi & Gabungkan Data';
     confirmBtn.addEventListener('click', () => {
-      const res = this.complementWorkflow.confirmAddition(this.workspace.activeMode);
+      const customTitle = nameInput.value.trim() || defaultName;
+      const res = this.complementWorkflow.confirmAddition(this.workspace.activeMode, customTitle);
       this.dialog.close();
-      this.noticeMessage = `Berhasil membuat ${res.datasetId}: ditambahkan +${res.addedCount} titik rujukan baru untuk kelas Lainnya (Total: ${res.totalCount} titik).`;
+      this.noticeMessage = `Berhasil membuat "${res.title || res.datasetId}": ditambahkan +${res.addedCount} titik rujukan baru untuk kelas ${targetClassLabel} (Total: ${res.totalCount} titik).`;
       this.updateErrorBanner();
     });
     footer.appendChild(confirmBtn);
@@ -1350,12 +1635,19 @@ class PortalApp {
       selectedDatasetId = savedDraft.selectedDatasetId;
     }
     if (!selectedDatasetId) {
-      selectedDatasetId = this.workspace.mixedDataset ? 'data_campuran_1' : 'data_kebun_sawit_karet_f';
+      if (this.workspace.activeCaseId === 3) {
+        selectedDatasetId = this.workspace.case3PrivateCollection ? this.workspace.case3PrivateCollection.meta.id : 'data_hutan';
+      } else {
+        selectedDatasetId = this.workspace.mixedDataset ? 'data_campuran_1' : 'data_kebun_sawit_karet_f';
+      }
     }
 
     const getRecordsForDataset = async (datasetId) => {
       if (datasetId === 'data_campuran_1' && this.workspace.mixedDataset) {
         return this.workspace.mixedDataset.records;
+      }
+      if (this.workspace.case3PrivateCollection && datasetId === this.workspace.case3PrivateCollection.meta.id) {
+        return this.workspace.case3PrivateCollection.records;
       }
       if (this.workspace.activeDatasetId === datasetId && this.workspace.activeRecords.length > 0) {
         return this.workspace.activeRecords;
@@ -1369,22 +1661,38 @@ class PortalApp {
     };
 
     let currentRecords = await getRecordsForDataset(selectedDatasetId);
-    let separation = this.contributionWorkflow.separateOwnedObservations(currentRecords);
+    let separation = this.contributionWorkflow.separateOwnedObservations(currentRecords, this.workspace.activeCaseId);
 
-    // Staged draft: required fields default blank, responsibility unchecked
+    const isForestryDataset = selectedDatasetId === 'data_hutan' ||
+      selectedDatasetId === 'data_hutan_campuran' ||
+      selectedDatasetId === 'data_hutan_sawit_partisipatif' ||
+      (this.workspace.case3PrivateCollection && selectedDatasetId === this.workspace.case3PrivateCollection.meta.id) ||
+      this.workspace.activeCaseId === 3;
+
+    const defaultAccountName = isForestryDataset ? 'Budi' : 'Rizki';
+    const defaultEmail = isForestryDataset ? 'budi@mail.com' : 'rizki@mail.com';
+    const defaultInstitution = isForestryDataset ? 'Dinas Kehutanan Kabupaten Banyuasin' : 'Dinas Perkebunan Kabupaten Banyuasin';
+    const defaultMethod = isForestryDataset ? 'Inventarisasi Hutan' : 'Survei GPS Lapangan';
+
+    // Staged draft: pre-filled with active user profile
     const draft = savedDraft || {
-      accountName: '',
-      owningInstitution: '',
-      technicalEmail: '',
+      accountName: defaultAccountName,
+      owningInstitution: defaultInstitution,
+      technicalEmail: defaultEmail,
       confirmedYear: 2026,
-      acquisitionMethod: 'Survei GPS Lapangan',
+      acquisitionMethod: defaultMethod,
       boundaryAoi: 'Kabupaten Banyuasin',
       responsibilityAccepted: false,
       selectedDatasetId,
-      crosswalk: {
-        1: { epistemLeafId: 'veg-tb-mono-rubber' },
-        2: { epistemLeafId: 'veg-tb-mono-oilpalm' }
-      }
+      crosswalk: isForestryDataset
+        ? {
+            1: { epistemLeafId: 'veg-tb-forest-udf' },
+            2: { epistemLeafId: 'veg-ntb-cropland' }
+          }
+        : {
+            1: { epistemLeafId: 'veg-tb-mono-rubber' },
+            2: { epistemLeafId: 'veg-tb-mono-oilpalm' }
+          }
     };
 
     const container = document.createElement('div');
@@ -1399,7 +1707,9 @@ class PortalApp {
 
     const subtitle = document.createElement('p');
     subtitle.className = 'modal-subtitle';
-    subtitle.textContent = 'Memisahkan observasi kebun mandiri dari data rujukan pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.';
+    subtitle.textContent = isForestryDataset
+      ? 'Memisahkan observasi tutupan hutan mandiri dari data rujukan pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.'
+      : 'Memisahkan observasi kebun mandiri dari data rujukan pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.';
     header.appendChild(subtitle);
     container.appendChild(header);
 
@@ -1434,39 +1744,68 @@ class PortalApp {
     collSelect.style.borderRadius = '4px';
     collSelect.style.border = '1px solid #cbd5e1';
 
-    // Option: Mixed dataset if exists
-    if (this.workspace.mixedDataset) {
-      const optMixed = document.createElement('option');
-      optMixed.value = 'data_campuran_1';
-      optMixed.textContent = `Data Campuran #1 (${this.workspace.mixedDataset.records.length} titik: 240 mandiri, ${this.workspace.mixedDataset.records.length - 240} rujukan)`;
-      collSelect.appendChild(optMixed);
+    // Populate collection options based on activeCaseId
+    if (this.workspace.activeCaseId === 3) {
+      if (this.workspace.case3PrivateCollection) {
+        const optC3Mixed = document.createElement('option');
+        optC3Mixed.value = this.workspace.case3PrivateCollection.meta.id || 'data_hutan_campuran';
+        const c3Title = (this.workspace.case3PrivateCollection.meta && this.workspace.case3PrivateCollection.meta.title) || 'Data Campuran Tutupan Lahan';
+        const c3Total = this.workspace.case3PrivateCollection.records.length;
+        optC3Mixed.textContent = `${c3Title} (${c3Total} titik: 86 mandiri, ${c3Total - 86} rujukan)`;
+        collSelect.appendChild(optC3Mixed);
+      }
+      const optForest = document.createElement('option');
+      optForest.value = 'data_hutan';
+      optForest.textContent = 'Data Tutupan Hutan (86 titik mandiri)';
+      collSelect.appendChild(optForest);
+    } else {
+      if (this.workspace.mixedDataset) {
+        const optMixed = document.createElement('option');
+        optMixed.value = 'data_campuran_1';
+        const mixTitle = (this.workspace.mixedDataset.meta && this.workspace.mixedDataset.meta.title) || 'Data Campuran #1';
+        const mixTotal = this.workspace.mixedDataset.records.length;
+        optMixed.textContent = `${mixTitle} (${mixTotal} titik: 240 mandiri, ${mixTotal - 240} rujukan)`;
+        collSelect.appendChild(optMixed);
+      }
+      const optPlantation = document.createElement('option');
+      optPlantation.value = 'data_kebun_sawit_karet_f';
+      optPlantation.textContent = 'Data Kebun Sawit & Karet (240 titik mandiri)';
+      collSelect.appendChild(optPlantation);
     }
-
-    // Option: Own plantation
-    const optPlantation = document.createElement('option');
-    optPlantation.value = 'data_kebun_sawit_karet_f';
-    optPlantation.textContent = 'Data Kebun Sawit & Karet (240 titik mandiri)';
-    collSelect.appendChild(optPlantation);
 
     collSelect.value = selectedDatasetId;
     collSection.appendChild(collSelect);
-    body.appendChild(collSection);
+
+    // Step 1 Container: Pemilihan Koleksi & Integritas
+    const step1Container = document.createElement('div');
+    step1Container.className = 'modal-step-container step-1-container';
+    step1Container.appendChild(collSection);
 
     // Separation summary box
     const sepBox = document.createElement('div');
     sepBox.className = 'separation-summary-box';
-    body.appendChild(sepBox);
+    step1Container.appendChild(sepBox);
 
     // Excluded explanation notice container
     const excBox = document.createElement('div');
     excBox.className = 'separation-excluded-box';
-    body.appendChild(excBox);
+    step1Container.appendChild(excBox);
+
+    body.appendChild(step1Container);
 
     const updateSeparationView = () => {
+      const isForestry = selectedDatasetId === 'data_hutan' ||
+        selectedDatasetId === 'data_hutan_campuran' ||
+        (this.workspace.case3PrivateCollection && selectedDatasetId === this.workspace.case3PrivateCollection.meta.id);
+
+      const breakdownText = isForestry
+        ? `${separation.summary.ownedCount} Hutan`
+        : `${separation.summary.rubberCount} Karet, ${separation.summary.palmCount} Kelapa sawit`;
+
       sepBox.innerHTML = `
         <div style="font-size: 0.78rem; line-height: 1.5; margin-bottom: 8px;">
           <p><strong>Observasi Aktif Terdeteksi:</strong> ${separation.summary.total} titik</p>
-          <p style="color: #059669;"><strong>Observasi Milik Mandiri (Dapat Dikontribusikan):</strong> ${separation.summary.ownedCount} titik (${separation.summary.rubberCount} Karet, ${separation.summary.palmCount} Kelapa sawit)</p>
+          <p style="color: #059669;"><strong>Observasi Milik Mandiri (Dapat Dikontribusikan):</strong> ${separation.summary.ownedCount} titik (${breakdownText})</p>
           ${separation.summary.excludedCount > 0 ? `<p style="color: #dc2626;"><strong>Koleksi Rujukan Pihak Ketiga (Dikecualikan):</strong> ${separation.summary.excludedCount} titik</p>` : ''}
         </div>
       `;
@@ -1474,7 +1813,7 @@ class PortalApp {
       if (separation.summary.excludedCount > 0) {
         excBox.innerHTML = `
           <div class="modal-banner banner-source" style="margin-bottom: 12px; font-size: 0.74rem;">
-            <strong>Catatan Integritas:</strong> Titik rujukan modular 2b (${separation.summary.excludedCount} titik) berasal dari koleksi impor pihak ketiga, bukan milik pengguna. Data pihak ketiga tidak dapat disumbangkan sebagai kontribusi mandiri dan dikecualikan secara otomatis.
+            <strong>Catatan Integritas:</strong> Titik rujukan (${separation.summary.excludedCount} titik) berasal dari koleksi impor pihak ketiga, bukan milik pengguna. Data pihak ketiga tidak dapat disumbangkan sebagai kontribusi mandiri dan dikecualikan secara otomatis.
           </div>
         `;
       } else {
@@ -1486,10 +1825,238 @@ class PortalApp {
     collSelect.addEventListener('change', async () => {
       selectedDatasetId = collSelect.value;
       currentRecords = await getRecordsForDataset(selectedDatasetId);
-      separation = this.contributionWorkflow.separateOwnedObservations(currentRecords);
+      separation = this.contributionWorkflow.separateOwnedObservations(currentRecords, this.workspace.activeCaseId);
+      primitivesRows = []; // Invalidate primitives cache so new selection is re-extracted
       updateSeparationView();
       updateSummarySection();
     });
+
+    // Step 2 Container: Ekstraksi Primitives
+    const step2Container = document.createElement('div');
+    step2Container.className = 'modal-step-container step-2-container';
+    step2Container.style.display = 'none';
+
+    const searchBar = document.createElement('div');
+    searchBar.className = 'primitives-search-bar';
+    searchBar.innerHTML = `
+      <input type="text" id="primitives-search-input" class="primitives-search-input" placeholder="Cari ID atau Kelas..." />
+      <span id="primitives-count-badge" style="font-size: 0.74rem; font-weight: 600; color: #64748b; white-space: nowrap;">0 titik</span>
+    `;
+    step2Container.appendChild(searchBar);
+
+    const tableWrap = document.createElement('div');
+    tableWrap.className = 'primitives-table-wrapper';
+    tableWrap.innerHTML = `
+      <table class="primitives-table">
+        <thead>
+          <tr>
+            <th data-col="id" style="width: 28%;">ID <span class="sort-icon">&#x25B4;&#x25BE;</span></th>
+            <th data-col="class" style="width: 20%;">Kelas <span class="sort-icon">&#x25B4;&#x25BE;</span></th>
+            <th data-col="waterbody" style="width: 18%;">Keberadaan Air <span class="sort-icon">&#x25B4;&#x25BE;</span></th>
+            <th data-col="tree" style="width: 18%;">Keberadaan Pohon <span class="sort-icon">&#x25B4;&#x25BE;</span></th>
+            <th data-col="veg" style="width: 16%;">Tinggi Tajuk (m) <span class="sort-icon">&#x25B4;&#x25BE;</span></th>
+          </tr>
+        </thead>
+        <tbody id="primitives-table-body"></tbody>
+      </table>
+    `;
+    step2Container.appendChild(tableWrap);
+
+    const helperNote = document.createElement('div');
+    helperNote.style.fontSize = '0.72rem';
+    helperNote.style.color = '#64748b';
+    helperNote.style.marginTop = '6px';
+    helperNote.textContent = '* Klik angka pada kolom Tinggi Tajuk (m) untuk menampilkan slider pengubah nilai.';
+    step2Container.appendChild(helperNote);
+
+    body.appendChild(step2Container);
+
+    let primitivesRows = [];
+    let sortColumn = 'id';
+    let sortAscending = true;
+    let filterTerm = '';
+
+    const renderPrimitivesTable = () => {
+      const tbody = step2Container.querySelector('#primitives-table-body');
+      const countBadge = step2Container.querySelector('#primitives-count-badge');
+      if (!tbody) return;
+
+      let displayList = [...primitivesRows];
+      if (filterTerm) {
+        const term = filterTerm.toLowerCase().trim();
+        displayList = displayList.filter(row =>
+          String(row.observation_id).toLowerCase().includes(term) ||
+          String(row.classLabel).toLowerCase().includes(term)
+        );
+      }
+
+      displayList.sort((a, b) => {
+        let valA, valB;
+        if (sortColumn === 'id') {
+          valA = a.observation_id;
+          valB = b.observation_id;
+        } else if (sortColumn === 'class') {
+          valA = a.classLabel;
+          valB = b.classLabel;
+        } else if (sortColumn === 'waterbody') {
+          valA = a.waterbody;
+          valB = b.waterbody;
+        } else if (sortColumn === 'tree') {
+          valA = a.tree_dominance;
+          valB = b.tree_dominance;
+        } else if (sortColumn === 'veg') {
+          valA = a.vegetation_height;
+          valB = b.vegetation_height;
+        }
+        if (valA < valB) return sortAscending ? -1 : 1;
+        if (valA > valB) return sortAscending ? 1 : -1;
+        return 0;
+      });
+
+      if (countBadge) {
+        countBadge.textContent = `${displayList.length} titik`;
+      }
+
+      tbody.innerHTML = '';
+      if (displayList.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td colspan="5" style="text-align: center; color: #94a3b8; padding: 16px;">Tidak ada data yang cocok dengan pencarian.</td>`;
+        tbody.appendChild(tr);
+        return;
+      }
+
+      for (const item of displayList) {
+        const tr = document.createElement('tr');
+
+        // 1. ID
+        const tdId = document.createElement('td');
+        tdId.style.fontWeight = '600';
+        tdId.style.fontFamily = 'ui-monospace, monospace';
+        tdId.style.fontSize = '0.72rem';
+        tdId.textContent = item.observation_id;
+        tr.appendChild(tdId);
+
+        // 2. Kelas
+        const tdClass = document.createElement('td');
+        tdClass.textContent = item.classLabel;
+        tr.appendChild(tdClass);
+
+        // 3. Keberadaan Air
+        const tdWb = document.createElement('td');
+        const selWb = document.createElement('select');
+        selWb.className = 'primitive-select';
+        selWb.innerHTML = `
+          <option value="0" ${item.waterbody === 0 ? 'selected' : ''}>Tidak ada</option>
+          <option value="1" ${item.waterbody === 1 ? 'selected' : ''}>Ada</option>
+        `;
+        selWb.addEventListener('change', () => {
+          item.waterbody = Number(selWb.value);
+        });
+        tdWb.appendChild(selWb);
+        tr.appendChild(tdWb);
+
+        // 4. Keberadaan Pohon
+        const tdTree = document.createElement('td');
+        const selTree = document.createElement('select');
+        selTree.className = 'primitive-select';
+        selTree.innerHTML = `
+          <option value="0" ${item.tree_dominance === 0 ? 'selected' : ''}>Tidak ada</option>
+          <option value="1" ${item.tree_dominance === 1 ? 'selected' : ''}>Ada</option>
+        `;
+        selTree.addEventListener('change', () => {
+          item.tree_dominance = Number(selTree.value);
+        });
+        tdTree.appendChild(selTree);
+        tr.appendChild(tdTree);
+
+        // 5. Tinggi Tajuk (m)
+        const tdVeg = document.createElement('td');
+        const vegSpan = document.createElement('span');
+        vegSpan.className = 'primitives-cell-veg';
+        vegSpan.title = 'Klik untuk ubah tinggi tajuk';
+        vegSpan.innerHTML = `<span>${item.vegetation_height}</span> <span style="font-size: 0.65rem; color: #64748b;">&#9998;</span>`;
+
+        vegSpan.addEventListener('click', () => {
+          tdVeg.innerHTML = '';
+          const editor = document.createElement('div');
+          editor.className = 'primitives-slider-editor';
+
+          const valLabel = document.createElement('span');
+          valLabel.style.minWidth = '20px';
+          valLabel.style.fontWeight = '700';
+          valLabel.style.color = '#0f172a';
+          valLabel.textContent = String(item.vegetation_height);
+
+          const slider = document.createElement('input');
+          slider.type = 'range';
+          slider.min = '0';
+          slider.max = '50';
+          slider.step = '1';
+          slider.value = String(item.vegetation_height);
+          slider.style.width = '70px';
+          slider.style.accentColor = 'var(--luma-pink)';
+
+          slider.addEventListener('input', () => {
+            valLabel.textContent = slider.value;
+            item.vegetation_height = Number(slider.value);
+          });
+
+          const okBtn = document.createElement('button');
+          okBtn.type = 'button';
+          okBtn.textContent = 'OK';
+          okBtn.style.border = '1px solid #cbd5e1';
+          okBtn.style.background = '#f1f5f9';
+          okBtn.style.borderRadius = '3px';
+          okBtn.style.padding = '1px 5px';
+          okBtn.style.fontSize = '0.7rem';
+          okBtn.style.cursor = 'pointer';
+
+          okBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            tdVeg.innerHTML = '';
+            vegSpan.querySelector('span').textContent = String(item.vegetation_height);
+            tdVeg.appendChild(vegSpan);
+          });
+
+          editor.appendChild(valLabel);
+          editor.appendChild(slider);
+          editor.appendChild(okBtn);
+          tdVeg.appendChild(editor);
+          slider.focus();
+        });
+
+        tdVeg.appendChild(vegSpan);
+        tr.appendChild(tdVeg);
+
+        tbody.appendChild(tr);
+      }
+    };
+
+    // Header sorting listeners
+    tableWrap.querySelectorAll('th[data-col]').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.getAttribute('data-col');
+        if (sortColumn === col) {
+          sortAscending = !sortAscending;
+        } else {
+          sortColumn = col;
+          sortAscending = true;
+        }
+        renderPrimitivesTable();
+      });
+    });
+
+    // Search input listener
+    step2Container.querySelector('#primitives-search-input')?.addEventListener('input', (e) => {
+      filterTerm = e.target.value;
+      renderPrimitivesTable();
+    });
+
+    // Step 3 Container: Penyelarasan Taksonomi Epistem & Publikasi
+    const step3Container = document.createElement('div');
+    step3Container.className = 'modal-step-container step-3-container';
+    step3Container.style.display = 'none';
+    body.appendChild(step3Container);
 
     // Section 2: Penyelarasan Taksonomi Epistem (Operational 21-Leaf Crosswalk)
     const cwSection = document.createElement('div');
@@ -1501,14 +2068,14 @@ class PortalApp {
     cwHeading.style.fontSize = '0.8rem';
     cwHeading.style.fontWeight = '700';
     cwHeading.style.marginBottom = '4px';
-    cwHeading.textContent = 'Penyelarasan Taksonomi Epistem (Epistem Operational Crosswalk):';
+    cwHeading.textContent = 'Penyelarasan Taksonomi Epistem:';
     cwSection.appendChild(cwHeading);
 
     const cwDesc = document.createElement('p');
     cwDesc.style.fontSize = '0.74rem';
     cwDesc.style.color = '#475569';
     cwDesc.style.marginBottom = '8px';
-    cwDesc.textContent = 'Petakan kedua kelas proyek secara independen ke 21 kelas daun taksonomi hierarkis Epistem (MASTER_TAXONOMY).';
+    cwDesc.textContent = 'Petakan kedua kelas proyek secara independen ke kelas daun taksonomi hierarkis Epistem.';
     cwSection.appendChild(cwDesc);
 
     const leaves = getTaxonomyLeaves(EPISTEM_MASTER_TAXONOMY);
@@ -1681,7 +2248,7 @@ class PortalApp {
 
     const karetPicker = buildClassPicker(
       1,
-      'Karet (Ungu)',
+      'Kebun karet (Ungu)',
       '#7B1FA2',
       karetInitialLeaf,
       'cw-search-karet',
@@ -1695,7 +2262,7 @@ class PortalApp {
 
     const sawitPicker = buildClassPicker(
       2,
-      'Kelapa sawit (Pink)',
+      'Kebun sawit (Pink)',
       '#E91E63',
       sawitInitialLeaf,
       'cw-search-sawit',
@@ -1714,7 +2281,24 @@ class PortalApp {
     cwLainnyaNote.textContent = 'Observasi rujukan lainnya (kelas 3/Lainnya) dikecualikan secara otomatis dari publikasi dan tidak memerlukan penyelarasan kelas daun.';
     cwSection.appendChild(cwLainnyaNote);
 
-    body.appendChild(cwSection);
+    step3Container.appendChild(cwSection);
+
+    // Section 2.5: Nama Koleksi Data (before Deklarasi Metadata & Legalitas)
+    const isForestry = selectedDatasetId === 'data_hutan' ||
+      selectedDatasetId === 'data_hutan_campuran' ||
+      (this.workspace.case3PrivateCollection && selectedDatasetId === this.workspace.case3PrivateCollection.meta.id);
+
+    const titleSection = document.createElement('div');
+    titleSection.className = 'modal-section pub-title-section';
+    titleSection.style.marginTop = '12px';
+
+    const defaultTitle = draft.datasetTitle || (isForestry ? 'Data Kontribusi Mandiri (Kehutanan Banyuasin)' : 'Data Kontribusi Mandiri (Perkebunan Banyuasin)');
+    titleSection.innerHTML = `
+      <label for="pub-dataset-title" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px; color:#1e293b;">Nama Koleksi Data *:</label>
+      <input type="text" id="pub-dataset-title" value="${escapeHtml(defaultTitle)}" placeholder="Masukkan nama koleksi data yang akan dibagikan" style="width:100%; padding:6px 8px; font-size:0.8rem; border:1px solid #cbd5e1; border-radius:4px; box-sizing:border-box;">
+      <div id="err-dataset-title" style="color:#dc2626; font-size:0.7rem; display:none; margin-top:2px;"></div>
+    `;
+    step3Container.appendChild(titleSection);
 
     // Section 3: Deklarasi Metadata & Legalitas Form
     const formSection = document.createElement('div');
@@ -1738,14 +2322,14 @@ class PortalApp {
     const accWrap = document.createElement('div');
     accWrap.innerHTML = `
       <label for="pub-account-name" style="display:block; font-weight:700; margin-bottom:2px;">Nama Akun / Peneliti *:</label>
-      <input type="text" id="pub-account-name" value="${escapeHtml(draft.accountName)}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
+      <input type="text" id="pub-account-name" value="${escapeHtml(draft.accountName || defaultAccountName)}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
       <div id="err-account-name" style="color:#dc2626; font-size:0.7rem; display:none; margin-top:2px;"></div>
     `;
     formFields.appendChild(accWrap);
 
     // Owning Institution
     const instWrap = document.createElement('div');
-    const defaultInst = draft.owningInstitution || 'Dinas Perkebunan Kabupaten Banyuasin';
+    const defaultInst = draft.owningInstitution || defaultInstitution;
     instWrap.innerHTML = `
       <label for="pub-institution" style="display:block; font-weight:700; margin-bottom:2px;">Lembaga Pemilik Data *:</label>
       <input type="text" id="pub-institution" value="${escapeHtml(defaultInst)}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
@@ -1757,33 +2341,32 @@ class PortalApp {
     const emailWrap = document.createElement('div');
     emailWrap.innerHTML = `
       <label for="pub-email" style="display:block; font-weight:700; margin-bottom:2px;">Email Teknis *:</label>
-      <input type="email" id="pub-email" value="${escapeHtml(draft.technicalEmail)}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
+      <input type="email" id="pub-email" value="${escapeHtml(draft.technicalEmail || defaultEmail)}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
       <div id="err-email" style="color:#dc2626; font-size:0.7rem; display:none; margin-top:2px;"></div>
     `;
     formFields.appendChild(emailWrap);
 
-    // Readonly Wilayah Kajian (Banyuasin)
+    // Editable Wilayah Kajian (Banyuasin)
     const aoiWrap = document.createElement('div');
     aoiWrap.innerHTML = `
       <label for="pub-aoi" style="display:block; font-weight:700; margin-bottom:2px;">Wilayah Kajian:</label>
-      <input type="text" id="pub-aoi" value="Kabupaten Banyuasin" readonly style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #e2e8f0; background:#f8fafc; border-radius:3px; color:#475569;">
+      <input type="text" id="pub-aoi" value="${escapeHtml(draft.boundaryAoi || 'Kabupaten Banyuasin')}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
     `;
     formFields.appendChild(aoiWrap);
 
-    // Confirmed Year (2026)
+    // Editable Confirmed Year (2026)
     const yearWrap = document.createElement('div');
     yearWrap.innerHTML = `
       <label for="pub-year" style="display:block; font-weight:700; margin-bottom:2px;">Tahun Observasi & Proyek:</label>
-      <input type="text" id="pub-year" value="2026" readonly style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #e2e8f0; background:#f8fafc; border-radius:3px; color:#475569;">
-      <span style="font-size:0.68rem; color:#64748b;">Deklarasi tahun 2026 terkonfirmasi untuk observasi contoh ini.</span>
+      <input type="text" id="pub-year" value="${escapeHtml(String(draft.confirmedYear || 2026))}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
     `;
     formFields.appendChild(yearWrap);
 
-    // Acquisition Method (Survei GPS Lapangan)
+    // Editable Acquisition Method
     const methodWrap = document.createElement('div');
     methodWrap.innerHTML = `
       <label for="pub-method" style="display:block; font-weight:700; margin-bottom:2px;">Metode Akuisisi Data:</label>
-      <input type="text" id="pub-method" value="Survei GPS Lapangan" readonly style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #e2e8f0; background:#f8fafc; border-radius:3px; color:#475569;">
+      <input type="text" id="pub-method" value="${escapeHtml(draft.acquisitionMethod || defaultMethod)}" style="width:100%; padding:5px; font-size:0.75rem; border:1px solid #cbd5e1; border-radius:3px;">
     `;
     formFields.appendChild(methodWrap);
 
@@ -1801,18 +2384,7 @@ class PortalApp {
     `;
     formSection.appendChild(respWrap);
 
-    // Luma Modeling Metadata Checkbox
-    const lumaWrap = document.createElement('div');
-    lumaWrap.style.marginTop = '8px';
-    const isLumaChecked = draft.includeLumaMetadata !== false;
-    lumaWrap.innerHTML = `
-      <label style="display:flex; align-items:flex-start; gap:6px; font-size:0.74rem; cursor:pointer;">
-        <input type="checkbox" id="pub-include-luma" ${isLumaChecked ? 'checked' : ''} style="margin-top:2px;">
-        <span><strong>Sertakan Bukti Mutu Luma:</strong> Sertakan laporan teknis analisis separabilitas spektral (Jarak Jeffries-Matusita antar-kelas) ke dalam metadata paket publik.</span>
-      </label>
-    `;
-    formSection.appendChild(lumaWrap);
-    body.appendChild(formSection);
+    step3Container.appendChild(formSection);
 
     // Section 4: Summary Box before final button
     const summaryCard = document.createElement('div');
@@ -1827,14 +2399,14 @@ class PortalApp {
       this.workspace.setPublicationDraft({
         selectedCollectionIds: [selectedDatasetId],
         selectedDatasetId,
-        accountName: document.getElementById('pub-account-name')?.value || '',
-        owningInstitution: document.getElementById('pub-institution')?.value || 'Dinas Perkebunan Kabupaten Banyuasin',
-        technicalEmail: document.getElementById('pub-email')?.value || '',
-        confirmedYear: 2026,
-        acquisitionMethod: 'Survei GPS Lapangan',
-        boundaryAoi: 'Kabupaten Banyuasin',
+        datasetTitle: document.getElementById('pub-dataset-title')?.value || defaultTitle,
+        accountName: document.getElementById('pub-account-name')?.value || defaultAccountName,
+        owningInstitution: document.getElementById('pub-institution')?.value || defaultInstitution,
+        technicalEmail: document.getElementById('pub-email')?.value || defaultEmail,
+        confirmedYear: Number(document.getElementById('pub-year')?.value) || 2026,
+        acquisitionMethod: document.getElementById('pub-method')?.value || defaultMethod,
+        boundaryAoi: document.getElementById('pub-aoi')?.value || 'Kabupaten Banyuasin',
         responsibilityAccepted: Boolean(document.getElementById('pub-responsibility')?.checked),
-        includeLumaMetadata: Boolean(document.getElementById('pub-include-luma')?.checked),
         crosswalk: {
           1: { epistemLeafId: karetPicker.getSelectedLeafId() },
           2: { epistemLeafId: sawitPicker.getSelectedLeafId() }
@@ -1843,36 +2415,52 @@ class PortalApp {
     };
 
     const updateSummarySection = () => {
+      const isForestry = selectedDatasetId === 'data_hutan' ||
+        selectedDatasetId === 'data_hutan_campuran' ||
+        (this.workspace.case3PrivateCollection && selectedDatasetId === this.workspace.case3PrivateCollection.meta.id);
+
+      const titleInp = document.getElementById('pub-dataset-title')?.value || defaultTitle;
       const accInp = document.getElementById('pub-account-name')?.value || draft.accountName;
       const instInp = document.getElementById('pub-institution')?.value || defaultInst;
       const leaf1 = findTaxonomyNode(karetPicker.getSelectedLeafId(), EPISTEM_MASTER_TAXONOMY);
       const leaf2 = findTaxonomyNode(sawitPicker.getSelectedLeafId(), EPISTEM_MASTER_TAXONOMY);
-      const isLumaIncluded = Boolean(document.getElementById('pub-include-luma')?.checked);
+
+      const countText = isForestry
+        ? `${separation.summary.ownedCount} titik (Hutan)`
+        : `${separation.summary.ownedCount} titik (${separation.summary.rubberCount} Karet, ${separation.summary.palmCount} Sawit)`;
+
+      const mapText = isForestry
+        ? `Hutan &rarr; ${leaf1 ? `${leaf1.code} ${leaf1.name}` : 'Belum dipilih'}`
+        : `Kebun karet &rarr; ${leaf1 ? `${leaf1.code} ${leaf1.name}` : 'Belum dipilih'}, Kebun sawit &rarr; ${leaf2 ? `${leaf2.code} ${leaf2.name}` : 'Belum dipilih'}`;
 
       summaryCard.innerHTML = `
         <h5 style="margin:0 0 4px 0; font-size:0.78rem; font-weight:700; color:#1e293b;">Ringkasan Sebelum Konfirmasi:</h5>
         <div style="font-size:0.73rem; line-height:1.45; color:#334155;">
-          <div>&bull; <strong>Titik Mandiri Dibagikan:</strong> ${separation.summary.ownedCount} titik (${separation.summary.rubberCount} Karet, ${separation.summary.palmCount} Sawit)</div>
-          <div>&bull; <strong>Pemetaan Taksonomi:</strong> Karet &rarr; ${leaf1 ? `${leaf1.code} ${leaf1.name}` : 'Belum dipilih'}, Kelapa sawit &rarr; ${leaf2 ? `${leaf2.code} ${leaf2.name}` : 'Belum dipilih'}</div>
+          <div>&bull; <strong>Nama Koleksi:</strong> ${escapeHtml(titleInp)}</div>
+          <div>&bull; <strong>Titik Mandiri Dibagikan:</strong> ${countText}</div>
+          <div>&bull; <strong>Pemetaan Taksonomi:</strong> ${mapText}</div>
+          <div>&bull; <strong>Ekstraksi Primitives:</strong> ${primitivesRows.length > 0 ? `${primitivesRows.length} titik tertinjau (Air, Pohon, Tinggi Tajuk)` : 'Tersedia'}</div>
           <div>&bull; <strong>Lembaga & Peneliti:</strong> ${escapeHtml(accInp)} (${escapeHtml(instInp)})</div>
           <div>&bull; <strong>Tahun & Status:</strong> 2026 &bull; Mandiri / Belum Ditelaah (Tier 4)</div>
-          <div>&bull; <strong>Mutu Pemodelan Luma:</strong> ${isLumaIncluded ? 'Dilampirkan (Analisis Separabilitas Spektral)' : 'Tidak dilampirkan'}</div>
         </div>
       `;
     };
     updateSummarySection();
-    body.appendChild(summaryCard);
+    step3Container.appendChild(summaryCard);
 
-    formSection.addEventListener('input', () => {
+    const handleFormChange = () => {
       updateSummarySection();
       saveDraftState();
-    });
+    };
+    titleSection.addEventListener('input', handleFormChange);
+    formSection.addEventListener('input', handleFormChange);
 
     container.appendChild(body);
 
     const footer = document.createElement('div');
     footer.className = 'modal-footer';
 
+    // 1. Tombol Batal
     const cancelBtn = document.createElement('button');
     cancelBtn.type = 'button';
     cancelBtn.className = 'btn-secondary';
@@ -1882,10 +2470,129 @@ class PortalApp {
     });
     footer.appendChild(cancelBtn);
 
+    // 2. Tombol Kembali
+    const backBtn = document.createElement('button');
+    backBtn.type = 'button';
+    backBtn.className = 'btn-secondary';
+    backBtn.textContent = 'Kembali';
+    backBtn.style.display = 'none';
+    footer.appendChild(backBtn);
+
+    // 3. Tombol Lanjutkan (Langkah 1 -> Langkah 2)
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.className = 'btn-primary';
+    nextBtn.textContent = 'Lanjutkan';
+    footer.appendChild(nextBtn);
+
+    // 4. Tombol Konfirmasi Nilai Primitives (Langkah 2 -> Langkah 3)
+    const confirmPrimitivesBtn = document.createElement('button');
+    confirmPrimitivesBtn.type = 'button';
+    confirmPrimitivesBtn.className = 'btn-primary';
+    confirmPrimitivesBtn.textContent = 'Konfirmasi nilai primitives';
+    confirmPrimitivesBtn.style.display = 'none';
+    footer.appendChild(confirmPrimitivesBtn);
+
+    // 5. Tombol Konfirmasi & Bagikan Data (Langkah 3 final)
     const publishBtn = document.createElement('button');
     publishBtn.type = 'button';
     publishBtn.className = 'btn-primary';
     publishBtn.textContent = 'Konfirmasi & Bagikan Data';
+    publishBtn.style.display = 'none';
+    footer.appendChild(publishBtn);
+
+    let currentStep = 1;
+    let primitivesReference = null;
+
+    const goToStep = (step) => {
+      currentStep = step;
+      if (modalErrBanner) modalErrBanner.style.display = 'none';
+
+      if (step === 1) {
+        title.textContent = 'Bagikan Data: Publikasi & Donasi Observasi Mandiri';
+        subtitle.textContent = isForestryDataset
+          ? 'Memisahkan observasi tutupan hutan mandiri dari data rujukan pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.'
+          : 'Memisahkan observasi kebun mandiri dari data rujukan pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.';
+        step1Container.style.display = 'block';
+        step2Container.style.display = 'none';
+        step3Container.style.display = 'none';
+
+        cancelBtn.style.display = 'inline-block';
+        backBtn.style.display = 'none';
+        nextBtn.style.display = 'inline-block';
+        confirmPrimitivesBtn.style.display = 'none';
+        publishBtn.style.display = 'none';
+      } else if (step === 2) {
+        title.textContent = 'Ekstraksi Primitives';
+        subtitle.textContent = 'Untuk setiap titik yang dibagikan, sistem akan melakukan ekstraksi terhadap komponen-komponen primitives. Silakan tinjau nilai primitives.';
+        step1Container.style.display = 'none';
+        step2Container.style.display = 'block';
+        step3Container.style.display = 'none';
+
+        cancelBtn.style.display = 'none';
+        backBtn.style.display = 'inline-block';
+        nextBtn.style.display = 'none';
+        confirmPrimitivesBtn.style.display = 'inline-block';
+        publishBtn.style.display = 'none';
+      } else if (step === 3) {
+        title.textContent = 'Bagikan Data: Penyelarasan Taksonomi & Publikasi';
+        subtitle.textContent = 'Petakan kelas proyek ke taksonomi hierarkis Epistem dan lengkapi deklarasi legalitas publikasi.';
+        step1Container.style.display = 'none';
+        step2Container.style.display = 'none';
+        step3Container.style.display = 'block';
+
+        cancelBtn.style.display = 'inline-block';
+        backBtn.style.display = 'inline-block';
+        nextBtn.style.display = 'none';
+        confirmPrimitivesBtn.style.display = 'none';
+        publishBtn.style.display = 'inline-block';
+      }
+    };
+
+    nextBtn.addEventListener('click', async () => {
+      if (modalErrBanner) modalErrBanner.style.display = 'none';
+      if (separation.summary.ownedCount === 0) {
+        if (modalErrBanner) {
+          modalErrBanner.textContent = 'Tidak ada observasi kebun mandiri milik pengguna yang dapat dibagikan pada koleksi ini.';
+          modalErrBanner.style.display = 'block';
+        }
+        return;
+      }
+
+      if (!primitivesReference) {
+        primitivesReference = await loadPrimitivesReference();
+      }
+
+      if (primitivesRows.length === 0) {
+        primitivesRows = extractPrimitivesForRecords(separation.owned, primitivesReference);
+      }
+
+      renderPrimitivesTable();
+      goToStep(2);
+    });
+
+    backBtn.addEventListener('click', () => {
+      if (currentStep === 2) {
+        goToStep(1);
+      } else if (currentStep === 3) {
+        goToStep(2);
+      }
+    });
+
+    confirmPrimitivesBtn.addEventListener('click', () => {
+      for (const item of primitivesRows) {
+        if (item.record) {
+          item.record.primitives = {
+            waterbody: item.waterbody,
+            tree_dominance: item.tree_dominance,
+            vegetation_height: item.vegetation_height
+          };
+        }
+      }
+      updateSummarySection();
+      goToStep(3);
+    });
+
     publishBtn.addEventListener('click', () => {
       if (modalErrBanner) modalErrBanner.style.display = 'none';
 
@@ -1897,17 +2604,25 @@ class PortalApp {
         return;
       }
 
+      const titleInp = document.getElementById('pub-dataset-title');
       const accInp = document.getElementById('pub-account-name');
       const instInp = document.getElementById('pub-institution');
       const emailInp = document.getElementById('pub-email');
       const respInp = document.getElementById('pub-responsibility');
 
+      const errTitle = document.getElementById('err-dataset-title');
       const errAcc = document.getElementById('err-account-name');
       const errInst = document.getElementById('err-institution');
       const errEmail = document.getElementById('err-email');
       const errResp = document.getElementById('err-responsibility');
 
       let isValid = true;
+
+      const titleVal = (titleInp?.value || '').trim();
+      if (!titleVal) {
+        if (errTitle) { errTitle.textContent = 'Nama koleksi data wajib diisi.'; errTitle.style.display = 'block'; }
+        isValid = false;
+      } else if (errTitle) { errTitle.style.display = 'none'; }
 
       const accVal = (accInp?.value || '').trim();
       if (!accVal) {
@@ -1941,7 +2656,7 @@ class PortalApp {
 
       if (!leaf1 || (leaf1.children && leaf1.children.length > 0)) {
         if (modalErrBanner) {
-          modalErrBanner.textContent = 'Pilihan kelas taksonomi untuk Karet wajib merupakan kelas daun (leaf node) yang valid.';
+          modalErrBanner.textContent = 'Pilihan kelas taksonomi untuk Kebun karet wajib merupakan kelas daun (leaf node) yang valid.';
           modalErrBanner.style.display = 'block';
         }
         isValid = false;
@@ -1949,7 +2664,7 @@ class PortalApp {
 
       if (!leaf2 || (leaf2.children && leaf2.children.length > 0)) {
         if (modalErrBanner) {
-          modalErrBanner.textContent = 'Pilihan kelas taksonomi untuk Kelapa sawit wajib merupakan kelas daun (leaf node) yang valid.';
+          modalErrBanner.textContent = 'Pilihan kelas taksonomi untuk Kebun sawit wajib merupakan kelas daun (leaf node) yang valid.';
           modalErrBanner.style.display = 'block';
         }
         isValid = false;
@@ -1962,7 +2677,7 @@ class PortalApp {
       const crosswalk = {
         1: {
           projectClassId: 1,
-          projectClassLabel: 'Karet',
+          projectClassLabel: 'Kebun karet',
           epistemLeafId: leaf1.id,
           code: leaf1.code,
           name: leaf1.name,
@@ -1971,7 +2686,7 @@ class PortalApp {
         },
         2: {
           projectClassId: 2,
-          projectClassLabel: 'Kelapa sawit',
+          projectClassLabel: 'Kebun sawit',
           epistemLeafId: leaf2.id,
           code: leaf2.code,
           name: leaf2.name,
@@ -1980,21 +2695,30 @@ class PortalApp {
         }
       };
 
+      const primitivesMap = {};
+      for (const item of primitivesRows) {
+        primitivesMap[item.observation_id] = {
+          waterbody: item.waterbody,
+          tree_dominance: item.tree_dominance,
+          vegetation_height: item.vegetation_height
+        };
+      }
+
       let publishedPkg;
       this.contributionWorkflow.publishedCollection = this.workspace.case2DonatedCollection;
       try {
         publishedPkg = this.contributionWorkflow.createPublishedPackage(
           separation.owned,
           {
+            title: titleVal,
             accountName: accVal,
             owningInstitution: instVal,
             technicalEmail: emailVal,
-            confirmedYear: 2026,
-            acquisitionMethod: 'Survei GPS Lapangan',
-            boundaryAoi: 'Kabupaten Banyuasin',
+            confirmedYear: Number(document.getElementById('pub-year')?.value) || 2026,
+            acquisitionMethod: document.getElementById('pub-method')?.value || defaultMethod,
+            boundaryAoi: document.getElementById('pub-aoi')?.value || 'Kabupaten Banyuasin',
             responsibilityAccepted: true,
-            includeLumaMetadata: Boolean(document.getElementById('pub-include-luma')?.checked),
-            lumaContext: this.workspace.lumaContext
+            primitivesMap
           },
           crosswalk
         );
@@ -2022,6 +2746,8 @@ class PortalApp {
       this.updateErrorBanner();
     });
     footer.appendChild(publishBtn);
+
+    goToStep(1);
 
     container.appendChild(footer);
     this.dialog.open(container, () => {
@@ -3015,7 +3741,7 @@ class PortalApp {
         Apakah Anda yakin ingin mereset seluruh data percontohan lokal?
       </p>
       <p style="font-size: 0.74rem; color: #64748b; line-height: 1.4;">
-        Tindakan ini hanya memengaruhi penyimpanan browser lokal (localStorage). Koleksi Data Campuran #1, donasi Kasus 2, dan riwayat ulasan Kasus 4 akan dihapus, dan aplikasi kembali ke Kasus 1 dengan data sumber primer.
+        Tindakan ini hanya memengaruhi penyimpanan browser lokal (localStorage). Seluruh data campuran baru dan modifikasi lokal dari semua kasus (Kasus 1, Kasus 2, Kasus 3, dan ulasan Kasus 4) akan dihapus, dan aplikasi kembali ke kondisi data awal.
       </p>
     `;
     container.appendChild(body);
@@ -3036,6 +3762,8 @@ class PortalApp {
     confirmBtn.textContent = 'Ya, Reset Sekarang';
     confirmBtn.addEventListener('click', async () => {
       this.workspace.resetWorkspace();
+      this.currentUser = DEMO_USERS.rizki;
+      this.updateUserProfileUI(DEMO_USERS.rizki);
       const selectUserRole = document.getElementById('select-active-user-header') || document.getElementById('select-user-role');
       const popoverUserRole = document.getElementById('popover-user-role-select');
       if (selectUserRole) selectUserRole.value = 'case_1';
@@ -3043,7 +3771,7 @@ class PortalApp {
       this.updateCaseNavHighlight(1);
       await this.switchDataset('data_kebun_sawit_karet_f');
       this.dialog.close();
-      this.noticeMessage = 'Status percontohan lokal berhasil direset ke kondisi awal.';
+      this.noticeMessage = 'Status percontohan lokal berhasil direset ke kondisi awal untuk seluruh kasus.';
       this.updateErrorBanner();
     });
     footer.appendChild(confirmBtn);

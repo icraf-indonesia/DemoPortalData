@@ -59,56 +59,89 @@ export class ContributionWorkflow {
    *   summary: { total: number, ownedCount: number, excludedCount: number, rubberCount: number, palmCount: number }
    * }}
    */
-  separateOwnedObservations(records = []) {
+  separateOwnedObservations(records = [], contextCaseId = 1) {
     const list = Array.isArray(records) ? records : [];
     const owned = [];
     const excludedImported = [];
+    const isForestryContext = contextCaseId === 3;
 
     for (const r of list) {
       const canonId = resolveCanonicalDatasetId(r.dataset_archive);
       const archive = String(r.dataset_archive || '');
       const srcDatasetId = String(r.source_dataset_id || '');
 
-      // Check if record is third-party borrowed reference data
-      const isThirdParty =
-        canonId === 'data_ref_mod_2b' ||
-        canonId === 'data_ref_mod_f' ||
-        canonId === 'data_hutan' ||
-        canonId === 'data_sawah' ||
-        srcDatasetId === 'data_ref_mod_2b' ||
-        archive.includes('2_Data_Referensi') ||
-        archive.includes('2b_Modular') ||
-        archive.includes('Data_rujukan') ||
-        archive.includes('3_Data_Koleksi_Pengguna_Mitra') ||
-        r.contributor_id === 'pihak_ketiga' ||
-        r.is_user_owned === false;
+      if (isForestryContext) {
+        const isForestryThirdParty =
+          canonId === 'data_ref_mod_2b' ||
+          canonId === 'data_ref_mod_f' ||
+          canonId === 'data_sawah' ||
+          canonId === 'data_kebun_sawit_karet_f' ||
+          canonId === 'data_kontribusi_mandiri' ||
+          srcDatasetId === 'data_ref_mod_2b' ||
+          srcDatasetId === 'data_sawah' ||
+          srcDatasetId === 'data_kontribusi_mandiri' ||
+          r.contributor_id === 'pihak_ketiga' ||
+          r.is_user_owned === false;
 
-      // Check if record is user's own plantation observation (requires known plantation provenance)
-      const isInitialPlantation =
-        canonId === 'data_kebun_sawit_karet_f' ||
-        archive.includes('Data_kebun_sawit_karet') ||
-        archive.includes('1_Data_Pengguna') ||
-        r.source_schema_id === 'schema_case1_plantation' ||
-        r.source_schema_id === 'schema_pengguna_plantation_v1' ||
-        r.contributor_id === 'pemilik_a' ||
-        r.is_user_owned === true;
+        const isForestryOwned =
+          canonId === 'data_hutan' ||
+          archive.includes('Data_hutan') ||
+          archive.includes('3_Data_Kehutanan') ||
+          r.role_context === 'role_b_forestry' ||
+          r.is_user_owned === true;
 
-      if (!isThirdParty && isInitialPlantation) {
-        owned.push(r);
+        if (!isForestryThirdParty && isForestryOwned) {
+          owned.push(r);
+        } else {
+          excludedImported.push({
+            record: r,
+            reason: 'Koleksi rujukan pihak ketiga bukan milik pengguna kehutanan dan dikecualikan dari kontribusi mandiri.'
+          });
+        }
       } else {
-        excludedImported.push({
-          record: r,
-          reason: 'Koleksi rujukan pihak ketiga (data impor rujukan modular 2b) bukan milik pengguna dan dikecualikan dari kontribusi mandiri.'
-        });
+        // Case 1/2 plantation context
+        const isThirdParty =
+          canonId === 'data_ref_mod_2b' ||
+          canonId === 'data_ref_mod_f' ||
+          canonId === 'data_hutan' ||
+          canonId === 'data_sawah' ||
+          srcDatasetId === 'data_ref_mod_2b' ||
+          archive.includes('2_Data_Referensi') ||
+          archive.includes('2b_Modular') ||
+          archive.includes('Data_rujukan') ||
+          archive.includes('3_Data_Koleksi_Pengguna_Mitra') ||
+          r.contributor_id === 'pihak_ketiga' ||
+          r.is_user_owned === false;
+
+        const isInitialPlantation =
+          canonId === 'data_kebun_sawit_karet_f' ||
+          archive.includes('Data_kebun_sawit_karet') ||
+          archive.includes('1_Data_Pengguna') ||
+          r.source_schema_id === 'schema_case1_plantation' ||
+          r.source_schema_id === 'schema_pengguna_plantation_v1' ||
+          r.contributor_id === 'pemilik_a' ||
+          r.is_user_owned === true;
+
+        if (!isThirdParty && isInitialPlantation) {
+          owned.push(r);
+        } else {
+          excludedImported.push({
+            record: r,
+            reason: 'Koleksi rujukan pihak ketiga (data impor rujukan modular 2b) bukan milik pengguna dan dikecualikan dari kontribusi mandiri.'
+          });
+        }
       }
     }
 
     let rubberCount = 0;
     let palmCount = 0;
+    let forestCount = 0;
     for (const r of owned) {
-      if (r.project_class_id === 1 || String(r.source_class_label || '').toLowerCase().includes('karet')) {
+      if (isForestryContext) {
+        forestCount += 1;
+      } else if (r.project_class_id === 2 || String(r.source_class_label || '').toLowerCase().includes('karet')) {
         rubberCount += 1;
-      } else if (r.project_class_id === 2 || String(r.source_class_label || '').toLowerCase().includes('sawit')) {
+      } else if (r.project_class_id === 1 || String(r.source_class_label || '').toLowerCase().includes('sawit')) {
         palmCount += 1;
       }
     }
@@ -121,7 +154,8 @@ export class ContributionWorkflow {
         ownedCount: owned.length,
         excludedCount: excludedImported.length,
         rubberCount,
-        palmCount
+        palmCount,
+        forestCount
       }
     };
   }
@@ -239,12 +273,12 @@ export class ContributionWorkflow {
       }
       resolvedCrosswalk[classId] = {
         projectClassId: classId,
-        projectClassLabel: classId === 1 ? 'Karet' : 'Kelapa sawit',
+        projectClassLabel: classId === 1 ? 'Kebun sawit' : 'Kebun karet',
         epistemLeafId: leafNode.id,
         code: leafNode.code,
         name: leafNode.name,
         path: leafNode.path || leafNode.name,
-        colour: classId === 1 ? '#7B1FA2' : '#E91E63'
+        colour: classId === 1 ? '#D81C5C' : '#761C97'
       };
     }
 
@@ -277,11 +311,11 @@ export class ContributionWorkflow {
       }
     }
 
+    const packageTitle = (declarations.title || declarations.datasetTitle || '').trim() || 'Data Kontribusi Mandiri (Perkebunan Banyuasin)';
     const includeLuma = Boolean(declarations.includeLumaMetadata);
     const lumaModeling = (includeLuma && declarations.lumaContext)
       ? {
-          status: 'Analisis Separabilitas Spektral Selesai',
-          module4Separability: declarations.lumaContext.module4Separability || null
+          status: 'Metadata Terlampir'
         }
       : null;
 
@@ -289,13 +323,19 @@ export class ContributionWorkflow {
       const pClassId = Number(r.project_class_id) || 1;
       const cw = resolvedCrosswalk[pClassId] || null;
 
+      const primitiveData = r.primitives || declarations.primitivesMap?.[r.observation_id] || null;
       const rawProps = {
         rights_id: r.rights_id ?? null,
         contributor_id: r.contributor_id ?? null,
         observed_date: r.observed_date ?? r.observed_time ?? null,
         dataset_id: r.source_dataset_id || r.dataset_id || r.dataset_archive || null,
         ...(r.raw_properties || {}),
-        ...(r.raw_attributes || {})
+        ...(r.raw_attributes || {}),
+        ...(primitiveData ? {
+          waterbody_: primitiveData.waterbody,
+          tree_domin: primitiveData.tree_dominance,
+          vegetation: primitiveData.vegetation_height
+        } : {})
       };
 
       return {
@@ -303,6 +343,7 @@ export class ContributionWorkflow {
         coordinates: r.coordinates || (r.geometry ? r.geometry.coordinates : null),
         project_class: r.project_class !== undefined ? r.project_class : r.project_class_id,
         raw_properties: rawProps,
+        primitives: primitiveData,
         is_contributed: true,
         is_published: true,
         contribution_type: 'owned_plantation_publication',
@@ -325,6 +366,7 @@ export class ContributionWorkflow {
           crosswalk_leaf_code: cw ? cw.code : null,
           crosswalk_leaf_name: cw ? cw.name : null,
           crosswalk_leaf_path: cw ? cw.path : null,
+          primitives: primitiveData,
           version,
           published_at: createdAt
         },
@@ -348,7 +390,7 @@ export class ContributionWorkflow {
 
     const packageMeta = {
       id: 'data_kontribusi_mandiri',
-      title: 'Data Kontribusi Mandiri (Perkebunan Banyuasin)',
+      title: packageTitle,
       category: 'Koleksi Mitra',
       status: 'Mandiri / Belum Ditelaah',
       publicationStatus: 'published_unreviewed',

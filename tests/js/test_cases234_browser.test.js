@@ -85,7 +85,25 @@ test('Cases 2–4 E2E: Full multi-case user journeys in headless Chromium', asyn
     const modalBodyText = await page.textContent('.modal-body');
     assert.ok(modalBodyText.includes('Observasi Milik Mandiri (Dapat Dikontribusikan)'), 'Owned observations detected');
 
-    // Check actual visible class pickers
+    // Step 1 -> Click "Lanjutkan"
+    const nextStep1Btn = await page.$('.modal-footer .btn-primary');
+    assert.ok(nextStep1Btn, 'Lanjutkan button exists on Step 1');
+    await nextStep1Btn.click();
+    await page.waitForTimeout(200);
+
+    // Step 2 -> Verify Ekstraksi Primitives page and table
+    const step2Title = await page.textContent('.modal-title');
+    assert.ok(step2Title.includes('Ekstraksi Primitives'), 'Step 2 Ekstraksi Primitives opened');
+    const tableRows = await page.$$('#primitives-table-body tr');
+    assert.ok(tableRows.length > 0, 'Primitives table has rows');
+
+    // Click "Konfirmasi nilai primitives"
+    const confirmPrimBtn = await page.$('.modal-footer .btn-primary');
+    assert.ok(confirmPrimBtn, 'Konfirmasi nilai primitives button exists on Step 2');
+    await confirmPrimBtn.click();
+    await page.waitForTimeout(200);
+
+    // Step 3 -> Penyelarasan Taksonomi & Publikasi
     const karetPicker = await page.$('#cw-select-karet');
     const sawitPicker = await page.$('#cw-select-sawit');
     assert.ok(karetPicker, 'Visible Karet taxonomy picker rendered');

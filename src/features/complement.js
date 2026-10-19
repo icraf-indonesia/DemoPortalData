@@ -25,14 +25,18 @@ export const COMPLEMENT_STEPS = Object.freeze({
  */
 export const REF_MOD_2B_CLASSES = Object.freeze([
   { id: '1', label: 'Hutan', isTargetClass: false, description: 'Tutupan hutan alam / sekunder' },
-  { id: '2', label: 'Kebun sawit', isTargetClass: true, description: 'Kelas target proyek (Kelapa sawit) - dikecualikan' },
-  { id: '3', label: 'Kebun karet', isTargetClass: true, description: 'Kelas target proyek (Karet) - dikecualikan' },
+  { id: '2', label: 'Kebun sawit', isTargetClass: true, description: 'Tutupan perkebunan kelapa sawit' },
+  { id: '3', label: 'Kebun karet', isTargetClass: true, description: 'Tutupan perkebunan karet' },
   { id: '4', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah' },
   { id: '5', label: 'Lainnya', isTargetClass: false, description: 'Tutupan non-perkebunan rujukan lainnya' }
 ]);
 
 export const DATASET_COMPLEMENT_CLASSES = Object.freeze({
   data_ref_mod_2b: REF_MOD_2B_CLASSES,
+  data_kontribusi_mandiri: Object.freeze([
+    { id: '1', label: 'Kebun sawit', isTargetClass: false, description: 'Observasi kebun kelapa sawit mandiri (Dinas Perkebunan)' },
+    { id: '2', label: 'Kebun karet', isTargetClass: false, description: 'Observasi kebun karet mandiri (Dinas Perkebunan)' }
+  ]),
   data_sawah: Object.freeze([
     { id: '1', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah (Koleksi Mitra)' },
     { id: '4', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah' },
@@ -44,8 +48,8 @@ export const DATASET_COMPLEMENT_CLASSES = Object.freeze({
   ]),
   case4_data_kombinasi_f: Object.freeze([
     { id: '1', label: 'Hutan', isTargetClass: false, description: 'Tutupan lahan hutan' },
-    { id: '2', label: 'Kebun sawit', isTargetClass: true, description: 'Kelas target proyek (Kelapa sawit) - dikecualikan' },
-    { id: '3', label: 'Kebun karet', isTargetClass: true, description: 'Kelas target proyek (Karet) - dikecualikan' },
+    { id: '2', label: 'Kebun sawit', isTargetClass: true, description: 'Tutupan perkebunan kelapa sawit' },
+    { id: '3', label: 'Kebun karet', isTargetClass: true, description: 'Tutupan perkebunan karet' },
     { id: '4', label: 'Sawah', isTargetClass: false, description: 'Lahan pertanian sawah' },
     { id: '5', label: 'Lainnya', isTargetClass: false, description: 'Tutupan non-perkebunan lainnya' }
   ]),
@@ -54,11 +58,47 @@ export const DATASET_COMPLEMENT_CLASSES = Object.freeze({
   ])
 });
 
-export function getComplementClassesForSource(sourceId) {
+export function getComplementClassesForSource(sourceId, caseId = 1, sourceRecords = []) {
+  let baseClasses = [];
   if (sourceId && DATASET_COMPLEMENT_CLASSES[sourceId]) {
-    return DATASET_COMPLEMENT_CLASSES[sourceId];
+    baseClasses = DATASET_COMPLEMENT_CLASSES[sourceId];
+  } else if (Array.isArray(sourceRecords) && sourceRecords.length > 0) {
+    // Dynamically derive classes from source records
+    const classMap = new Map();
+    for (const r of sourceRecords) {
+      const id = String(r.project_class_id ?? r.source_class_id ?? '1');
+      const label = String(r.project_class_label ?? r.source_class_label ?? `Kelas ${id}`);
+      if (!classMap.has(id)) {
+        classMap.set(id, { id, label, description: `Kelas rujukan ${label}` });
+      }
+    }
+    baseClasses = Array.from(classMap.values());
+  } else {
+    baseClasses = REF_MOD_2B_CLASSES;
   }
-  return REF_MOD_2B_CLASSES;
+
+  // Map isTargetClass according to active caseId:
+  // Case 3 (Pengguna B): Hutan is target class.
+  // Case 1 (Pengguna A): Kelapa sawit & Karet are target classes.
+  const isCase3 = caseId === 3;
+  return baseClasses.map(c => {
+    const lbl = (c.label || '').toLowerCase();
+    const isTarget = isCase3
+      ? (lbl.includes('hutan') || lbl.includes('forest'))
+      : (lbl.includes('sawit') || lbl.includes('karet') || lbl.includes('palm') || lbl.includes('rubber'));
+
+    let desc = c.description || `Kelas rujukan ${c.label}`;
+    desc = desc.replace(/\s*-\s*dikecualikan/gi, '').trim();
+
+    return {
+      id: String(c.id),
+      label: c.label,
+      isTargetClass: isTarget,
+      description: isTarget
+        ? `Kelas target proyek (${c.label})`
+        : desc
+    };
+  });
 }
 
 export class ComplementWorkflow {
@@ -67,6 +107,7 @@ export class ComplementWorkflow {
     this.step = COMPLEMENT_STEPS.CLOSED;
     this.selectedSourceId = 'data_ref_mod_2b';
     this.selectedClassIds = new Set(['1', '4', '5']); // Default non-target classes
+    this.targetClassMapping = {};
     this.cachedSourceRecords = [];
     this.lastOperationReceipt = null;
   }
@@ -76,7 +117,8 @@ export class ComplementWorkflow {
    * @returns {Array<Object>}
    */
   getSourceClasses() {
-    return getComplementClassesForSource(this.selectedSourceId);
+    const caseId = this.workspace?.activeCaseId || 1;
+    return getComplementClassesForSource(this.selectedSourceId, caseId, this.cachedSourceRecords);
   }
 
   /**
@@ -88,20 +130,38 @@ export class ComplementWorkflow {
     this.step = COMPLEMENT_STEPS.SELECTING;
     this.selectedSourceId = sourceId;
     this.cachedSourceRecords = sourceRecords;
+    this.targetClassMapping = {};
     // Default to all non-target classes that exist in records
     this.selectNonTargetClasses();
   }
 
   /**
-   * Selects all non-target classes (excluding sawit and karet).
+   * Selects all non-target classes.
    */
   selectNonTargetClasses() {
     const classes = this.getSourceClasses();
+    const isCase3 = this.workspace?.activeCaseId === 3;
+    const defaultTargetId = isCase3 ? '2' : '3';
     this.selectedClassIds = new Set(
       classes
         .filter(c => !c.isTargetClass)
-        .map(c => String(c.id))
+        .map(c => {
+          const strId = String(c.id);
+          if (!this.targetClassMapping[strId]) {
+            this.targetClassMapping[strId] = defaultTargetId;
+          }
+          return strId;
+        })
     );
+  }
+
+  /**
+   * Sets target class for a given source class.
+   * @param {string|number} sourceClassId
+   * @param {string|number} targetClassId
+   */
+  setTargetClass(sourceClassId, targetClassId) {
+    this.targetClassMapping[String(sourceClassId)] = String(targetClassId);
   }
 
   /**
@@ -113,7 +173,7 @@ export class ComplementWorkflow {
 
   /**
    * Toggles a source class ID selection.
-   * Target classes (sawit and karet) cannot be selected.
+   * Target classes cannot be selected.
    * @param {string} classId
    * @param {boolean} [forced]
    */
@@ -121,7 +181,7 @@ export class ComplementWorkflow {
     const classes = this.getSourceClasses();
     const classDef = classes.find(c => String(c.id) === String(classId));
     if (classDef && classDef.isTargetClass) {
-      // Disallowed: cannot map target class to Lainnya
+      // Disallowed: cannot map target class
       return;
     }
 
@@ -175,21 +235,32 @@ export class ComplementWorkflow {
     const excludedByClass = [];
 
     for (const obs of evalResult.eligible) {
-      const srcCid = String(obs.source_class_id ?? obs.project_class_id ?? '');
-      const projCid = String(obs.project_class_id ?? '');
-      if (this.selectedClassIds.has(srcCid) || this.selectedClassIds.has(projCid)) {
+      const obsClassId = (obs.project_class_id !== undefined && obs.project_class_id !== null && obs.project_class_label)
+        ? String(obs.project_class_id)
+        : String(obs.source_class_id ?? obs.project_class_id ?? '1');
+
+      if (this.selectedClassIds.has(obsClassId)) {
         matchedByClass.push(obs);
       } else {
         excludedByClass.push(obs);
       }
     }
 
-    // 3. Deduplicate against existing workspace points
+    // 3. Deduplicate against existing workspace points (by observation_id AND spatial coordinates)
+    const existingCoords = new Set(
+      existingPoints.map(p => {
+        const c = p.geometry?.coordinates;
+        return c ? `${Number(c[0]).toFixed(6)},${Number(c[1]).toFixed(6)}` : null;
+      }).filter(Boolean)
+    );
+
     const netNewPoints = [];
     const duplicatePoints = [];
 
     for (const obs of matchedByClass) {
-      if (existingIds.has(obs.observation_id)) {
+      const coords = obs.geometry?.coordinates;
+      const coordKey = coords ? `${Number(coords[0]).toFixed(6)},${Number(coords[1]).toFixed(6)}` : null;
+      if (existingIds.has(obs.observation_id) || (coordKey && existingCoords.has(coordKey))) {
         duplicatePoints.push(obs);
       } else {
         netNewPoints.push(obs);
@@ -202,9 +273,12 @@ export class ComplementWorkflow {
     for (const cid of this.selectedClassIds) {
       const def = classes.find(c => String(c.id) === String(cid));
       const label = def ? def.label : `Kelas ${cid}`;
-      const count = netNewPoints.filter(p =>
-        String(p.source_class_id) === String(cid) || String(p.project_class_id) === String(cid)
-      ).length;
+      const count = netNewPoints.filter(p => {
+        const pCid = (p.project_class_id !== undefined && p.project_class_id !== null && p.project_class_label)
+          ? String(p.project_class_id)
+          : String(p.source_class_id ?? p.project_class_id ?? '1');
+        return pCid === String(cid);
+      }).length;
       if (count > 0 || !classBreakdown[label]) {
         classBreakdown[label] = (classBreakdown[label] || 0) + count;
       }
@@ -235,26 +309,91 @@ export class ComplementWorkflow {
    * @param {string} mode 'source' or 'scenario'
    * @returns {{ success: boolean, addedCount: number, totalCount: number, datasetId: string }}
    */
-  confirmAddition(mode = MODES.SCENARIO) {
+  confirmAddition(mode = MODES.SCENARIO, customTitle = null) {
     const preview = this.calculatePreview(mode);
     const existingPoints = this.workspace.activeRecords || [];
+    const isCase3 = this.workspace?.activeCaseId === 3;
 
-    // Map each net new point to Project Class 3 (Lainnya) while preserving source properties
-    const mappedNewPoints = preview.netNewPoints.map(obs => ({
-      ...obs,
-      project_class_id: 3,
-      project_class_label: 'Lainnya',
-      // Keep source lineage intact
-      source_dataset_id: this.selectedSourceId
-    }));
+    // Map each net new point to Project Class according to targetClassMapping:
+    const defaultTargetId = isCase3 ? 2 : 3;
+    const mappedNewPoints = preview.netNewPoints.map(obs => {
+      const obsClassId = (obs.project_class_id !== undefined && obs.project_class_id !== null && obs.project_class_label)
+        ? String(obs.project_class_id)
+        : String(obs.source_class_id ?? obs.project_class_id ?? '1');
+
+      const targetId = Number(this.targetClassMapping[obsClassId] || defaultTargetId);
+      let targetLabel = 'Lainnya';
+      if (isCase3) {
+        targetLabel = targetId === 1 ? 'Hutan' : 'Non-hutan';
+      } else {
+        if (targetId === 1) targetLabel = 'Kebun sawit';
+        else if (targetId === 2) targetLabel = 'Kebun karet';
+        else targetLabel = 'Lainnya';
+      }
+
+      return {
+        ...obs,
+        project_class_id: targetId,
+        project_class_label: targetLabel,
+        // Keep source lineage intact
+        source_dataset_id: this.selectedSourceId
+      };
+    });
 
     const combinedRecords = [...existingPoints, ...mappedNewPoints];
 
+    if (isCase3) {
+      const defaultTitle = 'Data Campuran Tutupan Lahan';
+      const title = (typeof customTitle === 'string' && customTitle.trim()) ? customTitle.trim() : defaultTitle;
+      const mixedMeta = {
+        id: 'data_hutan_campuran',
+        title,
+        category: 'Data Campuran (Privat)',
+        description: 'Koleksi gabungan Data Tutupan Hutan dan titik rujukan kelas Non-hutan terpilih.',
+        isPrimary: false,
+        isPrivate: true,
+        kind: 'point_observations',
+        featureCount: combinedRecords.length,
+        lastDelta: mappedNewPoints.length,
+        lastAddedSource: this.selectedSourceId,
+        addedAt: new Date().toISOString()
+      };
+
+      this.workspace.setCase3PrivateCollection({
+        meta: mixedMeta,
+        records: combinedRecords,
+        addedCount: mappedNewPoints.length
+      });
+
+      this.lastOperationReceipt = {
+        operationId: `op_${Date.now()}`,
+        addedCount: mappedNewPoints.length,
+        duplicateSkipped: preview.duplicateCount,
+        totalCount: combinedRecords.length,
+        sourceId: this.selectedSourceId,
+        timestamp: mixedMeta.addedAt
+      };
+
+      this.step = COMPLEMENT_STEPS.CLOSED;
+      this.cachedSourceRecords = [];
+
+      return {
+        success: true,
+        addedCount: mappedNewPoints.length,
+        duplicateSkipped: preview.duplicateCount,
+        totalCount: combinedRecords.length,
+        datasetId: mixedMeta.id,
+        title: mixedMeta.title
+      };
+    }
+
+    const defaultTitle = 'Data Campuran #1';
+    const title = (typeof customTitle === 'string' && customTitle.trim()) ? customTitle.trim() : defaultTitle;
     const mixedMeta = {
       id: 'data_campuran_1',
-      title: 'Data Campuran #1',
+      title,
       category: 'Data Campuran (Privat)',
-      description: 'Koleksi gabungan Data Pengguna #1 dan titik rujukan kelas Lainnya terpilih.',
+      description: 'Koleksi gabungan Data Pengguna dan titik rujukan kelas Lainnya terpilih.',
       isPrimary: false,
       isPrivate: true,
       kind: 'point_observations',
@@ -284,7 +423,8 @@ export class ComplementWorkflow {
       addedCount: mappedNewPoints.length,
       duplicateSkipped: preview.duplicateCount,
       totalCount: combinedRecords.length,
-      datasetId: mixedMeta.id
+      datasetId: mixedMeta.id,
+      title: mixedMeta.title
     };
   }
 }
