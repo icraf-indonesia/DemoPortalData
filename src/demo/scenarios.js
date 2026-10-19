@@ -103,12 +103,12 @@ export const DATASET_SCENARIOS = Object.freeze({
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Pemilik A (Pengguna)',
     contributorDisplayName: 'Pemilik A',
-    rightsStatus: 'Izin penggunaan internal',
+    rightsStatus: 'Privat',
     method: 'Survei Lapangan',
     qualityTier: null,
     assumptions: [
       'Titik observasi awal diamati pada tahun 2026 oleh Pemilik A',
-      'Izin penggunaan internal percontohan'
+      'Izin penggunaan privat percontohan'
     ]
   },
   data_ref_mod_2b: {
@@ -116,7 +116,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Kontribusi Pengguna Rujukan',
     contributorDisplayName: 'Tim Telaah Mitra (2025)',
-    rightsStatus: 'Izin penggunaan terbuka',
+    rightsStatus: 'Terbuka',
     method: 'Interpretasi Citra & Uji Lapang',
     qualityTier: 2,
     assumptions: [
@@ -130,7 +130,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Instansi Kehutanan B',
     contributorDisplayName: 'Instansi Kehutanan B (2024)',
-    rightsStatus: 'Izin data terbuka',
+    rightsStatus: 'Terbuka',
     method: 'Inventarisasi Hutan',
     qualityTier: 3,
     assumptions: [
@@ -142,7 +142,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Dinas Pertanian Daerah',
     contributorDisplayName: 'Dinas Pertanian (2025)',
-    rightsStatus: 'Izin data terbuka',
+    rightsStatus: 'Terbuka',
     method: 'Survei Lahan Pertanian',
     qualityTier: 3,
     assumptions: [
@@ -177,7 +177,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     observedYear: 2026,
     owner: 'Koleksi Gabungan Pengguna',
     contributorDisplayName: 'Pemilik A & Mitra',
-    rightsStatus: 'Izin penggunaan internal percontohan',
+    rightsStatus: 'Privat',
     method: 'Campuran',
     qualityTier: null,
     assumptions: [
@@ -188,7 +188,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     observedYear: 2026,
     owner: 'Pemilik A (Pengguna)',
     contributorDisplayName: 'Pemilik A (Kontribusi Mandiri)',
-    rightsStatus: 'Izin donasi internal terbuka',
+    rightsStatus: 'Terbuka',
     method: 'Interpretasi Citra / Survei Lapangan',
     qualityTier: null,
     assumptions: [
@@ -200,7 +200,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     observedYear: 2026,
     owner: 'Pengguna B (Kehutanan)',
     contributorDisplayName: 'Pengguna B & Mitra',
-    rightsStatus: 'Izin penggunaan internal percontohan',
+    rightsStatus: 'Privat',
     method: 'Campuran',
     qualityTier: null,
     assumptions: [

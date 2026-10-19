@@ -137,7 +137,7 @@ export class AttributeTableView {
       'Waktu Pengamatan',
       'Metode Survei',
       'Tingkat Kualitas',
-      'Hak & Lisensi'
+      'Kepemilikan'
     ];
 
     for (const colText of columns) {
@@ -240,12 +240,26 @@ export class AttributeTableView {
         }
         tr.appendChild(tdQuality);
 
-        // 8. Rights
+        // 8. Kepemilikan (Privat / Terbuka)
         const tdRights = document.createElement('td');
+        let rawRights = '';
         if (overlay && overlay.rightsStatus) {
-          tdRights.textContent = String(overlay.rightsStatus).replace(/\s*\((?:Simulasi|Asumsi)[^)]*\)/gi, '');
+          rawRights = String(overlay.rightsStatus).replace(/\s*\((?:Simulasi|Asumsi)[^)]*\)/gi, '').trim();
         } else if (obs.rights_id) {
-          tdRights.textContent = String(obs.rights_id);
+          rawRights = String(obs.rights_id).trim();
+        } else if (obs.simulated_rights_status) {
+          rawRights = String(obs.simulated_rights_status).trim();
+        }
+
+        if (rawRights) {
+          const lower = rawRights.toLowerCase();
+          if (lower.includes('internal') || lower.includes('privat')) {
+            tdRights.textContent = 'Privat';
+          } else if (lower.includes('terbuka') || lower.includes('publik') || lower.includes('donasi')) {
+            tdRights.textContent = 'Terbuka';
+          } else {
+            tdRights.textContent = rawRights;
+          }
         } else {
           tdRights.className = 'td-null';
           tdRights.textContent = 'Belum tercatat';

@@ -2764,7 +2764,7 @@ select:focus-visible {
   position: relative;
 }
 .basemap-thumb-eox::after {
-  content: "EOX";
+  content: "S2";
   position: absolute;
   bottom: 2px;
   right: 2px;
