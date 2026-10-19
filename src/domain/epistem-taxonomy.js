@@ -168,18 +168,18 @@ export function findTaxonomyNode(idOrCode, tree = EPISTEM_MASTER_TAXONOMY) {
 export const DEFAULT_EPISTEM_CROSSWALK = Object.freeze({
   1: Object.freeze({
     projectClassId: 1,
-    projectClassLabel: 'Karet',
-    epistemLeafId: 'veg-tb-mono-rubber',
-    code: '1132',
-    name: 'Monokultur Karet',
-    colour: '#7B1FA2'
-  }),
-  2: Object.freeze({
-    projectClassId: 2,
-    projectClassLabel: 'Kelapa sawit',
+    projectClassLabel: 'Kebun sawit',
     epistemLeafId: 'veg-tb-mono-oilpalm',
     code: '1133',
     name: 'Monokultur Kelapa Sawit',
-    colour: '#E91E63'
+    colour: '#D81C5C'
+  }),
+  2: Object.freeze({
+    projectClassId: 2,
+    projectClassLabel: 'Kebun karet',
+    epistemLeafId: 'veg-tb-mono-rubber',
+    code: '1132',
+    name: 'Monokultur Karet',
+    colour: '#761C97'
   })
 });

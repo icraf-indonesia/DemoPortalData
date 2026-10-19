@@ -161,8 +161,8 @@ test('WorkspaceState getActiveSchema adapts flexibly to active dataset selection
   ws.activeDatasetId = 'data_kebun_sawit_karet_f';
   let schema = ws.getActiveSchema();
   assert.equal(Object.keys(schema).length, 3);
-  assert.equal(schema[1].label, 'Karet');
-  assert.equal(schema[2].label, 'Kelapa sawit');
+  assert.equal(schema[1].label, 'Kebun sawit');
+  assert.equal(schema[2].label, 'Kebun karet');
   assert.equal(schema[3].label, 'Lainnya');
 
   // Modular 2b dataset: 5 classes (Hutan, Kebun sawit, Kebun karet, Sawah, Lainnya)
@@ -211,8 +211,8 @@ test('WorkspaceState getActiveSchema adapts flexibly to active dataset selection
   ws.activeDatasetId = 'data_kontribusi_mandiri';
   schema = ws.getActiveSchema();
   assert.equal(Object.keys(schema).length, 2);
-  assert.equal(schema[1].label, 'Karet');
-  assert.equal(schema[2].label, 'Kelapa sawit');
+  assert.equal(schema[1].label, 'Kebun sawit');
+  assert.equal(schema[2].label, 'Kebun karet');
   assert.equal(schema[3], undefined);
 
   // Cleared active dataset (no card selected): returns empty schema and 0 counts

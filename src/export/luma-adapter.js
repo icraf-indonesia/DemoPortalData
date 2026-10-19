@@ -210,6 +210,9 @@ export function buildGeoJson(points, mode = MODES.SCENARIO) {
           source_observed_year: pt.observed_time?.year ?? null,
           source_rights_status: pt.rights_id ?? null,
           source_method: pt.method ?? 'unknown',
+          waterbody_dominance: pt.primitives ? pt.primitives.waterbody : (pt.raw_properties?.waterbody_ ?? null),
+          tree_dominance: pt.primitives ? pt.primitives.tree_dominance : (pt.raw_properties?.tree_domin ?? null),
+          vegetation_height: pt.primitives ? pt.primitives.vegetation_height : (pt.raw_properties?.vegetation ?? null),
           scenario_observed_year: mode === MODES.SCENARIO ? (overlay?.observedYear ?? null) : null,
           scenario_rights_status: mode === MODES.SCENARIO ? (overlay?.rightsStatus ?? null) : null,
           is_scenario_assumption: Boolean(mode === MODES.SCENARIO && overlay?.isScenarioOverlay)
@@ -217,6 +220,54 @@ export function buildGeoJson(points, mode = MODES.SCENARIO) {
       };
     })
   };
+}
+
+/**
+ * Builds classes.csv companion table with ID, Land Cover Class, and Color.
+ * Exactly matches Luma taxonomy import format:
+ * ID,Land Cover Class,Color
+ * @param {Array<Object>} [targetClasses]
+ * @param {Array<Object>} [records]
+ * @returns {string}
+ */
+export function buildClassesCsv(targetClasses = null, records = []) {
+  const headers = ['ID', 'Land Cover Class', 'Color'];
+  const rows = [headers.join(',')];
+
+  const DEFAULT_COLORS = {
+    1: '#D81C5C',
+    2: '#761C97',
+    3: '#6E6E6E',
+    4: '#2E7D32',
+    5: '#6E6E6E'
+  };
+
+  let classes = Array.isArray(targetClasses) && targetClasses.length > 0
+    ? [...targetClasses]
+    : null;
+
+  if (!classes && Array.isArray(records) && records.length > 0) {
+    const classMap = new Map();
+    for (const r of records) {
+      const id = Number(r.project_class_id);
+      const label = String(r.project_class_label || `Kelas ${id}`);
+      if (!classMap.has(id)) {
+        classMap.set(id, { id, label, colour: DEFAULT_COLORS[id] || '#6E6E6E' });
+      }
+    }
+    classes = Array.from(classMap.values()).sort((a, b) => a.id - b.id);
+  }
+
+  if (Array.isArray(classes)) {
+    for (const c of classes) {
+      const id = c.id ?? c.class_id;
+      const label = c.label ?? c.class_name;
+      const colour = c.colour ?? c.color ?? DEFAULT_COLORS[id] ?? '#6E6E6E';
+      rows.push(`${id},${label},${colour}`);
+    }
+  }
+
+  return rows.join('\r\n');
 }
 
 /**
@@ -262,7 +313,16 @@ export async function createTrainingExportPackage({
     coordinates: [Number(r.geometry.coordinates[0]), Number(r.geometry.coordinates[1])],
     class_id: Number(r.project_class_id),
     class_name: String(r.project_class_label || `Kelas ${r.project_class_id}`),
-    obs_id: String(r.observation_id || '')
+    obs_id: String(r.observation_id || ''),
+    ...(r.primitives ? {
+      waterbody_: r.primitives.waterbody,
+      tree_domin: r.primitives.tree_dominance,
+      vegetation: r.primitives.vegetation_height
+    } : (r.raw_properties?.waterbody_ !== undefined ? {
+      waterbody_: r.raw_properties.waterbody_,
+      tree_domin: r.raw_properties.tree_domin,
+      vegetation: r.raw_properties.vegetation
+    } : {}))
   }));
 
   if (shpRecords.length !== records.length) {
@@ -286,7 +346,11 @@ export async function createTrainingExportPackage({
   const geoJsonContent = JSON.stringify(buildGeoJson(records, mode), null, 2);
   zip.file('training_points.geojson', geoJsonContent);
 
-  // 4. Add Manifest JSON
+  // 4. Add classes.csv companion
+  const classesCsvContent = buildClassesCsv(targetClasses, records);
+  zip.file('classes.csv', classesCsvContent);
+
+  // 5. Add Manifest JSON
   const manifest = buildExportManifest({
     datasetId,
     datasetName,

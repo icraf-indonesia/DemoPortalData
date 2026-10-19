@@ -3226,3 +3226,115 @@ select:focus-visible {
   font-size: 0.75rem;
   padding: 0 1px;
 }
+
+/* Primitives Extraction Table (Case 2: Bagikan Data) */
+.primitives-table-wrapper {
+  max-height: 360px;
+  overflow-y: auto;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.primitives-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.76rem;
+  text-align: left;
+}
+
+.primitives-table th {
+  background-color: #1a535c;
+  color: #ffffff;
+  padding: 8px 10px;
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.primitives-table th:hover {
+  background-color: #13424a;
+}
+
+.primitives-table th .sort-icon {
+  font-size: 0.65rem;
+  margin-left: 4px;
+  opacity: 0.85;
+}
+
+.primitives-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #e2e8f0;
+  border-right: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.primitives-table tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+.primitives-table tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+.primitives-table select.primitive-select {
+  padding: 3px 6px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #1e293b;
+  width: 100%;
+  max-width: 110px;
+}
+
+.primitives-cell-veg {
+  cursor: pointer;
+  font-weight: 600;
+  color: #0369a1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: background-color 0.15s ease;
+}
+
+.primitives-cell-veg:hover {
+  background-color: #e0f2fe;
+  text-decoration: underline dotted;
+}
+
+.primitives-slider-editor {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  padding: 2px 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.primitives-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.primitives-search-input {
+  flex: 1;
+  padding: 5px 8px;
+  font-size: 0.76rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+}
+

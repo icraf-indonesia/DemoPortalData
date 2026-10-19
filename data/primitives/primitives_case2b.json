@@ -1,0 +1,5231 @@
+[
+  {
+    "sample_id": 1,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 2,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 3,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 4,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 5,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 6,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 7,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 8,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 9,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 10,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 11,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 12,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 13,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 14,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 15,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 16,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 17,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 18,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 19,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 20,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 21,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 22,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 23,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 24,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 25,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 26,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 27,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 28,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 29,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 30,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 31,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 32,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 33,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 34,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 35,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 36,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 37,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 38,
+    "LULCrcl": "Sawah",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 39,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 40,
+    "LULCrcl": "Sawah",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 41,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 42,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 43,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 44,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 45,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 46,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 47,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 48,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 49,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 50,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 51,
+    "LULCrcl": "Sawah",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 52,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 53,
+    "LULCrcl": "Sawah",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 54,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 55,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 56,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 57,
+    "LULCrcl": "Sawah",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 58,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 59,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 60,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 61,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 62,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 63,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 64,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 65,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 66,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 67,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 68,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 69,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 70,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 71,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 72,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 73,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 74,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 75,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 76,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 77,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 78,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 79,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 80,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 81,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 82,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 83,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 84,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 85,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 86,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 87,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 88,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 89,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 90,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 91,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 92,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 93,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 94,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 95,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 96,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 97,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 98,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 99,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 100,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 101,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 102,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 103,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 104,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 105,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 106,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 107,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 108,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 109,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 110,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 111,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 112,
+    "LULCrcl": "Hutan",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 113,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 114,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 115,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 116,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 117,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 118,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 119,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 120,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 121,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 122,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 123,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 124,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 125,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 126,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 127,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 128,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 129,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 130,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 131,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 132,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 133,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 134,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 135,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 136,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 137,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 138,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 139,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 140,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 141,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 142,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 143,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 144,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 145,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 146,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 147,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 148,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 149,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 150,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 151,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 152,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 153,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 154,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 155,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 156,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 157,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 158,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 159,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 160,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 161,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 162,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 163,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 30
+  },
+  {
+    "sample_id": 164,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 40
+  },
+  {
+    "sample_id": 165,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 38
+  },
+  {
+    "sample_id": 166,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 34
+  },
+  {
+    "sample_id": 167,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 168,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 39
+  },
+  {
+    "sample_id": 169,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 170,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 38
+  },
+  {
+    "sample_id": 171,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 172,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 173,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 33
+  },
+  {
+    "sample_id": 174,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 33
+  },
+  {
+    "sample_id": 175,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 176,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 177,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 27
+  },
+  {
+    "sample_id": 178,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 39
+  },
+  {
+    "sample_id": 179,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 180,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 28
+  },
+  {
+    "sample_id": 181,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 37
+  },
+  {
+    "sample_id": 182,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 183,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 31
+  },
+  {
+    "sample_id": 184,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 28
+  },
+  {
+    "sample_id": 185,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 186,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 187,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 188,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 26
+  },
+  {
+    "sample_id": 189,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 190,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 43
+  },
+  {
+    "sample_id": 191,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 31
+  },
+  {
+    "sample_id": 192,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 38
+  },
+  {
+    "sample_id": 193,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 194,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 30
+  },
+  {
+    "sample_id": 195,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 31
+  },
+  {
+    "sample_id": 196,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 30
+  },
+  {
+    "sample_id": 197,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 34
+  },
+  {
+    "sample_id": 198,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 199,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 30
+  },
+  {
+    "sample_id": 200,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 39
+  },
+  {
+    "sample_id": 201,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 202,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 203,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 204,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 205,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 206,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 23
+  },
+  {
+    "sample_id": 207,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 208,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 209,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 210,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 211,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 23
+  },
+  {
+    "sample_id": 212,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 213,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 214,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 215,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 216,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 23
+  },
+  {
+    "sample_id": 217,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 218,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 219,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 28
+  },
+  {
+    "sample_id": 220,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 221,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 222,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 223,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 27
+  },
+  {
+    "sample_id": 224,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 27
+  },
+  {
+    "sample_id": 225,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 226,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 227,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 228,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 229,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 230,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 231,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 232,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 30
+  },
+  {
+    "sample_id": 233,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 234,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 235,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 236,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 237,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 238,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 23
+  },
+  {
+    "sample_id": 239,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 240,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 241,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 23
+  },
+  {
+    "sample_id": 242,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 243,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 244,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 245,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 246,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 247,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 248,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 23
+  },
+  {
+    "sample_id": 249,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 250,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 251,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 252,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 23
+  },
+  {
+    "sample_id": 253,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 254,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 255,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 256,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 257,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 258,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 259,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 260,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 261,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 262,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 263,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 28
+  },
+  {
+    "sample_id": 264,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 265,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 266,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 267,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 268,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 269,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 270,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 30
+  },
+  {
+    "sample_id": 271,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 272,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 273,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 274,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 275,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 276,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 277,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 278,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 279,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 280,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 281,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 282,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 283,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 284,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 285,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 286,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 287,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 288,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 289,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 290,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 291,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 292,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 293,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 294,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 295,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 296,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 297,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 298,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 299,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 300,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 301,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 302,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 303,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 304,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 305,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 306,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 307,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 308,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 309,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 310,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 311,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 312,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 313,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 314,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 315,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 316,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 317,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 318,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 319,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 320,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 321,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 322,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 323,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 324,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 325,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 326,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 327,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 328,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 329,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 330,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 331,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 332,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 333,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 334,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 335,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 336,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 337,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 338,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 339,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 340,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 341,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 342,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 343,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 344,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 345,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 1
+  },
+  {
+    "sample_id": 346,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 347,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 348,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 349,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 350,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 351,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 352,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 353,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 354,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 355,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 1
+  },
+  {
+    "sample_id": 356,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 357,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 3
+  },
+  {
+    "sample_id": 358,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 359,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 3
+  },
+  {
+    "sample_id": 360,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 361,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 362,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 363,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 364,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 365,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 366,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 367,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 368,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 369,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 370,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 371,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 372,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 373,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 374,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 375,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 376,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 377,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 378,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 379,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 380,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 381,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 382,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 383,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 384,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 2
+  },
+  {
+    "sample_id": 385,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 386,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 387,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 388,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 389,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 390,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 391,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 392,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 393,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 394,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 395,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 396,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 397,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 398,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 399,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 400,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 401,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 402,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 403,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 404,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 405,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 406,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 407,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 408,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 409,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 410,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 411,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 412,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 413,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 23
+  },
+  {
+    "sample_id": 414,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 415,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 416,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 417,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 418,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 419,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 420,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 421,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 422,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 423,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 424,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 425,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 426,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 427,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 428,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 429,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 430,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 431,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 432,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 433,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 434,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 435,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 436,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 437,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 438,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 439,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 440,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 441,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 442,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 443,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 444,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 445,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 446,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 447,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 448,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 449,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 450,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 451,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 452,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 453,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 454,
+    "LULCrcl": "Sawah",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 4
+  },
+  {
+    "sample_id": 455,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 456,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 3
+  },
+  {
+    "sample_id": 457,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 458,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 459,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 460,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 461,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 462,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 463,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 464,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 465,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 466,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 467,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 468,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 469,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 470,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 471,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 472,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 473,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 474,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 475,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 476,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 477,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 478,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 479,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 480,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 481,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 482,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 483,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 32
+  },
+  {
+    "sample_id": 484,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 485,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 37
+  },
+  {
+    "sample_id": 486,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 487,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 40
+  },
+  {
+    "sample_id": 488,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 30
+  },
+  {
+    "sample_id": 489,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 37
+  },
+  {
+    "sample_id": 490,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 39
+  },
+  {
+    "sample_id": 491,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 30
+  },
+  {
+    "sample_id": 492,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 42
+  },
+  {
+    "sample_id": 493,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 494,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 495,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 34
+  },
+  {
+    "sample_id": 496,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 34
+  },
+  {
+    "sample_id": 497,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 30
+  },
+  {
+    "sample_id": 498,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 37
+  },
+  {
+    "sample_id": 499,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 34
+  },
+  {
+    "sample_id": 500,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 501,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 37
+  },
+  {
+    "sample_id": 502,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 503,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 39
+  },
+  {
+    "sample_id": 504,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 38
+  },
+  {
+    "sample_id": 505,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 40
+  },
+  {
+    "sample_id": 506,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 33
+  },
+  {
+    "sample_id": 507,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 34
+  },
+  {
+    "sample_id": 508,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 509,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 38
+  },
+  {
+    "sample_id": 510,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 511,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 40
+  },
+  {
+    "sample_id": 512,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 31
+  },
+  {
+    "sample_id": 513,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 33
+  },
+  {
+    "sample_id": 514,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 26
+  },
+  {
+    "sample_id": 515,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 31
+  },
+  {
+    "sample_id": 516,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 517,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 518,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 39
+  },
+  {
+    "sample_id": 519,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 520,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 31
+  },
+  {
+    "sample_id": 521,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 522,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 523,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 40
+  },
+  {
+    "sample_id": 524,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 38
+  },
+  {
+    "sample_id": 525,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 526,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 41
+  },
+  {
+    "sample_id": 527,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 38
+  },
+  {
+    "sample_id": 528,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 30
+  },
+  {
+    "sample_id": 529,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 32
+  },
+  {
+    "sample_id": 530,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 531,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 532,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 33
+  },
+  {
+    "sample_id": 533,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 42
+  },
+  {
+    "sample_id": 534,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 42
+  },
+  {
+    "sample_id": 535,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 536,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 35
+  },
+  {
+    "sample_id": 537,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 37
+  },
+  {
+    "sample_id": 538,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 32
+  },
+  {
+    "sample_id": 539,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 36
+  },
+  {
+    "sample_id": 540,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 28
+  },
+  {
+    "sample_id": 541,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 38
+  },
+  {
+    "sample_id": 542,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 37
+  },
+  {
+    "sample_id": 543,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 544,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 43
+  },
+  {
+    "sample_id": 545,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 37
+  },
+  {
+    "sample_id": 546,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 39
+  },
+  {
+    "sample_id": 547,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 27
+  },
+  {
+    "sample_id": 548,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 38
+  },
+  {
+    "sample_id": 549,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 29
+  },
+  {
+    "sample_id": 550,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 32
+  },
+  {
+    "sample_id": 551,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 38
+  },
+  {
+    "sample_id": 552,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 33
+  },
+  {
+    "sample_id": 553,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 34
+  },
+  {
+    "sample_id": 554,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 23
+  },
+  {
+    "sample_id": 555,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 34
+  },
+  {
+    "sample_id": 556,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 29
+  },
+  {
+    "sample_id": 557,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 41
+  },
+  {
+    "sample_id": 558,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 33
+  },
+  {
+    "sample_id": 559,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 28
+  },
+  {
+    "sample_id": 560,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 27
+  },
+  {
+    "sample_id": 561,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 562,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 563,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 564,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 565,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 566,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 567,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 568,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 569,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 570,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 28
+  },
+  {
+    "sample_id": 571,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 572,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 573,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 28
+  },
+  {
+    "sample_id": 574,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 575,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 576,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 577,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 578,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 579,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 580,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 581,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 582,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 583,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 27
+  },
+  {
+    "sample_id": 584,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 585,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 586,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 26
+  },
+  {
+    "sample_id": 587,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 588,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 27
+  },
+  {
+    "sample_id": 589,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 590,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 591,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 28
+  },
+  {
+    "sample_id": 592,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 593,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 594,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 595,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 596,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 29
+  },
+  {
+    "sample_id": 597,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 598,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 27
+  },
+  {
+    "sample_id": 599,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 600,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 601,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 602,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 28
+  },
+  {
+    "sample_id": 603,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 604,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 605,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 606,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 607,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 608,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 609,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 33
+  },
+  {
+    "sample_id": 610,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 611,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 26
+  },
+  {
+    "sample_id": 612,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 613,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 614,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 23
+  },
+  {
+    "sample_id": 615,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 26
+  },
+  {
+    "sample_id": 616,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 617,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 618,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 26
+  },
+  {
+    "sample_id": 619,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 620,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 621,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 622,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 623,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 624,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 31
+  },
+  {
+    "sample_id": 625,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 626,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 627,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 628,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 629,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 26
+  },
+  {
+    "sample_id": 630,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 631,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 632,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 633,
+    "LULCrcl": "Hutan",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 634,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 26
+  },
+  {
+    "sample_id": 635,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 636,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 637,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 638,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 639,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 640,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 641,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 642,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 643,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 644,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 645,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 26
+  },
+  {
+    "sample_id": 646,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 647,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 648,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 649,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 24
+  },
+  {
+    "sample_id": 650,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 25
+  },
+  {
+    "sample_id": 651,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 652,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 26
+  },
+  {
+    "sample_id": 653,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 20
+  },
+  {
+    "sample_id": 654,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 21
+  },
+  {
+    "sample_id": 655,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 656,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 19
+  },
+  {
+    "sample_id": 657,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 658,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 27
+  },
+  {
+    "sample_id": 659,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 22
+  },
+  {
+    "sample_id": 660,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 661,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 662,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 18
+  },
+  {
+    "sample_id": 663,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 664,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 665,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 666,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 667,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 668,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 669,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 670,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 671,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 672,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 673,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 674,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 675,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 676,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 677,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 678,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 5
+  },
+  {
+    "sample_id": 679,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 1,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 680,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 681,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 682,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 683,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 684,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 685,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 686,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 687,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 688,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 689,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 690,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 691,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 692,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 693,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 694,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 695,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 696,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 17
+  },
+  {
+    "sample_id": 697,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 698,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 699,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 700,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 701,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 702,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 703,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 704,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 705,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 706,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 707,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 708,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 709,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 710,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 711,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 712,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 713,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 714,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 715,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 716,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 717,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 718,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 719,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 720,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 721,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 722,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 723,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 724,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 725,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 726,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 727,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 728,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 729,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 0,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 730,
+    "LULCrcl": "Sawah",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 731,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 732,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 733,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 734,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 15
+  },
+  {
+    "sample_id": 735,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 736,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 8
+  },
+  {
+    "sample_id": 737,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 6
+  },
+  {
+    "sample_id": 738,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 14
+  },
+  {
+    "sample_id": 739,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 740,
+    "LULCrcl": "Hutan",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 13
+  },
+  {
+    "sample_id": 741,
+    "LULCrcl": "Lainnya",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 16
+  },
+  {
+    "sample_id": 742,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 11
+  },
+  {
+    "sample_id": 743,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 7
+  },
+  {
+    "sample_id": 744,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  },
+  {
+    "sample_id": 745,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 9
+  },
+  {
+    "sample_id": 746,
+    "LULCrcl": "Kebun karet",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 12
+  },
+  {
+    "sample_id": 747,
+    "LULCrcl": "Kebun sawit",
+    "waterbody_": 0,
+    "tree_domin": 1,
+    "vegetation": 10
+  }
+]

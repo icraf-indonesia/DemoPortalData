@@ -20,8 +20,8 @@ test('createTrainingExportPackage produces valid ZIP with all 8 required files a
     {
       observation_id: 'sawit_001',
       geometry: { type: 'Point', coordinates: [104.5, -2.8] },
-      project_class_id: 2,
-      project_class_label: 'Kelapa sawit',
+      project_class_id: 1,
+      project_class_label: 'Kebun sawit',
       dataset_archive: 'Data_kebun_sawit_karet_F.zip',
       source_class_id: '1',
       source_class_label: 'Kebun sawit'
@@ -29,8 +29,8 @@ test('createTrainingExportPackage produces valid ZIP with all 8 required files a
     {
       observation_id: 'karet_001',
       geometry: { type: 'Point', coordinates: [104.6, -2.7] },
-      project_class_id: 1,
-      project_class_label: 'Karet',
+      project_class_id: 2,
+      project_class_label: 'Kebun karet',
       dataset_archive: 'Data_kebun_sawit_karet_F.zip',
       source_class_id: '2',
       source_class_label: 'Kebun karet'
@@ -68,12 +68,19 @@ test('createTrainingExportPackage produces valid ZIP with all 8 required files a
     'training_points.cpg',
     'training_points.csv',
     'training_points.geojson',
+    'classes.csv',
     'manifest.json'
   ];
 
   for (const exp of expectedFiles) {
     assert.ok(filenames.includes(exp), `ZIP must contain ${exp}`);
   }
+
+  // Check classes.csv content matches uploaded scheme exactly
+  const classesCsv = await result.zip.file('classes.csv').async('string');
+  assert.ok(classesCsv.includes('1,Kebun sawit,#D81C5C'));
+  assert.ok(classesCsv.includes('2,Kebun karet,#761C97'));
+  assert.ok(classesCsv.includes('3,Lainnya,#6E6E6E'));
 
   // Check manifest invariants
   const manifest = result.manifest;
@@ -110,8 +117,8 @@ try:
     fields = [f[0] for f in sf.fields[1:]]
     assert fields[0] == 'class_id'
     records = sf.records()
-    assert int(records[0]['class_id']) == 2 # Sawit
-    assert int(records[1]['class_id']) == 1 # Karet
+    assert int(records[0]['class_id']) == 1 # Kebun sawit
+    assert int(records[1]['class_id']) == 2 # Kebun karet
     assert int(records[2]['class_id']) == 3 # Lainnya
     print('ZIP verification passed with pyshp!')
 except ImportError:

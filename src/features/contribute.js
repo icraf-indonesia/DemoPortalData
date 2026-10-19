@@ -139,9 +139,9 @@ export class ContributionWorkflow {
     for (const r of owned) {
       if (isForestryContext) {
         forestCount += 1;
-      } else if (r.project_class_id === 1 || String(r.source_class_label || '').toLowerCase().includes('karet')) {
+      } else if (r.project_class_id === 2 || String(r.source_class_label || '').toLowerCase().includes('karet')) {
         rubberCount += 1;
-      } else if (r.project_class_id === 2 || String(r.source_class_label || '').toLowerCase().includes('sawit')) {
+      } else if (r.project_class_id === 1 || String(r.source_class_label || '').toLowerCase().includes('sawit')) {
         palmCount += 1;
       }
     }
@@ -273,12 +273,12 @@ export class ContributionWorkflow {
       }
       resolvedCrosswalk[classId] = {
         projectClassId: classId,
-        projectClassLabel: classId === 1 ? 'Karet' : 'Kelapa sawit',
+        projectClassLabel: classId === 1 ? 'Kebun sawit' : 'Kebun karet',
         epistemLeafId: leafNode.id,
         code: leafNode.code,
         name: leafNode.name,
         path: leafNode.path || leafNode.name,
-        colour: classId === 1 ? '#7B1FA2' : '#E91E63'
+        colour: classId === 1 ? '#D81C5C' : '#761C97'
       };
     }
 
@@ -323,13 +323,19 @@ export class ContributionWorkflow {
       const pClassId = Number(r.project_class_id) || 1;
       const cw = resolvedCrosswalk[pClassId] || null;
 
+      const primitiveData = r.primitives || declarations.primitivesMap?.[r.observation_id] || null;
       const rawProps = {
         rights_id: r.rights_id ?? null,
         contributor_id: r.contributor_id ?? null,
         observed_date: r.observed_date ?? r.observed_time ?? null,
         dataset_id: r.source_dataset_id || r.dataset_id || r.dataset_archive || null,
         ...(r.raw_properties || {}),
-        ...(r.raw_attributes || {})
+        ...(r.raw_attributes || {}),
+        ...(primitiveData ? {
+          waterbody_: primitiveData.waterbody,
+          tree_domin: primitiveData.tree_dominance,
+          vegetation: primitiveData.vegetation_height
+        } : {})
       };
 
       return {
@@ -337,6 +343,7 @@ export class ContributionWorkflow {
         coordinates: r.coordinates || (r.geometry ? r.geometry.coordinates : null),
         project_class: r.project_class !== undefined ? r.project_class : r.project_class_id,
         raw_properties: rawProps,
+        primitives: primitiveData,
         is_contributed: true,
         is_published: true,
         contribution_type: 'owned_plantation_publication',
@@ -359,6 +366,7 @@ export class ContributionWorkflow {
           crosswalk_leaf_code: cw ? cw.code : null,
           crosswalk_leaf_name: cw ? cw.name : null,
           crosswalk_leaf_path: cw ? cw.path : null,
+          primitives: primitiveData,
           version,
           published_at: createdAt
         },

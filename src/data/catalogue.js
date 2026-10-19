@@ -211,6 +211,25 @@ export async function loadDataset(datasetId) {
       project_class_id: 1,
       project_class_label: 'Titik Rujukan (Tanpa Label)'
     }));
+  } else if (datasetId === 'data_kebun_sawit_karet_f') {
+    records = records.map(r => {
+      const srcId = Number(r.source_class_id);
+      if (srcId === 1) {
+        return {
+          ...r,
+          project_class_id: 1,
+          project_class_label: 'Kebun sawit'
+        };
+      }
+      if (srcId === 2) {
+        return {
+          ...r,
+          project_class_id: 2,
+          project_class_label: 'Kebun karet'
+        };
+      }
+      return r;
+    });
   }
 
   return {

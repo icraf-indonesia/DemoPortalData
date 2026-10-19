@@ -34,8 +34,8 @@ export const REF_MOD_2B_CLASSES = Object.freeze([
 export const DATASET_COMPLEMENT_CLASSES = Object.freeze({
   data_ref_mod_2b: REF_MOD_2B_CLASSES,
   data_kontribusi_mandiri: Object.freeze([
-    { id: '1', label: 'Karet', isTargetClass: false, description: 'Observasi kebun karet mandiri (Dinas Perkebunan)' },
-    { id: '2', label: 'Kelapa sawit', isTargetClass: false, description: 'Observasi kebun kelapa sawit mandiri (Dinas Perkebunan)' }
+    { id: '1', label: 'Kebun sawit', isTargetClass: false, description: 'Observasi kebun kelapa sawit mandiri (Dinas Perkebunan)' },
+    { id: '2', label: 'Kebun karet', isTargetClass: false, description: 'Observasi kebun karet mandiri (Dinas Perkebunan)' }
   ]),
   data_sawah: Object.freeze([
     { id: '1', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah (Koleksi Mitra)' },
@@ -246,12 +246,21 @@ export class ComplementWorkflow {
       }
     }
 
-    // 3. Deduplicate against existing workspace points
+    // 3. Deduplicate against existing workspace points (by observation_id AND spatial coordinates)
+    const existingCoords = new Set(
+      existingPoints.map(p => {
+        const c = p.geometry?.coordinates;
+        return c ? `${Number(c[0]).toFixed(6)},${Number(c[1]).toFixed(6)}` : null;
+      }).filter(Boolean)
+    );
+
     const netNewPoints = [];
     const duplicatePoints = [];
 
     for (const obs of matchedByClass) {
-      if (existingIds.has(obs.observation_id)) {
+      const coords = obs.geometry?.coordinates;
+      const coordKey = coords ? `${Number(coords[0]).toFixed(6)},${Number(coords[1]).toFixed(6)}` : null;
+      if (existingIds.has(obs.observation_id) || (coordKey && existingCoords.has(coordKey))) {
         duplicatePoints.push(obs);
       } else {
         netNewPoints.push(obs);
@@ -317,8 +326,8 @@ export class ComplementWorkflow {
       if (isCase3) {
         targetLabel = targetId === 1 ? 'Hutan' : 'Non-hutan';
       } else {
-        if (targetId === 1) targetLabel = 'Karet';
-        else if (targetId === 2) targetLabel = 'Kelapa sawit';
+        if (targetId === 1) targetLabel = 'Kebun sawit';
+        else if (targetId === 2) targetLabel = 'Kebun karet';
         else targetLabel = 'Lainnya';
       }
 
