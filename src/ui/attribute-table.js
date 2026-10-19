@@ -14,6 +14,7 @@
 
 import { getProjectClass } from '../domain/taxonomy.js';
 import { getScenarioOverlay, MODES } from '../demo/scenarios.js';
+import { derivePrimitivesForRecord } from '../features/primitives.js';
 
 export class AttributeTableView {
   /**
@@ -137,7 +138,10 @@ export class AttributeTableView {
       'Waktu Pengamatan',
       'Metode Survei',
       'Tingkat Kualitas',
-      'Kepemilikan'
+      'Kepemilikan',
+      'Keberadaan Air',
+      'Keberadaan Pohon',
+      'Tinggi Tajuk (m)'
     ];
 
     for (const colText of columns) {
@@ -265,6 +269,24 @@ export class AttributeTableView {
           tdRights.textContent = 'Belum tercatat';
         }
         tr.appendChild(tdRights);
+
+        // 9. Primitives (Air, Pohon, Tinggi Tajuk)
+        const primitives = derivePrimitivesForRecord(obs);
+
+        const tdWater = document.createElement('td');
+        tdWater.className = 'td-primitive td-primitive-water';
+        tdWater.textContent = primitives.waterbody === 1 ? 'Ada' : 'Tidak Ada';
+        tr.appendChild(tdWater);
+
+        const tdTree = document.createElement('td');
+        tdTree.className = 'td-primitive td-primitive-tree';
+        tdTree.textContent = primitives.tree_dominance === 1 ? 'Ada' : 'Tidak Ada';
+        tr.appendChild(tdTree);
+
+        const tdVeg = document.createElement('td');
+        tdVeg.className = 'td-primitive td-primitive-veg';
+        tdVeg.textContent = `${primitives.vegetation_height} m`;
+        tr.appendChild(tdVeg);
 
         // Interaction handlers
         const selectRow = () => {

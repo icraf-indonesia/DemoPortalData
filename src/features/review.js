@@ -54,7 +54,7 @@ export const SIMULATED_REVIEWERS = Object.freeze([
   },
   {
     id: 'penelaah_3',
-    name: 'Budi, M.Sc. (Agronom Lahan Sawah)',
+    name: 'Dony, M.Sc. (Agronom Lahan Sawah)',
     role: 'Penelaah Independen 3 (Simulasi)',
     affiliation: 'Asosiasi Ahli Pertanian Lahan Basah'
   }

@@ -3379,3 +3379,59 @@ select:focus-visible {
   border-radius: 4px;
 }
 
+/* Map Popup Primitives Block */
+.map-popup-card {
+  font-family: inherit;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #1e293b;
+}
+
+.popup-sub, .popup-src, .popup-coords {
+  font-size: 0.74rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.popup-primitives-block {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.popup-primitives-title {
+  font-size: 0.73rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #475569;
+  margin-bottom: 3px;
+}
+
+.popup-primitives-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.popup-primitives-item {
+  font-size: 0.75rem;
+  color: #334155;
+}
+
+.popup-primitives-item strong {
+  color: #0f172a;
+}
+
+/* Attribute Table Primitives Cells */
+.td-primitive {
+  white-space: nowrap;
+  font-size: 0.78rem;
+  color: #334155;
+}
+
+.td-primitive-veg {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+

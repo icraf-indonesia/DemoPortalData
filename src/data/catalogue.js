@@ -24,7 +24,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
   },
   data_ref_mod_f: {
     id: 'data_ref_mod_f',
-    title: 'Data Referensi Modular (2a)',
+    title: 'Data Referensi Modular',
     category: 'Data Referensi',
     year: 2024,
     location: 'Kabupaten Banyuasin',
@@ -36,7 +36,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
   },
   data_ref_mod_2b: {
     id: 'data_ref_mod_2b',
-    title: 'Data Referensi Modular (2b)',
+    title: 'Data Referensi Modular Dengan Label',
     category: 'Data Referensi',
     year: 2025,
     location: 'Kabupaten Banyuasin',

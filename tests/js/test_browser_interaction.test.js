@@ -172,14 +172,14 @@ test('Browser E2E: Verified UI components, labels, and interactions', async (t) 
 
     const newActiveCard = await page.$('.catalogue-card.is-active');
     const newTitle = await newActiveCard.textContent();
-    assert.ok(newTitle.includes('Data Referensi Modular (2a)'));
+    assert.ok(newTitle.includes('Data Referensi Modular'));
 
     // 10. Test Refresh and Persistence Recovery
     await page.reload({ waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => window.portalApp?.workspace?.activeRecords?.length > 0);
     const reloadedActiveCard = await page.$('.catalogue-card.is-active');
     const reloadedTitle = await reloadedActiveCard.textContent();
-    assert.ok(reloadedTitle.includes('Data Referensi Modular (2a)'), 'Restored active dataset after refresh');
+    assert.ok(reloadedTitle.includes('Data Referensi Modular'), 'Restored active dataset after refresh');
 
   } finally {
     if (browser) await browser.close();

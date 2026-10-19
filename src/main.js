@@ -85,7 +85,7 @@ function getDatasetComplementMeta(item) {
   switch (item.id) {
     case 'data_ref_mod_2b':
       return {
-        title: 'Data Referensi Modular (2b)',
+        title: 'Data Referensi Modular Dengan Label',
         contributor: 'Tim Telaah Mitra (2025)',
         year: 2025,
         location: item.location || 'Kabupaten Banyuasin',
@@ -115,7 +115,7 @@ function getDatasetComplementMeta(item) {
       };
     case 'data_ref_mod_f':
       return {
-        title: 'Data Referensi Modular (2a)',
+        title: 'Data Referensi Modular',
         contributor: 'Koleksi Referensi (2024)',
         year: 2024,
         location: item.location || 'Kabupaten Banyuasin',
@@ -198,6 +198,9 @@ class PortalApp {
 
   async init() {
     this.updateErrorBanner();
+
+    // 0. Initialize Authentication UI immediately so login submit is active from millisecond 0
+    this.initAuthUI();
 
     // 1. Initialize user preferences and project state from storage
     this.workspace.initPreferences();
@@ -396,9 +399,6 @@ class PortalApp {
       this.datasetError = `Gagal menginisialisasi Portal Data Epistem: ${err.message}`;
       this.updateErrorBanner();
     }
-
-    // 7. Initialize Authentication & User Profile UI
-    this.initAuthUI();
   }
 
   /**
@@ -489,43 +489,72 @@ class PortalApp {
 
     if (btnHeaderLogout) btnHeaderLogout.addEventListener('click', handleLogout);
 
-    // Login Form Submit
-    if (loginForm) {
-      loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = inputEmail ? inputEmail.value.trim() : '';
-        const password = inputPassword ? inputPassword.value.trim() : '';
+    // Login Submit Handler
+    const submitLogin = async () => {
+      const email = inputEmail ? inputEmail.value.trim() : '';
+      const password = inputPassword ? inputPassword.value.trim() : '';
 
-        const user = authenticateUser(email, password);
-        if (!user) {
-          if (errorBanner) {
-            errorBanner.textContent = 'Email atau kata sandi tidak valid. Silakan periksa kembali email dan kata sandi Anda.';
-            errorBanner.style.display = 'block';
-          }
-          if (inputPassword) {
-            inputPassword.value = '';
-            inputPassword.focus();
-          }
-          return;
+      const user = authenticateUser(email, password);
+      if (!user) {
+        if (errorBanner) {
+          errorBanner.textContent = 'Email atau kata sandi tidak valid. Silakan periksa kembali email dan kata sandi Anda.';
+          errorBanner.style.display = 'block';
         }
+        if (inputPassword) {
+          inputPassword.value = '';
+          inputPassword.focus();
+        }
+        return;
+      }
 
-        // Login success
-        if (errorBanner) errorBanner.style.display = 'none';
-        this.currentUser = user;
-        this.updateUserProfileUI(user);
-        if (loginScreen) loginScreen.style.display = 'none';
+      // Login success
+      if (errorBanner) errorBanner.style.display = 'none';
+      this.currentUser = user;
+      this.updateUserProfileUI(user);
+      if (loginScreen) loginScreen.style.display = 'none';
 
-        // Automatically launch the corresponding case
+      // Automatically launch the corresponding case
+      try {
         await this.syncCase(user.defaultCaseId);
+      } catch (err) {
+        console.warn('Sync case warning on login:', err);
+      }
 
-        // Invalidate map size so Leaflet renders properly
-        window.setTimeout(() => {
-          if (this.mapView && this.mapView.map) {
-            this.mapView.map.invalidateSize();
-          }
-        }, 150);
+      // Invalidate map size so Leaflet renders properly
+      window.setTimeout(() => {
+        if (this.mapView && this.mapView.map) {
+          this.mapView.map.invalidateSize();
+        }
+      }, 150);
+    };
+
+    if (loginForm) {
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        submitLogin();
+        return false;
       });
     }
+
+    const btnLoginSubmit = document.getElementById('btn-login-submit');
+    if (btnLoginSubmit) {
+      btnLoginSubmit.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        submitLogin();
+      });
+    }
+
+    const onEnterKey = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        e.stopPropagation();
+        submitLogin();
+      }
+    };
+    if (inputEmail) inputEmail.addEventListener('keydown', onEnterKey);
+    if (inputPassword) inputPassword.addEventListener('keydown', onEnterKey);
 
     // Check URL parameters for autologin/test mode
     try {
@@ -536,7 +565,7 @@ class PortalApp {
         if (!autoUser && urlParams.has('case')) {
           autoUser = getUserByCaseId(Number(urlParams.get('case')));
         }
-        if (!autoUser) autoUser = DEMO_USERS.rizki;
+        if (!autoUser) autoUser = DEMO_USERS.faza;
 
         this.currentUser = autoUser;
         this.updateUserProfileUI(autoUser);
@@ -1673,8 +1702,8 @@ class PortalApp {
       (this.workspace.case3PrivateCollection && selectedDatasetId === this.workspace.case3PrivateCollection.meta.id) ||
       this.workspace.activeCaseId === 3;
 
-    const defaultAccountName = isForestryDataset ? 'Budi' : 'Rizki';
-    const defaultEmail = isForestryDataset ? 'budi@mail.com' : 'rizki@mail.com';
+    const defaultAccountName = isForestryDataset ? 'Dony' : 'Faza';
+    const defaultEmail = isForestryDataset ? 'dony@mail.com' : 'faza@mail.com';
     const defaultInstitution = isForestryDataset ? 'Instansi Kehutanan B' : 'Instansi Perkebunan A';
     const defaultMethod = isForestryDataset ? 'Inventarisasi Hutan' : 'Survei GPS Lapangan';
 
@@ -3769,8 +3798,8 @@ class PortalApp {
       if (this.currentUser && this.currentUser.id === 'admin') {
         this.updateUserProfileUI(DEMO_USERS.admin);
       } else {
-        this.currentUser = DEMO_USERS.rizki;
-        this.updateUserProfileUI(DEMO_USERS.rizki);
+        this.currentUser = DEMO_USERS.faza;
+        this.updateUserProfileUI(DEMO_USERS.faza);
       }
       const selectUserRole = document.getElementById('select-active-user-header') || document.getElementById('select-user-role');
       const popoverUserRole = document.getElementById('popover-user-role-select');
@@ -3830,11 +3859,18 @@ class PortalApp {
   }
 }
 
-// Bootstrap on DOM ready
-document.addEventListener('DOMContentLoaded', () => {
+// Bootstrap on DOM ready or immediately if document is already ready
+function bootstrap() {
+  if (window.portalApp) return;
   const app = new PortalApp();
   window.portalApp = app;
   app.init().catch(err => {
     console.error('Unhandled app startup exception:', err);
   });
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrap);
+} else {
+  bootstrap();
+}

@@ -19,6 +19,7 @@ import {
   CASE4_TARGET_CLASSES,
   UNMAPPED_CLASS
 } from '../domain/taxonomy.js';
+import { derivePrimitivesForRecord } from '../features/primitives.js';
 
 export const OPENTOPOMAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, SRTM | Map style: &copy; <a href="https://opentopomap.org/about" target="_blank" rel="noopener">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC-BY-SA</a>)';
 export const OPENTOPOMAP_TILE_URL = 'https://a.tile.opentopomap.org/{z}/{x}/{y}.png';
@@ -690,6 +691,19 @@ export class MapView {
         coordsEl.className = 'popup-coords';
         coordsEl.textContent = `Koord: ${coords[1].toFixed(5)}, ${coords[0].toFixed(5)}`;
         popupDiv.appendChild(coordsEl);
+
+        const primitives = derivePrimitivesForRecord(obs);
+        const primBlock = document.createElement('div');
+        primBlock.className = 'popup-primitives-block';
+        primBlock.innerHTML = `
+          <div class="popup-primitives-title">Nilai Primitives:</div>
+          <div class="popup-primitives-list">
+            <div class="popup-primitives-item">&bull; Air: <strong>${primitives.waterbody === 1 ? 'Ada' : 'Tidak Ada'}</strong></div>
+            <div class="popup-primitives-item">&bull; Pohon: <strong>${primitives.tree_dominance === 1 ? 'Ada' : 'Tidak Ada'}</strong></div>
+            <div class="popup-primitives-item">&bull; Tinggi Tajuk: <strong>${primitives.vegetation_height} m</strong></div>
+          </div>
+        `;
+        popupDiv.appendChild(primBlock);
 
         marker.bindPopup(popupDiv);
 
