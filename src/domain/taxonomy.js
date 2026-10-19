@@ -77,7 +77,7 @@ export const CASE3_FORESTRY_CLASSES = Object.freeze({
     id: 2,
     label: 'Non-hutan',
     colour: '#78909C',
-    description: 'Tutupan lahan non-hutan (perkebunan, sawah, dan rujukan lainnya)'
+    description: 'Tutupan lahan non-hutan (perkebunan, sawah, dan referensi lainnya)'
   })
 });
 
@@ -152,7 +152,7 @@ export const DATA_SAWAH_SCHEMA = Object.freeze({
     id: 1,
     label: 'Sawah',
     colour: '#2E7D32',
-    description: 'Lahan basah pertanian sawah (Koleksi Mitra)'
+    description: 'Lahan basah pertanian sawah (Kontribusi Pengguna)'
   })
 });
 
@@ -168,9 +168,9 @@ export const DATA_HUTAN_SCHEMA = Object.freeze({
 export const DATA_REF_MOD_F_SCHEMA = Object.freeze({
   1: Object.freeze({
     id: 1,
-    label: 'Titik Rujukan (Tanpa Label)',
+    label: 'Titik Referensi (Tanpa Label)',
     colour: '#607D8B',
-    description: 'Titik rujukan sampling acak/grid tanpa label kelas sumber'
+    description: 'Titik referensi sampling acak/grid tanpa label kelas sumber'
   })
 });
 

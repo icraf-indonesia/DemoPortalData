@@ -41,7 +41,7 @@ export const CASES_NAVIGATION = Object.freeze([
     id: 3,
     title: 'Kasus 3',
     label: 'Kasus 3: Data Mitra',
-    description: 'Penggunaan ulang titik rujukan lintas sektor (kehutanan dan sawah)',
+    description: 'Penggunaan ulang titik referensi lintas sektor (kehutanan dan sawah)',
     status: 'active'
   },
   {
@@ -55,7 +55,7 @@ export const CASES_NAVIGATION = Object.freeze([
 
 export const PROJECT_CONTEXT = Object.freeze({
   projectId: 'epistem_banyuasin_2026',
-  projectName: 'Proyek Rujukan Tutupan Lahan Banyuasin',
+  projectName: 'Proyek Referensi Tutupan Lahan Banyuasin',
   aoiId: 'banyuasin',
   aoiName: 'Kabupaten Banyuasin',
   targetYear: 2026,
@@ -103,20 +103,20 @@ export const DATASET_SCENARIOS = Object.freeze({
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Pemilik A (Pengguna)',
     contributorDisplayName: 'Pemilik A',
-    rightsStatus: 'Izin penggunaan internal',
+    rightsStatus: 'Privat',
     method: 'Survei Lapangan',
     qualityTier: null,
     assumptions: [
       'Titik observasi awal diamati pada tahun 2026 oleh Pemilik A',
-      'Izin penggunaan internal percontohan'
+      'Izin penggunaan privat percontohan'
     ]
   },
   data_ref_mod_2b: {
     observedYear: 2025,
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
-    owner: 'Koleksi Mitra Rujukan',
+    owner: 'Kontribusi Pengguna Referensi',
     contributorDisplayName: 'Tim Telaah Mitra (2025)',
-    rightsStatus: 'Izin penggunaan terbuka',
+    rightsStatus: 'Terbuka',
     method: 'Interpretasi Citra & Uji Lapang',
     qualityTier: 2,
     assumptions: [
@@ -128,13 +128,13 @@ export const DATASET_SCENARIOS = Object.freeze({
   data_hutan: {
     observedYear: 2024,
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
-    owner: 'Dinas Kehutanan Provinsi Sumatera Selatan',
-    contributorDisplayName: 'Dinas Kehutanan (2024)',
-    rightsStatus: 'Izin data terbuka',
+    owner: 'Instansi Kehutanan B',
+    contributorDisplayName: 'Instansi Kehutanan B (2024)',
+    rightsStatus: 'Terbuka',
     method: 'Inventarisasi Hutan',
     qualityTier: 3,
     assumptions: [
-      'Titik hutan diamati tahun 2024 oleh Dinas Kehutanan dengan izin terbuka'
+      'Titik hutan diamati tahun 2024 oleh Instansi Kehutanan B dengan izin terbuka'
     ]
   },
   data_sawah: {
@@ -142,7 +142,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
     owner: 'Dinas Pertanian Daerah',
     contributorDisplayName: 'Dinas Pertanian (2025)',
-    rightsStatus: 'Izin data terbuka',
+    rightsStatus: 'Terbuka',
     method: 'Survei Lahan Pertanian',
     qualityTier: 3,
     assumptions: [
@@ -177,18 +177,18 @@ export const DATASET_SCENARIOS = Object.freeze({
     observedYear: 2026,
     owner: 'Koleksi Gabungan Pengguna',
     contributorDisplayName: 'Pemilik A & Mitra',
-    rightsStatus: 'Izin penggunaan internal percontohan',
+    rightsStatus: 'Privat',
     method: 'Campuran',
     qualityTier: null,
     assumptions: [
-      'Gabungan data kebun pengguna dan rujukan mitra'
+      'Gabungan data kebun pengguna dan referensi mitra'
     ]
   },
   data_kontribusi_mandiri: {
     observedYear: 2026,
     owner: 'Pemilik A (Pengguna)',
     contributorDisplayName: 'Pemilik A (Kontribusi Mandiri)',
-    rightsStatus: 'Izin donasi internal terbuka',
+    rightsStatus: 'Terbuka',
     method: 'Interpretasi Citra / Survei Lapangan',
     qualityTier: null,
     assumptions: [
@@ -200,11 +200,11 @@ export const DATASET_SCENARIOS = Object.freeze({
     observedYear: 2026,
     owner: 'Pengguna B (Kehutanan)',
     contributorDisplayName: 'Pengguna B & Mitra',
-    rightsStatus: 'Izin penggunaan internal percontohan',
+    rightsStatus: 'Privat',
     method: 'Campuran',
     qualityTier: null,
     assumptions: [
-      'Gabungan data tutupan hutan pengguna B dan rujukan mitra'
+      'Gabungan data tutupan hutan pengguna B dan referensi mitra'
     ]
   }
 });

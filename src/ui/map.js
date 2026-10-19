@@ -19,6 +19,7 @@ import {
   CASE4_TARGET_CLASSES,
   UNMAPPED_CLASS
 } from '../domain/taxonomy.js';
+import { derivePrimitivesForRecord } from '../features/primitives.js';
 
 export const OPENTOPOMAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, SRTM | Map style: &copy; <a href="https://opentopomap.org/about" target="_blank" rel="noopener">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC-BY-SA</a>)';
 export const OPENTOPOMAP_TILE_URL = 'https://a.tile.opentopomap.org/{z}/{x}/{y}.png';
@@ -30,13 +31,13 @@ export const EOX_ATTRIBUTION = 'EOxCloudless - https://cloudless.eox.at by EOX I
 export const EOX_TILE_URL = 'https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2025_3857/default/g/{z}/{y}/{x}.jpg';
 
 export const BASEMAP_PROVIDERS = Object.freeze({
-  opentopomap: {
-    id: 'opentopomap',
-    name: 'Topografi',
-    sublabel: 'OpenTopoMap',
-    url: OPENTOPOMAP_TILE_URL,
-    attribution: OPENTOPOMAP_ATTRIBUTION,
-    maxZoom: 17
+  eox: {
+    id: 'eox',
+    name: 'Satelit',
+    sublabel: 'Sentinel-2 Cloudless 2025',
+    url: EOX_TILE_URL,
+    attribution: EOX_ATTRIBUTION,
+    maxZoom: 18
   },
   osm: {
     id: 'osm',
@@ -45,22 +46,6 @@ export const BASEMAP_PROVIDERS = Object.freeze({
     url: OSM_TILE_URL,
     attribution: OSM_ATTRIBUTION,
     maxZoom: 19
-  },
-  eox: {
-    id: 'eox',
-    name: 'Satelit',
-    sublabel: 'EOX 2025',
-    url: EOX_TILE_URL,
-    attribution: EOX_ATTRIBUTION,
-    maxZoom: 18
-  },
-  neutral: {
-    id: 'neutral',
-    name: 'Abu Netral',
-    sublabel: 'Lokal',
-    url: null,
-    attribution: '',
-    maxZoom: 18
   }
 });
 
@@ -82,21 +67,25 @@ export class MapView {
     this.draftLayer = null;
     this.activeTileLayer = null;
 
-    // Load persisted basemap provider and overlay states (default to online OpenTopoMap matching OpenLandMap)
-    let savedProvider = 'opentopomap';
+    // Load persisted basemap provider and overlay states (default to online EOX Sentinel-2 Cloudless 2025)
+    let savedProvider = 'eox';
     let savedBoundary = true;
     let savedPoints = true;
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
-        const isMigrated = window.localStorage.getItem('portal_epistem_basemap_migrated_topo');
+        const isMigrated = window.localStorage.getItem('portal_epistem_basemap_migrated_s2');
         const p = window.localStorage.getItem('portal_epistem_basemap_provider');
         if (!isMigrated) {
-          // First run or migration: default to opentopomap matching official OpenLandMap
-          savedProvider = 'opentopomap';
-          window.localStorage.setItem('portal_epistem_basemap_provider', 'opentopomap');
-          window.localStorage.setItem('portal_epistem_basemap_migrated_topo', 'true');
+          // First run or migration: default to eox (Satelit Sentinel-2 Cloudless 2025)
+          savedProvider = 'eox';
+          window.localStorage.setItem('portal_epistem_basemap_provider', 'eox');
+          window.localStorage.setItem('portal_epistem_basemap_migrated_s2', 'true');
         } else if (p && BASEMAP_PROVIDERS[p]) {
           savedProvider = p;
+        } else {
+          // Stale provider fallback
+          savedProvider = 'eox';
+          window.localStorage.setItem('portal_epistem_basemap_provider', 'eox');
         }
         const b = window.localStorage.getItem('portal_epistem_overlay_boundary');
         if (b !== null) savedBoundary = b === 'true';
@@ -240,13 +229,13 @@ export class MapView {
       <div class="popover-section">
         <div class="popover-section-label">Peta Dasar</div>
         <div class="basemap-card-grid">
-          <button type="button" class="basemap-card" data-provider="opentopomap" title="Topografi (OpenTopoMap)">
-            <div class="basemap-thumb basemap-thumb-opentopomap thumb-opentopomap">
-              <div class="thumb-contour1"></div>
-              <div class="thumb-contour2"></div>
+          <button type="button" class="basemap-card" data-provider="eox" title="Satelit Sentinel-2 Cloudless 2025">
+            <div class="basemap-thumb basemap-thumb-eox thumb-eox">
+              <div class="thumb-sat-patch1"></div>
+              <div class="thumb-sat-patch2"></div>
             </div>
-            <div class="basemap-card-label basemap-card-title">Topografi</div>
-            <div class="basemap-card-sub">OpenTopoMap</div>
+            <div class="basemap-card-label basemap-card-title">Satelit</div>
+            <div class="basemap-card-sub">Sentinel-2 Cloudless 2025</div>
           </button>
           <button type="button" class="basemap-card" data-provider="osm" title="Peta Jalan (OpenStreetMap)">
             <div class="basemap-thumb basemap-thumb-osm thumb-osm">
@@ -257,25 +246,10 @@ export class MapView {
             <div class="basemap-card-label basemap-card-title">Peta Jalan</div>
             <div class="basemap-card-sub">OpenStreetMap</div>
           </button>
-          <button type="button" class="basemap-card" data-provider="eox" title="Citra Satelit EOX Sentinel-2 Cloudless 2025">
-            <div class="basemap-thumb basemap-thumb-eox thumb-eox">
-              <div class="thumb-sat-patch1"></div>
-              <div class="thumb-sat-patch2"></div>
-            </div>
-            <div class="basemap-card-label basemap-card-title">Satelit</div>
-            <div class="basemap-card-sub">EOX 2025</div>
-          </button>
-          <button type="button" class="basemap-card" data-provider="neutral" title="Latar Abu Netral Lokal">
-            <div class="basemap-thumb basemap-thumb-neutral thumb-neutral">
-              <div class="thumb-neutral-grid"></div>
-            </div>
-            <div class="basemap-card-label basemap-card-title">Abu Netral</div>
-            <div class="basemap-card-sub">Lokal</div>
-          </button>
         </div>
       </div>
       <div class="popover-section">
-        <div class="popover-section-label">Hamparan Data</div>
+        <div class="popover-section-label">Elemen Data</div>
         <label class="overlay-toggle-item">
           <input type="checkbox" id="chk-overlay-boundary" ${this.showBoundary ? 'checked' : ''}>
           <span class="overlay-toggle-text">Batas Banyuasin</span>
@@ -391,13 +365,13 @@ export class MapView {
   setBasemapProvider(providerId, onFailure = null) {
     if (!this.map || typeof window.L === 'undefined') return;
 
-    const provider = BASEMAP_PROVIDERS[providerId] || BASEMAP_PROVIDERS.opentopomap;
+    const provider = BASEMAP_PROVIDERS[providerId] || BASEMAP_PROVIDERS.eox || BASEMAP_PROVIDERS.osm;
     this.activeProviderId = provider.id;
 
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
         window.localStorage.setItem('portal_epistem_basemap_provider', provider.id);
-        window.localStorage.setItem('portal_epistem_basemap_migrated_topo', 'true');
+        window.localStorage.setItem('portal_epistem_basemap_migrated_s2', 'true');
       }
     } catch (_) {}
 
@@ -497,7 +471,7 @@ export class MapView {
     if (enable) {
       this.setBasemapProvider('eox', onFailure);
     } else {
-      this.setBasemapProvider('neutral');
+      this.setBasemapProvider('osm');
     }
   }
 
@@ -717,6 +691,19 @@ export class MapView {
         coordsEl.className = 'popup-coords';
         coordsEl.textContent = `Koord: ${coords[1].toFixed(5)}, ${coords[0].toFixed(5)}`;
         popupDiv.appendChild(coordsEl);
+
+        const primitives = derivePrimitivesForRecord(obs);
+        const primBlock = document.createElement('div');
+        primBlock.className = 'popup-primitives-block';
+        primBlock.innerHTML = `
+          <div class="popup-primitives-title">Nilai Primitives:</div>
+          <div class="popup-primitives-list">
+            <div class="popup-primitives-item">&bull; Air: <strong>${primitives.waterbody === 1 ? 'Ada' : 'Tidak Ada'}</strong></div>
+            <div class="popup-primitives-item">&bull; Pohon: <strong>${primitives.tree_dominance === 1 ? 'Ada' : 'Tidak Ada'}</strong></div>
+            <div class="popup-primitives-item">&bull; Tinggi Tajuk: <strong>${primitives.vegetation_height} m</strong></div>
+          </div>
+        `;
+        popupDiv.appendChild(primBlock);
 
         marker.bindPopup(popupDiv);
 

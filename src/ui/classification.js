@@ -150,7 +150,7 @@ export class ClassificationView {
         const addBtn = document.createElement('button');
         addBtn.className = 'btn-add-data-lainnya';
         addBtn.type = 'button';
-        addBtn.textContent = '+ Tambah Data Rujukan';
+        addBtn.textContent = '+ Tambah Data Referensi';
         addBtn.setAttribute('aria-label', 'Buka katalog terbuka untuk melengkapi kelas Lainnya');
         addBtn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -176,7 +176,7 @@ export class ClassificationView {
         const addPartnerBtn = document.createElement('button');
         addPartnerBtn.className = 'btn-add-data-lainnya';
         addPartnerBtn.type = 'button';
-        addPartnerBtn.textContent = '+ Tambah Data Rujukan';
+        addPartnerBtn.textContent = '+ Tambah Data Referensi';
         addPartnerBtn.setAttribute('aria-label', 'Buka katalog terbuka untuk melengkapi kelas Non-hutan');
         addPartnerBtn.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -261,7 +261,7 @@ export class ClassificationView {
 
     const totalLabel = document.createElement('span');
     totalLabel.className = 'total-label';
-    totalLabel.textContent = 'Total Observasi:';
+    totalLabel.textContent = 'Total Data:';
     totalFooter.appendChild(totalLabel);
 
     const totalValue = document.createElement('span');

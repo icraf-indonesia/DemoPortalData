@@ -14,6 +14,7 @@
 
 import { getProjectClass } from '../domain/taxonomy.js';
 import { getScenarioOverlay, MODES } from '../demo/scenarios.js';
+import { derivePrimitivesForRecord } from '../features/primitives.js';
 
 export class AttributeTableView {
   /**
@@ -91,7 +92,7 @@ export class AttributeTableView {
 
     const titleEl = document.createElement('h3');
     titleEl.className = 'table-title';
-    titleEl.textContent = 'Tabel Atribut Observasi';
+    titleEl.textContent = 'Tabel Atribut';
     titleGroup.appendChild(titleEl);
 
     const countInfo = document.createElement('span');
@@ -137,7 +138,10 @@ export class AttributeTableView {
       'Waktu Pengamatan',
       'Metode Survei',
       'Tingkat Kualitas',
-      'Hak & Lisensi'
+      'Kepemilikan',
+      'Keberadaan Air',
+      'Keberadaan Pohon',
+      'Tinggi Tajuk (m)'
     ];
 
     for (const colText of columns) {
@@ -240,17 +244,49 @@ export class AttributeTableView {
         }
         tr.appendChild(tdQuality);
 
-        // 8. Rights
+        // 8. Kepemilikan (Privat / Terbuka)
         const tdRights = document.createElement('td');
+        let rawRights = '';
         if (overlay && overlay.rightsStatus) {
-          tdRights.textContent = String(overlay.rightsStatus).replace(/\s*\((?:Simulasi|Asumsi)[^)]*\)/gi, '');
+          rawRights = String(overlay.rightsStatus).replace(/\s*\((?:Simulasi|Asumsi)[^)]*\)/gi, '').trim();
         } else if (obs.rights_id) {
-          tdRights.textContent = String(obs.rights_id);
+          rawRights = String(obs.rights_id).trim();
+        } else if (obs.simulated_rights_status) {
+          rawRights = String(obs.simulated_rights_status).trim();
+        }
+
+        if (rawRights) {
+          const lower = rawRights.toLowerCase();
+          if (lower.includes('internal') || lower.includes('privat')) {
+            tdRights.textContent = 'Privat';
+          } else if (lower.includes('terbuka') || lower.includes('publik') || lower.includes('donasi')) {
+            tdRights.textContent = 'Terbuka';
+          } else {
+            tdRights.textContent = rawRights;
+          }
         } else {
           tdRights.className = 'td-null';
           tdRights.textContent = 'Belum tercatat';
         }
         tr.appendChild(tdRights);
+
+        // 9. Primitives (Air, Pohon, Tinggi Tajuk)
+        const primitives = derivePrimitivesForRecord(obs);
+
+        const tdWater = document.createElement('td');
+        tdWater.className = 'td-primitive td-primitive-water';
+        tdWater.textContent = primitives.waterbody === 1 ? 'Ada' : 'Tidak Ada';
+        tr.appendChild(tdWater);
+
+        const tdTree = document.createElement('td');
+        tdTree.className = 'td-primitive td-primitive-tree';
+        tdTree.textContent = primitives.tree_dominance === 1 ? 'Ada' : 'Tidak Ada';
+        tr.appendChild(tdTree);
+
+        const tdVeg = document.createElement('td');
+        tdVeg.className = 'td-primitive td-primitive-veg';
+        tdVeg.textContent = `${primitives.vegetation_height} m`;
+        tr.appendChild(tdVeg);
 
         // Interaction handlers
         const selectRow = () => {

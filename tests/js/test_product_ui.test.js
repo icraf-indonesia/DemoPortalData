@@ -8,7 +8,7 @@
  * 2. NLCD-style flat compact legend: 'Skema Klasifikasi' heading, rectangular swatches, numeric class IDs,
  *    right-aligned counts, Lainnya add data action, Belum dipetakan pseudo-class completely removed from legend.
  * 3. Task buttons: 'Bagikan Data' opens contribution modal without altering workspace state.
- * 4. Floating map layer menu: 4 basemap cards (Topografi OpenTopoMap default, Peta Jalan OSM, Satelit EOX 2025, Abu Netral) and overlay toggles;
+ * 4. Floating map layer menu: 2 basemap cards (Satelit Sentinel-2 Cloudless 2025 default, Peta Jalan OSM) and overlay toggles;
  *    selection persists across browser refresh.
  * 5. Honest offline/error handling for basemap providers.
  * 6. Private Training export (927 points): all 927 Case 1 points eligible in Source mode, single warning acknowledgement checkbox,
@@ -112,7 +112,7 @@ test('Product UI: Comprehensive Browser Verification & Screenshots', async () =>
     assert.ok(labelCombined.includes('Bagikan Data'));
     assert.ok(labelCombined.includes('Data Mitra'));
     assert.ok(labelCombined.includes('Telaah Mutu'));
-    assert.ok(labelCombined.includes('Ekspor ke Luma'));
+    assert.ok(labelCombined.includes('Ekspor Data'));
     assert.ok(!labelCombined.includes('Kasus 1'), 'No visible Kasus 1 in task buttons');
     assert.ok(!labelCombined.includes('Kasus 2'), 'No visible Kasus 2 in task buttons');
 
@@ -156,14 +156,14 @@ test('Product UI: Comprehensive Browser Verification & Screenshots', async () =>
     await layerMenuBtn.click();
     await page.waitForSelector('#popover-layer-menu', { state: 'visible' });
 
-    // Verify 4 basemap cards
+    // Verify 2 basemap cards
     const basemapCards = await page.$$('#popover-layer-menu .basemap-card');
-    assert.equal(basemapCards.length, 4, '4 basemap cards: OpenTopoMap, OSM, EOX, Neutral');
+    assert.equal(basemapCards.length, 2, '2 basemap cards: Satelit Sentinel-2 Cloudless 2025 and OSM');
 
-    // Verify OpenTopoMap default active
+    // Verify Satelit Sentinel-2 Cloudless 2025 (eox) default active
     const activeBasemap = await page.$('#popover-layer-menu .basemap-card.is-active');
     const activeProvider = await activeBasemap.getAttribute('data-provider');
-    assert.equal(activeProvider, 'opentopomap', 'Default online basemap is OpenTopoMap');
+    assert.equal(activeProvider, 'eox', 'Default online basemap is Satelit Sentinel-2 Cloudless 2025 (eox)');
 
     // Verify Overlays
     const chkBoundary = await page.$('#chk-overlay-boundary');
@@ -171,9 +171,9 @@ test('Product UI: Comprehensive Browser Verification & Screenshots', async () =>
     assert.ok(await chkBoundary.isChecked(), 'Boundary overlay is checked by default');
     assert.ok(await chkPoints.isChecked(), 'Points overlay is checked by default');
 
-    // Switch to Neutral and test persistence
-    const neutralCard = await page.$('#popover-layer-menu .basemap-card[data-provider="neutral"]');
-    await neutralCard.click();
+    // Switch to OSM and test persistence
+    const osmCard = await page.$('#popover-layer-menu .basemap-card[data-provider="osm"]');
+    await osmCard.click();
     await page.waitForTimeout(200);
 
     // Close menu by clicking outside on open map canvas
@@ -188,11 +188,11 @@ test('Product UI: Comprehensive Browser Verification & Screenshots', async () =>
 
     const persistedBasemap = await page.$('#popover-layer-menu .basemap-card.is-active');
     const persistedProvider = await persistedBasemap.getAttribute('data-provider');
-    assert.equal(persistedProvider, 'neutral', 'Neutral basemap persisted across refresh');
+    assert.equal(persistedProvider, 'osm', 'OSM basemap persisted across refresh');
 
-    // Switch back to OpenTopoMap
-    const topoCard = await page.$('#popover-layer-menu .basemap-card[data-provider="opentopomap"]');
-    await topoCard.click();
+    // Switch back to EOX
+    const eoxCard = await page.$('#popover-layer-menu .basemap-card[data-provider="eox"]');
+    await eoxCard.click();
     await page.waitForTimeout(100);
 
     // 4. Test Bagikan Data Task Button
@@ -243,7 +243,7 @@ test('Product UI: Comprehensive Browser Verification & Screenshots', async () =>
     await page.waitForSelector('.modal-title', { timeout: 3000 });
 
     const expTitle = await page.textContent('.modal-title');
-    assert.equal(expTitle.trim(), 'Ekspor Dataset Pelatihan Luma');
+    assert.equal(expTitle.trim(), 'Ekspor Data');
 
     const expBody = await page.textContent('.modal-body');
     assert.ok(expBody.includes('927 titik'), 'All 927 points eligible for private training');

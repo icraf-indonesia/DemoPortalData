@@ -138,7 +138,7 @@ test('Case 1 E2E: Full workflow verification in headless Chromium', async () => 
     const card3Count = await page.textContent('.class-card-3 .class-count');
     assert.ok(card3Count.includes('0 titik · Belum tersedia'));
 
-    // Verify "+ Tambah Data Rujukan" button exists on Lainnya
+    // Verify "+ Tambah Data Referensi" button exists on Lainnya
     const addDataBtn = await page.$('.btn-add-data-lainnya');
     assert.ok(addDataBtn, 'Add data button exists on Lainnya');
 

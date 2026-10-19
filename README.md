@@ -46,7 +46,7 @@ Opening `index.html` directly is unsupported because the application loads JavaS
 - Select **Ciutkan** on either side panel to expose more of the map. Use its labelled button to reopen it.
 - Select **Buka Tabel** at the bottom to inspect observation attributes.
 - Use **Lapisan** to choose OpenTopoMap, OpenStreetMap, EOX 2025 satellite imagery, or a neutral background. Online basemaps require internet access; local observations and boundaries remain available without them.
-- Use **Ekspor ke Luma** to download a training package. Private training export permits unknown metadata after acknowledgement and preserves the original values.
+- Use **Ekspor Data** to download a training package. Private training export permits unknown metadata after acknowledgement and preserves the original values.
 
 Drafts, review state, combinations, and display preferences are stored in the browser. They do not sync between computers or browser profiles. Changing the server port also creates a separate browser-storage origin.
 

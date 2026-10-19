@@ -97,10 +97,10 @@ test('WorkspaceState toggles collapsible attribute table and side panels and not
   assert.equal(ws.isRightCollapsed, true);
 });
 
-test('savePreferences succeeds with honest label "Tersimpan di browser ini"', () => {
+test('savePreferences succeeds with label "Data Tersimpan"', () => {
   const res = savePreferences({ activeDatasetId: 'koleksi_a', isTableCollapsed: true, isLeftCollapsed: false, isRightCollapsed: true });
   assert.equal(res.success, true);
-  assert.equal(res.label, 'Tersimpan di browser ini');
+  assert.equal(res.label, 'Data Tersimpan');
   assert.ok(res.timestamp);
 
   const restored = loadPreferences();
@@ -196,11 +196,11 @@ test('WorkspaceState getActiveSchema adapts flexibly to active dataset selection
   assert.equal(schema[1].label, 'Hutan');
   assert.equal(schema[2].label, 'Non-hutan');
 
-  // Modular 2a unlabeled reference dataset: 1 class (Titik Rujukan (Tanpa Label))
+  // Modular 2a unlabeled reference dataset: 1 class (Titik Referensi (Tanpa Label))
   ws.activeDatasetId = 'data_ref_mod_f';
   schema = ws.getActiveSchema();
   assert.equal(Object.keys(schema).length, 1);
-  assert.equal(schema[1].label, 'Titik Rujukan (Tanpa Label)');
+  assert.equal(schema[1].label, 'Titik Referensi (Tanpa Label)');
 
   // Case 4 multi-source combination: 5 classes
   ws.activeDatasetId = 'case4_data_kombinasi_f';

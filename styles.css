@@ -751,6 +751,20 @@ select:focus-visible {
   font-weight: 600;
 }
 
+.catalogue-badge.catalogue-badge-classes {
+  background-color: #f8fafc;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  font-weight: 600;
+}
+
+.catalogue-badge.badge-new {
+  background-color: #10b981;
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid #059669;
+}
+
 .catalogue-badge-active {
   font-size: 0.68rem;
   font-weight: 700;
@@ -777,11 +791,42 @@ select:focus-visible {
 
 .catalogue-card-footer {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end;
+  gap: 8px;
   font-size: 0.7rem;
   color: var(--luma-faint);
   border-top: 1px dashed #e2e8f0;
-  padding-top: 4px;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+
+.footer-counts-col,
+.footer-counts-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.7rem;
+  text-align: left;
+}
+
+.footer-count-left {
+  font-weight: 600;
+  color: #334155;
+  line-height: 1.3;
+}
+
+.footer-count-right {
+  font-weight: 500;
+  color: #64748b;
+  line-height: 1.3;
+}
+
+.footer-actions-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .footer-sha {
@@ -791,6 +836,7 @@ select:focus-visible {
 .footer-private {
   color: #7e22ce;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 /* Catalogue Tabs & Actions */
@@ -831,18 +877,21 @@ select:focus-visible {
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .btn-card-share {
   background-color: var(--luma-rose-light);
   color: var(--luma-pink);
   border: 1px solid var(--luma-rose-hover);
-  padding: 2px 8px;
+  padding: 3px 8px;
   border-radius: 4px;
   font-size: 0.7rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .btn-card-share:hover {
@@ -864,6 +913,28 @@ select:focus-visible {
 
 .btn-card-download:hover {
   background-color: #166534;
+  color: #ffffff;
+}
+
+.btn-card-review {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-card-review:hover {
+  background-color: #1d4ed8;
   color: #ffffff;
 }
 
@@ -2723,7 +2794,7 @@ select:focus-visible {
   position: relative;
 }
 .basemap-thumb-eox::after {
-  content: "EOX";
+  content: "S2";
   position: absolute;
   bottom: 2px;
   right: 2px;
@@ -3336,5 +3407,61 @@ select:focus-visible {
   font-size: 0.76rem;
   border: 1px solid #cbd5e1;
   border-radius: 4px;
+}
+
+/* Map Popup Primitives Block */
+.map-popup-card {
+  font-family: inherit;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #1e293b;
+}
+
+.popup-sub, .popup-src, .popup-coords {
+  font-size: 0.74rem;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.popup-primitives-block {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.popup-primitives-title {
+  font-size: 0.73rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #475569;
+  margin-bottom: 3px;
+}
+
+.popup-primitives-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.popup-primitives-item {
+  font-size: 0.75rem;
+  color: #334155;
+}
+
+.popup-primitives-item strong {
+  color: #0f172a;
+}
+
+/* Attribute Table Primitives Cells */
+.td-primitive {
+  white-space: nowrap;
+  font-size: 0.78rem;
+  color: #334155;
+}
+
+.td-primitive-veg {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
 }
 
