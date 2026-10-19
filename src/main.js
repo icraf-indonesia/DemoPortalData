@@ -57,7 +57,7 @@ import {
 } from './domain/taxonomy.js';
 import { isPointInAoi } from './domain/records.js';
 import { createTrainingExportPackage, triggerBrowserDownload } from './export/luma-adapter.js';
-import { DEMO_USERS, authenticateUser, getUserById, getUserByCaseId } from './features/auth.js';
+import { DEMO_USERS, authenticateUser, getUserById, getUserByCaseId } from './features/auth.js?v=20261019_admin';
 
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
@@ -285,10 +285,14 @@ class PortalApp {
       this.workspace.setCase(caseId);
       this.workspace.setActiveUser(userId);
       this.updateCaseNavHighlight(caseId);
-      const matchedUser = getUserByCaseId(caseId);
-      if (matchedUser) {
-        this.currentUser = matchedUser;
-        this.updateUserProfileUI(matchedUser);
+      if (this.currentUser && this.currentUser.id === 'admin') {
+        this.updateUserProfileUI(this.currentUser);
+      } else {
+        const matchedUser = getUserByCaseId(caseId);
+        if (matchedUser) {
+          this.currentUser = matchedUser;
+          this.updateUserProfileUI(matchedUser);
+        }
       }
       await this.switchDataset(targetDataset);
     };
@@ -3762,8 +3766,12 @@ class PortalApp {
     confirmBtn.textContent = 'Ya, Reset Sekarang';
     confirmBtn.addEventListener('click', async () => {
       this.workspace.resetWorkspace();
-      this.currentUser = DEMO_USERS.rizki;
-      this.updateUserProfileUI(DEMO_USERS.rizki);
+      if (this.currentUser && this.currentUser.id === 'admin') {
+        this.updateUserProfileUI(DEMO_USERS.admin);
+      } else {
+        this.currentUser = DEMO_USERS.rizki;
+        this.updateUserProfileUI(DEMO_USERS.rizki);
+      }
       const selectUserRole = document.getElementById('select-active-user-header') || document.getElementById('select-user-role');
       const popoverUserRole = document.getElementById('popover-user-role-select');
       if (selectUserRole) selectUserRole.value = 'case_1';

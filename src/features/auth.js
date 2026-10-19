@@ -3,12 +3,27 @@
  * Authentication and dummy user profiles for Portal Data Epistem.
  *
  * Accounts:
- * 1. Rizki (Pengguna A - Kasus 1): rizki@mail.com / password123
- * 2. Budi (Pengguna B - Kasus 3): budi@mail.com / password123
- * 3. Putri (Pengguna C - Kasus 4): putri@mail.com / password123
+ * 1. Admin (Administrator): admin / admin@mail.com / password123
+ * 2. Rizki (Pengguna A - Kasus 1): rizki@mail.com / password123
+ * 3. Budi (Pengguna B - Kasus 3): budi@mail.com / password123
+ * 4. Putri (Pengguna C - Kasus 4): putri@mail.com / password123
  */
 
 export const DEMO_USERS = Object.freeze({
+  admin: {
+    id: 'admin',
+    key: 'admin',
+    name: 'Admin',
+    fullName: 'Administrator',
+    email: 'admin@mail.com',
+    password: 'password123',
+    role: 'Administrator',
+    roleTitle: 'Administrator Sistem & Data',
+    institution: 'Konsorsium Epistem',
+    defaultCaseId: 1,
+    avatarBg: '#6366f1', // Indigo / Purple
+    avatarInitial: 'A'
+  },
   rizki: {
     id: 'user_a',
     key: 'rizki',

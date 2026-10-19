@@ -53,7 +53,26 @@ test('authenticateUser: rejects incorrect password or missing fields', () => {
   assert.equal(authenticateUser(null, null), null);
 });
 
+test('authenticateUser: successfully authenticates Admin (Administrator) with defaultCaseId 1', () => {
+  const byEmail = authenticateUser('admin@mail.com', 'password123');
+  assert.ok(byEmail, 'Admin should authenticate by email');
+  assert.equal(byEmail.name, 'Admin');
+  assert.equal(byEmail.fullName, 'Administrator');
+  assert.equal(byEmail.id, 'admin');
+  assert.equal(byEmail.role, 'Administrator');
+  assert.equal(byEmail.defaultCaseId, 1);
+
+  const byName = authenticateUser('admin', 'password123');
+  assert.ok(byName, 'Admin should authenticate by username');
+  assert.equal(byName.id, 'admin');
+
+  const byUpper = authenticateUser('ADMIN@MAIL.COM', 'password123');
+  assert.ok(byUpper, 'Admin should authenticate case-insensitively');
+  assert.equal(byUpper.name, 'Admin');
+});
+
 test('getUserById and getUserByCaseId return correct users', () => {
+  assert.equal(getUserById('admin').name, 'Admin');
   assert.equal(getUserById('user_a').name, 'Rizki');
   assert.equal(getUserById('user_b').name, 'Budi');
   assert.equal(getUserById('user_c').name, 'Putri');
