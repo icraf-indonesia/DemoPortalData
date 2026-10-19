@@ -78,7 +78,7 @@ function getDatasetComplementMeta(item) {
       year: item.year || 2026,
       location: item.location || 'Kabupaten Banyuasin',
       category: 'Publikasi Mandiri',
-      rights: 'Terbuka (Mandiri)',
+      rights: 'Terbuka',
       hasLabel: true
     };
   }
@@ -86,11 +86,11 @@ function getDatasetComplementMeta(item) {
     case 'data_ref_mod_2b':
       return {
         title: 'Data Referensi Modular Dengan Label',
-        contributor: 'Tim Telaah Mitra (2025)',
+        contributor: '',
         year: 2025,
         location: item.location || 'Kabupaten Banyuasin',
         category: 'Data Referensi',
-        rights: 'Izin Terbuka Simulasi Mitra',
+        rights: 'Terbuka',
         hasLabel: true
       };
     case 'data_sawah':
@@ -100,7 +100,7 @@ function getDatasetComplementMeta(item) {
         year: 2025,
         location: item.location || 'Kabupaten Banyuasin',
         category: 'Kontribusi Pengguna',
-        rights: 'Terbuka (Mitra Pertanian)',
+        rights: 'Terbuka',
         hasLabel: true
       };
     case 'data_hutan':
@@ -110,7 +110,7 @@ function getDatasetComplementMeta(item) {
         year: 2024,
         location: item.location || 'Kabupaten Banyuasin',
         category: 'Kontribusi Pengguna',
-        rights: 'Terbuka (Instansi Kehutanan B)',
+        rights: 'Terbuka',
         hasLabel: true
       };
     case 'data_ref_mod_f':
@@ -120,7 +120,7 @@ function getDatasetComplementMeta(item) {
         year: 2024,
         location: item.location || 'Kabupaten Banyuasin',
         category: 'Data Referensi',
-        rights: 'Terbuka (Modular)',
+        rights: 'Terbuka',
         hasLabel: false
       };
     case 'data_campuran_1':
@@ -129,8 +129,8 @@ function getDatasetComplementMeta(item) {
         contributor: 'Pengguna A (2025–2026)',
         year: '2025–2026',
         location: item.location || 'Kabupaten Banyuasin',
-        category: 'Data Campuran (Rujukan)',
-        rights: 'Izin Terbuka (Koleksi Pengguna)',
+        category: 'Data Campuran (Referensi)',
+        rights: 'Privat',
         hasLabel: true
       };
     case 'case4_data_kombinasi_f':
@@ -139,8 +139,8 @@ function getDatasetComplementMeta(item) {
         contributor: 'Konsorsium Mitra (2025)',
         year: 2025,
         location: item.location || 'Kabupaten Banyuasin',
-        category: 'Koleksi Terpadu (Kasus 4)',
-        rights: 'Terbuka (Multi-Sumber)',
+        category: 'Koleksi Terpadu',
+        rights: 'Terbuka',
         hasLabel: true
       };
     default:
@@ -150,7 +150,7 @@ function getDatasetComplementMeta(item) {
         year: item.year || 2025,
         location: item.location || 'Kabupaten Banyuasin',
         category: item.category || 'Data Terbuka',
-        rights: 'Terbuka',
+        rights: item.isPrivate ? 'Privat' : 'Terbuka',
         hasLabel: true
       };
   }
@@ -710,7 +710,7 @@ class PortalApp {
         } else if (task === 'partner' || caseId === 3) {
           this.handleCaseNavigation(3);
         } else if (task === 'review' || caseId === 4) {
-          this.handleCaseNavigation(4);
+          this.openQualityReviewModal();
         }
       });
     });
@@ -757,7 +757,7 @@ class PortalApp {
     } else if (caseId === 3 && isAlreadyOnCase) {
       this.openComplementModal();
     } else if (caseId === 4) {
-      this.openReviewModal();
+      this.openQualityReviewModal();
     }
   }
 
@@ -842,7 +842,7 @@ class PortalApp {
     header.className = 'modal-header';
     const title = document.createElement('h3');
     title.className = 'modal-title';
-    title.textContent = 'Tambah Data Rujukan → Katalog Terbuka';
+    title.textContent = 'Tambah Data Referensi → Katalog Terbuka';
     header.appendChild(title);
 
     const subtitle = document.createElement('p');
@@ -1038,6 +1038,13 @@ class PortalApp {
         return true;
       });
 
+      // Ensure 'data_ref_mod_f' (Data Referensi Modular) is placed at the very end of the catalogue list
+      filtered.sort((a, b) => {
+        if (a.id === 'data_ref_mod_f') return 1;
+        if (b.id === 'data_ref_mod_f') return -1;
+        return 0;
+      });
+
       if (filtered.length === 0) {
         const emptyNotice = document.createElement('div');
         emptyNotice.className = 'complement-empty-notice';
@@ -1080,10 +1087,12 @@ class PortalApp {
         locBadge.textContent = `🗺️ ${meta.location}`;
         badgesRow.appendChild(locBadge);
 
-        const instBadge = document.createElement('span');
-        instBadge.className = 'complement-card-badge badge-inst';
-        instBadge.textContent = `🏛️ ${meta.contributor}`;
-        badgesRow.appendChild(instBadge);
+        if (meta.contributor) {
+          const instBadge = document.createElement('span');
+          instBadge.className = 'complement-card-badge badge-inst';
+          instBadge.textContent = `🏛️ ${meta.contributor}`;
+          badgesRow.appendChild(instBadge);
+        }
 
         const labelBadge = document.createElement('span');
         labelBadge.className = 'complement-card-badge';
@@ -1103,7 +1112,8 @@ class PortalApp {
         const rightsNotice = document.createElement('span');
         rightsNotice.style.fontSize = '0.72rem';
         rightsNotice.style.color = 'var(--luma-muted)';
-        rightsNotice.textContent = `Status Hak: ${meta.rights}`;
+        const rightsValue = (meta.rights === 'Privat' || meta.isPrivate) ? 'Privat' : 'Terbuka';
+        rightsNotice.textContent = `Kepemilikan: ${rightsValue}`;
         cardFooter.appendChild(rightsNotice);
 
         const selectBtn = document.createElement('button');
@@ -1235,7 +1245,7 @@ class PortalApp {
     header.className = 'modal-header';
     const title = document.createElement('h3');
     title.className = 'modal-title';
-    title.textContent = 'Tambah Data Rujukan → Pilih Kelas Sumber';
+    title.textContent = 'Tambah Data Referensi → Pilih Kelas Sumber';
     header.appendChild(title);
 
     const subtitle = document.createElement('p');
@@ -1463,12 +1473,12 @@ class PortalApp {
     header.className = 'modal-header';
     const title = document.createElement('h3');
     title.className = 'modal-title';
-    title.textContent = 'Tinjau Penambahan Titik Rujukan';
+    title.textContent = 'Tinjau Penambahan Data Referensi';
     header.appendChild(title);
 
     const subtitle = document.createElement('p');
     subtitle.className = 'modal-subtitle';
-    subtitle.textContent = 'Verifikasi jumlah titik kandidat, kriteria kelayakan, dan estimasi perubahan sebelum melakukan komitmen.';
+    subtitle.textContent = 'Verifikasi jumlah titik kandidat, kriteria kelayakan, dan estimasi perubahan sebelum melakukan penambahan data.';
     header.appendChild(subtitle);
     container.appendChild(header);
 
@@ -1490,12 +1500,11 @@ class PortalApp {
       table.appendChild(tr);
     };
 
-    addRow('Koleksi Sumber:', `${meta.title} (${meta.contributor})`);
+    addRow('Koleksi Sumber:', meta.title);
     addRow('Lokasi & Wilayah:', `${meta.location}`);
-    addRow('Mode Operasi:', isScenario ? 'Skenario Percontohan' : 'Sumber Nyata (Pencarian Ketat)');
     addRow('Waktu Pengamatan:', `${meta.year}`);
-    const cleanRights = meta.rights ? String(meta.rights).replace(/\s*\((?:Simulasi|Asumsi)[^)]*\)/gi, '') : 'Belum terverifikasi';
-    addRow('Status Hak/Izin:', isScenario ? cleanRights : 'Belum terverifikasi');
+    const rightsVal = (meta.rights === 'Privat' || meta.isPrivate) ? 'Privat' : 'Terbuka';
+    addRow('Kepemilikan:', rightsVal);
     addRow('Kandidat Sumber Total:', `${preview.totalSourceCandidates} titik`);
     addRow('Lolos Saringan Kriteria:', `${preview.eligibleAfterFilters} titik (${preview.excludedByFilter} dikecualikan)`);
     addRow('Titik Duplikat (Dilewati):', `${preview.duplicateCount} titik`);
@@ -1583,7 +1592,7 @@ class PortalApp {
       const customTitle = nameInput.value.trim() || defaultName;
       const res = this.complementWorkflow.confirmAddition(this.workspace.activeMode, customTitle);
       this.dialog.close();
-      this.noticeMessage = `Berhasil membuat "${res.title || res.datasetId}": ditambahkan +${res.addedCount} titik rujukan baru untuk kelas ${targetClassLabel} (Total: ${res.totalCount} titik).`;
+      this.noticeMessage = `Berhasil membuat "${res.title || res.datasetId}": ditambahkan +${res.addedCount} titik referensi baru untuk kelas ${targetClassLabel} (Total: ${res.totalCount} titik).`;
       this.updateErrorBanner();
     });
     footer.appendChild(confirmBtn);
@@ -1735,14 +1744,14 @@ class PortalApp {
     header.className = 'modal-header';
     const title = document.createElement('h3');
     title.className = 'modal-title';
-    title.textContent = 'Bagikan Data: Publikasi & Donasi Observasi Mandiri';
+    title.textContent = 'Bagikan Data: Publikasi & Sumbang Data';
     header.appendChild(title);
 
     const subtitle = document.createElement('p');
     subtitle.className = 'modal-subtitle';
     subtitle.textContent = isForestryDataset
-      ? 'Memisahkan observasi tutupan hutan mandiri dari data rujukan pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.'
-      : 'Memisahkan observasi kebun mandiri dari data rujukan pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.';
+      ? 'Memisahkan observasi tutupan hutan mandiri dari data referensi pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.'
+      : 'Memisahkan observasi kebun mandiri dari data referensi pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.';
     header.appendChild(subtitle);
     container.appendChild(header);
 
@@ -1784,7 +1793,7 @@ class PortalApp {
         optC3Mixed.value = this.workspace.case3PrivateCollection.meta.id || 'data_hutan_campuran';
         const c3Title = (this.workspace.case3PrivateCollection.meta && this.workspace.case3PrivateCollection.meta.title) || 'Data Campuran Tutupan Lahan';
         const c3Total = this.workspace.case3PrivateCollection.records.length;
-        optC3Mixed.textContent = `${c3Title} (${c3Total} titik: 86 mandiri, ${c3Total - 86} rujukan)`;
+        optC3Mixed.textContent = `${c3Title} (${c3Total} titik: 86 mandiri, ${c3Total - 86} referensi)`;
         collSelect.appendChild(optC3Mixed);
       }
       const optForest = document.createElement('option');
@@ -1797,7 +1806,7 @@ class PortalApp {
         optMixed.value = 'data_campuran_1';
         const mixTitle = (this.workspace.mixedDataset.meta && this.workspace.mixedDataset.meta.title) || 'Data Campuran #1';
         const mixTotal = this.workspace.mixedDataset.records.length;
-        optMixed.textContent = `${mixTitle} (${mixTotal} titik: 240 mandiri, ${mixTotal - 240} rujukan)`;
+        optMixed.textContent = `${mixTitle} (${mixTotal} titik: 240 mandiri, ${mixTotal - 240} referensi)`;
         collSelect.appendChild(optMixed);
       }
       const optPlantation = document.createElement('option');
@@ -1839,14 +1848,14 @@ class PortalApp {
         <div style="font-size: 0.78rem; line-height: 1.5; margin-bottom: 8px;">
           <p><strong>Observasi Aktif Terdeteksi:</strong> ${separation.summary.total} titik</p>
           <p style="color: #059669;"><strong>Observasi Milik Mandiri (Dapat Dikontribusikan):</strong> ${separation.summary.ownedCount} titik (${breakdownText})</p>
-          ${separation.summary.excludedCount > 0 ? `<p style="color: #dc2626;"><strong>Koleksi Rujukan Pihak Ketiga (Dikecualikan):</strong> ${separation.summary.excludedCount} titik</p>` : ''}
+          ${separation.summary.excludedCount > 0 ? `<p style="color: #dc2626;"><strong>Koleksi Referensi Pihak Ketiga (Dikecualikan):</strong> ${separation.summary.excludedCount} titik</p>` : ''}
         </div>
       `;
 
       if (separation.summary.excludedCount > 0) {
         excBox.innerHTML = `
           <div class="modal-banner banner-source" style="margin-bottom: 12px; font-size: 0.74rem;">
-            <strong>Catatan Integritas:</strong> Titik rujukan (${separation.summary.excludedCount} titik) berasal dari koleksi impor pihak ketiga, bukan milik pengguna. Data pihak ketiga tidak dapat disumbangkan sebagai kontribusi mandiri dan dikecualikan secara otomatis.
+            <strong>Catatan Integritas:</strong> Titik referensi (${separation.summary.excludedCount} titik) berasal dari koleksi impor pihak ketiga, bukan milik pengguna. Data pihak ketiga tidak dapat disumbangkan sebagai kontribusi mandiri dan dikecualikan secara otomatis.
           </div>
         `;
       } else {
@@ -2311,7 +2320,7 @@ class PortalApp {
     cwLainnyaNote.style.fontSize = '0.72rem';
     cwLainnyaNote.style.color = '#64748b';
     cwLainnyaNote.style.marginTop = '4px';
-    cwLainnyaNote.textContent = 'Observasi rujukan lainnya (kelas 3/Lainnya) dikecualikan secara otomatis dari publikasi dan tidak memerlukan penyelarasan kelas daun.';
+    cwLainnyaNote.textContent = 'Observasi referensi lainnya (kelas 3/Lainnya) dikecualikan secara otomatis dari publikasi dan tidak memerlukan penyelarasan kelas daun.';
     cwSection.appendChild(cwLainnyaNote);
 
     step3Container.appendChild(cwSection);
@@ -2542,10 +2551,10 @@ class PortalApp {
       if (modalErrBanner) modalErrBanner.style.display = 'none';
 
       if (step === 1) {
-        title.textContent = 'Bagikan Data: Publikasi & Donasi Observasi Mandiri';
+        title.textContent = 'Bagikan Data: Publikasi & Sumbang Data';
         subtitle.textContent = isForestryDataset
-          ? 'Memisahkan observasi tutupan hutan mandiri dari data rujukan pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.'
-          : 'Memisahkan observasi kebun mandiri dari data rujukan pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.';
+          ? 'Memisahkan observasi tutupan hutan mandiri dari data referensi pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.'
+          : 'Memisahkan observasi kebun mandiri dari data referensi pihak ketiga untuk dipublikasikan secara terbuka ke konsorsium Epistem.';
         step1Container.style.display = 'block';
         step2Container.style.display = 'none';
         step3Container.style.display = 'none';
@@ -3161,6 +3170,154 @@ class PortalApp {
   }
 
   // ==========================================
+  // QUALITY REVIEW MODAL (COLLECT EARTH ONLINE)
+  // ==========================================
+
+  openQualityReviewModal() {
+    const container = document.createElement('div');
+
+    const header = document.createElement('div');
+    header.className = 'modal-header';
+
+    const title = document.createElement('h3');
+    title.className = 'modal-title';
+    title.textContent = 'Telaah Mutu Data';
+    header.appendChild(title);
+
+    const subtitle = document.createElement('p');
+    subtitle.className = 'modal-subtitle';
+    subtitle.textContent = 'Proses telaah data dilakukan per satu koleksi data, tidak lintas data.';
+    header.appendChild(subtitle);
+    container.appendChild(header);
+
+    const body = document.createElement('div');
+    body.className = 'modal-body';
+
+    // Retrieve open datasets from catalogue (Data Terbuka)
+    const openDatasets = this.workspace.catalogueItems.filter(i =>
+      i.isPublished ||
+      i.id === 'data_kontribusi_mandiri' ||
+      i.id === 'data_ref_mod_f' ||
+      i.id === 'data_ref_mod_2b' ||
+      i.id === 'data_sawah' ||
+      i.id === 'case4_data_kombinasi_f'
+    );
+    // Ensure data_ref_mod_f is placed at the very end
+    openDatasets.sort((a, b) => {
+      if (a.id === 'data_ref_mod_f') return 1;
+      if (b.id === 'data_ref_mod_f') return -1;
+      return 0;
+    });
+
+    let initialSelectedId = openDatasets.some(d => d.id === this.workspace.activeDatasetId)
+      ? this.workspace.activeDatasetId
+      : (openDatasets[0] ? openDatasets[0].id : '');
+
+    const form = document.createElement('div');
+    form.style.display = 'flex';
+    form.style.flexDirection = 'column';
+    form.style.gap = '12px';
+    form.style.fontSize = '0.8rem';
+
+    const selectGroup = document.createElement('div');
+    const label = document.createElement('label');
+    label.style.display = 'block';
+    label.style.fontWeight = '700';
+    label.style.marginBottom = '6px';
+    label.textContent = 'Pilih Koleksi Data Terbuka:';
+    selectGroup.appendChild(label);
+
+    const select = document.createElement('select');
+    select.id = 'select-review-dataset';
+    select.style.width = '100%';
+    select.style.padding = '8px 10px';
+    select.style.borderRadius = '6px';
+    select.style.border = '1px solid #cbd5e1';
+    select.style.fontSize = '0.8rem';
+    select.style.backgroundColor = '#ffffff';
+
+    openDatasets.forEach(item => {
+      const opt = document.createElement('option');
+      opt.value = item.id;
+      const count = item.featureCount !== null && item.featureCount !== undefined
+        ? item.featureCount
+        : (item.archiveFeatureCount || 0);
+      opt.textContent = `${item.title} (${count} Titik Referensi)`;
+      if (item.id === initialSelectedId) {
+        opt.selected = true;
+      }
+      select.appendChild(opt);
+    });
+    selectGroup.appendChild(select);
+    form.appendChild(selectGroup);
+
+    // Selected dataset info preview box
+    const infoBox = document.createElement('div');
+    infoBox.style.backgroundColor = '#f8fafc';
+    infoBox.style.border = '1px solid #e2e8f0';
+    infoBox.style.borderRadius = '6px';
+    infoBox.style.padding = '10px 12px';
+    infoBox.style.fontSize = '0.75rem';
+    infoBox.style.lineHeight = '1.5';
+
+    const updateInfo = (datasetId) => {
+      const found = openDatasets.find(d => d.id === datasetId);
+      if (!found) {
+        infoBox.innerHTML = '<span style="color: #64748b;">Pilih dataset untuk melihat ringkasan.</span>';
+        return;
+      }
+      const count = found.featureCount !== null && found.featureCount !== undefined
+        ? found.featureCount
+        : (found.archiveFeatureCount || 0);
+      infoBox.innerHTML = `
+        <div style="margin-bottom: 4px;"><strong>Judul:</strong> ${escapeHtml(found.title)}</div>
+        <div style="margin-bottom: 4px;"><strong>Kategori:</strong> ${escapeHtml(found.category || 'Data Terbuka')}</div>
+        <div style="margin-bottom: 4px;"><strong>Total Titik:</strong> ${count} Titik Referensi</div>
+        <div><strong>Kepemilikan:</strong> Terbuka</div>
+      `;
+    };
+
+    select.addEventListener('change', () => {
+      updateInfo(select.value);
+    });
+
+    updateInfo(initialSelectedId);
+    form.appendChild(infoBox);
+
+    body.appendChild(form);
+    container.appendChild(body);
+
+    const footer = document.createElement('div');
+    footer.className = 'modal-footer';
+
+    const cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.className = 'btn-secondary';
+    cancelBtn.textContent = 'Batal';
+    cancelBtn.addEventListener('click', () => {
+      this.dialog.close();
+    });
+    footer.appendChild(cancelBtn);
+
+    const reviewBtn = document.createElement('button');
+    reviewBtn.type = 'button';
+    reviewBtn.className = 'btn-primary';
+    reviewBtn.textContent = 'Telaah Data';
+    reviewBtn.addEventListener('click', async () => {
+      const selectedId = select.value;
+      if (selectedId && selectedId !== this.workspace.activeDatasetId) {
+        await this.switchDataset(selectedId);
+      }
+      window.open('https://app.collect.earth/review-institution?institutionId=7162', '_blank', 'noopener,noreferrer');
+      this.dialog.close();
+    });
+    footer.appendChild(reviewBtn);
+
+    container.appendChild(footer);
+    this.dialog.open(container);
+  }
+
+  // ==========================================
   // CASE 4: QUALITY REVIEW & TIER CLASSIFICATION
   // ==========================================
 
@@ -3524,12 +3681,12 @@ class PortalApp {
     header.className = 'modal-header';
     const title = document.createElement('h3');
     title.className = 'modal-title';
-    title.textContent = 'Ekspor Dataset Pelatihan Luma';
+    title.textContent = 'Ekspor Data';
     header.appendChild(title);
 
     const subtitle = document.createElement('p');
     subtitle.className = 'modal-subtitle';
-    subtitle.textContent = `Paket data pelatihan untuk koleksi aktif (${isScenario ? 'Mode Skenario' : 'Mode Sumber'}) siap diunduh.`;
+    subtitle.textContent = 'Data referensi terpilih telah siap diunduh.';
     header.appendChild(subtitle);
     container.appendChild(header);
 
@@ -3613,7 +3770,7 @@ class PortalApp {
     const exportBtn = document.createElement('button');
     exportBtn.className = 'btn-primary';
     exportBtn.type = 'button';
-    exportBtn.textContent = 'Unduh Paket ZIP';
+    exportBtn.textContent = 'Unduh Data';
     footer.appendChild(exportBtn);
 
     const updateView = () => {
@@ -3733,7 +3890,9 @@ class PortalApp {
         });
 
         if (pkg.blob) {
-          triggerBrowserDownload(pkg.blob, `training_points_${this.workspace.activeDatasetId}.zip`);
+          const cardTitle = this.workspace.activeDatasetMeta ? this.workspace.activeDatasetMeta.title : (this.workspace.activeDatasetId || 'Data Ekspor');
+          const safeFilename = `${cardTitle.replace(/[\\/:*?"<>|]+/g, '_').trim()}.zip`;
+          triggerBrowserDownload(pkg.blob, safeFilename);
         }
 
         this.dialog.close();
@@ -3743,7 +3902,7 @@ class PortalApp {
       } catch (exportErr) {
         console.error('Export generation error:', exportErr);
         exportBtn.disabled = false;
-        exportBtn.textContent = 'Unduh Paket ZIP';
+        exportBtn.textContent = 'Unduh Data';
         alert(`Gagal membuat paket ekspor: ${exportErr.message}`);
       }
     });

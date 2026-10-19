@@ -28,7 +28,7 @@ export const REF_MOD_2B_CLASSES = Object.freeze([
   { id: '2', label: 'Kebun sawit', isTargetClass: true, description: 'Tutupan perkebunan kelapa sawit' },
   { id: '3', label: 'Kebun karet', isTargetClass: true, description: 'Tutupan perkebunan karet' },
   { id: '4', label: 'Sawah', isTargetClass: false, description: 'Lahan basah pertanian sawah' },
-  { id: '5', label: 'Lainnya', isTargetClass: false, description: 'Tutupan non-perkebunan rujukan lainnya' }
+  { id: '5', label: 'Lainnya', isTargetClass: false, description: 'Tutupan non-perkebunan referensi lainnya' }
 ]);
 
 export const DATASET_COMPLEMENT_CLASSES = Object.freeze({
@@ -54,7 +54,7 @@ export const DATASET_COMPLEMENT_CLASSES = Object.freeze({
     { id: '5', label: 'Lainnya', isTargetClass: false, description: 'Tutupan non-perkebunan lainnya' }
   ]),
   data_ref_mod_f: Object.freeze([
-    { id: '1', label: 'Titik Rujukan (Tanpa Label)', isTargetClass: false, description: 'Titik rujukan sampling acak/grid tanpa label kelas sumber' }
+    { id: '1', label: 'Titik Referensi (Tanpa Label)', isTargetClass: false, description: 'Titik referensi sampling acak/grid tanpa label kelas sumber' }
   ])
 });
 
@@ -349,7 +349,7 @@ export class ComplementWorkflow {
         id: 'data_hutan_campuran',
         title,
         category: 'Data Campuran (Privat)',
-        description: 'Koleksi gabungan Data Tutupan Hutan dan titik rujukan kelas Non-hutan terpilih.',
+        description: 'Koleksi gabungan Data Tutupan Hutan dan titik referensi kelas Non-hutan terpilih.',
         isPrimary: false,
         isPrivate: true,
         kind: 'point_observations',
@@ -393,7 +393,7 @@ export class ComplementWorkflow {
       id: 'data_campuran_1',
       title,
       category: 'Data Campuran (Privat)',
-      description: 'Koleksi gabungan Data Pengguna dan titik rujukan kelas Lainnya terpilih.',
+      description: 'Koleksi gabungan Data Pengguna dan titik referensi kelas Lainnya terpilih.',
       isPrimary: false,
       isPrivate: true,
       kind: 'point_observations',

@@ -791,38 +791,42 @@ select:focus-visible {
 
 .catalogue-card-footer {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 8px;
   font-size: 0.7rem;
   color: var(--luma-faint);
   border-top: 1px dashed #e2e8f0;
-  padding-top: 5px;
-  margin-top: 4px;
+  padding-top: 6px;
+  margin-top: 6px;
 }
 
+.footer-counts-col,
 .footer-counts-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  flex-direction: column;
+  gap: 2px;
   font-size: 0.7rem;
+  text-align: left;
 }
 
 .footer-count-left {
   font-weight: 600;
   color: #334155;
+  line-height: 1.3;
 }
 
 .footer-count-right {
   font-weight: 500;
   color: #64748b;
+  line-height: 1.3;
 }
 
 .footer-actions-row {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 100%;
 }
 
 .footer-sha {
@@ -832,6 +836,7 @@ select:focus-visible {
 .footer-private {
   color: #7e22ce;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 /* Catalogue Tabs & Actions */
@@ -872,18 +877,21 @@ select:focus-visible {
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .btn-card-share {
   background-color: var(--luma-rose-light);
   color: var(--luma-pink);
   border: 1px solid var(--luma-rose-hover);
-  padding: 2px 8px;
+  padding: 3px 8px;
   border-radius: 4px;
   font-size: 0.7rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .btn-card-share:hover {
@@ -905,6 +913,28 @@ select:focus-visible {
 
 .btn-card-download:hover {
   background-color: #166534;
+  color: #ffffff;
+}
+
+.btn-card-review {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-card-review:hover {
+  background-color: #1d4ed8;
   color: #ffffff;
 }
 

@@ -191,6 +191,12 @@ export class WorkspaceState {
     try {
       const prefs = loadPreferences();
       if (prefs) {
+        this.storageStatus = {
+          success: true,
+          label: PERSISTENCE_LABELS.SAVED,
+          timestamp: prefs.updatedAt || null,
+          error: null
+        };
         if (prefs.activeDatasetId) {
           this.activeDatasetId = prefs.activeDatasetId;
         }

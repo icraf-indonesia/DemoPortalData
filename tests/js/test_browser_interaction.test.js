@@ -130,7 +130,7 @@ test('Browser E2E: Verified UI components, labels, and interactions', async (t) 
 
     // Verify Storage Status Acknowledgement Label
     const statusText = await page.textContent('.status-text');
-    assert.equal(statusText, 'Tersimpan di browser ini');
+    assert.equal(statusText, 'Data Tersimpan');
 
     // 6. Verify Collapsible Attribute Table & Clean Indonesian Null Labels (zero literal (null))
     const toggleBtn = await page.$('.table-toggle-btn');

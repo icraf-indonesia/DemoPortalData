@@ -13,7 +13,7 @@ export const STORAGE_KEY = 'portal_epistem_workspace_prefs_v1';
 export const PROJECT_STORAGE_KEY = 'portal_epistem_project_state_v1';
 
 export const PERSISTENCE_LABELS = Object.freeze({
-  SAVED: 'Tersimpan di browser ini',
+  SAVED: 'Data Tersimpan',
   SAVING: 'Menyimpan preferensi...',
   FAILED: 'Gagal menyimpan ke penyimpanan lokal',
   NOT_STORED: 'Belum disimpan'

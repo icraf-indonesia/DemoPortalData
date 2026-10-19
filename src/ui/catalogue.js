@@ -142,7 +142,7 @@ export class CatalogueView {
     const exploreBtn = document.createElement('button');
     exploreBtn.type = 'button';
     exploreBtn.className = 'btn-explore-data';
-    exploreBtn.title = 'Buka katalog terbuka untuk menambah data rujukan';
+    exploreBtn.title = 'Buka katalog terbuka untuk menambah data referensi';
     exploreBtn.innerHTML = `
       <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13" aria-hidden="true">
         <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -161,7 +161,7 @@ export class CatalogueView {
 
     const subtitleEl = document.createElement('p');
     subtitleEl.className = 'panel-subtitle';
-    subtitleEl.textContent = 'Pilih koleksi data rujukan untuk memuat sebaran dan atribut pada peta.';
+    subtitleEl.textContent = 'Pilih koleksi data referensi untuk memuat sebaran dan atribut pada peta.';
     headerWrapper.appendChild(subtitleEl);
 
     // Tab Navigation: Data Anda / Data Terbuka
@@ -230,6 +230,12 @@ export class CatalogueView {
         i.id === 'data_sawah' ||
         i.id === 'case4_data_kombinasi_f'
       );
+      // Ensure 'data_ref_mod_f' (Data Referensi Modular) is placed at the very end of Data Terbuka
+      filteredItems.sort((a, b) => {
+        if (a.id === 'data_ref_mod_f') return 1;
+        if (b.id === 'data_ref_mod_f') return -1;
+        return 0;
+      });
     }
 
     if (filteredItems.length === 0) {
@@ -307,8 +313,8 @@ export class CatalogueView {
         const detailsFooter = document.createElement('div');
         detailsFooter.className = 'catalogue-card-footer';
 
-        const countsRow = document.createElement('div');
-        countsRow.className = 'footer-counts-row';
+        const countsCol = document.createElement('div');
+        countsCol.className = 'footer-counts-col footer-counts-row';
 
         const totalRef = item.archiveFeatureCount || item.featureCount || 0;
         const aoiRef = item.featureCount !== null && item.featureCount !== undefined ? item.featureCount : 0;
@@ -316,14 +322,14 @@ export class CatalogueView {
         const countLeft = document.createElement('span');
         countLeft.className = 'footer-count-left';
         countLeft.textContent = `${totalRef} Titik Referensi`;
-        countsRow.appendChild(countLeft);
+        countsCol.appendChild(countLeft);
 
         const countRight = document.createElement('span');
         countRight.className = 'footer-count-right';
         countRight.textContent = `${aoiRef} Titik dalam AOI`;
-        countsRow.appendChild(countRight);
+        countsCol.appendChild(countRight);
 
-        detailsFooter.appendChild(countsRow);
+        detailsFooter.appendChild(countsCol);
 
         // Card actions wrapper
         const actionsWrapper = document.createElement('div');
@@ -360,11 +366,29 @@ export class CatalogueView {
           actionsWrapper.appendChild(privSpan);
         }
 
+        // Review button for open reference data (in Data Terbuka tab)
+        if (this.activeTab === 'data_terbuka') {
+          const reviewBtn = document.createElement('a');
+          reviewBtn.className = 'btn-card-review';
+          reviewBtn.href = 'https://app.collect.earth/review-institution?institutionId=7162';
+          reviewBtn.target = '_blank';
+          reviewBtn.rel = 'noopener noreferrer';
+          reviewBtn.title = 'Buka telaah mutu untuk data ini di Collect Earth Online';
+          reviewBtn.innerHTML = `
+            <span>Telaah Mutu</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" width="11" height="11" aria-hidden="true">
+              <path fill-rule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 16h-8.5A2.25 2.25 0 012 13.75v-8.5A2.25 2.25 0 014.25 3h4a.75.75 0 010 1.5h-4z" clip-rule="evenodd" />
+              <path fill-rule="evenodd" d="M6.19 12.75a.75.75 0 001.06 0l6.5-6.5h-3a.75.75 0 010-1.5h4.75a.75.75 0 01.75.75v4.75a.75.75 0 01-1.5 0v-3l-6.5 6.5a.75.75 0 00-1.06 0z" clip-rule="evenodd" />
+            </svg>
+          `;
+          reviewBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+          });
+          actionsWrapper.appendChild(reviewBtn);
+        }
+
         if (actionsWrapper.hasChildNodes()) {
-          const actionsRow = document.createElement('div');
-          actionsRow.className = 'footer-actions-row';
-          actionsRow.appendChild(actionsWrapper);
-          detailsFooter.appendChild(actionsRow);
+          detailsFooter.appendChild(actionsWrapper);
         }
 
         card.appendChild(detailsFooter);
@@ -426,7 +450,11 @@ export class CatalogueView {
 
     const statusText = document.createElement('span');
     statusText.className = 'status-text';
-    statusText.textContent = state.storageStatus.label || 'Status penyimpanan belum tersedia';
+    let label = state.storageStatus.label || 'Data Tersimpan';
+    if (label === 'Tersimpan di browser ini' || (state.storageStatus && state.storageStatus.success)) {
+      label = 'Data Tersimpan';
+    }
+    statusText.textContent = label;
     storageBox.appendChild(statusText);
 
     this.container.appendChild(storageBox);

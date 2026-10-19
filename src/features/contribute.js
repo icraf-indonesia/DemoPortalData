@@ -95,7 +95,7 @@ export class ContributionWorkflow {
         } else {
           excludedImported.push({
             record: r,
-            reason: 'Koleksi rujukan pihak ketiga bukan milik pengguna kehutanan dan dikecualikan dari kontribusi mandiri.'
+            reason: 'Koleksi referensi pihak ketiga bukan milik pengguna kehutanan dan dikecualikan dari kontribusi mandiri.'
           });
         }
       } else {
@@ -127,7 +127,7 @@ export class ContributionWorkflow {
         } else {
           excludedImported.push({
             record: r,
-            reason: 'Koleksi rujukan pihak ketiga (data impor rujukan modular 2b) bukan milik pengguna dan dikecualikan dari kontribusi mandiri.'
+            reason: 'Koleksi referensi pihak ketiga (data impor referensi modular 2b) bukan milik pengguna dan dikecualikan dari kontribusi mandiri.'
           });
         }
       }
@@ -227,7 +227,7 @@ export class ContributionWorkflow {
         r.is_user_owned === true;
 
       if (isThirdParty || !isKnownOwned) {
-        throw new Error('Hanya observasi kebun mandiri milik pengguna yang dapat dibagikan. Data rujukan pihak ketiga ditolak di batas domain publikasi.');
+        throw new Error('Hanya observasi kebun mandiri milik pengguna yang dapat dibagikan. Data referensi pihak ketiga ditolak di batas domain publikasi.');
       }
     }
 

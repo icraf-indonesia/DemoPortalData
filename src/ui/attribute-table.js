@@ -92,7 +92,7 @@ export class AttributeTableView {
 
     const titleEl = document.createElement('h3');
     titleEl.className = 'table-title';
-    titleEl.textContent = 'Tabel Atribut Observasi';
+    titleEl.textContent = 'Tabel Atribut';
     titleGroup.appendChild(titleEl);
 
     const countInfo = document.createElement('span');

@@ -41,7 +41,7 @@ export const CASES_NAVIGATION = Object.freeze([
     id: 3,
     title: 'Kasus 3',
     label: 'Kasus 3: Data Mitra',
-    description: 'Penggunaan ulang titik rujukan lintas sektor (kehutanan dan sawah)',
+    description: 'Penggunaan ulang titik referensi lintas sektor (kehutanan dan sawah)',
     status: 'active'
   },
   {
@@ -55,7 +55,7 @@ export const CASES_NAVIGATION = Object.freeze([
 
 export const PROJECT_CONTEXT = Object.freeze({
   projectId: 'epistem_banyuasin_2026',
-  projectName: 'Proyek Rujukan Tutupan Lahan Banyuasin',
+  projectName: 'Proyek Referensi Tutupan Lahan Banyuasin',
   aoiId: 'banyuasin',
   aoiName: 'Kabupaten Banyuasin',
   targetYear: 2026,
@@ -114,7 +114,7 @@ export const DATASET_SCENARIOS = Object.freeze({
   data_ref_mod_2b: {
     observedYear: 2025,
     location: 'Kabupaten Banyuasin, Sumatera Selatan',
-    owner: 'Kontribusi Pengguna Rujukan',
+    owner: 'Kontribusi Pengguna Referensi',
     contributorDisplayName: 'Tim Telaah Mitra (2025)',
     rightsStatus: 'Terbuka',
     method: 'Interpretasi Citra & Uji Lapang',
@@ -181,7 +181,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     method: 'Campuran',
     qualityTier: null,
     assumptions: [
-      'Gabungan data kebun pengguna dan rujukan mitra'
+      'Gabungan data kebun pengguna dan referensi mitra'
     ]
   },
   data_kontribusi_mandiri: {
@@ -204,7 +204,7 @@ export const DATASET_SCENARIOS = Object.freeze({
     method: 'Campuran',
     qualityTier: null,
     assumptions: [
-      'Gabungan data tutupan hutan pengguna B dan rujukan mitra'
+      'Gabungan data tutupan hutan pengguna B dan referensi mitra'
     ]
   }
 });

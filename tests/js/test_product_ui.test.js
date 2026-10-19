@@ -112,7 +112,7 @@ test('Product UI: Comprehensive Browser Verification & Screenshots', async () =>
     assert.ok(labelCombined.includes('Bagikan Data'));
     assert.ok(labelCombined.includes('Data Mitra'));
     assert.ok(labelCombined.includes('Telaah Mutu'));
-    assert.ok(labelCombined.includes('Ekspor ke Luma'));
+    assert.ok(labelCombined.includes('Ekspor Data'));
     assert.ok(!labelCombined.includes('Kasus 1'), 'No visible Kasus 1 in task buttons');
     assert.ok(!labelCombined.includes('Kasus 2'), 'No visible Kasus 2 in task buttons');
 
@@ -243,7 +243,7 @@ test('Product UI: Comprehensive Browser Verification & Screenshots', async () =>
     await page.waitForSelector('.modal-title', { timeout: 3000 });
 
     const expTitle = await page.textContent('.modal-title');
-    assert.equal(expTitle.trim(), 'Ekspor Dataset Pelatihan Luma');
+    assert.equal(expTitle.trim(), 'Ekspor Data');
 
     const expBody = await page.textContent('.modal-body');
     assert.ok(expBody.includes('927 titik'), 'All 927 points eligible for private training');

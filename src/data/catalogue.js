@@ -22,18 +22,6 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     kind: 'point_observations',
     classCount: 2
   },
-  data_ref_mod_f: {
-    id: 'data_ref_mod_f',
-    title: 'Data Referensi Modular',
-    category: 'Data Referensi',
-    year: 2024,
-    location: 'Kabupaten Banyuasin',
-    description: 'Titik referensi modular tanpa label kelas sumber (hanya nomor titik). Metode dan kontributor belum tercatat.',
-    geojsonPath: 'data/derived/data_ref_mod_f.geojson',
-    isPrimary: false,
-    kind: 'point_observations',
-    classCount: 0
-  },
   data_ref_mod_2b: {
     id: 'data_ref_mod_2b',
     title: 'Data Referensi Modular Dengan Label',
@@ -64,7 +52,7 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
     category: 'Kontribusi Pengguna',
     year: 2025,
     location: 'Kabupaten Banyuasin',
-    description: 'Titik rujukan lahan sawah. Metode pengumpulan dan identitas kontributor belum tercatat.',
+    description: 'Titik referensi lahan sawah. Metode pengumpulan dan identitas kontributor belum tercatat.',
     geojsonPath: 'data/derived/data_sawah.geojson',
     isPrimary: false,
     kind: 'point_observations',
@@ -73,14 +61,26 @@ export const CATALOGUE_DEFINITIONS = Object.freeze({
   case4_data_kombinasi_f: {
     id: 'case4_data_kombinasi_f',
     title: 'Data Kombinasi Multi-Sumber',
-    category: 'Koleksi Terpadu (Kasus 4)',
+    category: 'Koleksi Terpadu',
     year: 2026,
     location: 'Kabupaten Banyuasin',
-    description: 'Koleksi gabungan multi-sumber untuk studi Kasus 4. Metode dan kontributor belum tercatat.',
+    description: 'Koleksi gabungan multi-sumber. Metode dan kontributor belum tercatat.',
     geojsonPath: 'data/derived/case4_data_kombinasi_f.geojson',
     isPrimary: false,
     kind: 'point_observations',
     classCount: 5
+  },
+  data_ref_mod_f: {
+    id: 'data_ref_mod_f',
+    title: 'Data Referensi Modular',
+    category: 'Data Referensi',
+    year: 2024,
+    location: 'Kabupaten Banyuasin',
+    description: 'Titik referensi modular tanpa label kelas sumber (hanya nomor titik). Metode dan kontributor belum tercatat.',
+    geojsonPath: 'data/derived/data_ref_mod_f.geojson',
+    isPrimary: false,
+    kind: 'point_observations',
+    classCount: 0
   }
 });
 
@@ -216,7 +216,7 @@ export async function loadDataset(datasetId) {
     records = records.map(r => ({
       ...r,
       project_class_id: 1,
-      project_class_label: 'Titik Rujukan (Tanpa Label)'
+      project_class_label: 'Titik Referensi (Tanpa Label)'
     }));
   } else if (datasetId === 'data_kebun_sawit_karet_f') {
     records = records.map(r => {
