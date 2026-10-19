@@ -82,14 +82,22 @@ export function generatePointShapefile(records) {
   // 1. class_id: 'N', length 10, dec 0 (FIRST attribute numeric)
   // 2. class_name: 'C', length 50
   // 3. obs_id: 'C', length 32
+  const hasPrimitives = records.some(r => r.waterbody_ !== undefined || r.tree_domin !== undefined || r.vegetation !== undefined);
   const fields = [
     { name: 'class_id', type: 'N', length: 10, dec: 0 },
     { name: 'class_name', type: 'C', length: 50, dec: 0 },
     { name: 'obs_id', type: 'C', length: 32, dec: 0 }
   ];
+  if (hasPrimitives) {
+    fields.push(
+      { name: 'waterbody_', type: 'N', length: 10, dec: 0 },
+      { name: 'tree_domin', type: 'N', length: 10, dec: 0 },
+      { name: 'vegetation', type: 'N', length: 10, dec: 0 }
+    );
+  }
 
-  const headerLength = 32 + fields.length * 32 + 1; // 32 + 96 + 1 = 129
-  const recordLength = 1 + fields.reduce((sum, f) => sum + f.length, 0); // 1 + 10 + 50 + 32 = 93
+  const headerLength = 32 + fields.length * 32 + 1;
+  const recordLength = 1 + fields.reduce((sum, f) => sum + f.length, 0);
   const dbfByteLength = headerLength + count * recordLength + 1; // +1 for 0x1A EOF marker
 
   const dbfBuffer = new ArrayBuffer(dbfByteLength);
@@ -152,6 +160,33 @@ export function generatePointShapefile(records) {
     const obsIdStr = (rec.obs_id || '').slice(0, 32).padEnd(32, ' ');
     for (let c = 0; c < 32; c++) {
       dbfBytes[colOffset + c] = obsIdStr.charCodeAt(c);
+    }
+    colOffset += 32;
+
+    if (hasPrimitives) {
+      // 4. waterbody_ (Numeric, right-aligned, length 10)
+      const wbVal = rec.waterbody_ !== null && rec.waterbody_ !== undefined ? rec.waterbody_ : 0;
+      const wbStr = String(wbVal).padStart(10, ' ');
+      for (let c = 0; c < 10; c++) {
+        dbfBytes[colOffset + c] = wbStr.charCodeAt(c);
+      }
+      colOffset += 10;
+
+      // 5. tree_domin (Numeric, right-aligned, length 10)
+      const tdVal = rec.tree_domin !== null && rec.tree_domin !== undefined ? rec.tree_domin : 0;
+      const tdStr = String(tdVal).padStart(10, ' ');
+      for (let c = 0; c < 10; c++) {
+        dbfBytes[colOffset + c] = tdStr.charCodeAt(c);
+      }
+      colOffset += 10;
+
+      // 6. vegetation (Numeric, right-aligned, length 10)
+      const vegVal = rec.vegetation !== null && rec.vegetation !== undefined ? rec.vegetation : 0;
+      const vegStr = String(vegVal).padStart(10, ' ');
+      for (let c = 0; c < 10; c++) {
+        dbfBytes[colOffset + c] = vegStr.charCodeAt(c);
+      }
+      colOffset += 10;
     }
 
     recOffset += recordLength;

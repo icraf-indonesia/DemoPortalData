@@ -11,12 +11,50 @@
  * - Honest storage status acknowledgement and actionable recovery box.
  */
 
+/**
+ * Returns formatted year or year range for a catalogue item.
+ * @param {Object} item
+ * @returns {string}
+ */
+export function getDatasetYearText(item) {
+  if (!item) return '2026';
+  if (item.yearRange) return String(item.yearRange);
+
+  // If item is mixed dataset
+  if (item.id === 'data_campuran_1') {
+    return '2025–2026';
+  }
+  if (item.id === 'data_hutan_sawit_partisipatif' || (item.title && item.title.toLowerCase().includes('campuran'))) {
+    return '2024–2026';
+  }
+  if (item.isPublished || item.isDonated || item.id === 'data_kontribusi_mandiri') {
+    return '2026';
+  }
+
+  if (item.year) return String(item.year);
+
+  // Fallbacks by ID
+  switch (item.id) {
+    case 'data_hutan':
+    case 'data_ref_mod_f':
+      return '2024';
+    case 'data_kebun_sawit_karet_f':
+    case 'data_ref_mod_2b':
+    case 'data_sawah':
+      return '2025';
+    case 'case4_data_kombinasi_f':
+      return '2026';
+    default:
+      return '2025';
+  }
+}
+
 export class CatalogueView {
   /**
    * @param {HTMLElement|string} containerElement
    * @param {import('../state/workspace.js').WorkspaceState} workspace
    * @param {Function} onSelectDataset Callback when a dataset is chosen
-   * @param {Object} [callbacks] Additional actions { onShareDataset, onDownloadDataset }
+   * @param {Object} [callbacks] Additional actions { onShareDataset, onDownloadDataset, onOpenExplore }
    */
   constructor(containerElement, workspace, onSelectDataset, callbacks = {}) {
     this.container = typeof containerElement === 'string'
@@ -26,6 +64,7 @@ export class CatalogueView {
     this.onSelectDataset = onSelectDataset;
     this.onShareDataset = callbacks.onShareDataset || null;
     this.onDownloadDataset = callbacks.onDownloadDataset || null;
+    this.onOpenExplore = callbacks.onOpenExplore || null;
     this.activeTab = 'data_anda'; // 'data_anda' or 'data_terbuka'
 
     this.init();
@@ -66,7 +105,6 @@ export class CatalogueView {
         activeId === 'data_ref_mod_f' ||
         activeId === 'data_ref_mod_2b' ||
         activeId === 'data_sawah' ||
-        activeId === 'data_hutan' ||
         activeId === 'case4_data_kombinasi_f' ||
         (this.workspace.publishedCollections || []).some(p => p.meta && p.meta.id === activeId)
       );
@@ -93,10 +131,33 @@ export class CatalogueView {
     const headerWrapper = document.createElement('div');
     headerWrapper.className = 'panel-header';
 
+    const titleRow = document.createElement('div');
+    titleRow.className = 'panel-title-row';
+
     const titleEl = document.createElement('h2');
     titleEl.className = 'panel-title';
     titleEl.textContent = 'Katalog Koleksi Data';
-    headerWrapper.appendChild(titleEl);
+    titleRow.appendChild(titleEl);
+
+    const exploreBtn = document.createElement('button');
+    exploreBtn.type = 'button';
+    exploreBtn.className = 'btn-explore-data';
+    exploreBtn.title = 'Buka katalog terbuka untuk menambah data rujukan';
+    exploreBtn.innerHTML = `
+      <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13" aria-hidden="true">
+        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+      </svg>
+      <span>Jelajahi Data</span>
+    `;
+    exploreBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (typeof this.onOpenExplore === 'function') {
+        this.onOpenExplore();
+      }
+    });
+    titleRow.appendChild(exploreBtn);
+    headerWrapper.appendChild(titleRow);
 
     const subtitleEl = document.createElement('p');
     subtitleEl.className = 'panel-subtitle';
@@ -167,7 +228,6 @@ export class CatalogueView {
         i.id === 'data_ref_mod_f' ||
         i.id === 'data_ref_mod_2b' ||
         i.id === 'data_sawah' ||
-        i.id === 'data_hutan' ||
         i.id === 'case4_data_kombinasi_f'
       );
     }
@@ -199,6 +259,11 @@ export class CatalogueView {
         catBadge.className = `catalogue-badge ${item.isPrivate ? 'badge-private' : ''}`;
         catBadge.textContent = item.category || 'Koleksi Mitra';
         metaHeader.appendChild(catBadge);
+
+        const yearBadge = document.createElement('span');
+        yearBadge.className = 'catalogue-badge catalogue-badge-year';
+        yearBadge.textContent = getDatasetYearText(item);
+        metaHeader.appendChild(yearBadge);
 
         if (isActive) {
           const activeBadge = document.createElement('span');
@@ -239,7 +304,12 @@ export class CatalogueView {
         actionsWrapper.className = 'card-actions-wrapper';
 
         // Own card Share Button (in Data Anda tab)
-        const isOwnCard = item.id === 'data_kebun_sawit_karet_f' || item.id === 'data_campuran_1';
+        const isOwnCard = item.id === 'data_kebun_sawit_karet_f' ||
+                          item.id === 'data_campuran_1' ||
+                          item.id === 'data_hutan' ||
+                          (state.case3PrivateCollection && item.id === state.case3PrivateCollection.meta.id) ||
+                          item.id === 'data_hutan_campuran' ||
+                          item.id === 'data_hutan_sawit_partisipatif';
         if (isOwnCard && this.activeTab === 'data_anda') {
           const shareBtn = document.createElement('button');
           shareBtn.type = 'button';
@@ -257,23 +327,6 @@ export class CatalogueView {
           actionsWrapper.appendChild(shareBtn);
         }
 
-        // Published Card Download Button (in Data Terbuka tab)
-        if (item.isPublished) {
-          const downloadBtn = document.createElement('button');
-          downloadBtn.type = 'button';
-          downloadBtn.className = 'btn-card-download';
-          downloadBtn.setAttribute('data-dataset-id', item.id);
-          downloadBtn.textContent = 'Unduh GeoJSON';
-          downloadBtn.title = 'Unduh berkas GeoJSON publikasi lengkap dengan metadata';
-          downloadBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Stop propagation
-            e.preventDefault();
-            if (typeof this.onDownloadDataset === 'function') {
-              this.onDownloadDataset(item.id);
-            }
-          });
-          actionsWrapper.appendChild(downloadBtn);
-        }
 
         if (item.isPrivate && !item.isPublished) {
           const privSpan = document.createElement('span');

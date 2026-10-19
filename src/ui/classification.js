@@ -162,19 +162,26 @@ export class ClassificationView {
         itemCard.appendChild(actionRow);
       }
 
-      // Case 3 Non-hutan reuse trigger ONLY when viewing base forestry data
-      if (caseId === 3 && def.label === 'Non-hutan' && state.activeDatasetId === 'data_hutan') {
+      // Case 3 Non-hutan complement trigger
+      if (
+        caseId === 3 &&
+        def.label === 'Non-hutan' &&
+        (state.activeDatasetId === 'data_hutan' ||
+         state.activeDatasetId === 'data_hutan_campuran' ||
+         state.activeDatasetId === 'data_hutan_sawit_partisipatif' ||
+         (state.case3PrivateCollection && state.activeDatasetId === state.case3PrivateCollection.meta.id))
+      ) {
         const actionRow = document.createElement('div');
         actionRow.className = 'legend-action-row';
         const addPartnerBtn = document.createElement('button');
         addPartnerBtn.className = 'btn-add-data-lainnya';
         addPartnerBtn.type = 'button';
-        addPartnerBtn.textContent = '+ Gunakan Data Mitra';
-        addPartnerBtn.setAttribute('aria-label', 'Gunakan data mitra untuk melengkapi Non-hutan');
+        addPartnerBtn.textContent = '+ Tambah Data Rujukan';
+        addPartnerBtn.setAttribute('aria-label', 'Buka katalog terbuka untuk melengkapi kelas Non-hutan');
         addPartnerBtn.addEventListener('click', (e) => {
           e.stopPropagation();
-          if (typeof this.actions.onOpenPartnerReuse === 'function') {
-            this.actions.onOpenPartnerReuse();
+          if (typeof this.actions.onOpenComplement === 'function') {
+            this.actions.onOpenComplement();
           }
         });
         actionRow.appendChild(addPartnerBtn);
@@ -187,27 +194,7 @@ export class ClassificationView {
     this.container.appendChild(classList);
 
     // Case Specific Action Section
-    if (caseId === 2) {
-      this.container.appendChild(this.renderLumaModelingSection(state));
-    } else if (caseId === 3) {
-      const case3Actions = document.createElement('div');
-      case3Actions.className = 'case-action-box';
-      case3Actions.innerHTML = `
-        <h4 style="font-size: 0.8rem; font-weight: 600; color: #1e293b; margin-bottom: 8px;">Aksi Pengguna B (Kasus 3):</h4>
-      `;
-
-      const reuseBtn = document.createElement('button');
-      reuseBtn.className = 'btn-case-action';
-      reuseBtn.type = 'button';
-      reuseBtn.textContent = 'Gunakan Ulang Data Mitra';
-      reuseBtn.addEventListener('click', () => {
-        if (typeof this.actions.onOpenPartnerReuse === 'function') {
-          this.actions.onOpenPartnerReuse();
-        }
-      });
-      case3Actions.appendChild(reuseBtn);
-      this.container.appendChild(case3Actions);
-    } else if (caseId === 4) {
+    if (caseId === 4) {
       const case4Actions = document.createElement('div');
       case4Actions.className = 'case-action-box';
       case4Actions.innerHTML = `
@@ -228,8 +215,8 @@ export class ClassificationView {
       this.container.appendChild(case4Actions);
     }
 
-    // Source Classes Breakdown Section (Omitted for Kasus 1 and Kasus 2)
-    if (caseId !== 1 && caseId !== 2) {
+    // Source Classes Breakdown Section (Omitted for Kasus 1, Kasus 2, and Kasus 3)
+    if (caseId === 4) {
       const sourceDetails = document.createElement('details');
       sourceDetails.className = 'source-classes-details source-classes-section';
 
@@ -283,67 +270,5 @@ export class ClassificationView {
     totalFooter.appendChild(totalValue);
 
     this.container.appendChild(totalFooter);
-  }
-
-  /**
-   * Renders simplified Luma modeling quality section (Case 2: Analisis Separabilitas Spektral).
-   * Modul 7 and Random Forest classification have been completely removed.
-   * @param {import('../state/workspace.js').WorkspaceState} state
-   * @returns {HTMLElement}
-   */
-  renderLumaModelingSection(state) {
-    const luma = state.lumaContext || {
-      module4Separability: {
-        method: 'Jeffries-Matusita Distance (JM)',
-        pairs: [
-          { pair: 'Karet vs Kelapa sawit', distance: 1.84, rating: 'Baik (>1.8)' },
-          { pair: 'Karet vs Lainnya', distance: 1.91, rating: 'Sangat Baik' },
-          { pair: 'Kelapa sawit vs Lainnya', distance: 1.78, rating: 'Baik' }
-        ]
-      }
-    };
-
-    const details = document.createElement('details');
-    details.className = 'luma-quality-details';
-    details.open = true;
-
-    const summary = document.createElement('summary');
-    summary.className = 'luma-quality-summary';
-    summary.innerHTML = `
-      <div class="luma-summary-header">
-        <svg class="luma-summary-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-        </svg>
-        <span class="luma-summary-title">Deskripsi & Mutu Luma</span>
-      </div>
-      <span class="luma-badge luma-badge-success">Separabilitas</span>
-    `;
-    details.appendChild(summary);
-
-    const body = document.createElement('div');
-    body.className = 'luma-quality-body';
-
-    // Separability (Modul 4)
-    const m4Box = document.createElement('div');
-    m4Box.className = 'luma-subcard';
-    const pairsHtml = (luma.module4Separability?.pairs || []).map(p => `
-      <tr>
-        <td class="pair-name">${p.pair}</td>
-        <td class="pair-val">${Number(p.distance).toFixed(2)}</td>
-        <td class="pair-rate"><span class="badge-mini-good">${p.rating}</span></td>
-      </tr>
-    `).join('');
-
-    m4Box.innerHTML = `
-      <div class="luma-subcard-title">Keterpisahan Spektral (Analisis Separabilitas)</div>
-      <div class="luma-subcard-desc">Jarak Jeffries-Matusita (JM) antar-kelas:</div>
-      <table class="luma-table">
-        <tbody>${pairsHtml}</tbody>
-      </table>
-    `;
-    body.appendChild(m4Box);
-
-    details.appendChild(body);
-    return details;
   }
 }

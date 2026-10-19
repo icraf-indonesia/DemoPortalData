@@ -656,14 +656,18 @@ export class MapView {
 
     const schema = state.getActiveSchema();
 
-    // 2. Render Point Observations if dataset changed, case changed, or newly loaded
+    // 2. Render Point Observations if dataset changed, case changed, records changed, or newly loaded
     const needsRerender = this.lastRenderedDatasetId !== state.activeDatasetId ||
                           this.lastRenderedCaseId !== state.activeCaseId ||
+                          this.lastRenderedRecords !== state.activeRecords ||
+                          this.lastRenderedRecordsLength !== state.activeRecords.length ||
                           this.pointsLayer.getLayers().length === 0;
 
     if (needsRerender) {
       this.lastRenderedDatasetId = state.activeDatasetId;
       this.lastRenderedCaseId = state.activeCaseId;
+      this.lastRenderedRecords = state.activeRecords;
+      this.lastRenderedRecordsLength = state.activeRecords.length;
       this.pointsLayer.clearLayers();
       this.markerMap.clear();
 

@@ -49,15 +49,16 @@ export function buildExportManifest({
     { name: 'training_points.cpg', format: 'cpg', record_count: records.length },
     { name: 'training_points.csv', format: 'csv', record_count: records.length },
     { name: 'training_points.geojson', format: 'geojson', record_count: records.length },
+    { name: 'classes.csv', format: 'csv', record_count: (Array.isArray(targetClasses) && targetClasses.length > 0) ? targetClasses.length : 3 },
     { name: 'manifest.json', format: 'json', record_count: records.length }
   ];
 
   const activeClasses = Array.isArray(targetClasses) && targetClasses.length > 0
     ? targetClasses
     : [
-        { class_id: 1, label: 'Karet', colour: '#7B1FA2' },
-        { class_id: 2, label: 'Kelapa sawit', colour: '#E91E63' },
-        { class_id: 3, label: 'Lainnya', colour: '#757575' }
+        { class_id: 1, label: 'Kebun sawit', colour: '#D81C5C' },
+        { class_id: 2, label: 'Kebun karet', colour: '#761C97' },
+        { class_id: 3, label: 'Lainnya', colour: '#6E6E6E' }
       ];
 
   const countsByClass = {};
